@@ -65,3 +65,20 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Product {
+    id          String  @id @default(cuid())
+    name        String
+    adress      String?
+    phoneNumber String?
+    offers      Offer[]
+}
+
+model Offer {
+    id          String  @id @default(cuid())
+    productId   String
+    product     Product @relation(fields: [productId], references: [id])
+    weekNumber  Int
+    coachPrice  Int
+    clientPrice Int
+}

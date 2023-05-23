@@ -22,7 +22,7 @@ const SideNavbarAdmin = () => {
 <div className="w-full h-full items-center justify-center min-w-fit
          relative flex  ">
    
-            <Link href='/dashboard'>
+            <Link href='/admin/dashboardAdmin'>
           
             <Image  width={120} height={85} className=' object-cover
              float-left relative'
@@ -31,37 +31,38 @@ const SideNavbarAdmin = () => {
         </div>
     <div className="flex lg:flex-col items-center justify-center w-full "> 
        <ul className=" text-white hidden   font-medium lg:flex flex-row  items-center lg:items-start
-        w-full lg:flex-col gap-3 ">
-       <Link href="/dashboard" className=" w-full flex-grow "> 
+        w-full lg:flex-col  gap-2 ">
+       <Link href='/admin/dashboardAdmin' className=" w-full flex-grow "> 
       
-       <div className={`flex items-center px-10 py-2  w-full gap-4 ${router.pathname=='/admin/dashboardAdmin'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
+       <div className={`flex items-center px-10 py-3  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/admin/dashboardAdmin'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
                  <span>
                   <AiOutlineDashboard size={25}/>
                   </span>
-                  <li className="hover:font-semibold hover:text-black text-sm   py-2
-                  ">Dashboard Admin</li>
+                  <li className=" text-sm   py-2
+                  ">Dashboard</li>
             </div>
       
       </Link>
 
 
-        
+       
 
 
-        <Link href='/client' className=" w-full ">
+
+        <Link href='/admin/coach' className=" w-full ">
           
           
           
-        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/client'? 'bg-slate-700' : ''}`}>
-            <span><HiOutlineUserGroup size={25}/></span><li className="hover:font-semibold hover:text-black text-sm rounded-md  hover:px-2 py-2 hover:bg-slate-50">Coach</li>
+        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/admin/coach'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
+            <span><HiOutlineUserGroup size={25}/></span><li className="  text-sm    py-2 ">Coach</li>
             </div>
           
           </Link>
-        <Link href='/facturationCoach' className=" w-full ">
+        <Link href='/admin/comptabilite' className=" w-full ">
           
-        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/client'? 'bg-slate-700' : ''}`}>
+        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/admin/comptabilite'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
             <span><FaFileInvoiceDollar size={25}/></span>
-            <li className="hover:font-semibold hover:text-black text-sm rounded-md  hover:px-2 py-2 hover:bg-slate-50">Bilan</li>
+            <li className=" text-sm  py-2 ">Comptabilité</li>
             </div>
 </Link>
 
@@ -93,33 +94,57 @@ const SideNavbarAdmin = () => {
   {toggleNavigationBar&&  <div 
       className="w-screen h-screen flex flex-col lg:hidden inset-0 
          bg-opacity-25 z-40 bg-slate-800  absolute ">
-        <div className={` transition 
-        
-        flex relative flex-col w-4/5 bg-slate-50 h-full
-         z-30 self-end ${toggleNavigationBar&&'-translate-x-0'}`}>
-         <ul className="flex flex-col w-full text-slate-800 font-semibold gap-8 p-10">
-          <li className="hover:bg-slate-200 w-4/5 p-2">
-            <Link href={'/dashboard'}>Tableau de bord</Link>
+       
+       <div className="flex flex-col
+       lg:flex-col bg-white w-full text-lg
+        h-full text-slate-800 items-center justify-center w-full "> 
+       <ul className="   font-medium lg:flex flex-col h-screen  flex
+           justify-start pt-10  lg:items-start gap-4 
+        w-full lg:flex-col  ">
+       <Link href="/coach/dashboardCoach" className=" w-full "> 
+      
+       <div className={`flex items-center px-10 py-2  w-full gap-4 ${router.pathname=='/coach/dashboardCoach'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
+                 <span>
+                  <AiOutlineDashboard size={35}/>
+                  </span>
+                  <li className="hover:font-semibold hover:text-black text-lg   py-2
+                  ">Dashboard</li>
+            </div>
+      
+      </Link>
+
+
+        <Link href='/agenda' className=" w-full ">
+          <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/agenda'? 'bg-slate-700' : ''}`}>
+            <span><BsCalendar3 size={35}/></span><li className="hover:font-semibold hover:text-black text-lg rounded-md  hover:px-2 py-2 hover:bg-slate-50">Planning</li>
+            </div>
+            </Link>
+
+
+
+        <Link href='/client' className=" w-full ">
           
-          </li>
-          <li className="hover:bg-slate-200 w-4/5 p-2">
-          <Link href={'/agenda'}>Bilan</Link>
-          </li>
-          <li className="hover:bg-slate-200 w-4/5 p-2">
-        <Link href='/client' className=" w-full ">Clients</Link></li>
-          <li className="hover:bg-slate-200 w-4/5 p-2">
-        <Link href='/facturationCoach' className=" w-full ">Facturation</Link></li>
+          
+          
+        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/coach/client'? 'bg-slate-700' : ''}`}>
+            <span><HiOutlineUserGroup size={35}/></span><li className="hover:font-semibold hover:text-black text-lg rounded-md  hover:px-2 py-2 hover:bg-slate-50">Client</li>
+            </div>
+          
+          </Link>
+        <Link href='/facturationCoach' className=" w-full ">
+          
+        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/client'? 'bg-slate-700' : ''}`}>
+            <span><FaFileInvoiceDollar size={35}/></span>
+            <li className="hover:font-semibold hover:text-black text-lg rounded-md  hover:px-2 py-2 hover:bg-slate-50">Facturation</li>
+            </div>
+</Link>
 
-         </ul>
-         <div   onClick={async ()=>{
-        signOut({callbackUrl:'http://localhost:3000'}) 
-       }}
-    className=" my-10 p-3 cursor-pointer  hover:bg-gradient-to-r  hover:text-slate-50 from-slate-600 to-cyan-700  flex lg:hidden self-center w-full justify-center bottom-0 absolute">
-   
-        < RiLogoutCircleRLine size={30} className='scale-y-2 hover:text-slate-50> flex lg:hidden  -rotate-90'/>
 
-</div>
-          </div>
+
+       </ul>
+      
+       
+    </div>
           
         </div>}
     </section >

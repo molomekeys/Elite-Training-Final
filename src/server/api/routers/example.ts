@@ -22,4 +22,27 @@ export const exampleRouter = createTRPCRouter({
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),
+
+  addRoom:publicProcedure.input(z.object({
+    name:z.string()
+
+
+  })).mutation(async({ctx,input})=>{
+     const addUser= await ctx.prisma.product.create({data:{
+   name:input.name
+     ,adress:'dernierajout',offers:{
+   create:   [{clientPrice:50,coachPrice:40,weekNumber:2},
+    {clientPrice:50,coachPrice:40,weekNumber:2}]
+     }
+      }})
+  return addUser
+    }),
+    findOffer:
+    publicProcedure.input(z.object({name:z.string()})).query
+    (async({input,ctx:{prisma}})=>{
+        const fetchedData=await prisma.product.findMany({include:{offers:true}})
+        return fetchedData
+    })
+    ,
+   
 });

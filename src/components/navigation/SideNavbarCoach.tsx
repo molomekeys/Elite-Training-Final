@@ -22,7 +22,7 @@ const SideNavbarCoach = () => {
 <div className="w-full h-full items-center justify-center min-w-fit
          relative flex  ">
    
-            <Link href='/dashboard'>
+            <Link href='/coach/dashboardCoach'>
           
             <Image  width={120} height={85} className=' object-cover
              float-left relative'
@@ -31,14 +31,14 @@ const SideNavbarCoach = () => {
         </div>
     <div className="flex lg:flex-col items-center justify-center w-full "> 
        <ul className=" text-white hidden   font-medium lg:flex flex-row  items-center lg:items-start
-        w-full lg:flex-col gap-3 ">
+        w-full lg:flex-col  gap-2 ">
        <Link href="/coach/dashboardCoach" className=" w-full flex-grow "> 
       
-       <div className={`flex items-center px-10 py-2  w-full gap-4 ${router.pathname=='/coach/dashboardCoach'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
+       <div className={`flex items-center px-10 py-3  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/coach/dashboardCoach'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
                  <span>
                   <AiOutlineDashboard size={25}/>
                   </span>
-                  <li className="hover:font-semibold hover:text-black text-sm   py-2
+                  <li className=" text-sm   py-2
                   ">Dashboard</li>
             </div>
       
@@ -47,7 +47,7 @@ const SideNavbarCoach = () => {
 
         <Link href='/coach/planning' className=" w-full ">
           <div className={`flex items-center px-10 py-3 w-full gap-4 hover:bg-slate-700 ${router.pathname=='/coach/planning'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}>
-            <span><BsCalendar3 size={20}/></span><li className="hover:font-semibold hover:text-black text-sm rounded-md  hover:px-2 py-2 hover:bg-slate-50">Planning</li>
+            <span><BsCalendar3 size={20}/></span><li className="hover:font-semibold  text-sm    py-2 ">Planning</li>
             </div>
             </Link>
 
@@ -58,7 +58,7 @@ const SideNavbarCoach = () => {
           
           
         <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/coach/client'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
-            <span><HiOutlineUserGroup size={25}/></span><li className="hover:font-semibold hover:text-black text-sm rounded-md  hover:px-2 py-2 hover:bg-slate-50">Client</li>
+            <span><HiOutlineUserGroup size={25}/></span><li className="  text-sm    py-2 ">Client</li>
             </div>
           
           </Link>
@@ -66,7 +66,7 @@ const SideNavbarCoach = () => {
           
         <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/coach/facturation'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
             <span><FaFileInvoiceDollar size={25}/></span>
-            <li className="hover:font-semibold hover:text-black text-sm rounded-md  hover:px-2 py-2 hover:bg-slate-50">Facturation</li>
+            <li className=" text-sm  py-2 ">Facturation</li>
             </div>
 </Link>
 

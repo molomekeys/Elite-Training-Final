@@ -53,7 +53,15 @@ export default function AddRoom() {
   
     const { register, handleSubmit ,formState:{errors},watch,reset,trigger} = useForm(
       
-      {defaultValues:{email:'',lastName:'',firstName:'',confirmEmail:''}, resolver: zodResolver(validationSchema),});
+      {defaultValues:{email:'',lastName:'',firstName:'',confirmEmail:'',
+    coachPriceOneWeek:"",clientPriceOneWeek:"",
+    coachPriceTwoWeek:"",clientPriceTwoWeek:"",
+    coachPriceThreeWeek:"",clientPriceThreeWeek:"",
+    coachPriceFourWeek:"",clientPriceFourWeek:""
+    
+    
+    
+    }, resolver: zodResolver(validationSchema),});
 
 
         const[stepFormSalle,setStepFormSalle]=useState(1)
@@ -100,7 +108,7 @@ async function createClient(data:ClientData){
           handleSubmit(createClient)}>
          { stepFormSalle==1&&<div className='flex flex-col w-full gap-3'>
               <label htmlFor='lastName' className='font-semibold text-sm'>Nom de la salle :</label>
-            <input   className='form-input rounded-md bg-slate-100 ' id='lastName'
+            <input   className='form-input py-2 px-3  rounded-md bg-slate-100 ' id='lastName'
             placeholder='Veuillez inscrire le nom de votre athlète'  {...register('lastName')}
             
            />
@@ -108,16 +116,21 @@ async function createClient(data:ClientData){
            <label htmlFor='firstName' className='font-semibold text-sm' >Id comptable pour la salle : </label>
 
             <input placeholder='Veuillez inscrire le prénom de votre athlète'  id='firstName'  
-             className='form-input rounded-md  bg-slate-200'
+             className='form-input rounded-md py-2 px-3 bg-slate-200'
               {...register('firstName')}/>
                       <p className='text-xs font-semibold text-red-500'>{errors.firstName?.message}</p>
               
               
-                      <label htmlFor='firstName' className='font-semibold text-sm' >Tarif séance unique :</label>
+                      <label htmlFor='firstName' className='font-semibold text-sm' >Tarif séance unique client:</label>
 
-<input placeholder='Veuillez inscrire le tarif de la seance unique'  id='firstName' 
-  className='form-input rounded-md bg-slate-100'
-  {...register('firstName')}/>
+<input placeholder='Veuillez inscrire le tarif de la seance unique client'  id='firstName' 
+  className='form-input rounded-md bg-slate-100  py-3' type={'number'} min={0}
+  {...register('clientPriceOneWeek')}/>
+                        <label htmlFor='firstName' className='font-semibold text-sm' >Tarif séance unique coach :</label>
+
+<input placeholder='Veuillez inscrire le tarif de la seance unique du coach'  id='firstName' 
+  className='form-input rounded-md bg-slate-100  py-3' type={'number'}
+  {...register('coachPriceOneWeek')} min={0}/>
           <p className='text-xs font-semibold text-red-500'>{errors.firstName?.message}</p>
               
                 <button onClick={()=>{
@@ -141,7 +154,7 @@ async function createClient(data:ClientData){
     {/*ça permet de recuperer les seances pour chaques type de sous programme coaching */}
 <div className='flex flex-col gap-2 text-left  '>
     
-                <h2 className='font-semibold text-center  py-4 '>Indiquez les tarif une  séances par semaine</h2>
+                <h2 className='font-semibold text-center  py-4 '>Indiquez les tarif de deux  séances par semaine</h2>
 
 <section className='flex w-full gap-4 lg:gap-20 flex-col lg:flex-row '>
 
@@ -150,9 +163,10 @@ async function createClient(data:ClientData){
                       <label htmlFor='email' className='font-semibold text-sm'>Tarif horaire du client : </label>
 
 
-            <input  type={'email'}  placeholder="Veuillez inscrire l'adresse email de votre athlète" 
-              {...register('email')}  id='email'  
-              className='form-input rounded-md bg-slate-100 '     
+            <input  type={'number'}  min={0}
+             placeholder="Tarif deux seances par semaine du clients" 
+              {...register('clientPriceTwoWeek')} 
+              className='form-input rounded-md bg-slate-100 py-2 '     
                  />
                                        <p className='text-xs font-semibold text-red-500'> {errors.email?.message}</p>
 
@@ -164,8 +178,9 @@ async function createClient(data:ClientData){
                                        <label className='font-semibold text-sm'
                                         htmlFor='confirmEmail'>Tarif horaire du coach :</label>
 
-            <input  type={'email'} placeholder="Confirmer l'adresse email de votre athlète" 
-              {...register('confirmEmail')}     className='form-input rounded-md bg-slate-100'   
+            <input  type={'number'} min={0} placeholder="Tarif de deux seances par semaines du coach" 
+              {...register('coachPriceTwoWeek')}     
+              className='form-input rounded-md bg-slate-100 py-2 '   
                   />
                                         <p className='text-xs font-semibold text-red-500'>{errors.confirmEmail?.message}</p>
                                         </div>
@@ -174,7 +189,7 @@ async function createClient(data:ClientData){
 
 
                                         <div className='flex flex-col gap-2 border-t-2 border-cyan-700 lg:border-none'>
-                <h2 className='font-semibold   py-4 '>Indiquez les tarif deux séances par semaine</h2>
+                <h2 className='font-semibold   py-4 '>Indiquez les tarif de trois séances par semaine</h2>
 
                 <section className='flex w-full gap-4 lg:gap-20 flex-col lg:flex-row text-left '>
 
@@ -183,8 +198,9 @@ async function createClient(data:ClientData){
                   <label htmlFor='email' className='font-semibold text-sm'>Tarif horaire du client : </label>
 
 
-        <input  type={'email'}  placeholder="Veuillez inscrire l'adresse email de votre athlète" 
-          {...register('email')}  id='email'  className='form-input rounded-md  bg-slate-100'     
+        <input  type={'number'} min={0}  placeholder="Inscrire le prix client de trois seance par semaines" 
+          {...register('clientPriceThreeWeek')}  id='email'  className='form-input py-2
+           rounded-md  bg-slate-100'     
              />
                                    <p className='text-xs font-semibold text-red-500'> {errors.email?.message}</p>
 
@@ -196,8 +212,8 @@ async function createClient(data:ClientData){
                                    <label className='font-semibold text-sm'
                                     htmlFor='confirmEmail'>Tarif horaire du coach :</label>
 
-        <input  type={'email'} placeholder="Confirmer l'adresse email de votre athlète" 
-          {...register('confirmEmail')}     className='form-input bg-slate-100 rounded-md'   
+        <input  type={'number'} placeholder="Tarifs coach trois seances par semaines"  min={0}
+          {...register('coachPriceThreeWeek')}     className='form-input bg-slate-100 rounded-md py-2 px-3'   
               />
                                     <p className='text-xs font-semibold text-red-500'>{errors.confirmEmail?.message}</p>
                                     </div>
@@ -212,7 +228,7 @@ Je le duplique pour faire le troisieme sous programme coaching
 
 <div className='flex flex-col gap-2 border-t-2 border-cyan-600 lg:border-none'>
     
-                <h2 className='font-semibold   py-4 '>Indiquez les tarif de trois séances par semaine</h2>
+                <h2 className='font-semibold   py-4 '>Indiquez les tarif du programme</h2>
 
 
                 <section className='flex w-full gap-4 lg:gap-20 flex-col lg:flex-row text-left '>
@@ -222,8 +238,10 @@ Je le duplique pour faire le troisieme sous programme coaching
                   <label htmlFor='email' className='font-semibold text-sm'>Tarif horaire du client : </label>
 
 
-        <input  type={'email'}  placeholder="Veuillez inscrire l'adresse email de votre athlète" 
-          {...register('email')}  id='email'  className='form-input rounded-md bg-slate-100 '     
+        <input   min={0} max={100}
+        type={'number'}  placeholder="Tarif client du programme" 
+          {...register('email')}  id='email'  className='form-input
+           rounded-md bg-slate-100  px-4 py-3'     
              />
                                    <p className='text-xs font-semibold text-red-500'> {errors.email?.message}</p>
 
@@ -236,7 +254,7 @@ Je le duplique pour faire le troisieme sous programme coaching
                                     htmlFor='confirmEmail'>Tarif horaire du coach :</label>
 
         <input  type={'email'} placeholder="Confirmer l'adresse email de votre athlète"   {...register('confirmEmail')}    
-         className='bg-slate-100 form-input rounded-md'   
+         className='bg-slate-100 form-input rounded-md py-2 px-3'   
               />
                                     <p className='text-xs font-semibold text-red-500'>{errors.confirmEmail?.message}</p>
                                     </div>

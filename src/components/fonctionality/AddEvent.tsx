@@ -18,7 +18,8 @@ import type { RootState } from '~/app/store'
 const AddEvent = () => {
 //cela permet d'utiliser chakra ui
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+    const modalSize = isLargerThan768 ? "5xl" : "full";
 const dispatch=useDispatch()
 const stepForm=useSelector((state:RootState)=>state.eventReducer.stepForm)
     //le stat qui controler les étapes du forms
@@ -83,7 +84,7 @@ console.log(saveSecondStepForm)
         <Modal isOpen={isOpen} onClose={()=>{
           onClose()
           setIsStepForm(1)
-        }} size={'5xl'} >
+        }} size={modalSize} >
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Facturation de votre client </ModalHeader>

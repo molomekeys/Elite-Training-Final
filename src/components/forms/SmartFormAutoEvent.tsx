@@ -3,11 +3,17 @@ import {useForm} from 'react-hook-form'
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { number } from 'zod';
+import {v4} from 'uuid'
 import {FirstValidationTypeSchema,SecondValidationTypeSchema,ThirdValidationTypeSchema}from './validationSchema'
+import {useDispatch,useSelector} from 'react-redux'
+import {setAutoEventForm,nextStepForm} from '../../features/event/eventSlice'
+import { RootState } from '~/app/store';
 interface Props{
     numberOfSeance:string
  
 }
+
+// valeurs  par default du formulaire
 type DefaultValue={
    
     dateFirstWeek: string,
@@ -28,124 +34,117 @@ type DefaultValue={
 
 }
 
+// function pour creer les dates
+function createTheSpecifiqueDate(a:[Date,Date],b?:[Date,Date],c?:[Date,Date]){
+  let i=1
+  const arrayOfEvents=[]
+  console.log(b)
+  if(a&&(!b&&!c)){
+    let hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
+    do {
+     
+      
+        arrayOfEvents.push({
+          start:new Date(a[0]),id:v4(),
+          end:new Date(a[1]),hours:hoursFirstEvent })
+      
+        a[0] = new Date(a[0].setDate(a[0].getDate()+7))
+        a[1] = new Date(a[1].setDate(a[1].getDate()+7))
+      i=i+1
+      } while (i<=4);
 
+  }
+  else if((a&&b)&&!c){
+    let hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
+    let hoursSecondEvent=(b[1].getTime()-b[0].getTime())/(60*60*1000)
+
+    do {
+     
+      
+      arrayOfEvents.push(
+        {
+        start:new Date(a[0]),id:v4(),
+        end:new Date(a[1]),hours: hoursFirstEvent,
+       },{
+          
+          start:new Date(b[0]),id:v4(),
+          end:new Date(b[1]),hours: hoursSecondEvent,
+        
+
+
+        })
+    
+      a[0] = new Date(a[0].setDate(a[0].getDate()+7))
+      a[1] = new Date(a[1].setDate(a[1].getDate()+7))
+      b[0] = new Date(b[0].setDate(b[0].getDate()+7))
+      b[1] = new Date(b[1].setDate(b[1].getDate()+7))
+    i=i+1
+    } while (i<=4)
+
+  }
+  else if((b&&c)&&a){
+    let hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
+    let hoursSecondEvent=(b[1].getTime()-b[0].getTime())/(60*60*1000)
+    let hoursThirdEvent=(c[1].getTime()-c[0].getTime())/(60*60*1000)
+
+    do {
+     
+      
+      arrayOfEvents.push(
+        {
+        start:new Date(a[0]),id:v4(),
+        end:new Date(a[1]),hours: hoursFirstEvent,
+      },
+        {
+         
+          start:new Date(b[0]),id:v4(),
+          end:new Date(b[1]),hours: hoursSecondEvent,
+         
+
+
+        },{
+         
+          start:new Date(c[0]),id:v4(),
+          end:new Date(c[1]),hours: hoursThirdEvent,
+        
+
+
+        })
+    
+      a[0] = new Date(a[0].setDate(a[0].getDate()+7))
+      a[1] = new Date(a[1].setDate(a[1].getDate()+7))
+      b[0] = new Date(b[0].setDate(b[0].getDate()+7))
+      b[1] = new Date(b[1].setDate(b[1].getDate()+7))
+      c[0] = new Date(c[0].setDate(c[0].getDate()+7))
+      c[1] = new Date(c[1].setDate(c[1].getDate()+7))
+    i=i+1
+    } while (i<=4)
+
+
+  }
+  console.log(arrayOfEvents)
+return arrayOfEvents
+
+}
   
+
+
+// function react
 
 const SmartFormInput = ({ numberOfSeance}:Props) => {
 
    
 
-    function createTheSpecifiqueDate(a:Date[],b?:Date[],c?:Date[]){
-    //   let i=1
-    //   const arrayOfEvents=[]
-    //   console.log(b)
-    //   if(a&&(!b&&!c)){
-    //     let hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
-    //     do {
-         
-          
-    //         arrayOfEvents.push({title:firstStepForm.title,
-    //           start:new Date(a[0]),id:v4(),salle:firstStepForm.salle,
-    //           end:new Date(a[1]),hours:hoursFirstEvent ,price:hoursFirstEvent*Number(firstStepForm.price)})
-          
-    //         a[0] = new Date(a[0].setDate(a[0].getDate()+7))
-    //         a[1] = new Date(a[1].setDate(a[1].getDate()+7))
-    //       i=i+1
-    //       } while (i<=4);
-    
-    //   }
-    //   else if((a&&b)&&!c){
-    //     let hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
-    //     let hoursSecondEvent=(b[1].getTime()-b[0].getTime())/(60*60*1000)
-    
-    //     do {
-         
-          
-    //       arrayOfEvents.push(
-    //         {title:firstStepForm.title,
-    //         start:new Date(a[0]),id:v4(),salle:firstStepForm.salle,
-    //         end:new Date(a[1]),hours: hoursFirstEvent,
-    //         price:hoursFirstEvent*Number(firstStepForm.price)},{
-    //           title:firstStepForm.title,
-    //           start:new Date(b[0]),id:v4(),salle:firstStepForm.salle,
-    //           end:new Date(b[1]),hours: hoursSecondEvent,
-    //           price:hoursSecondEvent*Number(firstStepForm.price)
-    
-    
-    //         })
-        
-    //       a[0] = new Date(a[0].setDate(a[0].getDate()+7))
-    //       a[1] = new Date(a[1].setDate(a[1].getDate()+7))
-    //       b[0] = new Date(b[0].setDate(b[0].getDate()+7))
-    //       b[1] = new Date(b[1].setDate(b[1].getDate()+7))
-    //     i=i+1
-    //     } while (i<=4)
-    
-    //   }
-    //   else if((b&&c)&&a){
-    //     let hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
-    //     let hoursSecondEvent=(b[1].getTime()-b[0].getTime())/(60*60*1000)
-    //     let hoursThirdEvent=(c[1].getTime()-c[0].getTime())/(60*60*1000)
-    
-    //     do {
-         
-          
-    //       arrayOfEvents.push(
-    //         {title:firstStepForm.title,
-    //         start:new Date(a[0]),id:v4(),salle:firstStepForm.salle,
-    //         end:new Date(a[1]),hours: hoursFirstEvent,
-    //         price:hoursFirstEvent*Number(firstStepForm.price)},
-    //         {
-    //           title:firstStepForm.title,
-    //           start:new Date(b[0]),id:v4(),salle:firstStepForm.salle,
-    //           end:new Date(b[1]),hours: hoursSecondEvent,
-    //           price:hoursSecondEvent*Number(firstStepForm.price)
-    
-    
-    //         },{
-    //           title:firstStepForm.title,
-    //           start:new Date(c[0]),id:v4(),salle:firstStepForm.salle,
-    //           end:new Date(c[1]),hours: hoursThirdEvent,
-    //           price:hoursThirdEvent*Number(firstStepForm.price)
-    
-    
-    //         })
-        
-    //       a[0] = new Date(a[0].setDate(a[0].getDate()+7))
-    //       a[1] = new Date(a[1].setDate(a[1].getDate()+7))
-    //       b[0] = new Date(b[0].setDate(b[0].getDate()+7))
-    //       b[1] = new Date(b[1].setDate(b[1].getDate()+7))
-    //       c[0] = new Date(c[0].setDate(c[0].getDate()+7))
-    //       c[1] = new Date(c[1].setDate(c[1].getDate()+7))
-    //     i=i+1
-    //     } while (i<=4)
-    
-    
-    //   }
-    //   setManualyEvent(arrayOfEvents)
-    //   nextStepForm()
-    // console.log(arrayOfEvents)
-    }
 
+const dispatch=useDispatch()
+const smartAutoDefaultValue=useSelector((state:RootState)=>state.eventReducer.formAutoEvent)
     //hook pour initialiser le formulaire avec les valeur par defaut
     
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         defaultValues:{
 
-        dateFirstWeek: "",
-        dateSecondWeek:"",
-       dateThirdWeek:"",
-      
-
-        hourStartFirstWeek:"",
-        hourEndFirstWeek:"",
-
-        hourStartSecondWeek:"",
-        hourEndSecondWeek:"",
-       
-        hourStartThirdWeek:"",
-        hourEndThirdWeek:"",
+        ...smartAutoDefaultValue
 
        
         },resolver:zodResolver(numberOfSeance=='1'? FirstValidationTypeSchema : numberOfSeance=='2'? SecondValidationTypeSchema : ThirdValidationTypeSchema)})
@@ -153,45 +152,46 @@ const SmartFormInput = ({ numberOfSeance}:Props) => {
 function handleSubmitSmartForm(val:DefaultValue){
 
   //cette condition est pour faire en sorte  de repeter les evenemtns
-console.log(val)
-// let firstDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
-// let firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
 
-// let secondStartDate=new Date(val.dateSecondWeek+'T'+val.hourStartSecondWeek+':00')
-// let secondEndDate=new Date(val.dateSecondWeek+'T'+val.hourEndSecondWeek+':00')
+dispatch(setAutoEventForm(val))
+let firstDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
+let firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
 
-// let thirdStartDate=new Date(val.dateThreeWeek+'T'+val.hourStartThirdWeek+':00')
-// let thirdEndDate=new Date(val.dateThreeWeek+'T'+val.hourEndThirdWeek+':00')
+let secondStartDate=new Date(val.dateSecondWeek+'T'+val.hourStartSecondWeek+':00')
+let secondEndDate=new Date(val.dateSecondWeek+'T'+val.hourEndSecondWeek+':00')
 
-
-// let compareDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
+let thirdStartDate=new Date(val.dateThirdWeek+'T'+val.hourStartThirdWeek+':00')
+let thirdEndDate=new Date(val.dateThirdWeek+'T'+val.hourEndThirdWeek+':00')
 
 
+let compareDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
 
-//     let newDate = new Date(firstDate)
-//     let newEndDate = new Date(firstEndDate)
-//     let newSecondStartDate = new Date(secondStartDate)
-//     let newSecondEndDate = new Date(secondEndDate)
-//     let newThirdStartDate = new Date(thirdStartDate)
-//     let newThirdEndDate = new Date(thirdEndDate)
+
+
+    let newDate = new Date(firstDate)
+    let newEndDate = new Date(firstEndDate)
+    let newSecondStartDate = new Date(secondStartDate)
+    let newSecondEndDate = new Date(secondEndDate)
+    let newThirdStartDate = new Date(thirdStartDate)
+    let newThirdEndDate = new Date(thirdEndDate)
     
 
-// //je vais faire une boucle do while pour repeter la date 
-// if(Number(numberOfSeance)==2)
-// {
-//   createTheSpecifiqueDate([new Date(newDate),new Date (newEndDate)])
-// }
-// if(Number(numberOfSeance)==3)
-// {
-//   createTheSpecifiqueDate([new Date(newDate),new Date(newEndDate)],
-//     [new Date(newSecondStartDate),new Date(newSecondEndDate)])
-// }
-// if(Number(numberOfSeance)==4)
-// {
-//   createTheSpecifiqueDate([newDate,newEndDate],
-//     [newSecondStartDate,newSecondEndDate],[newThirdStartDate,newThirdEndDate])
-// }
-
+//je vais faire une boucle do while pour repeter la date 
+if(Number(numberOfSeance)==1)
+{
+  createTheSpecifiqueDate([new Date(newDate),new Date (newEndDate)])
+}
+if(Number(numberOfSeance)==2)
+{
+  createTheSpecifiqueDate([new Date(newDate),new Date(newEndDate)],
+    [new Date(newSecondStartDate),new Date(newSecondEndDate)])
+}
+if(Number(numberOfSeance)==3)
+{
+  createTheSpecifiqueDate([newDate,newEndDate],
+    [newSecondStartDate,newSecondEndDate],[newThirdStartDate,newThirdEndDate])
+}
+dispatch(nextStepForm())
   
 }
 

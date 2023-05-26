@@ -13,16 +13,48 @@ export interface SecondStepType{
     typeOfDate:string 
     seanceWeekNumber:string
 }
+type FormAutoEventType={
+   
+  dateFirstWeek: string,
+  dateSecondWeek:string,
+  dateThirdWeek:string,
+ 
 
+  hourStartFirstWeek:string,
+  hourEndFirstWeek:string,
+
+  hourStartSecondWeek:string,
+  hourEndSecondWeek:string,
+ 
+  hourStartThirdWeek:string,
+  hourEndThirdWeek:string,
+
+  
+
+}
 export interface EventFormState {
   
     secondStep:SecondStepType
   firstStep:FirstStepState
   stepForm:number
+  formAutoEvent:FormAutoEventType
 }
-
 const initialState: EventFormState = 
-    {secondStep:{ programmeName:'',
+    {
+      formAutoEvent:{dateFirstWeek: "",
+      dateSecondWeek:"",
+     dateThirdWeek:"",
+    
+
+      hourStartFirstWeek:"",
+      hourEndFirstWeek:"",
+
+      hourStartSecondWeek:"",
+      hourEndSecondWeek:"",
+     
+      hourStartThirdWeek:"",
+      hourEndThirdWeek:"",}
+      ,secondStep:{ programmeName:'',
      
     typeOfDate:'',seanceWeekNumber:'1'},
     firstStep:{title:'',clientId:'',affiliateGym:'',
@@ -31,7 +63,7 @@ const initialState: EventFormState =
 
 
 export const eventSlice = createSlice({
-  name: 'counter',
+  name: 'event',
   initialState,
   reducers: {
     setFirstStepForm: (state,action:PayloadAction<FirstStepState>) => {
@@ -68,6 +100,9 @@ export const eventSlice = createSlice({
         
         state.stepForm-=1
     },
+    setAutoEventForm:(state,action:PayloadAction<FormAutoEventType>)=>{
+      state.formAutoEvent=action.payload
+    },
     incrementByAmount: (state, action: PayloadAction<number>) => {
      
     },
@@ -75,6 +110,6 @@ export const eventSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setFirstStepForm ,setSecondStepForm,backStepForm,nextStepForm} = eventSlice.actions
+export const { setFirstStepForm ,setSecondStepForm,backStepForm,nextStepForm,setAutoEventForm} = eventSlice.actions
 
 export default eventSlice.reducer

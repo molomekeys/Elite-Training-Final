@@ -19,6 +19,9 @@ export const FirstValidationTypeSchema= z.object({
   
      
     }).refine((data)=>{
+
+//first refine pour le premier formulaire
+
       const [hourStartFirstWeek=0, minuteStartFirstWeek=0] = data.hourStartFirstWeek.split(":").map(Number)
       const [hoursEndFirstWeek=0, minuteEndFirstWeek=0] = data.hourEndFirstWeek.split(":").map(Number)
   
@@ -33,11 +36,17 @@ export const FirstValidationTypeSchema= z.object({
       return false
   
     }
+
+// message d'erreurs pour le premier formulaire erreur
+
    return true
   },{message: 'La date de fin de séance doit être supérieure',
   path:['hourEndFirstWeek']})
 
 //fin du refine pour  verifier que la date de fin est superieru à l'autre
+
+
+
 
 
 ///deuxieme form validation je repete le meme processus 
@@ -57,6 +66,9 @@ export const FirstValidationTypeSchema= z.object({
      
      
     }).refine((data)=>{
+
+//premier refine
+
         const [hourStartFirstWeek=0, minuteStartFirstWeek=0] = data.hourStartFirstWeek.split(":").map(Number)
         const [hoursEndFirstWeek=0, minuteEndFirstWeek=0] = data.hourEndFirstWeek.split(":").map(Number)
   
@@ -100,7 +112,7 @@ console.log(TotalTimeEndWeek)
     return isPased
   }
   return isPased
-  
+  //fin de la deuxieme validation du formulaire
  
   },{message: 'La date de fin deu de séance doit être supérieure',
   path:['hourEndSecondWeek']})
@@ -125,13 +137,14 @@ console.log(TotalTimeEndWeek)
      
      
     }).refine((data)=>{
-        const [hourStartFirstWeek=0, minuteStartFirstWeek=0] = data.hourStartFirstWeek.split(":").map(Number)
-        const [hoursEndFirstWeek=0, minuteEndFirstWeek=0] = data.hourEndFirstWeek.split(":").map(Number)
+
+        //first date refine for troisieme date
+        const [hourStartThirdWeekT=0, minuteStartThirdWeekT=0] = data.hourStartFirstWeek.split(":").map(Number)
+        const [hoursEndThirdWeekT=0, minuteEndThirdWeekT=0] = data.hourEndFirstWeek.split(":").map(Number)
   
-      let TotalTimeStartFirstWeek=hourStartFirstWeek*60+minuteStartFirstWeek
-      let TotalTimeEndWeek=hoursEndFirstWeek*60+minuteEndFirstWeek
-      console.log(TotalTimeEndWeek)
-      console.log(TotalTimeStartFirstWeek)
+      let TotalTimeStartFirstWeek=hourStartThirdWeekT*60+minuteStartThirdWeekT
+      let TotalTimeEndWeek=hoursEndThirdWeekT*60+minuteEndThirdWeekT
+     
   
       if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)
       {
@@ -142,6 +155,10 @@ console.log(TotalTimeEndWeek)
      return true
     },{message: 'La date de fin de séance doit être supérieure',
     path:['hourEndFirstWeek']}).refine((data)=>{
+
+
+//deuxieme  date refine for hours
+
       let isPased=true
       if(data?.hourStartSecondWeek&&data?.hourEndSecondWeek)
       {
@@ -171,4 +188,38 @@ console.log(TotalTimeEndWeek)
   
  
   },{message: 'La date de fin deu de séance doit être supérieure',
-  path:['hourEndSecondWeek']})
+  path:['hourEndSecondWeek']}).refine((data)=>{
+
+
+    //second date refine for hours
+    
+          let isPased=true
+          if(data?.hourStartSecondWeek&&data?.hourEndSecondWeek)
+          {
+            let {hourStartSecondWeek,hourEndSecondWeek}=data
+            if(hourStartSecondWeek.length>1&&hourEndSecondWeek.length>1)
+            {
+            const momo =data.hourStartFirstWeek
+          const [hourStartSecondWeekT=0, minuteStartSecondWeek=0] = data?.hourStartSecondWeek?.split(":")?.map(Number)
+          const [hoursEndSecondWeek=0, minuteEndSecondWeek=0] = data?.hourEndSecondWeek?.split(":").map(Number)
+            console.log(data.hourStartSecondWeek)
+            console.log(data.hourEndSecondWeek)
+    
+        let TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
+        let TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
+        console.log(TotalTimeStartFirstWeek)
+    console.log(TotalTimeEndWeek)
+        if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)
+        {
+         console.log('false')
+          return isPased=false
+    
+        }
+      }
+        return isPased
+      }
+      return isPased
+      
+     
+      },{message: 'La date de fin deu de séance doit être supérieure',
+      path:['hourEndThirdWeek']})

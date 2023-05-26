@@ -1,7 +1,8 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-
+import { store } from '../app/store'
+import { Provider } from 'react-redux'
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
@@ -15,11 +16,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <ChakraProvider>
     <SessionProvider session={session}>
-      <main className="flex "> 
-      <Layout>  
+    <Provider store={store}>
+
+     <Layout>
       <Component {...pageProps} />
       </Layout>
-      </main>
+      </Provider>
+
 
     </SessionProvider>
     </ChakraProvider>

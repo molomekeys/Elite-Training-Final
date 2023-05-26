@@ -9,7 +9,7 @@ import {AiOutlineDashboard} from 'react-icons/ai'
 import {HiOutlineUserGroup} from 'react-icons/hi'
 import {FaFileInvoiceDollar} from 'react-icons/fa'
 import {RiLogoutCircleRLine} from 'react-icons/ri'
-const SideNavbarCoach = () => {
+const SideNavbarClient = () => {
     const router=useRouter()
   
     const [toggleNavigationBar,setToggleNavigationBar]=useState(false)
@@ -32,9 +32,9 @@ const SideNavbarCoach = () => {
     <div className="flex lg:flex-col items-center justify-center w-full "> 
        <ul className=" text-white hidden   font-medium lg:flex flex-row  items-center lg:items-start
         w-full lg:flex-col  gap-2 ">
-       <Link href="/coach/dashboardCoach" className=" w-full flex-grow "> 
+       <Link href="/client/dashboardClient" className=" w-full flex-grow "> 
       
-       <div className={`flex items-center px-10 py-3  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/coach/dashboardCoach'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
+       <div className={`flex items-center px-10 py-3  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/client/dashboardClient'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
                  <span>
                   <AiOutlineDashboard size={25}/>
                   </span>
@@ -45,28 +45,20 @@ const SideNavbarCoach = () => {
       </Link>
 
 
-        <Link href='/coach/planning' className=" w-full ">
-          <div className={`flex items-center px-10 py-3 w-full gap-4 hover:bg-slate-700 ${router.pathname=='/coach/planning'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}>
+        <Link href='/client/planning' className=" w-full ">
+          <div className={`flex items-center px-10 py-3 w-full gap-4 hover:bg-slate-700 ${router.pathname=='/client/planning'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}>
             <span><BsCalendar3 size={20}/></span><li className="hover:font-semibold  text-sm    py-2 ">Planning</li>
             </div>
             </Link>
 
 
 
-        <Link href='/coach/client' className=" w-full ">
+    
+        <Link href='/client/facture' className=" w-full ">
           
-          
-          
-        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/coach/client'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
-            <span><HiOutlineUserGroup size={25}/></span><li className="  text-sm    py-2 ">Client</li>
-            </div>
-          
-          </Link>
-        <Link href='/coach/facturation' className=" w-full ">
-          
-        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/coach/facturation'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
+        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/client/facture'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
             <span><FaFileInvoiceDollar size={25}/></span>
-            <li className=" text-sm  py-2 ">Facturation</li>
+            <li className=" text-sm  py-2 ">Facture</li>
             </div>
 </Link>
 
@@ -100,18 +92,18 @@ const SideNavbarCoach = () => {
          bg-opacity-25 z-40 bg-slate-800  absolute ">
        
        <div className="flex flex-col
-       lg:flex-col bg-white w-full 
-        h-full text-slate-800  justify-center w-full "> 
-       <ul className=" flex  font-medium lg:flex flex-col h-screen  
-           justify-start pt-10  lg:items-start gap-4
-         lg:flex-col  ">
+       lg:flex-col bg-white w-full text-lg
+        h-full text-slate-800 items-center justify-center w-full "> 
+       <ul className="   font-medium lg:flex flex-col h-screen  flex
+           justify-start pt-10  lg:items-start gap-4 
+        w-full lg:flex-col  ">
        <Link href="/coach/dashboardCoach" className=" w-full "> 
       
-       <div className={`flex items-center px-10 py-2  w-full gap-4 ${router.pathname=='/coach/dashboardCoach'? '' : ''}`}  >
+       <div className={`flex items-center px-10 py-2  w-full gap-4 ${router.pathname=='/coach/dashboardCoach'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
                  <span>
-                  <AiOutlineDashboard size={25}/>
+                  <AiOutlineDashboard size={35}/>
                   </span>
-                  <li className="hover:font-semibold hover:text-black    py-2
+                  <li className="hover:font-semibold hover:text-black text-lg   py-2
                   ">Dashboard</li>
             </div>
       
@@ -120,7 +112,7 @@ const SideNavbarCoach = () => {
 
         <Link href='/agenda' className=" w-full ">
           <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/agenda'? 'bg-slate-700' : ''}`}>
-            <span><BsCalendar3 size={25}/></span><li className=" py-2 ">Planning</li>
+            <span><BsCalendar3 size={35}/></span><li className="hover:font-semibold hover:text-black text-lg rounded-md  hover:px-2 py-2 hover:bg-slate-50">Planning</li>
             </div>
             </Link>
 
@@ -131,15 +123,15 @@ const SideNavbarCoach = () => {
           
           
         <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/coach/client'? 'bg-slate-700' : ''}`}>
-            <span><HiOutlineUserGroup size={25}/></span><li className="rounded-md  hover:px-2 py-2 ">Client</li>
+            <span><HiOutlineUserGroup size={35}/></span><li className="hover:font-semibold hover:text-black text-lg rounded-md  hover:px-2 py-2 hover:bg-slate-50">Client</li>
             </div>
           
           </Link>
         <Link href='/facturationCoach' className=" w-full ">
           
         <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/client'? 'bg-slate-700' : ''}`}>
-            <span><FaFileInvoiceDollar size={25}/></span>
-            <li className="rounded-md  hover:px-2 py-2">Facturation</li>
+            <span><FaFileInvoiceDollar size={35}/></span>
+            <li className="hover:font-semibold hover:text-black text-lg rounded-md  hover:px-2 py-2 hover:bg-slate-50">Facturation</li>
             </div>
 </Link>
 
@@ -154,4 +146,4 @@ const SideNavbarCoach = () => {
     </section >
   )
 }
-export default SideNavbarCoach
+export default SideNavbarClient

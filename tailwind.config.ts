@@ -5,5 +5,5 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
-} satisfies Config;
+  plugins: [ require('@tailwindcss/forms')],
+} 

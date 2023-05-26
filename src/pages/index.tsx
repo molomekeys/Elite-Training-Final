@@ -23,7 +23,9 @@ const Index = () => {
 
 const [errorDisplay,setErrorDisplay]=useState(false)
     const router = useRouter()
-    const {data:session}=useSession()
+
+    //avec ça je peux verifier si l'utilisateur est sign in
+    const {data:session,status}=useSession()
  
 
     const {register,formState:{errors},handleSubmit}=useForm({defaultValues:{email:'',password:''},resolver:zodResolver(validationSchemaLogin)})
@@ -37,6 +39,9 @@ const [errorDisplay,setErrorDisplay]=useState(false)
     }
 
     useEffect(()=>{
+
+
+      //function qui permet de redigirer la bonne perosnne conencter
       async function handleUserLoged(){
      
         if(session?.user) {
@@ -50,20 +55,33 @@ const [errorDisplay,setErrorDisplay]=useState(false)
             router.push('http://localhost:3000/coach/dashboardCoach')
 
           }
+          else if(session.user.role=='client')
+          {
+            console.log('slt')
+            router.push('http://localhost:3000/client/dashboardClient')
+
+          }
         }
       }
       handleUserLoged()
     },[session,router])
 console.log(session)
+
+
+
+ if(status==="unauthenticated")
+{
   return (
-    <main className='flex flex-col  bg-white'>
-      
+    <main className='flex flex-col   bg-white lg:bg-slate-50 gap-10 '>
+     
+
      {errorDisplay&& <div onClick={()=>{
             setErrorDisplay(false)
           }}
-     className='absolute bg-opacity-30 z-40 bg-slate-800 inset-0 flex items-center justify-center  w-full h-full lg:border-slate-800 p-10 rounded-lg'>
+     className='absolute bg-opacity-30  z-40 bg-slate-800 inset-0 flex items-center 
+     justify-center  w-full h-full lg:border-slate-800 p-10 rounded-lg'>
          <div className='flex relative 
-         flex-col  lg:gap-8 bg-white  border-slate-600 shadow-md
+         flex-col  lg:gap-8 bg-slate-200  border-slate-600 shadow-md
          p-4 border-2 rounded-lg lg:w-2/5 lg:h-2/5 h-2/5 w-4/5'> 
          <div className='flex gap-10 flex-col w-full h-full items-center justify-center '>
         <h2 className=' text-xl font-bold text-slate-800'>Erreur :</h2>
@@ -81,17 +99,18 @@ console.log(session)
       </div>}
 
 
-   <main className="flex  items-center
-    justify-center  bg-slate-100 h-full w-full md:p-10">
+   <main className="flex  lg:bg-slate-50  lg:p-10 items-center
+    justify-center  w-full ">
    
-    <section className="flex border-2 gap-8 rounded-2xl shadow-2xl
+    <section className="flex border-2 gap-8 lg:rounded-2xl lg:shadow-2xl
      border-slate-100 border-none  
-    flex-col w-full  md:w-4/5 lg:w-3/5 justify-center   p-1 h-full lg:m-0 md:p-10 bg-slate-50  ">
+    flex-col w-full  md:w-4/5 lg:w-3/5 justify-center   
+    p-1 h-full lg:m-0 md:p-10 bg-white lg:bg-slate-50  ">
     <h3 className='text-slate-800 text-3xl min-h-fit min-w-fit lg:text-5xl font-bold text-center relative '>Connexion</h3>
    
         <form  onSubmit={handleSubmit(handleLogin)}
         className='flex flex-col gap-4 text-lg 
-         text-slate-50 font-semibold bg-slate-50 p-4 text-slate-700 '>
+         text-slate-50 font-semibold bg-white lg:bg-slate-50 p-4 text-slate-700 '>
           
           <div className='flex flex-col   gap-4   w-full    '>
            <label htmlFor="email" className='text-slate-900  text-sm font-semibold 
@@ -133,6 +152,7 @@ console.log(session)
    </main>
   )
 }
+}
 
 export default Index
 
@@ -152,6 +172,11 @@ redirectUrl='/admin/dashboardAdmin'
 else if(session.user.role=='coach')
 {
   redirectUrl='/coach/dashboardCoach'
+
+}
+else if(session.user.role=='client')
+{
+  redirectUrl='/client/dashboardClient'
 
 }
 return {

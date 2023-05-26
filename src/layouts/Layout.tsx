@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { type ReactNode } from "react"
 import Navbar from "~/components/navigation/Navbar"
 import SideNavbarAdmin from "~/components/navigation/SideNavbarAdmin"
+import SideNavbarClient from "~/components/navigation/SideNavbarClient"
 import SideNavbarCoach from "~/components/navigation/SideNavbarCoach"
 type LayoutPage={
     children:ReactNode
@@ -10,8 +11,16 @@ type LayoutPage={
 
 const Layout = ({children }:LayoutPage) => {
     const router=useRouter()
-    const {data:session,status}=useSession()
+    const {data:session,status:isLoading}=useSession()
    
+   if(isLoading=='loading'){
+ return (<div>
+
+
+ </div>)
+   }
+   
+  
   return (
     <>
     <section className="flex flex-col w-full">
@@ -22,10 +31,17 @@ const Layout = ({children }:LayoutPage) => {
        
         {session?.user.role=='coach'&& 
         <div className="w-full lg:w-4/12"><SideNavbarCoach/></div>}
+
         {session?.user.role=='admin' && 
         <div className=" w-full lg:w-4/12">
 
        <SideNavbarAdmin/>   </div>}
+
+        {(session?.user.role=='client' && router.pathname!='/client/paiement/[test]')&&
+
+        <div className=" w-full lg:w-4/12">
+
+       <SideNavbarClient/>   </div>}
 
      
         <div className="w-full">
@@ -36,4 +52,5 @@ const Layout = ({children }:LayoutPage) => {
     </>
   )
 }
+
 export default Layout

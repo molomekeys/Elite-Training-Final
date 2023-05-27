@@ -109,7 +109,7 @@ async function createClient(data:ClientData){
          { stepFormSalle==1&&<div className='flex flex-col w-full gap-3'>
               <label htmlFor='lastName' className='font-semibold text-sm'>Nom de la salle :</label>
             <input   className='form-input py-2 px-3  rounded-md bg-slate-100 ' id='lastName'
-            placeholder='Veuillez inscrire le nom de votre athlète'  {...register('lastName')}
+            placeholder='Veuillez inscrire le nom de la salle'  {...register('lastName')}
             
            />
            <p className='text-xs font-semibold text-red-500'>{errors.lastName?.message}</p>

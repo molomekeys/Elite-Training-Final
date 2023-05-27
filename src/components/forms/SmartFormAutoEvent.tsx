@@ -7,12 +7,14 @@ import {v4} from 'uuid'
 import {FirstValidationTypeSchema,SecondValidationTypeSchema,ThirdValidationTypeSchema}from './validationSchema'
 import {useDispatch,useSelector} from 'react-redux'
 import {setAutoEventForm,nextStepForm} from '../../features/event/eventSlice'
+import { useContext } from 'react';
+import {AddEventContext} from '../fonctionality/AddEvent'
 import { RootState } from '~/app/store';
 interface Props{
     numberOfSeance:string
  
 }
-
+import {EventsType} from '../fonctionality/AddEvent'
 // valeurs  par default du formulaire
 type DefaultValue={
    
@@ -123,6 +125,7 @@ function createTheSpecifiqueDate(a:[Date,Date],b?:[Date,Date],c?:[Date,Date]){
 
   }
   console.log(arrayOfEvents)
+  
 return arrayOfEvents
 
 }
@@ -134,7 +137,8 @@ return arrayOfEvents
 const SmartFormInput = ({ numberOfSeance}:Props) => {
 
    
-
+const {events,functionEvent}=useContext(AddEventContext)
+console.log(events)
 
 const dispatch=useDispatch()
 const smartAutoDefaultValue=useSelector((state:RootState)=>state.eventReducer.formAutoEvent)
@@ -175,24 +179,27 @@ let compareDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
     let newThirdStartDate = new Date(thirdStartDate)
     let newThirdEndDate = new Date(thirdEndDate)
     
+    let momo:EventsType[] =[]
 
 //je vais faire une boucle do while pour repeter la date 
 if(Number(numberOfSeance)==1)
 {
-  createTheSpecifiqueDate([new Date(newDate),new Date (newEndDate)])
+  momo=createTheSpecifiqueDate([new Date(newDate),new Date (newEndDate)])
 }
 if(Number(numberOfSeance)==2)
 {
-  createTheSpecifiqueDate([new Date(newDate),new Date(newEndDate)],
+  momo=createTheSpecifiqueDate([new Date(newDate),new Date(newEndDate)],
     [new Date(newSecondStartDate),new Date(newSecondEndDate)])
 }
 if(Number(numberOfSeance)==3)
 {
-  createTheSpecifiqueDate([newDate,newEndDate],
+ momo= createTheSpecifiqueDate([newDate,newEndDate],
     [newSecondStartDate,newSecondEndDate],[newThirdStartDate,newThirdEndDate])
 }
-dispatch(nextStepForm())
-  
+
+functionEvent(momo)
+  dispatch(nextStepForm())
+
 }
 
 

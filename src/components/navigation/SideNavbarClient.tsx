@@ -32,17 +32,7 @@ const SideNavbarClient = () => {
     <div className="flex lg:flex-col items-center justify-center w-full "> 
        <ul className=" text-white hidden   font-medium lg:flex flex-row  items-center lg:items-start
         w-full lg:flex-col  gap-2 ">
-       <Link href="/client/dashboardClient" className=" w-full flex-grow "> 
       
-       <div className={`flex items-center px-10 py-3  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/client/dashboardClient'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
-                 <span>
-                  <AiOutlineDashboard size={25}/>
-                  </span>
-                  <li className=" text-sm   py-2
-                  ">Dashboard</li>
-            </div>
-      
-      </Link>
 
 
         <Link href='/client/planning' className=" w-full ">

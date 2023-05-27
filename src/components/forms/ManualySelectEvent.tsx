@@ -1,8 +1,11 @@
 
 import { useForm } from "react-hook-form";
-
+import { useContext } from 'react';
+import {AddEventContext} from '../fonctionality/AddEvent'
 interface Props{
 nextStepSubEvent:()=>void
+saveStepForm:(events:DefaultValue)=>void
+defaultValueForm:DefaultValue
 }
 type DefaultValue={
    
@@ -24,33 +27,18 @@ type DefaultValue={
     hourEndFourthWeek:string,
 
 }
-const ManualySelectEvent = ({nextStepSubEvent}:Props) => {
+const ManualySelectEvent = ({nextStepSubEvent,defaultValueForm,saveStepForm}:Props) => {
 
 
     
 
 
-
+ const {functionAddSubEvent}=useContext(AddEventContext)
     //hook pour initialiser le formulaire avec les valeur par defaut
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         defaultValues:{
 
-        dateFirstWeek: "",
-        dateSecondWeek:"",
-        dateThreeWeek:"",
-        dateFourthWeek:"",
-
-        hourStartFirstWeek:"",
-        hourEndFirstWeek:"",
-
-        hourStartSecondtWeek:"",
-        hourEndSecondWeek:"",
-       
-        hourStartThirdWeek:"",
-        hourEndThirdWeek:"",
-
-        hourStartFourthWeek:"",
-        hourEndFourthWeek:"",
+       ...defaultValueForm
         }});
 
 
@@ -60,39 +48,40 @@ function ValidateDataPick(val:DefaultValue){
 
     // ici je creee les variable pour les recuperer obligatoire pour creer une date
     console.log(val)
-
+saveStepForm(val)
 
 nextStepSubEvent()
-// let firstStartDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
-// let firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
+let firstStartDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
+let firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
 
-// let dateStartSecondWeek=new Date(val.dateSecondWeek+'T'+val.hourStartSecondtWeek+':00')
-// let dateEndSecondWeek=new Date(val.dateSecondWeek+'T'+val.hourEndSecondWeek+':00')
+let dateStartSecondWeek=new Date(val.dateSecondWeek+'T'+val.hourStartSecondtWeek+':00')
+let dateEndSecondWeek=new Date(val.dateSecondWeek+'T'+val.hourEndSecondWeek+':00')
 
-// let dateStartThirdWeek=new Date(val.dateThreeWeek+'T'+val.hourStartThirdWeek+':00')
-// let dateEndThirdWeek=new Date(val.dateThreeWeek+'T'+val.hourEndThirdWeek+':00')
+let dateStartThirdWeek=new Date(val.dateThreeWeek+'T'+val.hourStartThirdWeek+':00')
+let dateEndThirdWeek=new Date(val.dateThreeWeek+'T'+val.hourEndThirdWeek+':00')
 
-// let dateStartFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourStartFourthWeek+':00')
-// let dateEndFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourEndThirdWeek+':00')
+let dateStartFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourStartFourthWeek+':00')
+let dateEndFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourEndThirdWeek+':00')
 
-// //calcul des heures
+//calcul des heures
 
-// let hoursFirstWeek=(firstEndDate.getTime()-firstStartDate.getTime())/( 3600000)
-// let hoursSecondtWeek=(dateEndSecondWeek.getTime()-dateStartSecondWeek.getTime())/( 3600000)
-// let hoursThirdtWeek=(dateEndThirdWeek.getTime()-dateStartThirdWeek.getTime())/( 3600000)
-// let hoursFourthWeek=(dateEndFourthdWeek.getTime()-dateStartFourthdWeek.getTime())/( 3600000)
-// // dans cette partie je sauvegarde les dates créer et génerer pour les 
-// //sauvegarde dans le store 
+let hoursFirstWeek=(firstEndDate.getTime()-firstStartDate.getTime())/( 3600000)
+let hoursSecondtWeek=(dateEndSecondWeek.getTime()-dateStartSecondWeek.getTime())/( 3600000)
+let hoursThirdtWeek=(dateEndThirdWeek.getTime()-dateStartThirdWeek.getTime())/( 3600000)
+let hoursFourthWeek=(dateEndFourthdWeek.getTime()-dateStartFourthdWeek.getTime())/( 3600000)
+// dans cette partie je sauvegarde les dates créer et génerer pour les 
+//sauvegarde dans le store 
 
-// let momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),
-//     end:
-//     new Date(firstEndDate)},
-//     {end:dateEndSecondWeek,start:dateStartSecondWeek,hours:hoursSecondtWeek},
-//     {end: new Date(dateEndThirdWeek),start: new Date(dateStartThirdWeek),hours:hoursThirdtWeek},
-//     {end: new Date(dateEndFourthdWeek),start: new Date(dateStartFourthdWeek),hours:hoursFourthWeek}]
-// console.log(momo)
+let momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),id:'1',
+    end:
+    new Date(firstEndDate)},
+    {end:dateEndSecondWeek,start:dateStartSecondWeek,hours:hoursSecondtWeek,id:'1'},
+    {end: new Date(dateEndThirdWeek),start: new Date(dateStartThirdWeek),id:'1',hours:hoursThirdtWeek},
+    {end: new Date(dateEndFourthdWeek),start: new Date(dateStartFourthdWeek),id:'1',hours:hoursFourthWeek}]
+console.log(momo)
 
 // setManualyEvent(momo)
+functionAddSubEvent(momo)
 }
 
 

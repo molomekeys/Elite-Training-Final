@@ -32,12 +32,15 @@ type FormAutoEventType={
   
 
 }
+
+
 export interface EventFormState {
   
     secondStep:SecondStepType
   firstStep:FirstStepState
   stepForm:number
   formAutoEvent:FormAutoEventType
+  
 }
 const initialState: EventFormState = 
     {
@@ -106,10 +109,14 @@ export const eventSlice = createSlice({
     incrementByAmount: (state, action: PayloadAction<number>) => {
      
     },
+   
+    clearTheStore:(state)=>{
+      return initialState
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setFirstStepForm ,setSecondStepForm,backStepForm,nextStepForm,setAutoEventForm} = eventSlice.actions
+export const { setFirstStepForm,clearTheStore ,setSecondStepForm,backStepForm,nextStepForm,setAutoEventForm} = eventSlice.actions
 
 export default eventSlice.reducer

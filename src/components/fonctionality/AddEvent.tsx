@@ -8,13 +8,29 @@ import {
     ModalCloseButton,Button,Progress
   } from '@chakra-ui/react'
 import FirstStepAddEvent from '../forms/FirstStepAddEvent'
-import {useState} from 'react'
+import {useState,createContext} from 'react'
 import SecondStepAddEvent from '../forms/SecondStepAddEvent'
 import SmartFormInput from '../forms/SmartFormAutoEvent'
 import DateFormSelect from '../forms/DateFormSelect'
-import { backStepForm } from '~/features/event/eventSlice'
+import { backStepForm ,clearTheStore} from '~/features/event/eventSlice'
 import { useDispatch,useSelector } from 'react-redux'
+import RecapitulatifCalendar from '../forms/RecapitulatifCalendar' 
 import type { RootState } from '~/app/store'
+export type EventsType= {
+  start: Date;
+  id: string;
+  end: Date;
+  hours: number;
+}
+interface ContextEventInterface{
+events:EventsType[]
+functionEvent:(eventData:EventsType[])=>void
+functionAddSubEvent:(eventData:EventsType[])=>void
+clearEventData:()=>void
+
+}
+export const AddEventContext=createContext<ContextEventInterface>(
+  {functionAddSubEvent:()=>{},clearEventData:()=>{},events:[{end:new Date(),hours:5,id:'1',start:new Date()}] ,functionEvent:()=>{}})
 const AddEvent = () => {
 //cela permet d'utiliser chakra ui
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -22,7 +38,11 @@ const AddEvent = () => {
     const modalSize = isLargerThan768 ? "5xl" : "full";
 const dispatch=useDispatch()
 const stepForm=useSelector((state:RootState)=>state.eventReducer.stepForm)
+
     //le stat qui controler les étapes du forms
+    const [isEventAdded,setIsEventAdded]=useState<EventsType[]>([])
+
+
     const [isStepForm,setIsStepForm]=useState(1)
     console.log('render from add Event')
 
@@ -38,6 +58,8 @@ const stepForm=useSelector((state:RootState)=>state.eventReducer.stepForm)
     typeOfDate:'',seanceWeekNumber:''})
 
 
+//quand le calendar est fait manuelellement pour garder les valeurs 
+//premier etape
 
 function saveFirstStep(e:typeof formDataSteps.firstStep){
   setFormDataSteps((prev)=>{
@@ -45,11 +67,32 @@ function saveFirstStep(e:typeof formDataSteps.firstStep){
   })
 
 }
+
+//quand le calendar est fait manuelellement pour garder les valeurs 
+//deuxieme etape
+
 function saveSecondStep(e:typeof formDataSteps.secondStep){
   setFormDataSteps((prev)=>{
     return({...prev,secondStep:e})
   })
 
+}
+
+////quand le calendar est fait auto pour garder les valeurs 
+//du calendrier avec use contexte 
+
+function saveEventData(events:EventsType[]){
+  setIsEventAdded(events)
+}
+
+//quand le calendar est fait manuelellement pour garder les valeurs 
+//manuel de chaque etape
+
+function saveSubEventData(event:EventsType[]){
+  setIsEventAdded((prev)=>[...prev,...event])
+}
+function clearEventData(){
+  setIsEventAdded([])
 }
 console.log(formDataSteps)
 
@@ -78,26 +121,32 @@ console.log(saveSecondStepForm)
 
     return (
       <>
-        <button  className='text-slate-50 px-3 py-2  bg-cyan-900 rounded-lg font-bold   '
+      <AddEventContext.Provider value={{clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
+        events:isEventAdded,functionEvent:saveEventData}}>
+        <button  className='text-slate-50 px-3 py-2 w-min-fit 
+          bg-[#3C486B] rounded-lg font-bold   '
         onClick={onOpen}>Facturation client</button>
   
         <Modal isOpen={isOpen} onClose={()=>{
           onClose()
           setIsStepForm(1)
+          clearEventData()
+          dispatch(clearTheStore())
         }} size={modalSize} >
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Facturation de votre client </ModalHeader>
             <ModalCloseButton />
-            <ModalBody className='flex flex-col gap-10 mt-10'>
-              <section>
+            <ModalBody className='flex flex-col lg:gap-10 mt-10'>
+              <section className='pb-10 lg:pb-2'>
             <Progress  size={'xs'}
-     value={stepForm==1? 15 : stepForm==2? 30 : stepForm==3? 60 : 90} colorScheme='messenger' className='rounded-lg'/>
+     value={stepForm==1? 15 : stepForm==2? 30 : stepForm==3? 60 : 90} colorScheme='yellow' className='rounded-lg'/>
      </section>
              { stepForm==1&&<FirstStepAddEvent 
            />}
              { stepForm==2&&<SecondStepAddEvent  />}
           {stepForm==3&&<DateFormSelect/>}
+          {stepForm==4&& <RecapitulatifCalendar/>}
             </ModalBody>
   
             <ModalFooter>
@@ -106,11 +155,14 @@ console.log(saveSecondStepForm)
               </Button>}
 
               
-{stepForm>1&&<Button variant='solid' onClick={()=>dispatch(backStepForm())}>Précedent</Button>}
+{stepForm>1&&<Button variant='solid' onClick={()=>{
+
+  dispatch(backStepForm())}}>Précedent</Button>}
               
             </ModalFooter>
           </ModalContent>
         </Modal>
+        </AddEventContext.Provider>
       </>
     )
 }

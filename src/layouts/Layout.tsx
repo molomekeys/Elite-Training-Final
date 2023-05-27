@@ -23,28 +23,30 @@ const Layout = ({children }:LayoutPage) => {
   
   return (
     <>
-    <section className="flex flex-col w-full">
+    <section className="flex flex-col w-full min-h-max">
 <div>
    {(session?.user==null&& status!="loading")&& <Navbar/>}
 </div>
-    <main className="flex flex-col lg:flex-row">
-       
+    <main className="flex flex-col lg:flex-row  h-full g:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800    ">
+      
         {session?.user.role=='coach'&& 
-        <div className="w-full lg:w-4/12"><SideNavbarCoach/></div>}
+        <div className="w-full   min-h-screen
+         lg:w-4/12 lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800    ">
+          <SideNavbarCoach/></div>}
 
         {session?.user.role=='admin' && 
-        <div className=" w-full lg:w-4/12">
+        <div className=" w-full lg:w-4/12  lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800">
 
        <SideNavbarAdmin/>   </div>}
 
         {(session?.user.role=='client' && router.pathname!='/client/paiement/[test]')&&
 
-        <div className=" w-full lg:w-4/12">
+        <div className=" w-full lg:w-4/12 lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800">
 
        <SideNavbarClient/>   </div>}
 
      
-        <div className="w-full">
+        <div className="w-full bg-white">
         {children}
         </div>
     </main>

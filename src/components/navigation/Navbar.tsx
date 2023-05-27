@@ -24,7 +24,7 @@ const Navbar = () => {
         
         items-center justify-center hidden lg:flex 
          h-full  font-semibold w-full  pr-10 gap-10">
-            <Link href='/login'> <button className={`  ${router.pathname =='/login'? "border-b-2 text-slate-200 border-white font-semibold" : "text-slate-400 hover:text-slate-50"}`}>CONNEXION</button></Link>
+            <Link href='/'> <button className={`  ${router.pathname =='/'? "border-b-2 text-slate-200 border-white  font-semibold" : "text-slate-400 hover:text-slate-50"}`}>CONNEXION</button></Link>
             <Link href='/signIn'> <button className={`  ${router.pathname =='/signIn'? "border-b-2 border-white text-slate-200 font-semibold" : " text-slate-400 hover:text-slate-50"}`}>INSCRIPTION</button></Link>
             <a target={'_blank'}
             href='https://elite-training.fr' className="hover:font-semibold text-slate-400 hover:text-yellow-100">Visitez Elite Training</a>

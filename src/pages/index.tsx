@@ -33,8 +33,9 @@ const [errorDisplay,setErrorDisplay]=useState(false)
     async function handleLogin(values:{password:string,email:string}){
       
       
-      
-      const signInStatus= await signIn('credentials',{email:values.email,password:values.password,redirect:false})
+      console.log(values)
+      const signInStatus= await signIn('credentials',
+      {username:values.email,password:values.password,redirect:false})
      
     }
 

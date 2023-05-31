@@ -6,7 +6,8 @@ import { RootState } from '~/app/store'
 
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-
+import { api } from '~/utils/api';
+import { useSession } from 'next-auth/react';
 export interface FirstStepData{
     title:string 
     clientId:string 
@@ -26,14 +27,21 @@ const FirstStepAddEvent = () => {
   const firstStepDefault=useSelector((state:RootState)=>state.eventReducer.firstStep)
     const {register,handleSubmit,formState:{errors}}=useForm({
         defaultValues:{...firstStepDefault},resolver:zodResolver(validationFirstStepSchema)})
+        const {data}=useSession()
+        
     const dispatch=useDispatch()
+    const allClient=api.example.fetchDataLoginCoach.useQuery().data
+    const testmomo=allClient&&allClient?.map((e)=>{
+      return {...e.UserIdPrisma,createdAt:e.created_at}
+    })
     const rooms=[
         {name:'Merouane'},
         {name:'Fares'},
      
     ]
-    const allOptionsOffer=rooms.map((e)=>{
-        return (<option value={e.name} key={e.name}>{e.name}</option>)
+ 
+    const allOptionsOffer=testmomo&& testmomo?.map((e)=>{
+        return (<option value={e.id} key={e.id}>{e.name}</option>)
     })
 
 

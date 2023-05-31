@@ -6,7 +6,7 @@ import 'moment/locale/fr'; // import the French locale
 
 import "../../styles/specifiqueStyleCalendar.css"
 type SingleEvent={
-  title:String
+ 
   start:Date
   end:Date
   resource?:{

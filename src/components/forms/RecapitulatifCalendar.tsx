@@ -10,6 +10,7 @@ import {RootState } from '../../app/store'
 import {FirstStepState,setSecondStepForm} from '../../features/event/eventSlice'
 import {AiOutlineUser} from 'react-icons/ai'
 import {MdRoom} from 'react-icons/md'
+import { useSession } from 'next-auth/react';
 type specClient={
   id:string
   fullName:string
@@ -24,14 +25,15 @@ interface Props {
 //fonction réaction
 
 const RecapitulatifCalendar = () => {
-
-  const {events}=useContext(AddEventContext)
+const {data}=useSession()
+  const {events,client,saveEvent}=useContext(AddEventContext)
   const firstStepInfo=useSelector((state:RootState)=>state.eventReducer.firstStep)
   const secondStepInfo=useSelector((state:RootState)=>state.eventReducer.secondStep)
-
+  console.log(client)
+console.log(client)
   console.log(events)
-
-  const allDataClient=events.map((e)=>{
+const findClientName=client?.find(user => user.id === firstStepInfo.clientId);
+  const allDataClient=events?.map((e)=>{
 
     return (<div key={e.id}
            className="flex flex-col  gap-2 pt-2 lg:w-4/5 py-1
@@ -111,6 +113,15 @@ const RecapitulatifCalendar = () => {
 // }
 async function handleAddData(){
 
+// const momo=events.map(({end,start,...rest})=>{
+
+//   return {...rest}
+// })
+const momoTest=events.map((e)=>{
+  return( {...e,title:firstStepInfo.title,client:firstStepInfo.clientId,coachId:data?.user.id})
+})
+console.log(momoTest)
+
 //   manualyEvent.map(async(e)=>{
 //     const docBatch =  batch.set(doc(collection(db, 'users',userLoged,'events')), {
 //      ...e,clientName:nameClient,clientId:firstStepForm.client,type:firstStepForm.type
@@ -151,7 +162,7 @@ async function handleAddData(){
 </div>
     <div className='flex gap-4 ' >
     <AiOutlineUser size={20} color='black'/>
-    <p className='font-semibold '>{firstStepInfo.clientId}</p>
+    <p className='font-semibold '>{findClientName?.name}</p>
     </div>
     
        

@@ -1,17 +1,19 @@
 
 import { useForm } from "react-hook-form";
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {AddEventContext} from '../fonctionality/AddEvent'
 interface Props{
 nextStepSubEvent:()=>void
 saveStepForm:(events:DefaultValue)=>void
 defaultValueForm:DefaultValue
+subStepForm?:boolean
 }
 type DefaultValue={
    
     dateFirstWeek: string,
     dateSecondWeek:string,
     dateThreeWeek:string,
+   
     dateFourthWeek:string,
 
     hourStartFirstWeek:string,
@@ -27,7 +29,7 @@ type DefaultValue={
     hourEndFourthWeek:string,
 
 }
-const ManualySelectEvent = ({nextStepSubEvent,defaultValueForm,saveStepForm}:Props) => {
+const ManualySelectEvent = ({nextStepSubEvent,defaultValueForm,saveStepForm,subStepForm}:Props) => {
 
 
     
@@ -35,22 +37,24 @@ const ManualySelectEvent = ({nextStepSubEvent,defaultValueForm,saveStepForm}:Pro
 
  const {functionAddSubEvent}=useContext(AddEventContext)
     //hook pour initialiser le formulaire avec les valeur par defaut
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, formState: { errors },getValues ,reset} = useForm({
         defaultValues:{
 
        ...defaultValueForm
         }});
+        const [isSubmit,setIsSubmit]=useState(false)
 
 
         //function pour submit le formulaire
-
 function ValidateDataPick(val:DefaultValue){
 
     // ici je creee les variable pour les recuperer obligatoire pour creer une date
     console.log(val)
+    setIsSubmit(true)
 saveStepForm(val)
 
 nextStepSubEvent()
+
 let firstStartDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
 let firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
 
@@ -84,7 +88,12 @@ console.log(momo)
 functionAddSubEvent(momo)
 }
 
-
+useEffect(()=>{
+if(defaultValueForm.dateFirstWeek.length>1)
+{
+    setIsSubmit(true)
+}
+},[defaultValueForm])
 
 // le return de la fonction qui permet d'afficher les composants 
 
@@ -100,13 +109,14 @@ functionAddSubEvent(momo)
         <label className='font-semibold text-sm'>Première séance</label>
 
         <input   
-        className=" form-input w-5/6 self-center border-slate-600 border-2 rounded-2xl" 
+        className=" bg-slate-50 border-slate-400  
+        rounded-md  py-3 pl-4 form-input"  disabled={isSubmit} 
          {...register("dateFirstWeek")} type={'date'}/>
         <div className="flex gap-2 items-center justify-center">
             <label>De :</label>
-        <input className="border-2  rounded-2xl border-slate-500 " {...register('hourStartFirstWeek')} type='time'/>
+        <input disabled={isSubmit} className="border-2  rounded-lg  bg-slate-50 border-slate-500"{...register('hourStartFirstWeek')} type='time'/>
         <label>A :</label>
-        <input className="border-2 rounded-2xl border-slate-500" type={'time'}  {...register('hourEndFirstWeek')}/>
+        <input disabled={isSubmit} className="border-2  rounded-lg  bg-slate-50 border-slate-500" type={'time'}  {...register('hourEndFirstWeek')}/>
         </div>
         </div>
 
@@ -116,14 +126,15 @@ functionAddSubEvent(momo)
 
         <label className='font-semibold text-sm'>Deuxième séance</label>
 
-        <input  className=" form-input w-5/6 self-center border-slate-600 border-2 rounded-2xl" 
+        <input  className=" bg-slate-50 border-slate-400 
+         rounded-md  py-3 pl-4 form-input"    disabled={isSubmit} 
         {...register("dateSecondWeek")} type={'date'}/>
         <div className="flex gap-2 items-center justify-center">
             <label>De :</label>
-        <input className="border-2  rounded-2xl border-slate-500"  {...register("hourStartSecondtWeek")} type={'time'}/>
+        <input  disabled={isSubmit}  className="border-2  rounded-lg  bg-slate-50 border-slate-500"  {...register("hourStartSecondtWeek")} type={'time'}/>
         <label>A :</label>
-        <input   {...register("hourEndSecondWeek")} type={'time'}
-        className="border-2  rounded-2xl border-slate-500"/>
+        <input   {...register("hourEndSecondWeek")} type={'time'}  disabled={isSubmit} 
+        className="border-2  rounded-lg  bg-slate-50 border-slate-500"/>
         </div>
         </div>
 
@@ -132,13 +143,14 @@ functionAddSubEvent(momo)
 
         <label className='font-semibold text-sm'>Troisième séance</label>
 
-        <input  className=" form-input w-5/6 self-center border-slate-600 border-2 rounded-2xl" 
+        <input  className=" bg-slate-50 border-slate-400 
+         rounded-md  py-3 pl-4 form-input "   disabled={isSubmit} 
          {...register("dateThreeWeek")} type={'date'}/>
         <div className="flex gap-2 items-center justify-center">
             <label>De :</label>
-        <input className="border-2  rounded-2xl border-slate-500"   {...register("hourStartThirdWeek")} type='time' />
+        <input className="border-2  rounded-lg  bg-slate-50 border-slate-500"   disabled={isSubmit}   {...register("hourStartThirdWeek")} type='time' />
         <label>A :</label>
-        <input className="border-2  rounded-2xl border-slate-500" type='time'  {...register("hourEndThirdWeek")}/>
+        <input className="border-2  rounded-lg  bg-slate-50 border-slate-500"  disabled={isSubmit}  type='time'  {...register("hourEndThirdWeek")}/>
         </div>
         </div>
 
@@ -146,24 +158,36 @@ functionAddSubEvent(momo)
         <div className="flex flex-col gap-4 ">
         <label className='font-semibold text-sm'>Quatrième séance</label>
 
-        <input  className=" form-input w-5/6 self-center border-slate-600 border-2 rounded-2xl" 
+        <input  className=" bg-slate-50 border-slate-400 
+         rounded-md  py-3 pl-4 form-input"    disabled={isSubmit} 
          {...register("dateFourthWeek")} type={'date'}/>
         <div className="flex gap-2 items-center justify-center">
             <label>De :</label>
-        <input className="border-2  rounded-2xl border-slate-500"   {...register("hourStartFourthWeek")} type='time' />
+        <input className="border-2  rounded-lg bg-slate-50 border-slate-500 "    disabled={isSubmit}  {...register("hourStartFourthWeek")} type='time' />
         <label>A :</label>
-        <input className="border-2  rounded-2xl border-slate-500" type='time'  {...register("hourEndThirdWeek")}/>
+        <input className="border-2  rounded-lg  bg-slate-50 border-slate-500"   disabled={isSubmit} type='time'  {...register("hourEndThirdWeek")}/>
         </div>
         </div>
 
 
         
+     <div className="w-full flex justify-center">
+     { isSubmit&&
+  <button  className="bg-slate-700 px-20  s font-semibold text-lg  self-center
+   text-slate-50 py-2 rounded-lg my-8"
+        type="button"
+        onClick={()=>{
+          
+            setIsSubmit(false)
+           
+    }}>Modifier</button> }
+    {isSubmit==false&& <button  type="submit" className="bg-slate-700 px-20  font-semibold text-lg  self-center text-slate-50 py-2 rounded-lg my-8"
+        
+    onClick={handleSubmit(ValidateDataPick)}>Valider</button>}
+    </div>
      
-        
-        <button  className="bg-slate-700 px-20  font-semibold text-lg  self-center text-slate-50 py-2 rounded-lg my-8"
-        
-        onClick={handleSubmit(ValidateDataPick)}>Valider</button>
     </form>
+ 
    </main>
   )
 }

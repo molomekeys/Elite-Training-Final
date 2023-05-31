@@ -15,68 +15,77 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
-// Necessary for Next auth
-model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? // @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    @@unique([provider, providerAccountId])
-}
-
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+    id    String @id @default(cuid())
+    name  String
+    email String @unique
+
+    image          String?
+    password       String
+    role           String
+    phone_number   String
+    coach_table    Client?
+    client_table   Coach?
+    isPaidCustomer Boolean @default(false)
 }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+model Coach {
+    id              Int      @id @default(dbgenerated("1"))
+    numero_siren    String
+    licence_sportif Bytes?
+    coach_id        String   @unique
+    created_at      DateTime @default(now())
+    UserIdCoach     User     @relation(fields: [coach_id], references: [id])
+    client          Client[]
+    Events          Events[]
+}
 
-    @@unique([identifier, token])
+model Client {
+    id           Int           @id @default(autoincrement())
+    coach_Id     String?
+    user_Id      String        @unique
+    created_at   DateTime      @default(now())
+    coachId      Coach?        @relation(fields: [coach_Id], references: [coach_id])
+    UserIdPrisma User          @relation(fields: [user_Id], references: [id])
+    Profil       ClientProfil?
+    event        Events[]
+}
+
+model ClientProfil {
+    id           Int    @id @default(autoincrement())
+    age          Int
+    weight       Int
+    client_id    Int    @unique
+    useridprisma Client @relation(fields: [client_id], references: [id])
+}
+
+model Events {
+    id                 Int      @id @default(autoincrement())
+    start              DateTime
+    end                DateTime
+    coach_id           Int      @unique
+    client_id          Int      @unique
+    salle              String
+    hours              BigInt
+    isPaid             Boolean  @default(false)
+    type_offer         BigInt   @unique
+    typeofferprisma    Product? @relation(fields: [type_offer], references: [id])
+    useridprismaClient Client   @relation(fields: [client_id], references: [id])
+    UserIdCoach        Coach    @relation(fields: [coach_id], references: [id])
 }
 
 model Product {
-    id          String  @id @default(cuid())
-    name        String
-    adress      String?
-    phoneNumber String?
-    offers      Offer[]
+    id            BigInt   @id @default(autoincrement())
+    name          String
+    adress        String?
+    phoneNumber   String?
+    offers        Offer[]
+    eventsRelated Events[]
 }
 
 model Offer {
-    id          String  @id @default(cuid())
-    productId   String
+    id          BigInt  @id @default(autoincrement())
+    productId   BigInt
     product     Product @relation(fields: [productId], references: [id])
     weekNumber  Int
     coachPrice  Int

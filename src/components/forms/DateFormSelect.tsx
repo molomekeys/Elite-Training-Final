@@ -66,10 +66,17 @@ console.log(events)
 <SmartFormAutoEvent numberOfSeance={secondStep.seanceWeekNumber}/>
 }       
 {secondStep.typeOfDate=='manualy'&&
-<section>
-  {subStepForm>1&&<button onClick={()=>{
-    clearEventData()
+<section >
+  <section className="w-full justify-between flex ">
+  {<button className=" cursor-pointer" onClick={()=>{
+   
     stepBackSubForm()}}><AiOutlineArrowLeft size={30}/></button>}
+    {
+      <button onClick={
+       
+        nextStepSubForm}><AiOutlineArrowRight size={30}/></button>
+    }
+    </section>
 {secondStep.seanceWeekNumber=='1'&&subStepForm==1&&
 <section>
   <ManualySelectEvent  saveStepForm={saveFirstSubEvent}
@@ -80,27 +87,36 @@ console.log(events)
 
 
 {secondStep.seanceWeekNumber=='2'&&<section> 
-
-{subStepForm==1&&<ManualySelectEvent   saveStepForm={saveFirstSubEvent}
+{subStepForm==1&&
+<ManualySelectEvent  
+  saveStepForm={saveFirstSubEvent}
 defaultValueForm={firstManualyForm}  nextStepSubEvent={nextStepSubForm}/>}
-{subStepForm==2&&<ManualySelectEvent  saveStepForm={saveSecondSubEvent}
- defaultValueForm={secondManualyForm}  nextStepSubEvent={nextStepSubForm}/>}
-<button onClick={stepBackSubForm}>go back </button>
+
+
+
+{subStepForm==2&&<ManualySelectEvent  
+  saveStepForm={saveSecondSubEvent}
+defaultValueForm={secondManualyForm}  nextStepSubEvent={nextStepSubForm}/>}
+
+
+
 </section> }
 
 
 
 {secondStep.seanceWeekNumber=='3' &&<section> 
-{subStepForm==1&&<ManualySelectEvent  saveStepForm={saveFirstSubEvent}
+{subStepForm==1&&<ManualySelectEvent  
+
+saveStepForm={saveFirstSubEvent}
 defaultValueForm={firstManualyForm}  nextStepSubEvent={nextStepSubForm}/>}
-{subStepForm==2&&<ManualySelectEvent saveStepForm={saveSecondSubEvent}
+{subStepForm==2&&<ManualySelectEvent   saveStepForm={saveSecondSubEvent}
  nextStepSubEvent={nextStepSubForm} defaultValueForm={secondManualyForm}/>}
-{subStepForm==3&&<ManualySelectEvent saveStepForm={saveThirdSubEvent}
+{subStepForm==3&&<ManualySelectEvent   saveStepForm={saveThirdSubEvent}
 nextStepSubEvent={nextStepSubForm} defaultValueForm={thirdManualyForm}/>}
 </section> }
 
 
-<button onClick={nextStepSubForm}>next</button>
+
 <p className="text-right font-semibold text-lg p-10">{subStepForm}/{secondStep.seanceWeekNumber}</p>
   </section>}
     </section>

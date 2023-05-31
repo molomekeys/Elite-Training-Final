@@ -15,28 +15,59 @@ import DateFormSelect from '../forms/DateFormSelect'
 import { backStepForm ,clearTheStore} from '~/features/event/eventSlice'
 import { useDispatch,useSelector } from 'react-redux'
 import RecapitulatifCalendar from '../forms/RecapitulatifCalendar' 
+import { api } from '~/utils/api'
+
 import type { RootState } from '~/app/store'
+import { Events } from '~/pages/coach/planning'
 export type EventsType= {
   start: Date;
   id: string;
   end: Date;
+ 
   hours: number;
 }
+export type EventsTypeAgenda= {
+  start: Date;
+  id: string;
+  end: Date;
+
+  hours: number;
+}
+interface PropsAddEvent{
+  updateData:(e:Events[])=>void
+}
 interface ContextEventInterface{
-events:EventsType[]
+  client:{ createdAt: Date;
+    name: string;
+    email: string;
+    id: string;
+    phone_number: string;}[],
+events:EventsTypeAgenda[], saveEvent:(e:Events[])=>void,
 functionEvent:(eventData:EventsType[])=>void
 functionAddSubEvent:(eventData:EventsType[])=>void
 clearEventData:()=>void
 
 }
+
+// react context
+
 export const AddEventContext=createContext<ContextEventInterface>(
-  {functionAddSubEvent:()=>{},clearEventData:()=>{},events:[{end:new Date(),hours:5,id:'1',start:new Date()}] ,functionEvent:()=>{}})
-const AddEvent = () => {
+  {functionAddSubEvent:()=>{},clearEventData:()=>{},client:[],saveEvent:(e:Events[])=>{},
+  events:
+  [{end:new Date(),hours:5,id:'1',start:new Date()}] ,functionEvent:()=>{}})
+
+
+
+  // react function 
+const AddEvent = ({updateData}:PropsAddEvent) => {
 //cela permet d'utiliser chakra ui
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
     const modalSize = isLargerThan768 ? "5xl" : "full";
 const dispatch=useDispatch()
+const allClient=api.example.fetchDataLoginCoach.useQuery()?.data?.map((e)=>{
+  return {...e.UserIdPrisma,createdAt:e.created_at}
+})
 const stepForm=useSelector((state:RootState)=>state.eventReducer.stepForm)
 
     //le stat qui controler les étapes du forms
@@ -81,7 +112,7 @@ function saveSecondStep(e:typeof formDataSteps.secondStep){
 ////quand le calendar est fait auto pour garder les valeurs 
 //du calendrier avec use contexte 
 
-function saveEventData(events:EventsType[]){
+function saveEventData(events:Events[]){
   setIsEventAdded(events)
 }
 
@@ -121,7 +152,7 @@ console.log(saveSecondStepForm)
 
     return (
       <>
-      <AddEventContext.Provider value={{clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
+      <AddEventContext.Provider value={{saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
         events:isEventAdded,functionEvent:saveEventData}}>
         <button  className='text-slate-50 px-3 py-2 w-min-fit 
           bg-[#3C486B] rounded-lg font-bold   '

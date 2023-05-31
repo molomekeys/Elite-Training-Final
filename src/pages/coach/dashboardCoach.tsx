@@ -10,9 +10,17 @@ import type { RootState } from '../../app/store'
 const dashboardCoach = () => {
     const {data}=useSession()
     const dispatch = useDispatch()
-
+    console.log(data?.user)
+    if(data?.user)
+    {
+const dataCoach =api.example.fetchDataLoginCoach.useQuery()
     console.log('render')
-    console.log(data)
+   
+    const momo =dataCoach.data
+    const testmomo=momo?.map((e)=>{
+      return {...e.UserIdPrisma,createdAt:e.created_at}
+    })
+    console.log(testmomo)
     // const offerToUser=api.example.findOffer.useQuery({name:'fitness park'}).data
     // console.log(offerToUser)
   return (
@@ -29,5 +37,6 @@ const dashboardCoach = () => {
 
   </main>
   )
+    }
 }
 export default dashboardCoach

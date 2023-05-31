@@ -9,12 +9,8 @@
 //   const [stripePromise,setStripePromise]=useState()
 //   const [clientSecret,setClientSecret]=useState('')
 //   useEffect(()=>{
-//  async function fetchKeysStripe(){
-// const dataKey=await fetch('/api/payement/stripe').then((e)=>{
-//   return e.json()
-// })
+
 // setClientSecret(dataKey.clientSecret)
-// const momo  = await loadStripe('pk_test_51MswCdGU6BKqDgY0tDdH1m5PShHdGh4SkpCKvf7pG5YNt08FhENQOqJXujXnKmbWpmJsonxmv9hqHEsUlR0hC7eg006frco6HS')
 // if(momo)
 // {
 //   //@ts-ignore
@@ -43,9 +39,34 @@
 
 // export default PayementPage
 
+
+import { loadStripe } from "@stripe/stripe-js"
+const momo  =  loadStripe('pk_test_51MswCdGU6BKqDgY0tDdH1m5PShHdGh4SkpCKvf7pG5YNt08FhENQOqJXujXnKmbWpmJsonxmv9hqHEsUlR0hC7eg006frco6HS')
+
+
 const PayementPage = () => {
+
+ async function fetchKeysStripe(){
+const dataKey=await fetch('/api/payement/stripe',{
+  method:'POST',headers:{
+    "content-type" :"application/json"
+  }
+}).then((e)=>{
+  return e.json()
+})
+//@ts-ignore
+const test = await momo
+const result=test&&test.redirectToCheckout({
+  sessionId:dataKey.sessionId
+})
+ }
+
   return (
-    <div>PayementPage</div>
+    <div>PayementPage
+
+      <button onClick={fetchKeysStripe}>pay bro </button>
+    </div>
   )
 }
+
 export default PayementPage

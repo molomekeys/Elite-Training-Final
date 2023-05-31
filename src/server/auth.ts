@@ -1,5 +1,5 @@
 import { type GetServerSidePropsContext } from "next";
-
+import { api } from "~/utils/api";
 import {
   getServerSession,
   type NextAuthOptions,
@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
    jwt:({token,user})=>{
-  
+  console.log(token,user)
     return {...token,...user}
    },
     session: ({ session, user,token }) => {
@@ -95,18 +95,25 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
+      
         // Add logic here to look up the user from the credentials supplied
-        const user = { id: "1", name: "Merouane", email: "jsmith@exa.com",role:'coach' }
-  
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
+        const momo =await prisma.user.findFirst(
+          {where:{email:credentials?.username}})
+        console.log(credentials)
+        console.log(momo)
+        console.log('pourquoi')
+        if(momo)
+        {
+          const {password,...rest}=momo
+          return rest
+        }
+        else {
           return null
+        }
+        
   
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-        }
+        
       }
     })
   

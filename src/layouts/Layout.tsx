@@ -30,7 +30,7 @@ const Layout = ({children }:LayoutPage) => {
     <main className="flex flex-col lg:flex-row  h-full g:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800    ">
       
         {session?.user.role=='coach'&& 
-        <div className="w-full   min-h-screen
+        <div className="w-full   lg:min-h-screen
          lg:w-4/12 lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800    ">
           <SideNavbarCoach/></div>}
 

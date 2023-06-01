@@ -12,7 +12,8 @@ import {RiLogoutCircleRLine} from 'react-icons/ri'
 const SideNavbarClient = () => {
     const router=useRouter()
     async function signOutTest(){
-      await signOut({callbackUrl:'http://localhost:3000'})
+      const momo =await signOut({callbackUrl:'http://localhost:3000'})
+      return momo
     }
     const [toggleNavigationBar,setToggleNavigationBar]=useState(false)
 

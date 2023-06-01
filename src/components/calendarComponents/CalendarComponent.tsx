@@ -10,9 +10,9 @@ type SingleEvent={
   end:Date
   resource?:{
    
-    customMessage?:String
+    customMessage?:string
   }
-  customInfo?:String
+  customInfo?:string
 }
 interface Props {
   event:SingleEvent[];
@@ -94,7 +94,7 @@ function CalendarComponent({event}:Props) {
     // meridiemHour : function (hour, meridiem) {
     //     return /* 0-23 hour, given meridiem token and hour 1-12 */ ;
     // },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function (hours) {
         return hours < 12 ? 'PD' : 'MD';
     },
     week : {

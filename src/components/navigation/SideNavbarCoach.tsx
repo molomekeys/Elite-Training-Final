@@ -14,7 +14,8 @@ const SideNavbarCoach = () => {
   
     const [toggleNavigationBar,setToggleNavigationBar]=useState(false)
     async function signOutTest(){
-      await signOut({callbackUrl:'http://localhost:3000'})
+      const momo =await signOut({callbackUrl:'http://localhost:3000'})
+    return momo
     }
   return (
     <section className="bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700 

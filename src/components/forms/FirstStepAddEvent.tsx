@@ -6,7 +6,6 @@ import { RootState } from '~/app/store'
 import {AddEventContext} from '../fonctionality/AddEvent'
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { api } from '~/utils/api';
 import { useSession } from 'next-auth/react';
 import { useContext } from 'react';
 export interface FirstStepData{

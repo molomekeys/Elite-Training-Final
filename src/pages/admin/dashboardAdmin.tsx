@@ -6,7 +6,7 @@ const dashboardAdmin = () => {
 
   console.log(momo.data)
     async function AddData(){
-   momo.mutate({name:'derniere entree'})
+   const vasy = await momo.mutateAsync({name:'derniere entree'})
      
     
     }

@@ -4,7 +4,7 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
-const sgMail = require('@sendgrid/mail');
+import sgMail from '@sendgrid/mail'
 export const exampleRouter = createTRPCRouter({
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
@@ -65,11 +65,11 @@ export const exampleRouter = createTRPCRouter({
             }
 
           }})
-          sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY||"")
           const sendGridMail={
             to: email,
-            from :'elitetraining38@gmail.com',
-            templateId:"d-80f1d4b1219e4d98bdefa4270b41bffa",
+            from :'ouzar.merouane@gmail.com',
+            templateId:"9f8483eff2c943d4a994e5e97cce8ff3",
             dynamic_template_data:{
                 coachName:name
             }

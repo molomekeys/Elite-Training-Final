@@ -4,7 +4,7 @@ import { api } from "~/utils/api"
 import {  useDispatch } from 'react-redux'
 
 
-const dashboardCoach = () => {
+const DashboardCoach = () => {
     const {data}=useSession()
     const dispatch = useDispatch()
     console.log(data?.user)
@@ -36,4 +36,4 @@ const dataCoach =api.example.fetchDataLoginCoach.useQuery()
   )
     }
 }
-export default dashboardCoach
+export default DashboardCoach

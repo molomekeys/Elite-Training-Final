@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
-import Layout from "~/layouts/Layout"
-const Test = () => {
+ const Test = () => {
     const router = useRouter()
     console.log(router.query.test)
   return (

@@ -9,6 +9,8 @@ import {AiOutlineDashboard} from 'react-icons/ai'
 import {HiOutlineUserGroup} from 'react-icons/hi'
 import {FaFileInvoiceDollar} from 'react-icons/fa'
 import {RiLogoutCircleRLine} from 'react-icons/ri'
+import Logo from '../../../public/logo.png';
+
 const SideNavbarCoach = () => {
     const router=useRouter()
   
@@ -34,7 +36,7 @@ async function signOutTest(): Promise<void> {
           
             <Image  width={120} height={85} className=' object-cover
              float-left relative'
-            src='/Logo.png' alt='logo'/>
+            src={Logo} alt='logo'/>
             </Link>
         </div>
     <div className="flex lg:flex-col items-center justify-center w-full "> 
@@ -93,7 +95,7 @@ async function signOutTest(): Promise<void> {
     </svg>
       </button>
         </div>
-        <div  
+        <div   onClick={()=>signOut()}
     className=" my-10 p-3 cursor-pointer  hover:bg-gradient-to-r text-slate-50 from-slate-600 to-cyan-700  hidden lg:flex self-center w-full justify-center bottom-0 absolute">
    
         < RiLogoutCircleRLine size={30} className='scale-y-2  hidden lg:flex  -rotate-90'/>

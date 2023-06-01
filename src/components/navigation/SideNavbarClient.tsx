@@ -21,7 +21,7 @@ const SideNavbarClient = () => {
      } catch (error) {
       
      }}
-     
+
   return (
     <section className="bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700 
     lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800
@@ -75,10 +75,11 @@ const SideNavbarClient = () => {
     </svg>
       </button>
         </div>
-        <div   onClick={signOutTest}    
+        <div
     className=" my-10 p-3 cursor-pointer  hover:bg-gradient-to-r text-slate-50 from-slate-600 to-cyan-700  hidden lg:flex self-center w-full justify-center bottom-0 absolute">
    
-        < RiLogoutCircleRLine size={30} className='scale-y-2  hidden lg:flex  -rotate-90'/>
+        < RiLogoutCircleRLine size={30}  onClick={signOutTest}  
+        className='scale-y-2  hidden lg:flex  -rotate-90'/>
 
 </div>
     

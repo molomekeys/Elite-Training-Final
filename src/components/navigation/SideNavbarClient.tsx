@@ -11,9 +11,9 @@ import {FaFileInvoiceDollar} from 'react-icons/fa'
 import {RiLogoutCircleRLine} from 'react-icons/ri'
 const SideNavbarClient = () => {
     const router=useRouter()
-    async function signOutTest(){
-      const momo =await signOut({callbackUrl:'http://localhost:3000'})
-      return momo
+function signOutTest(){
+ signOut({callbackUrl:'http://localhost:3000'})
+  
     }
     const [toggleNavigationBar,setToggleNavigationBar]=useState(false)
 

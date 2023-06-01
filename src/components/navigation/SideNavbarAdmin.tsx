@@ -14,8 +14,9 @@ const SideNavbarAdmin = () => {
   
     const [toggleNavigationBar,setToggleNavigationBar]=useState(false)
 
-async function signOutTest(){
-  await signOut({callbackUrl:'http://localhost:3000'})
+function signOutTest(){
+    signOut({callbackUrl:'http://localhost:3000'})
+   
 }
 
   return (

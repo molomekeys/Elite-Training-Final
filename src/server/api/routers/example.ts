@@ -58,7 +58,7 @@ export const exampleRouter = createTRPCRouter({
           
          const {id}=createUser
           const createCoach=await ctx.prisma.coach.create({data:{
-            numero_siren:sirenNumber,id:4,UserIdCoach:{
+            numero_siren:sirenNumber,UserIdCoach:{
              connect:{
               id:id
              }

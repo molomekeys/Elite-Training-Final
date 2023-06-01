@@ -46,11 +46,10 @@ export default function AddRoom() {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const initialRef = useRef(null)
-    const[succesAddClient,setSuccesAddClient]=useState(false)
-    const[isClientAdded,setIsAddClient]=useState(false)
+   
     const finalRef = useRef(null)
   
-    const { register, handleSubmit ,formState:{errors},watch,reset,trigger} = useForm(
+    const { register, handleSubmit ,formState:{errors},reset} = useForm(
       
       {defaultValues:{email:'',lastName:'',firstName:'',confirmEmail:'',
     coachPriceOneWeek:"",clientPriceOneWeek:"",
@@ -66,9 +65,14 @@ export default function AddRoom() {
         const[stepFormSalle,setStepFormSalle]=useState(1)
 //function async pour creer un client au niveau de firebase
 
-function createClient(data:ClientData){
-  const{confirmEmail,...dataToSave}=data
+async function createClient(data:ClientData) :Promise<void>{
+  try {
+    const{confirmEmail,...dataToSave}=data
   console.log(dataToSave)
+  } catch (error) {
+    console.log(error)
+  }
+  
  
 //fin de la function fermeture de l'appp
 }

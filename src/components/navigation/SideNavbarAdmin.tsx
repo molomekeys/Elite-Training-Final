@@ -13,7 +13,14 @@ const SideNavbarAdmin = () => {
     const router=useRouter()
   
     const [toggleNavigationBar,setToggleNavigationBar]=useState(false)
-
+    async function signOutTest(): Promise<void> {
+ 
+      try {
+       await signOut({callbackUrl:'http://localhost:3000'})
+       // Process the received data here
+     } catch (error) {
+      
+     }}
    
   return (
     <section className="bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700 
@@ -82,7 +89,7 @@ const SideNavbarAdmin = () => {
     </svg>
       </button>
         </div>
-        <div   
+        <div    onClick={signOutTest}  
     className=" my-10 p-3 cursor-pointer  hover:bg-gradient-to-r text-slate-50 from-slate-600 to-cyan-700  hidden lg:flex self-center w-full justify-center bottom-0 absolute">
    
         < RiLogoutCircleRLine size={30} className='scale-y-2  hidden lg:flex  -rotate-90'/>

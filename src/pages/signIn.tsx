@@ -65,7 +65,7 @@ async function onSubmit(values:LoginFormType)  {
 // }
 
 
-};
+}
 
   return (
     <main className="w-screen flex relative flex-col   
@@ -108,7 +108,7 @@ className="flex w-full
 flex-col gap-4 p-5  md:w-4/5 lg:w-3/5 lg:p-10 bg-slate-50 shadow-2xl
 rounded-xl  ">
       
-<h3 className="font-bold text-2xl lg:text-4xl py-4 text-center">Page d'inscription</h3>
+<h3 className="font-bold text-2xl lg:text-4xl py-4 text-center">Page d&rsquo; inscription</h3>
 
 <label className="font-semibold">Numéro SIREN :</label>
 <input {...register('sirenNumber')} type={'text'} placeholder="Veuillez inscrire votre numéro SIREN"

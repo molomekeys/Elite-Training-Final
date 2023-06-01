@@ -6,7 +6,7 @@ const config = {
   overrides: [
     {
       extends: [
-        ""
+        "next"
       ],
       files: ["*.ts", "*.tsx"],
       parserOptions: {

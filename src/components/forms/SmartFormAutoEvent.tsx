@@ -1,6 +1,6 @@
 
 import {useForm} from 'react-hook-form'
-import * as z from 'zod';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { number } from 'zod';
 import {v4} from 'uuid'
@@ -57,8 +57,8 @@ function createTheSpecifiqueDate(a:[Date,Date],b?:[Date,Date],c?:[Date,Date]){
 
   }
   else if((a&&b)&&!c){
-    let hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
-    let hoursSecondEvent=(b[1].getTime()-b[0].getTime())/(60*60*1000)
+  const  hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
+  const  hoursSecondEvent=(b[1].getTime()-b[0].getTime())/(60*60*1000)
 
     do {
      
@@ -85,9 +85,9 @@ function createTheSpecifiqueDate(a:[Date,Date],b?:[Date,Date],c?:[Date,Date]){
 
   }
   else if((b&&c)&&a){
-    let hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
-    let hoursSecondEvent=(b[1].getTime()-b[0].getTime())/(60*60*1000)
-    let hoursThirdEvent=(c[1].getTime()-c[0].getTime())/(60*60*1000)
+  const  hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
+    const hoursSecondEvent=(b[1].getTime()-b[0].getTime())/(60*60*1000)
+    const hoursThirdEvent=(c[1].getTime()-c[0].getTime())/(60*60*1000)
 
     do {
      
@@ -158,26 +158,26 @@ function handleSubmitSmartForm(val:DefaultValue){
   //cette condition est pour faire en sorte  de repeter les evenemtns
 
 dispatch(setAutoEventForm(val))
-let firstDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
-let firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
+const firstDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
+const firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
 
-let secondStartDate=new Date(val.dateSecondWeek+'T'+val.hourStartSecondWeek+':00')
-let secondEndDate=new Date(val.dateSecondWeek+'T'+val.hourEndSecondWeek+':00')
+const secondStartDate=new Date(val.dateSecondWeek+'T'+val.hourStartSecondWeek+':00')
+const secondEndDate=new Date(val.dateSecondWeek+'T'+val.hourEndSecondWeek+':00')
 
-let thirdStartDate=new Date(val.dateThirdWeek+'T'+val.hourStartThirdWeek+':00')
-let thirdEndDate=new Date(val.dateThirdWeek+'T'+val.hourEndThirdWeek+':00')
-
-
-let compareDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
+const thirdStartDate=new Date(val.dateThirdWeek+'T'+val.hourStartThirdWeek+':00')
+const thirdEndDate=new Date(val.dateThirdWeek+'T'+val.hourEndThirdWeek+':00')
 
 
+const compareDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
 
-    let newDate = new Date(firstDate)
-    let newEndDate = new Date(firstEndDate)
-    let newSecondStartDate = new Date(secondStartDate)
-    let newSecondEndDate = new Date(secondEndDate)
-    let newThirdStartDate = new Date(thirdStartDate)
-    let newThirdEndDate = new Date(thirdEndDate)
+
+
+    const newDate = new Date(firstDate)
+    const newEndDate = new Date(firstEndDate)
+    const newSecondStartDate = new Date(secondStartDate)
+    const newSecondEndDate = new Date(secondEndDate)
+    const newThirdStartDate = new Date(thirdStartDate)
+    const newThirdEndDate = new Date(thirdEndDate)
     
     let momo:EventsType[] =[]
 

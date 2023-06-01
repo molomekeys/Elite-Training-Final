@@ -71,12 +71,12 @@ export default function AddClient({refetchData}:Props) {
 
 async function createClient(data:ClientData){
   const {firstName,lastName,phoneNumber}=data
-  const correctFirstName=`${firstName[0]?.toLocaleUpperCase()} ${firstName.slice(1).toLowerCase()}`
-  const correctLastName=`${lastName[0]?.toLocaleUpperCase()} ${lastName.slice(1).toLowerCase()}`
-const password=`${correctFirstName.toLowerCase()} ${correctLastName.toLowerCase()}`
+  const correctFirstName=`${firstName[0]?.toLocaleUpperCase()}${firstName.slice(1).toLowerCase()}`
+  const correctLastName=`${lastName[0]?.toLocaleUpperCase()}${lastName.slice(1).toLowerCase()}`
+const password=`${correctFirstName.toLowerCase()}${correctLastName.toLowerCase()}`
 
     const tryCreatedUser=await createNewClient.mutateAsync({email:data.email,phoneNumber:phoneNumber,
-      name:`${correctLastName+' '+correctFirstName}`,password:password})
+      name:`${correctLastName+" "+correctFirstName}`,password:password})
   if(tryCreatedUser=='utilisateur déjà existant'){
     console.log(tryCreatedUser)
 

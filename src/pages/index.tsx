@@ -47,18 +47,18 @@ const [errorDisplay,setErrorDisplay]=useState(false)
         if(session?.user) {
           if(session.user.role=='admin')
           {
-            router.push('http://localhost:3000/admin/dashboardAdmin',)
+            router.push('admin/dashboardAdmin',)
           }
           else if(session.user.role=='coach')
           {
             console.log('slt')
-            router.push('http://localhost:3000/coach/dashboardCoach')
+            router.push('/coach/dashboardCoach')
 
           }
           else if(session.user.role=='client')
           {
             console.log('slt')
-            router.push('http://localhost:3000/client/planning')
+            router.push('/client/planning')
 
           }
         }

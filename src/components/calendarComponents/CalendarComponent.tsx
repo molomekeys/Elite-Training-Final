@@ -8,6 +8,7 @@ type SingleEvent={
  
   start:Date
   end:Date
+  type:string
   resource?:{
    
     customMessage?:string
@@ -83,7 +84,7 @@ function CalendarComponent({event}:Props) {
     },
     dayOfMonthOrdinalParse : /\d{1,2}(er|e)/,
     ordinal : function (number) {
-        return number + (number === 1 ? 'er' : 'e');
+        return `${number + (number === 1 ? 'er' : 'e')}`;
     },
     meridiemParse : /PD|MD/,
     isPM : function (input) {
@@ -108,7 +109,7 @@ function CalendarComponent({event}:Props) {
 
 //cela change la couleur d'une celule
 
-const eventStyleGetter = (event:any, start:Date, end:Date, isSelected:any) => {
+const eventStyleGetter = (event:SingleEvent, start:Date, end:Date, isSelected:boolean) => {
 
   // change the color based on the event type
 

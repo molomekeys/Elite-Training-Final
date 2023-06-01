@@ -83,8 +83,24 @@ model Product {
     eventsRelated Events[]
 }
 
+model StripePricing {
+    id           Int            @id @default(autoincrement())
+    price_coach  Int
+    price_client Int
+    product_id   String
+    room_id      Int?
+    roomIdPrisma AvailableRoom? @relation(fields: [room_id], references: [id])
+}
+
+model AvailableRoom {
+    id              Int             @id @default(autoincrement())
+    room_name       String
+    related_price   Int
+    prisma_price_id StripePricing[]
+}
+
 model Offer {
-    id          BigInt  @id @default(autoincrement())
+    id          Int     @id @default(autoincrement())
     productId   BigInt
     product     Product @relation(fields: [productId], references: [id])
     weekNumber  Int

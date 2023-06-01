@@ -59,7 +59,7 @@ const [errorDisplay,setErrorDisplay]=useState(false)
           else if(session.user.role=='client')
           {
             console.log('slt')
-            router.push('http://localhost:3000/client/dashboardClient')
+            router.push('http://localhost:3000/client/planning')
 
           }
         }

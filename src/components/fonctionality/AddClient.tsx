@@ -44,6 +44,7 @@ const validationSchema = z.object({
 
 
 //function qui affiche à l'ecran
+
 interface Props{
   refetchData:()=>void
 }
@@ -58,11 +59,9 @@ export default function AddClient({refetchData}:Props) {
     const[succesAddClient,setSuccesAddClient]=useState(false)
     const[isClientAdded,setIsAddClient]=useState(false)
     const finalRef = useRef(null)
-    const allClient=api.example.fetchDataLoginCoach.useQuery().data?.map((e)=>{
-      return {...e.UserIdPrisma,createdAt:e.created_at}
-    })
+   
   
-    console.log(allClient)
+    
     const { register, handleSubmit ,formState:{errors},watch,reset} = useForm(
       
       {defaultValues:{email:'',lastName:'',firstName:'',confirmEmail:'',phoneNumber:''}, resolver: zodResolver(validationSchema),});

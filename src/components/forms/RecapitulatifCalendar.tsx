@@ -117,8 +117,10 @@ async function handleAddData(){
 
 //   return {...rest}
 // })
-const momoTest=events.map((e)=>{
-  return( {...e,title:firstStepInfo.title,client:firstStepInfo.clientId,coachId:data?.user.id})
+const momoTest=events.map((eventData)=>{
+  const {id,...rest}=eventData
+  return( {...rest,title:firstStepInfo.title,room:secondStepInfo.programmeName,
+    client:firstStepInfo.clientId,coachId:data?.user.id})
 })
 console.log(momoTest)
 

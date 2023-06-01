@@ -19,6 +19,15 @@ import { api } from '~/utils/api'
 
 import type { RootState } from '~/app/store'
 import { Events } from '~/pages/coach/planning'
+export type AllClientType={
+  
+  createdAt: Date;
+  id: string;
+  name: string;
+  email: string;
+  phone_number: string;
+
+}
 export type EventsType= {
   start: Date;
   id: string;
@@ -35,6 +44,8 @@ export type EventsTypeAgenda= {
 }
 interface PropsAddEvent{
   updateData:(e:Events[])=>void
+  allClient:AllClientType[]
+
 }
 interface ContextEventInterface{
   client:{ createdAt: Date;
@@ -59,15 +70,13 @@ export const AddEventContext=createContext<ContextEventInterface>(
 
 
   // react function 
-const AddEvent = ({updateData}:PropsAddEvent) => {
+const AddEvent = ({updateData,allClient}:PropsAddEvent) => {
 //cela permet d'utiliser chakra ui
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
     const modalSize = isLargerThan768 ? "5xl" : "full";
 const dispatch=useDispatch()
-const allClient=api.example.fetchDataLoginCoach.useQuery()?.data?.map((e)=>{
-  return {...e.UserIdPrisma,createdAt:e.created_at}
-})
+
 const stepForm=useSelector((state:RootState)=>state.eventReducer.stepForm)
 
     //le stat qui controler les étapes du forms

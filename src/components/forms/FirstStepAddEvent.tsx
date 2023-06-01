@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setFirstStepForm ,nextStepForm} from '~/features/event/eventSlice'
 import { RootState } from '~/app/store'
 
-
+import {AddEventContext} from '../fonctionality/AddEvent'
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from '~/utils/api';
 import { useSession } from 'next-auth/react';
+import { useContext } from 'react';
 export interface FirstStepData{
     title:string 
     clientId:string 
@@ -28,19 +29,16 @@ const FirstStepAddEvent = () => {
     const {register,handleSubmit,formState:{errors}}=useForm({
         defaultValues:{...firstStepDefault},resolver:zodResolver(validationFirstStepSchema)})
         const {data}=useSession()
-        
+        const {client}=useContext(AddEventContext)
     const dispatch=useDispatch()
-    const allClient=api.example.fetchDataLoginCoach.useQuery().data
-    const testmomo=allClient&&allClient?.map((e)=>{
-      return {...e.UserIdPrisma,createdAt:e.created_at}
-    })
+   
     const rooms=[
         {name:'Merouane'},
         {name:'Fares'},
      
     ]
  
-    const allOptionsOffer=testmomo&& testmomo?.map((e)=>{
+    const allOptionsOffer=client.map((e)=>{
         return (<option value={e.id} key={e.id}>{e.name}</option>)
     })
 

@@ -18,11 +18,12 @@ export default async function handler(
   line_items: [
     {
       // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-      price: 'price_1NDeMwGU6BKqDgY0VYXptnb4',
+      price: 'price_1NDtCGGU6BKqDgY0joLbL5iZ',
       quantity: 10,
     },
   ],
   mode: 'payment',
+ 
   success_url: `${req.headers.origin}/?success=true`,
   cancel_url: `${req.headers.origin}/?canceled=true`,
 });

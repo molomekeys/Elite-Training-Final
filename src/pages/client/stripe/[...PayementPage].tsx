@@ -47,18 +47,18 @@ const momo  =  loadStripe('pk_test_51MswCdGU6BKqDgY0tDdH1m5PShHdGh4SkpCKvf7pG5YN
 const PayementPage = () => {
 
  async function fetchKeysStripe(): Promise<void>{
-const dataKey:{sessionId:string}=await fetch('/api/payement/stripe',{
-  method:'POST',headers:{
-    "content-type" :"application/json"
-  }
-}).then((e)=>{
-  return e.json()
-})
 
-const test = await momo
-const result=test&& await test.redirectToCheckout({
-  sessionId:dataKey.sessionId
-})
+
+
+try {
+  const response = await fetch('/api/payement/stripe');
+  const data = await response.json();
+  // Process the received data here
+} catch (error) {
+ 
+}
+
+
  }
 
   return (

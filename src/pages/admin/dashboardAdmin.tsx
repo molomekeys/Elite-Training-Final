@@ -1,9 +1,6 @@
-import { useSession } from "next-auth/react"
 import AddRoom from "~/components/AdminComponents/AddRoom"
-import SideNavbarAdmin from "~/components/navigation/SideNavbarAdmin"
 import { api } from "~/utils/api"
 const dashboardAdmin = () => {
-    const {data}=useSession()
     const momo=api.example.addRoom.useMutation()
   
 

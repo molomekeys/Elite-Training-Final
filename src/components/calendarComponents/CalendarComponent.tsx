@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment';
 import { useMediaQuery } from '@chakra-ui/media-query';

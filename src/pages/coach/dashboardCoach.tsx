@@ -1,11 +1,8 @@
 import { useSession } from "next-auth/react"
-import AddClient from "~/components/fonctionality/AddClient"
-import BasicBro from "~/components/fonctionality/BasicBro"
-import SideNavbarCoach from "~/components/navigation/SideNavbarCoach"
-import { api } from "~/utils/api"
-import { useSelector, useDispatch } from 'react-redux'
 
-import type { RootState } from '../../app/store'
+import { api } from "~/utils/api"
+import {  useDispatch } from 'react-redux'
+
 
 const dashboardCoach = () => {
     const {data}=useSession()

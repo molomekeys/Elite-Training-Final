@@ -1,4 +1,3 @@
-import Layout from "~/layouts/Layout"
 import { Link } from "@chakra-ui/react"
 const facture = () => {
 

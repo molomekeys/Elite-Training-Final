@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import {useForm} from 'react-hook-form'
-import type {FirstStepData} from './FirstStepAddEvent'
+
 import type { RootState } from '../../app/store'
 
 import { useSelector, useDispatch } from 'react-redux'

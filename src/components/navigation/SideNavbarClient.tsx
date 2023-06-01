@@ -11,7 +11,9 @@ import {FaFileInvoiceDollar} from 'react-icons/fa'
 import {RiLogoutCircleRLine} from 'react-icons/ri'
 const SideNavbarClient = () => {
     const router=useRouter()
-  
+    async function signOutTest(){
+      await signOut({callbackUrl:'http://localhost:3000'})
+    }
     const [toggleNavigationBar,setToggleNavigationBar]=useState(false)
 
   return (
@@ -67,9 +69,9 @@ const SideNavbarClient = () => {
     </svg>
       </button>
         </div>
-        <div   onClick={async ()=>{
-      await  signOut({callbackUrl:'http://localhost:3000'}) 
-       }}
+        <div   onClick={
+   
+       signOutTest}
     className=" my-10 p-3 cursor-pointer  hover:bg-gradient-to-r text-slate-50 from-slate-600 to-cyan-700  hidden lg:flex self-center w-full justify-center bottom-0 absolute">
    
         < RiLogoutCircleRLine size={30} className='scale-y-2  hidden lg:flex  -rotate-90'/>

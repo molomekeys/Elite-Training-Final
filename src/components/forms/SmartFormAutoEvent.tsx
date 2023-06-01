@@ -42,7 +42,7 @@ function createTheSpecifiqueDate(a:[Date,Date],b?:[Date,Date],c?:[Date,Date]){
   const arrayOfEvents=[]
   console.log(b)
   if(a&&(!b&&!c)){
-    let hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
+    const hoursFirstEvent=(a[1].getTime()-a[0].getTime())/(60*60*1000)
     do {
      
       

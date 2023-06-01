@@ -1,10 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { PaymentIntent } from '@stripe/stripe-js';
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Stripe } from 'stripe';
 
 
-const stripe:Stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 
 

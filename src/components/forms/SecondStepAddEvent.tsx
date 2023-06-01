@@ -67,7 +67,7 @@ else if(formData.firstStep.affiliateGym=='true'&&formData.secondStep.programmeNa
      */
     setValue('programmeName','')
 }
-},[formData])
+},[formData,setValue])
 
     return (
     <section className='w-full flex flex-col bg-white'>

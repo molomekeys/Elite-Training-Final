@@ -43,11 +43,11 @@ const testmomo=dataCoach.data&&dataCoach.data.map((e)=>{
 
  
   const allFetchedClient=testmomo?.map((e)=>{
-   return(  <tr id={e.id} className=" py-4   ">
-      <td id={v4()}  className="py-3 text-xs font-semibold italic pl-4 ">{e.createdAt.toLocaleDateString()}</td>
-      <td id={v4()} className="py-3 font-semibold text-sm ">{e.name}</td>
-      <td id={v4()} className="py-3 font-semibold text-sm">{e.phone_number}</td>
-      <td id={v4()} className="py-3  font-semibold text-sm">{e.email}</td>
+   return(  <tr key={e.id} className=" py-4   ">
+      <td key={v4()}   className="py-3 text-xs font-semibold italic pl-4 ">{e.createdAt.toLocaleDateString()}</td>
+      <td key={v4()} className="py-3 font-semibold text-sm ">{e.name}</td>
+      <td key={v4()} className="py-3 font-semibold text-sm">{e.phone_number}</td>
+      <td key={v4()} className="py-3  font-semibold text-sm">{e.email}</td>
     </tr>)
 
   })

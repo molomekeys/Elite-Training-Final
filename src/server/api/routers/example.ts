@@ -71,7 +71,7 @@ export const exampleRouter = createTRPCRouter({
       }),
       loginIn:publicProcedure.input(z.object({email:z.string(),password:z.string()})).
       query(async ({input,ctx})=>{
-        let findUser= await ctx.prisma.user.findFirst({where:{
+        const findUser= await ctx.prisma.user.findFirst({where:{
           email:input.email,
         },include:{
           coach_table:true
@@ -110,7 +110,7 @@ export const exampleRouter = createTRPCRouter({
         }
         }),fetchCoachData:publicProcedure.input(z.object({id:z.string()})).
         query(async ({input,ctx})=>{
-          let findUser= await ctx.prisma.user.findFirst({where:{
+          const findUser= await ctx.prisma.user.findFirst({where:{
             id:ctx.session?.user.id
           }})
        return findUser

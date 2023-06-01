@@ -65,7 +65,7 @@ export const exampleRouter = createTRPCRouter({
             }
 
           }})
-          sgMail.setApiKey(process.env.SENDGRID_API_KEY||"")
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY==undefined? '' : process.env.SENDGRID_API_KEY)
           const sendGridMail={
             to: email,
             from :'ouzar.merouane@gmail.com',

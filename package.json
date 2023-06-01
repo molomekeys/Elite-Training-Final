@@ -6,9 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "postinstall": "prisma generate",
-   
+    "lint": "next lint",
     "start": "next start"
-    
   },
   "dependencies": {
     "@chakra-ui/react": "^2.6.1",

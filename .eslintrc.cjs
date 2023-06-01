@@ -30,7 +30,8 @@ const config = {
     ],
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-misused-promises": "off", // Disable the rule here
-  "@typescript-eslint/no-floating-promises":'off'
+  "@typescript-eslint/no-floating-promises":'off',
+"  @typescript-eslint/restrict-plus-operands":"off"
   },
 };
 

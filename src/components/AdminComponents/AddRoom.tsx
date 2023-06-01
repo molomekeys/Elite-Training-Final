@@ -65,19 +65,16 @@ export default function AddRoom() {
         const[stepFormSalle,setStepFormSalle]=useState(1)
 //function async pour creer un client au niveau de firebase
 
-async function createClient(data:ClientData) :Promise<void>{
-  try {
+function createClient(data:ClientData) {
+
     const{confirmEmail,...dataToSave}= data
 
   console.log(dataToSave)
-  return
-  } catch (error) {
-    console.log(error)
-  }
+}
   
  
 //fin de la function fermeture de l'appp
-}
+
 
     return (
       <>

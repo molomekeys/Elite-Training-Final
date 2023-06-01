@@ -86,7 +86,7 @@ const SideNavbarCoach = () => {
       </button>
         </div>
         <div   onClick={async ()=>{
-        signOut({callbackUrl:'http://localhost:3000'}) 
+       await signOut({callbackUrl:'http://localhost:3000'}) 
        }}
     className=" my-10 p-3 cursor-pointer  hover:bg-gradient-to-r text-slate-50 from-slate-600 to-cyan-700  hidden lg:flex self-center w-full justify-center bottom-0 absolute">
    

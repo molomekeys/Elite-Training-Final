@@ -54,9 +54,9 @@ const dataKey=await fetch('/api/payement/stripe',{
 }).then((e)=>{
   return e.json()
 })
-//@ts-ignore
+
 const test = await momo
-const result=test&&test.redirectToCheckout({
+const result=test&& await test.redirectToCheckout({
   sessionId:dataKey.sessionId
 })
  }

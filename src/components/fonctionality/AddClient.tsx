@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import {
     Modal,
     ModalOverlay,
-    ModalContent,FormControl,Input,FormLabel,
+    ModalContent,
     ModalHeader,useMediaQuery,
     ModalFooter,
     ModalBody,
@@ -10,14 +10,13 @@ import {
   } from '@chakra-ui/react'
 
   import {useDisclosure} from '@chakra-ui/react'
-  import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
-  import {useEffect, useRef, useState} from 'react'
+
+  import { useRef, useState} from 'react'
 
 
 import { api } from '~/utils/api';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { EventsType } from './AddEvent';
 
 
 
@@ -88,7 +87,7 @@ const password=`${correctFirstName.toLowerCase()+''+correctLastName.toLowerCase(
    
    onClose()
    reset()
-
+refetchData()
   }
   }
     

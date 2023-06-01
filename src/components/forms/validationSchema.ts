@@ -25,8 +25,8 @@ export const FirstValidationTypeSchema= z.object({
       const [hourStartFirstWeek=0, minuteStartFirstWeek=0] = data.hourStartFirstWeek.split(":").map(Number)
       const [hoursEndFirstWeek=0, minuteEndFirstWeek=0] = data.hourEndFirstWeek.split(":").map(Number)
   
-    let TotalTimeStartFirstWeek=hourStartFirstWeek*60+minuteStartFirstWeek
-    let TotalTimeEndWeek=hoursEndFirstWeek*60+minuteEndFirstWeek
+    const TotalTimeStartFirstWeek=hourStartFirstWeek*60+minuteStartFirstWeek
+    const TotalTimeEndWeek=hoursEndFirstWeek*60+minuteEndFirstWeek
     console.log(TotalTimeEndWeek)
     console.log(TotalTimeStartFirstWeek)
   
@@ -72,8 +72,8 @@ export const FirstValidationTypeSchema= z.object({
         const [hourStartFirstWeek=0, minuteStartFirstWeek=0] = data.hourStartFirstWeek.split(":").map(Number)
         const [hoursEndFirstWeek=0, minuteEndFirstWeek=0] = data.hourEndFirstWeek.split(":").map(Number)
   
-      let TotalTimeStartFirstWeek=hourStartFirstWeek*60+minuteStartFirstWeek
-      let TotalTimeEndWeek=hoursEndFirstWeek*60+minuteEndFirstWeek
+      const TotalTimeStartFirstWeek=hourStartFirstWeek*60+minuteStartFirstWeek
+      const TotalTimeEndWeek=hoursEndFirstWeek*60+minuteEndFirstWeek
       console.log(TotalTimeEndWeek)
       console.log(TotalTimeStartFirstWeek)
   
@@ -89,7 +89,7 @@ export const FirstValidationTypeSchema= z.object({
       let isPased=true
       if(data?.hourStartSecondWeek&&data?.hourEndSecondWeek)
       {
-        let {hourStartSecondWeek,hourEndSecondWeek}=data
+        const {hourStartSecondWeek,hourEndSecondWeek}=data
         if(hourStartSecondWeek.length>1&&hourEndSecondWeek.length>1)
         {
         const momo =data.hourStartFirstWeek
@@ -98,8 +98,8 @@ export const FirstValidationTypeSchema= z.object({
         console.log(data.hourStartSecondWeek)
         console.log(data.hourEndSecondWeek)
 
-    let TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
-    let TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
+    const TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
+    const TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
     console.log(TotalTimeStartFirstWeek)
 console.log(TotalTimeEndWeek)
     if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)
@@ -142,8 +142,8 @@ console.log(TotalTimeEndWeek)
         const [hourStartThirdWeekT=0, minuteStartThirdWeekT=0] = data.hourStartFirstWeek.split(":").map(Number)
         const [hoursEndThirdWeekT=0, minuteEndThirdWeekT=0] = data.hourEndFirstWeek.split(":").map(Number)
   
-      let TotalTimeStartFirstWeek=hourStartThirdWeekT*60+minuteStartThirdWeekT
-      let TotalTimeEndWeek=hoursEndThirdWeekT*60+minuteEndThirdWeekT
+      const TotalTimeStartFirstWeek=hourStartThirdWeekT*60+minuteStartThirdWeekT
+      const TotalTimeEndWeek=hoursEndThirdWeekT*60+minuteEndThirdWeekT
      
   
       if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)
@@ -162,7 +162,7 @@ console.log(TotalTimeEndWeek)
       let isPased=true
       if(data?.hourStartSecondWeek&&data?.hourEndSecondWeek)
       {
-        let {hourStartSecondWeek,hourEndSecondWeek}=data
+        const {hourStartSecondWeek,hourEndSecondWeek}=data
         if(hourStartSecondWeek.length>1&&hourEndSecondWeek.length>1)
         {
         const momo =data.hourStartFirstWeek
@@ -171,8 +171,8 @@ console.log(TotalTimeEndWeek)
         console.log(data.hourStartSecondWeek)
         console.log(data.hourEndSecondWeek)
 
-    let TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
-    let TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
+    const TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
+    const TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
     console.log(TotalTimeStartFirstWeek)
 console.log(TotalTimeEndWeek)
     if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)
@@ -196,7 +196,7 @@ console.log(TotalTimeEndWeek)
           let isPased=true
           if(data?.hourStartSecondWeek&&data?.hourEndSecondWeek)
           {
-            let {hourStartSecondWeek,hourEndSecondWeek}=data
+            const {hourStartSecondWeek,hourEndSecondWeek}=data
             if(hourStartSecondWeek.length>1&&hourEndSecondWeek.length>1)
             {
             const momo =data.hourStartFirstWeek
@@ -205,8 +205,8 @@ console.log(TotalTimeEndWeek)
             console.log(data.hourStartSecondWeek)
             console.log(data.hourEndSecondWeek)
     
-        let TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
-        let TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
+        const TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
+        const TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
         console.log(TotalTimeStartFirstWeek)
     console.log(TotalTimeEndWeek)
         if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)
@@ -248,8 +248,8 @@ console.log(TotalTimeEndWeek)
             const [hourStartThirdWeekT=0, minuteStartThirdWeekT=0] = data.hourStartFirstWeek.split(":").map(Number)
             const [hoursEndThirdWeekT=0, minuteEndThirdWeekT=0] = data.hourEndFirstWeek.split(":").map(Number)
       
-          let TotalTimeStartFirstWeek=hourStartThirdWeekT*60+minuteStartThirdWeekT
-          let TotalTimeEndWeek=hoursEndThirdWeekT*60+minuteEndThirdWeekT
+          const TotalTimeStartFirstWeek=hourStartThirdWeekT*60+minuteStartThirdWeekT
+          const TotalTimeEndWeek=hoursEndThirdWeekT*60+minuteEndThirdWeekT
          
       
           if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)
@@ -268,7 +268,7 @@ console.log(TotalTimeEndWeek)
           let isPased=true
           if(data?.hourStartSecondWeek&&data?.hourEndSecondWeek)
           {
-            let {hourStartSecondWeek,hourEndSecondWeek}=data
+            const {hourStartSecondWeek,hourEndSecondWeek}=data
             if(hourStartSecondWeek.length>1&&hourEndSecondWeek.length>1)
             {
             const momo =data.hourStartFirstWeek
@@ -277,8 +277,8 @@ console.log(TotalTimeEndWeek)
             console.log(data.hourStartSecondWeek)
             console.log(data.hourEndSecondWeek)
     
-        let TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
-        let TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
+        const TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
+        const TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
         console.log(TotalTimeStartFirstWeek)
     console.log(TotalTimeEndWeek)
         if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)
@@ -302,7 +302,7 @@ console.log(TotalTimeEndWeek)
               let isPased=true
               if(data?.hourStartSecondWeek&&data?.hourEndSecondWeek)
               {
-                let {hourStartSecondWeek,hourEndSecondWeek}=data
+                const {hourStartSecondWeek,hourEndSecondWeek}=data
                 if(hourStartSecondWeek.length>1&&hourEndSecondWeek.length>1)
                 {
                 const momo =data.hourStartFirstWeek
@@ -311,8 +311,8 @@ console.log(TotalTimeEndWeek)
                 console.log(data.hourStartSecondWeek)
                 console.log(data.hourEndSecondWeek)
         
-            let TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
-            let TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
+            const TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
+            const TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
             console.log(TotalTimeStartFirstWeek)
         console.log(TotalTimeEndWeek)
             if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)

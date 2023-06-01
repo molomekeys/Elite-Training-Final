@@ -2,9 +2,8 @@ import AddClient from "~/components/fonctionality/AddClient"
 import { useSession, } from "next-auth/react"
 import { useDispatch } from "react-redux"
 import { api } from "~/utils/api"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import {HiUser} from 'react-icons/hi2'
-import {GoMail} from 'react-icons/go'
 import {MdEmail,MdCall} from 'react-icons/md'
 import {BsFillCalendarPlusFill} from 'react-icons/bs'
 
@@ -14,7 +13,7 @@ type ClientDataType={
         id: string;
         createdAt:Date
 }
-const client = () => {
+const Client = () => {
 
   const {data}=useSession()
   const dispatch = useDispatch()
@@ -83,4 +82,4 @@ const testmomo=dataCoach.data&&dataCoach.data.map((e)=>{
    </main>
   )}
   }
-export default client
+export default Client

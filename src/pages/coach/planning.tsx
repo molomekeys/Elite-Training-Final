@@ -9,7 +9,7 @@ end : Date
 hours :number
 
 }
-const planningCoach = () => {
+const PlanningCoach = () => {
   console.log('rerender from planning')
   const [eventsData,setEventsData]=useState<Events[]>([])
   function fetchDataBack(e:Events[]){
@@ -34,4 +34,4 @@ const planningCoach = () => {
     </main>
   )
 }
-export default planningCoach
+export default PlanningCoach

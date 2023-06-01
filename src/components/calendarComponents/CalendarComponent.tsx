@@ -8,7 +8,7 @@ type SingleEvent={
  
   start:Date
   end:Date
-  type:string
+ 
   resource?:{
    
     customMessage?:string
@@ -133,13 +133,15 @@ const eventStyleGetter = (event:SingleEvent, start:Date, end:Date, isSelected:bo
     return {style}; // reduce opacity for finished events
   }
   
-  if (event.type === 'meeting') {
-    style.backgroundColor = '#f0'
-    return {style};
-  } else if (event.type === 'appointment') {
-    style.backgroundColor = '#064e3b'
-    return {style};
-  }
+  // if (event.type === 'meeting') {
+  //   style.backgroundColor = '#f0'
+  //   return {style};
+
+  // }
+  // // } else if (event.type === 'appointment') {
+  // //   style.backgroundColor = '#064e3b'
+  // //   return {style};
+  // // }
  
    
     if(start.getDay=== today.getDay){

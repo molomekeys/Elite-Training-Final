@@ -67,7 +67,8 @@ export default function AddRoom() {
 
 async function createClient(data:ClientData) :Promise<void>{
   try {
-    const{confirmEmail,...dataToSave}=data
+    const{confirmEmail,...dataToSave}= await data
+
   console.log(dataToSave)
   } catch (error) {
     console.log(error)

@@ -17,6 +17,7 @@ const SideNavbarAdmin = () => {
  
       try {
        await signOut({callbackUrl:'http://localhost:3000'})
+       return 
        // Process the received data here
      } catch (error) {
       

@@ -84,7 +84,7 @@ function CalendarComponent({event}:Props) {
     },
     dayOfMonthOrdinalParse : /\d{1,2}(er|e)/,
     ordinal : function (number) {
-        return `${number +' '+ (number === 1 ? 'er' : 'e')}`;
+        return `${number} ${(number === 1 ? 'er' : 'e')}`;
     },
     meridiemParse : /PD|MD/,
     isPM : function (input) {

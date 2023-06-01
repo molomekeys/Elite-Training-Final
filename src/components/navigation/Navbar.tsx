@@ -2,6 +2,8 @@ import Link from "next/link"
 import Image from 'next/image'
 import { useRouter } from 'next/router';
 import { useState } from "react";
+import Logo from '../../../public/logo.png';
+
 const Navbar = () => {
   const router=useRouter()
   const [toggleNavigationBar,setToggleNavigationBar]=useState(false)
@@ -16,7 +18,7 @@ const Navbar = () => {
           
             <Image  width={110} height={85} className=' object-cover
              float-left relative'
-            src='/Logo.png' alt='logo'/>
+            src={Logo} alt='logo'/>
             </Link>
             <h3 className="text-slate-100 font-semibold  hidden lg:flex">Elite Training</h3>
         </div>

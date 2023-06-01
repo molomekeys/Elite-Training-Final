@@ -85,9 +85,7 @@ export const eventSlice = createSlice({
 
      state.secondStep=action.payload
     },
-    decrement: (state) => {
-      
-    },
+   
     nextStepForm:(state)=>{
         if(state.stepForm>=5)
         {
@@ -106,9 +104,7 @@ export const eventSlice = createSlice({
     setAutoEventForm:(state,action:PayloadAction<FormAutoEventType>)=>{
       state.formAutoEvent=action.payload
     },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-     
-    },
+   
    
     clearTheStore:(state)=>{
       return initialState

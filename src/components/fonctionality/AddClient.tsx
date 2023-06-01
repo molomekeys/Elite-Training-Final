@@ -71,9 +71,9 @@ export default function AddClient({refetchData}:Props) {
 
 async function createClient(data:ClientData){
   const {firstName,lastName,phoneNumber}=data
-  const correctFirstName=`${firstName[0]?.toLocaleUpperCase()+''+firstName.slice(1).toLowerCase()}`
-  const correctLastName=`${lastName[0]?.toLocaleUpperCase()+''+lastName.slice(1).toLowerCase()}`
-const password=`${correctFirstName.toLowerCase()+''+correctLastName.toLowerCase()}`
+  const correctFirstName=`${firstName[0]?.toLocaleUpperCase()} ${firstName.slice(1).toLowerCase()}`
+  const correctLastName=`${lastName[0]?.toLocaleUpperCase()} ${lastName.slice(1).toLowerCase()}`
+const password=`${correctFirstName.toLowerCase()} ${correctLastName.toLowerCase()}`
 
     const tryCreatedUser=await createNewClient.mutateAsync({email:data.email,phoneNumber:phoneNumber,
       name:`${correctLastName+' '+correctFirstName}`,password:password})
@@ -177,7 +177,9 @@ id='firstName' type={'tel'}   className='form-input rounded-md  border-2 border-
           <button className='text-slate-50 bg-cyan-800 py-2 px-4 rounded-lg font-semibold' type='submit'>Sauvegarder</button>
           <Button onClick={()=>{
             reset()
-            onClose()}}>Annuler</Button>
+            onClose()
+            return 
+            }}>Annuler</Button>
           </div>
          </ModalFooter>
          </form>

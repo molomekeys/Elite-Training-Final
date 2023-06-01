@@ -55,28 +55,28 @@ saveStepForm(val)
 
 nextStepSubEvent()
 
-let firstStartDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
-let firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
+const firstStartDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
+const firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
 
-let dateStartSecondWeek=new Date(val.dateSecondWeek+'T'+val.hourStartSecondtWeek+':00')
-let dateEndSecondWeek=new Date(val.dateSecondWeek+'T'+val.hourEndSecondWeek+':00')
+const dateStartSecondWeek=new Date(val.dateSecondWeek+'T'+val.hourStartSecondtWeek+':00')
+const dateEndSecondWeek=new Date(val.dateSecondWeek+'T'+val.hourEndSecondWeek+':00')
 
-let dateStartThirdWeek=new Date(val.dateThreeWeek+'T'+val.hourStartThirdWeek+':00')
-let dateEndThirdWeek=new Date(val.dateThreeWeek+'T'+val.hourEndThirdWeek+':00')
+const dateStartThirdWeek=new Date(val.dateThreeWeek+'T'+val.hourStartThirdWeek+':00')
+const dateEndThirdWeek=new Date(val.dateThreeWeek+'T'+val.hourEndThirdWeek+':00')
 
-let dateStartFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourStartFourthWeek+':00')
-let dateEndFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourEndThirdWeek+':00')
+const dateStartFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourStartFourthWeek+':00')
+const dateEndFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourEndThirdWeek+':00')
 
 //calcul des heures
 
-let hoursFirstWeek=(firstEndDate.getTime()-firstStartDate.getTime())/( 3600000)
-let hoursSecondtWeek=(dateEndSecondWeek.getTime()-dateStartSecondWeek.getTime())/( 3600000)
-let hoursThirdtWeek=(dateEndThirdWeek.getTime()-dateStartThirdWeek.getTime())/( 3600000)
-let hoursFourthWeek=(dateEndFourthdWeek.getTime()-dateStartFourthdWeek.getTime())/( 3600000)
+const hoursFirstWeek=(firstEndDate.getTime()-firstStartDate.getTime())/( 3600000)
+const hoursSecondtWeek=(dateEndSecondWeek.getTime()-dateStartSecondWeek.getTime())/( 3600000)
+const hoursThirdtWeek=(dateEndThirdWeek.getTime()-dateStartThirdWeek.getTime())/( 3600000)
+const hoursFourthWeek=(dateEndFourthdWeek.getTime()-dateStartFourthdWeek.getTime())/( 3600000)
 // dans cette partie je sauvegarde les dates créer et génerer pour les 
 //sauvegarde dans le store 
 
-let momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),id:'1',
+const momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),id:'1',
     end:
     new Date(firstEndDate)},
     {end:dateEndSecondWeek,start:dateStartSecondWeek,hours:hoursSecondtWeek,id:'1'},

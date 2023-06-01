@@ -1,11 +1,10 @@
 import { z } from "zod";
-
 import {
   createTRPCRouter,
   publicProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
-
+const sgMail = require('@sendgrid/mail');
 export const exampleRouter = createTRPCRouter({
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
@@ -15,7 +14,7 @@ export const exampleRouter = createTRPCRouter({
       };
     }),
 
-  
+ 
 
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
@@ -66,6 +65,24 @@ export const exampleRouter = createTRPCRouter({
             }
 
           }})
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+          const sendGridMail={
+            to: email,
+            from :'elitetraining38@gmail.com',
+            templateId:"d-80f1d4b1219e4d98bdefa4270b41bffa",
+            dynamic_template_data:{
+                coachName:name
+            }
+         }
+         
+         try {
+            await sgMail.send(sendGridMail);
+            console.log('Email sent successfully.');
+          } catch (error) {
+            console.error('Error sending email:', error);
+          }
+          
+       
         return createUser
       }
       }),
@@ -106,6 +123,7 @@ export const exampleRouter = createTRPCRouter({
           const addForClient=await ctx.prisma.client.create({data:{
             coach_Id:ctx.session?.user.id,user_Id:createUser.id,
           }})
+        
           return 'bravo utilisateur ajouter avec succès'
         }
         }),fetchCoachData:publicProcedure.input(z.object({id:z.string()})).

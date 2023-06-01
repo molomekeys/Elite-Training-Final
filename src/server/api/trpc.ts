@@ -16,6 +16,9 @@
  */
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { type Session } from "next-auth";
+import sgMail from '@sendgrid/mail'
+
+sgMail.setApiKey('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')
 
 import { getServerAuthSession } from "~/server/auth";
 import { prisma } from "~/server/db";

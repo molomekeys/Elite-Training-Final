@@ -26,7 +26,8 @@ const config = {
     "@typescript-eslint/no-misused-promises": "off", // Disable the rule here
   "@typescript-eslint/no-floating-promises":"off",
   " @typescript-eslint/no-empty-function":"off",
-" @typescript-eslint/restrict-plus-operands":"off"
+" @typescript-eslint/restrict-plus-operands":"off",
+"@typescript-eslint/no-var-requires":"off"
   },
 };
 

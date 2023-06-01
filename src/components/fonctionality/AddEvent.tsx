@@ -63,7 +63,11 @@ clearEventData:()=>void
 // react context
 
 export const AddEventContext=createContext<ContextEventInterface>(
-  {functionAddSubEvent:()=>{},clearEventData:()=>{},client:[],saveEvent:(e:Events[])=>{},
+  {functionAddSubEvent:()=>{
+    return 
+  },clearEventData:()=>{
+    return 
+  },client:[],saveEvent:(e:Events[])=>{},
   events:
   [{end:new Date(),hours:5,id:'1',start:new Date()}] ,functionEvent:()=>{}})
 

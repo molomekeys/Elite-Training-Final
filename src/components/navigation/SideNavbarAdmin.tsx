@@ -14,11 +14,10 @@ const SideNavbarAdmin = () => {
   
     const [toggleNavigationBar,setToggleNavigationBar]=useState(false)
 
-function signOutTest(){
-    signOut({callbackUrl:'http://localhost:3000'})
-   
-}
-
+    async function signOutTest(): Promise<void> {
+      await signOut({callbackUrl:'http://localhost:3000'})
+     
+         }
   return (
     <section className="bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700 
     lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800

@@ -67,9 +67,13 @@ export const AddEventContext=createContext<ContextEventInterface>(
     return 
   },clearEventData:()=>{
     return 
-  },client:[],saveEvent:(e:Events[])=>{},
+  },client:[],saveEvent:(e:Events[])=>{
+    return
+  },
   events:
-  [{end:new Date(),hours:5,id:'1',start:new Date()}] ,functionEvent:()=>{}})
+  [{end:new Date(),hours:5,id:'1',start:new Date()}] ,functionEvent:()=>{
+    return 
+  }})
 
 
 

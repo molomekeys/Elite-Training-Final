@@ -5,12 +5,14 @@ import {
   type NextAuthOptions,
   type DefaultSession,
   DefaultUser,
+  Session,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { string } from "zod";
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -48,8 +50,19 @@ export const authOptions: NextAuthOptions = {
   console.log(token,user)
     return {...token,...user}
    },
-    session: ({ session, user,token }) => {
-    session.user=token as any
+    session: ({ session,token }) => {
+
+
+       type test={
+        id: string;
+        role: string;
+    } & {
+        name?: string | null | undefined;
+        email?: string | null | undefined;
+        image?: string | null | undefined;
+    }
+       
+    session.user=token as test
    
       return ({
       

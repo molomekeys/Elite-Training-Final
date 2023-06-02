@@ -13,18 +13,21 @@ export default async function handler(
 ) {
   // const { items } = req.body;
   console.log(stripe)
+
+  const referer = req.headers.referer || 'https://example.com'; // Fallback URL
+
  const session= await stripe.checkout.sessions.create({
   line_items: [
     {
       // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-      price: 'price_1NDtCGGU6BKqDgY0joLbL5iZ',
+      price: 'price_1NDtlEL8uKxb9Hfaz5CIb6M6',
       quantity: 10,
     },
   ],
   mode: 'payment',
  
-  success_url: `${req.headers.origin}/?success=true`,
-  cancel_url: `${req.headers.origin}/?canceled=true`,
+  success_url: `${referer}?success=true`,
+  cancel_url: `${referer}?canceled=true`,
 });
  
   

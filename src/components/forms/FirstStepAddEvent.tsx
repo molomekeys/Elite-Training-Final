@@ -11,14 +11,14 @@ import { useContext } from 'react';
 export interface FirstStepData{
     title:string 
     clientId:string 
-    affiliateGym:string
+   
     productCategory:string
 }
 
 const  validationFirstStepSchema=z.object({
     title:z.string().min(6,'Titre trop court, ce titre sera afficher à votre client') ,
     clientId:z.string().nonempty('Veuillez selectionner une valeur'),
-    affiliateGym:z.string().nonempty('veuillez répondre à cette question'),
+   
     productCategory:z.string().nonempty('veuillez inscrire le type de produit facturer')
 })
 // debut de la  function react composant
@@ -78,16 +78,7 @@ className=" pl-3 text-lg  rounded-md  bg-slate-50 form-select border-slate-400 "
 </select>
 <p className='text-xs font-semibold text-red-500'>{errors.productCategory?.message}</p>
 
-       <label className='font-bold text-slate-900 text-xs'>Salle partenaire</label>
-         <select  {...register('affiliateGym')}
-           className='bg-slate-50 border-slate-400  
-          py-3  w-full  rounded-md' >
-            <option value={''}>Selectionner une valeur</option>
-           <option value={'true'}>Oui</option>
-           <option value={'false'}>Non</option>
-         </select>
-         <p className='text-xs font-semibold text-red-500'>{errors.affiliateGym?.message}</p>
-  
+    
          <button type='submit'
          
           className='bg-slate-800 px-6 py-3  font-semibold self-center rounded-xl text-slate-50  max-w-fit'

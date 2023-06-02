@@ -1,13 +1,12 @@
 import AddRoom from "~/components/AdminComponents/AddRoom"
 import { api } from "~/utils/api"
 const dashboardAdmin = () => {
-    const momo=api.example.addRoom.useMutation()
+    
   
 
-  console.log(momo.data)
+ 
     async function AddData(){
-   const vasy = await momo.mutateAsync({name:'derniere entree'})
-     
+    
     
     }
   return (

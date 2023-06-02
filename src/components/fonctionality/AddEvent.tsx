@@ -42,9 +42,23 @@ export type EventsTypeAgenda= {
 
   hours: number;
 }
+
+export type AllPrice={
+  pricing: {
+      id: number;
+      stripe_id: string;
+      seance_week: string;
+      coach_price: number;
+      client_price: number;
+      type_offert: string;
+  }[];
+  id: number;
+  room_name: string;
+}
 interface PropsAddEvent{
   updateData:(e:Events[])=>void
   allClient:AllClientType[]
+  allRoom:AllPrice[]
 
 }
 interface ContextEventInterface{
@@ -57,7 +71,7 @@ events:EventsTypeAgenda[], saveEvent:(e:Events[])=>void,
 functionEvent:(eventData:EventsType[])=>void
 functionAddSubEvent:(eventData:EventsType[])=>void
 clearEventData:()=>void
-
+allOffert :AllPrice[]
 }
 
 // react context
@@ -65,7 +79,7 @@ clearEventData:()=>void
 export const AddEventContext=createContext<ContextEventInterface>(
   {functionAddSubEvent:()=>{
     return 
-  },clearEventData:()=>{
+  },allOffert:[],clearEventData:()=>{
     return 
   },client:[],saveEvent:(e:Events[])=>{
     return
@@ -78,7 +92,7 @@ export const AddEventContext=createContext<ContextEventInterface>(
 
 
   // react function 
-const AddEvent = ({updateData,allClient}:PropsAddEvent) => {
+const AddEvent = ({updateData,allClient,allRoom}:PropsAddEvent) => {
 //cela permet d'utiliser chakra ui
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
@@ -169,7 +183,7 @@ console.log(saveSecondStepForm)
 
     return (
       <>
-      <AddEventContext.Provider value={{saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
+      <AddEventContext.Provider value={{allOffert:allRoom,saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
         events:isEventAdded,functionEvent:saveEventData}}>
         <button  className='text-slate-50 px-3 py-2 w-min-fit 
           bg-[#3C486B] rounded-lg font-bold   '

@@ -27,29 +27,35 @@ model User {
     phone_number   String
     coach_table    Client?
     client_table   Coach?
+    password_reset String? @default("null")
     isPaidCustomer Boolean @default(false)
 }
 
 model Coach {
     id              Int      @id @default(autoincrement())
     numero_siren    String
-    licence_sportif Bytes?
+    licence_sportif String?
     coach_id        String   @unique
     created_at      DateTime @default(now())
     UserIdCoach     User     @relation(fields: [coach_id], references: [id])
     client          Client[]
     Events          Events[]
+
+    @@index(coach_id)
 }
 
 model Client {
     id           Int           @id @default(autoincrement())
-    coach_Id     String?
-    user_Id      String        @unique
+    coach_id     String?
+    user_id      String        @unique
     created_at   DateTime      @default(now())
-    coachId      Coach?        @relation(fields: [coach_Id], references: [coach_id])
-    UserIdPrisma User          @relation(fields: [user_Id], references: [id])
+    coachId      Coach?        @relation(fields: [coach_id], references: [coach_id])
+    UserIdPrisma User          @relation(fields: [user_id], references: [id])
     Profil       ClientProfil?
     event        Events[]
+
+    @@index(user_id)
+    @@index(coach_id)
 }
 
 model ClientProfil {
@@ -58,6 +64,8 @@ model ClientProfil {
     weight       Int
     client_id    Int    @unique
     useridprisma Client @relation(fields: [client_id], references: [id])
+
+    @@index(client_id)
 }
 
 model Events {
@@ -70,41 +78,38 @@ model Events {
     hours              BigInt
     isPaid             Boolean  @default(false)
     type_offer         BigInt   @unique
-    typeofferprisma    Product? @relation(fields: [type_offer], references: [id])
     useridprismaClient Client   @relation(fields: [client_id], references: [id])
     UserIdCoach        Coach    @relation(fields: [coach_id], references: [id])
 }
 
-model Product {
-    id            BigInt   @id @default(autoincrement())
-    name          String
-    adress        String?
-    phoneNumber   String?
-    offers        Offer[]
-    eventsRelated Events[]
+model AvailablePlace {
+    id                  Int        @id @default(autoincrement())
+    room_name           String
+    adresse             String?
+    phone_Number        String?
+    email               String?
+    related_offer       Int
+    related_offerPrisma OfferTable @relation(fields: [related_offer], references: [id])
+
+    @@index(related_offer)
 }
 
-model StripePricing {
-    id           Int            @id @default(autoincrement())
-    price_coach  Int
-    price_client Int
-    product_id   String
-    room_id      Int?
-    roomIdPrisma AvailableRoom? @relation(fields: [room_id], references: [id])
+model OfferTable {
+    id              Int              @id @default(autoincrement())
+    name            String
+    available_place AvailablePlace[]
+    pricing_offer   PriceTable[]
 }
 
-model AvailableRoom {
-    id              Int             @id @default(autoincrement())
-    room_name       String
-    related_price   Int
-    prisma_price_id StripePricing[]
-}
+model PriceTable {
+    id            Int         @id @default(autoincrement())
+    stripe_id     String
+    seance_week   String
+    coach_price   Float
+    client_price  Float
+    type_offert   String
+    offer_id      Int?
+    prismaOfferId OfferTable? @relation(fields: [offer_id], references: [id])
 
-model Offer {
-    id          Int     @id @default(autoincrement())
-    productId   BigInt
-    product     Product @relation(fields: [productId], references: [id])
-    weekNumber  Int
-    coachPrice  Int
-    clientPrice Int
+    @@index(offer_id)
 }

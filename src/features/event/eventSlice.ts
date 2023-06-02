@@ -4,7 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 export interface FirstStepState{
     title:string
     clientId:string
-    affiliateGym:string
+
   productCategory:string
 
 }
@@ -60,7 +60,7 @@ const initialState: EventFormState =
       ,secondStep:{ programmeName:'',
      
     typeOfDate:'',seanceWeekNumber:'1'},
-    firstStep:{title:'',clientId:'',affiliateGym:'',
+    firstStep:{title:'',clientId:'',
     productCategory:''},stepForm:1
 }
 

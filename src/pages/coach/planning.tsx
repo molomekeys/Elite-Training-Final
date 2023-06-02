@@ -15,16 +15,23 @@ const PlanningCoach = () => {
   function fetchDataBack(e:Events[]){
     setEventsData(e)
   }
-  console.log(eventsData)
+
   const allClient=api.example.fetchDataLoginCoach.useQuery(undefined,{staleTime:10000,refetchOnWindowFocus:false}).data?.map((e)=>{
     return {...e.UserIdPrisma,createdAt:e.created_at}
   })
-  console.log(allClient)
+
+  const {data,isLoading}=api.example.availableOffer.useQuery()
+  
+
+if(isLoading){
+
+}
 
   return (
     <main className="w-full flex flex-col p-4 gap-4 ">
       <div className="w-full flex justify-end p-4">
-       <AddEvent updateData={fetchDataBack} allClient={allClient? allClient : []}/>
+       <AddEvent allRoom={data? data : []}
+        updateData={fetchDataBack} allClient={allClient? allClient : []}/>
       </div>
       <section className="w-full lg:px-5">
    <section className="lg:border-2 lg:p-2 rounded-md  border-[#3C486B]  lg:w-full">

@@ -230,7 +230,8 @@ console.log('rerender')
             <label  className="font-semibold text-sm">{`Premi\u00E8re s\xE9ance :`}</label>
             <input placeholder="Premiere seance" {...register('dateFirstWeek')}
             type={'date'}
-            className=" form-input w-5/6 self-center border-slate-500 border-2 rounded-2xl"/>
+            className=" bg-slate-50 border-slate-400 
+         rounded-md  py-3 pl-4 form-input" />
 <p className='text-xs font-semibold text-red-500'>{errors?.dateFirstWeek?.message}</p>
 
 </div>
@@ -248,7 +249,7 @@ console.log('rerender')
             <label>De :</label>
              <input  {...register('hourStartFirstWeek')}
             
-             className="border-2  rounded-2xl border-slate-500" type='time'/>
+            className="border-2  rounded-lg bg-slate-50 border-slate-500 "  type='time'/>
           </div>
           <div className='w-full text-center'>            
              <p className='text-xs font-semibold  text-red-500'>{errors?.hourStartFirstWeek?.message}</p>
@@ -264,7 +265,7 @@ console.log('rerender')
               
                <input 
                 {...register('hourEndFirstWeek')}
-               className="border-2 rounded-2xl border-slate-500 w-28" type={'time'}  />
+                className="border-2  rounded-lg bg-slate-50 border-slate-500 "  type={'time'}  />
 
                  </div>
 
@@ -300,7 +301,7 @@ console.log('rerender')
                         <label  className="font-semibold text-sm">{`Deuxième Séance :`}</label>
                         <input placeholder="Premiere seance" {...register('dateSecondWeek')}
                         type={'date'}
-                        className=" form-input w-5/6 self-center border-slate-500 border-2 rounded-2xl"/>
+                        className="border-2  rounded-lg bg-slate-50 border-slate-500 "  />
             <p className='text-xs font-semibold text-red-500'>{errors?.dateSecondWeek?.message}</p>
             
             </div>
@@ -318,7 +319,7 @@ console.log('rerender')
                         <label>De :</label>
                          <input  {...register('hourStartSecondWeek')}
                         
-                         className="border-2  rounded-2xl border-slate-500" type='time'/>
+                        className="border-2  rounded-lg bg-slate-50 border-slate-500 "  type='time'/>
                       </div>
                       <div className='w-full text-center'>            
                          <p className='text-xs font-semibold  text-red-500'>{errors?.hourStartSecondWeek?.message}</p>
@@ -334,7 +335,7 @@ console.log('rerender')
                           
                            <input 
                             {...register('hourEndSecondWeek')}
-                           className="border-2 rounded-2xl border-slate-500 w-28" type={'time'}  />
+                            className="border-2  rounded-lg bg-slate-50 border-slate-500 "  type={'time'}  />
             
                              </div>
             
@@ -362,7 +363,7 @@ console.log('rerender')
             <label  className="font-semibold text-sm">{`Troisième séance :`}</label>
             <input placeholder="Premiere seance" {...register('dateThirdWeek')}
             type={'date'}
-            className=" form-input w-5/6 self-center border-slate-500 border-2 rounded-2xl"/>
+            className="border-2  rounded-lg bg-slate-50 border-slate-500 "  />
 <p className='text-xs font-semibold text-red-500'>{errors?.dateThirdWeek?.message}</p>
 
 </div>
@@ -378,9 +379,9 @@ console.log('rerender')
                 <div className='flex flex-col gap-4  items-center w-full'>
          <div className='flex items-center gap-4 '>
             <label>De :</label>
-             <input  {...register('hourStartThirdWeek')}
+             <input   {...register('hourStartThirdWeek')}
             
-             className="border-2  rounded-2xl border-slate-500" type='time'/>
+            className="border-2  rounded-lg bg-slate-50 border-slate-500 " type='time'/>
           </div>
           <div className='w-full text-center'>            
              <p className='text-xs font-semibold  text-red-500'>{errors?.hourStartThirdWeek?.message}</p>
@@ -396,7 +397,7 @@ console.log('rerender')
               
                <input 
                 {...register('hourEndThirdWeek')}
-               className="border-2 rounded-2xl border-slate-500 w-28" type={'time'}  />
+                className="border-2  rounded-lg bg-slate-50 border-slate-500 "  type={'time'}  />
 
                  </div>
 

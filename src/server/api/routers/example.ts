@@ -4,7 +4,9 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
-import sgMail from '@sendgrid/mail'
+
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 export const exampleRouter = createTRPCRouter({
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
@@ -20,27 +22,28 @@ export const exampleRouter = createTRPCRouter({
     return "you can now see this secret message!";
   }),
 
-  addRoom:publicProcedure.input(z.object({
-    name:z.string()
+  // addRoom:publicProcedure.input(z.object({
+  //   name:z.string()
 
 
-  })).mutation(async({ctx,input})=>{
-     const addUser= await ctx.prisma.product.create({data:{
-   name:input.name
-     ,adress:'dernierajout',offers:{
-   create:   [{clientPrice:50,coachPrice:40,weekNumber:2},
-    {clientPrice:50,coachPrice:40,weekNumber:2}]
-     }
-      }})
-  return addUser
-    }),
-    findOffer:
-    publicProcedure.input(z.object({name:z.string()})).query
-    (async({input,ctx:{prisma}})=>{
-        const fetchedData=await prisma.product.findMany({include:{offers:true}})
-        return fetchedData
-    })
-    ,signInUser:publicProcedure.input(z.object(
+  // })).mutation(async({ctx,input})=>{
+  //    const addUser= await ctx.prisma.product.create({data:{
+  //  name:input.name
+  //    ,adress:'dernierajout',offers:{
+  //  create:   [{clientPrice:50,coachPrice:40,weekNumber:2},
+  //   {clientPrice:50,coachPrice:40,weekNumber:2}]
+  //    }
+  //     }})
+  // return addUser
+  //   })
+  
+    // findOffer:
+    // publicProcedure.input(z.object({name:z.string()})).query
+    // (async({input,ctx:{prisma}})=>{
+    //     const fetchedData=await prisma.product.findMany({include:{offers:true}})
+    //     return fetchedData
+    // })
+    signInUser:publicProcedure.input(z.object(
       {name:z.string(),email:z.string(),phoneNumber:z.string(),sirenNumber:z.string(),password:z.string()})).
       mutation(async({ctx,input:{email,password,name,sirenNumber,phoneNumber}})=>{
         const existingUser = await ctx.prisma.user.findUnique({
@@ -65,27 +68,71 @@ export const exampleRouter = createTRPCRouter({
             }
 
           }})
-          sgMail.setApiKey(process.env.SENDGRID_API_KEY==undefined? '' : process.env.SENDGRID_API_KEY)
+         
           const sendGridMail={
             to: email,
             from :'ouzar.merouane@gmail.com',
-            templateId:"9f8483eff2c943d4a994e5e97cce8ff3",
+            templateId:"d-9f8483eff2c943d4a994e5e97cce8ff3",
             dynamic_template_data:{
                 coachName:name
             }
-         }
-         
-         try {
-            await sgMail.send(sendGridMail);
+        }
+        try {
+            // await sgMail.send(sendGridMail);
             console.log('Email sent successfully.');
-          } catch (error) {
-            console.error('Error sending email:', error);
-          }
+            return createUser
+        
+        } catch (error) {
+          return `error`
+        }
+            
+           
+
+         
+        
+         
+         
+         
           
        
-        return createUser
       }
       }),
+      availableOffer:publicProcedure.query(async( {ctx})=>{
+        const {prisma}=ctx
+        const fetchPlaces=await prisma.availablePlace.findMany({
+          select:{
+            room_name:true,
+            id:true,
+            related_offerPrisma:{
+select:{
+  pricing_offer:{
+    select:{
+      client_price:true,
+      coach_price:true,
+      type_offert:true,
+      id:true,
+      seance_week:true,
+      stripe_id:true
+    }
+    
+  }
+}
+            }
+          }
+        })
+const momo =fetchPlaces.map((e)=>{
+  const {related_offerPrisma,...rest}=e
+  const test =related_offerPrisma.pricing_offer.map((e)=>{
+   
+    return {...e}
+  })
+  return {...rest,pricing:test}
+})
+
+
+return momo
+      })
+      ,
       loginIn:publicProcedure.input(z.object({email:z.string(),password:z.string()})).
       query(async ({input,ctx})=>{
         const findUser= await ctx.prisma.user.findFirst({where:{
@@ -121,7 +168,7 @@ export const exampleRouter = createTRPCRouter({
           }})
 
           const addForClient=await ctx.prisma.client.create({data:{
-            coach_Id:ctx.session?.user.id,user_Id:createUser.id,
+            coach_id:ctx.session?.user.id,user_id:createUser.id,
           }})
         
           return 'bravo utilisateur ajouter avec succès'
@@ -138,7 +185,7 @@ export const exampleRouter = createTRPCRouter({
         {
           const fetchRelatedCoach=await ctx.prisma.client.findMany({
             where:{
-              coach_Id:ctx.session.user.id,
+              coach_id:ctx.session.user.id,
                
              },select:{
               created_at:true,

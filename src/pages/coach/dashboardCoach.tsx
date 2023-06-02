@@ -35,23 +35,24 @@ console.log(momoTest)
     // const offerToUser=api.example.findOffer.useQuery({name:'fitness park'}).data
     // console.log(offerToUser)
 
-    function getDates() {
-      const today = new Date();
-      const futureDate = new Date();
-      futureDate.setDate(futureDate.getDate() + 7);
     
-      return {
-        today,
-        futureDate,
-      };
-    }
-    const{futureDate,today}=getDates()
 
 
 async function fetchData(){
   const momo = await momoTest.mutateAsync()
   console.log(momo)
 }
+function getDates() {
+  const today = new Date();
+  const futureDate = new Date();
+  futureDate.setDate(futureDate.getDate() + 7);
+
+  return {
+    today,
+    futureDate,
+  };
+}
+const{futureDate,today}=getDates()
   return (
   <main className="flex flex-col lg:flex-row   w-full   ">
    
@@ -70,15 +71,15 @@ async function fetchData(){
         loading ? 'Loading document...' : 'Download now!'
       }
     </PDFDownloadLink>} */}
-
-  { isInClient&& <BlobProvider document={<InvoiceComponent hours={40} dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
+  <BlobProvider document={<InvoiceComponent hours={40} dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here
 
         
-        return url&&<a href={url}  target="_blank">There's something going on on the fly</a>;
+        return url&&<a href={url}  className="bg-cyan-800 text-slate-100 rounded-lg px-8 py-2" target="_blank">Prévisualiser la facture </a>;
       }}
-    </BlobProvider>}
+    </BlobProvider>
+
     </div>
 </section>
 

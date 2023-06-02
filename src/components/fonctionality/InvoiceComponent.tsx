@@ -1,6 +1,9 @@
 import React,{useMemo} from 'react';
-import { Page, Text, View, Document, StyleSheet ,Svg,Image} from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet ,Svg,Image,Font,Polygon,Polyline} from '@react-pdf/renderer';
+
 import {v4} from 'uuid'
+
+
 // Create styles
 const styles = StyleSheet.create({
     logo: {
@@ -10,7 +13,7 @@ const styles = StyleSheet.create({
       },
   page: {
     backgroundColor: '#ffffff',
-    padding: 30,
+    padding: 0,
     display:'flex',
     
   },
@@ -18,13 +21,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     
   },
+ 
   tableStyle: {
-    marginBottom: 10,padding:10,
+    marginBottom: '50px',padding:10,borderBottomLeftRadius:'15%',borderBottomRightRadius:'15%',
     borderBottomColor:'black',borderBottomWidth:'1px',borderLeft:'1px',borderRight:'1px',borderColor:'black',paddingTop:'20px',gap:20,
   },
   title: {
-    fontSize: 24,
-    marginBottom: 10,
+    fontSize: '14px',
   },
   subtitle: {
     fontSize: 12,
@@ -35,8 +38,8 @@ const styles = StyleSheet.create({
     flexDirection:'row'
   },
   totalSection:{
-    display:'flex',flexDirection:'row',width:'100%',justifyContent:'space-between'
-  },stylesFooterTitle:{fontWeight:'bold',color:'black',fontFamily:'Helvetica'}
+    display:'flex',flexDirection:'row',width:'100%',justifyContent:'space-between',fontSize:'10px'
+  },stylesFooterTitle:{fontWeight:'bold',fontFamily:'Helvetica-Bold',color:'black',fontSize:'11px'}
 });
 
 // Create invoice data
@@ -135,38 +138,44 @@ return {price:totalPrice,hours:totalHours,salle:allSalle}
         
   <Document >
     <Page size="A4" style={styles.page}>
+  
+       
+       
     
-        <View style={{width:'100%',display:'flex',
+        <View style={{width:'100%',display:'flex',backgroundColor:'#282F44',color:'#F7F7F7', marginBottom:'10px',
         flexDirection:'row',alignItems:'center'}}>
         
         <View style={{display:'flex',width:'100%',
         flexDirection:'row',alignItems:'center'}}>
             <Image src="/logo.png" style={styles.logo} />
-           <View>
+           <View style={{flexDirection:'row',display:'flex'}}>
             <Text>Elite </Text>
             <Text>Training</Text>
             
             </View>
         </View>
+        
+        </View>
+        <View style={{padding:30}}>
         <View style={{width:'100%'}}>
-            <Text style={{fontSize:30}}>Coach teddy</Text>
+            <Text style={{fontSize:'12px',color:'black',textAlign:'left',padding:10}}>Coach : Teddy Martinez</Text>
         </View>
-        </View>
-      <View style={styles.section}>
+      <View style={{flexDirection:'row',display:'flex',width:'100%',justifyContent:'space-between',alignItems:'center',alignContent:'center',padding:10}}>
         <Text style={styles.title}>Facture pour {invoiceData.invoiceNumber}</Text>
         <View style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-          <Text>Salle : </Text>
+          <Text style={{fontSize:'14px'}}>Salle : </Text>
 
       </View>
       </View>
-      <View style={{alignItems:'flex-end'}}>
-      <Text style={styles.subtitle}>Date de début : {dateRange?.dateStart?.toLocaleDateString()} </Text>
-        <Text style={styles.subtitle}>Date de fin : {dateRange?.dateEnd?.toLocaleDateString()}</Text>
+      
+      <View style={{alignItems:'flex-end',marginBottom:'10px',gap:'10px',display:'flex'}}>
+      <Text style={styles.stylesFooterTitle}>Date de facturation : {dateRange?.dateStart?.toLocaleDateString()} </Text>
+        <Text style={styles.stylesFooterTitle}>Date limite : {dateRange?.dateEnd?.toLocaleDateString()}</Text>
       </View>
       
-      <View style={{display:'flex',padding:10,fontSize:'13px'
-      ,flexDirection:'row',alignItems:'center',width:'100%',color:'#FFDA8A',
-      backgroundColor:'#34393F',justifyContent:'space-between'}}>
+      <View style={{display:'flex',padding:10,fontSize:'12px',borderTopLeftRadius:'15%',borderTopRightRadius:'15%'
+      ,flexDirection:'row',alignItems:'center',width:'100%',color:'#FFDA8A',marginTop:'30px',
+      backgroundColor:"#282F44",justifyContent:'space-between'}}>
             <Text  >
                 Description
             </Text>
@@ -199,26 +208,28 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
 </View>}
       </View>
       <View style={styles.totalSection}>
-            <View style={{width:'100%',gap:10,fontSize:'12px'}}>
-                <Text style={{fontWeight:'bold'}}>Methode de paiemeent</Text>
+            <View style={{width:'100%',gap:10,fontSize:'11px'}}>
+                <Text style={styles.stylesFooterTitle}>METHODES DE PAIEMENTS</Text>
                 <Text>Virement</Text>
-               <Text>Elite Training</Text>
+               <Text style={styles.stylesFooterTitle}>Elite Training</Text>
                <Text>IBAN : FR76 1659 8000 0121 7362 9000 194</Text>
                <Text>BIC : FPELFR21XXX</Text>
-               <Text style={styles.stylesFooterTitle}>Coach</Text>
+               <Text style={styles.stylesFooterTitle}>COACH</Text>
                <Text>Teddy martinez</Text>
             </View>
-            <View style={{width:'100%',alignItems:'flex-end',fontSize:'12px',gap:10}}>
+            <View style={{width:'100%',alignItems:'flex-end',fontSize:'11px',gap:10}}>
                 <View style={{alignItems:'flex-end'}}>
                 <Text>Grand total : {priceMemo.price}</Text>
                 <Text>Tva : N/A</Text>
                 </View>
-                <View style={{flexDirection:'row',fontSize:'15px',paddingTop:20,padding:10,justifyContent:'space-between',gap:20,backgroundColor:'black',color:'#FFDA8A'}}>
+                <View style={{flexDirection:'row',fontSize:'12px',borderRadius:'25%',
+                paddingTop:20,padding:10,justifyContent:'space-between',gap:20,backgroundColor:'#282F44',color:'#FFDA8A'}}>
                 <Text >Grand total  </Text>
                 <Text>{priceMemo.price} euro TTC</Text>
                 </View>
             </View>
             
+      </View>
       </View>
     </Page>
   </Document>

@@ -63,7 +63,7 @@ const testmomo=dataCoach.data&&dataCoach.data.map((e)=>{
      <section className="flex flex-col w-full border-2 rounded-lg bg-slate-200   shadow-md  border-y-slate-50 ">
 
 
-     <table className="table-auto rounded-xl   lg:px-4  ">
+    <table className="table-auto rounded-xl   lg:px-4  ">
       <thead className="text-2xl  text-center  ">
       <tr className=" border-collapse bg-slate-200 text-center">
       <th className="py-4 px-2   pl-4 text-center "><BsFillCalendarPlusFill width={25}/></th>

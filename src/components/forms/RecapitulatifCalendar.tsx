@@ -2,7 +2,7 @@
 import { PDFDownloadLink, Document, Page,PDFViewer,BlobProvider } from '@react-pdf/renderer';
 import { useState } from "react"
 import {v4} from 'uuid'
-
+import InvoiceComponent from '../fonctionality/InvoiceComponent';
 import { useContext } from 'react';
 import {AddEventContext} from '../fonctionality/AddEvent'
 import {useDispatch,useSelector} from 'react-redux'
@@ -46,9 +46,22 @@ console.log(secondStepInfo)
 
   const totalHours=events.reduce((accumulator, currentValue) => accumulator + currentValue.hours, 0);
 console.log(totalHours)
+
+function getDates() {
+  const today = new Date();
+  const futureDate = new Date();
+  futureDate.setDate(futureDate.getDate() + 7);
+
+  return {
+    today,
+    futureDate,
+  };
+}
+const{futureDate,today}=getDates()
+
 const findClientName=client?.find(user => user.id === firstStepInfo.clientId);
   const allDataClient=events?.map((e)=>{
-
+    
     return (<div key={e.id}
            className="flex flex-col  gap-2 pt-2 lg:w-4/5 py-1
               items-center justify-center 
@@ -217,6 +230,14 @@ console.log(momoTest)
       </BlobProvider>} */}
   
     </div>
+    <BlobProvider document={<InvoiceComponent hours={40} dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
+      {({ blob, url, loading, error }) => {
+        // Do whatever you need with blob here
+
+        
+        return url&&<a href={url}  className="bg-cyan-800 text-slate-100 rounded-lg px-8 py-2" target="_blank">Prévisualiser la facture </a>;
+      }}
+    </BlobProvider>
     <div className="flex flex-col items-center justify-center gap-8  justify-self-end">
       <button onClick={handleAddData}
       className="p-2 bg-slate-700 font-semibold px-4 text-slate-50 rounded-lg">Confirmer et sauvegarder</button>

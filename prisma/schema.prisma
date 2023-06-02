@@ -32,14 +32,20 @@ model User {
 }
 
 model Billing {
-    id             Int      @id @default(autoincrement())
-    price          Int
-    bill_invoice   String
-    coach_id       Int
-    client_id      Int
-    product_id     Int
-    isPaid         Boolean  @default(false)
-    related_events Events[]
+    id           Int    @id @default(autoincrement())
+    price        Int
+    bill_invoice String
+    coach_id     Int
+    client_id    Int
+
+    createdAt       DateTime   @default(now())
+    hours           Int
+    isPaid          Boolean    @default(false)
+    offer_id        Int
+    offer_prisma_id PriceTable @relation(fields: [offer_id], references: [id])
+    related_events  Events[]
+
+    @@index(offer_id)
 }
 
 model Coach {
@@ -131,6 +137,7 @@ model PriceTable {
     type_offert   String
     offer_id      Int?
     prismaOfferId OfferTable? @relation(fields: [offer_id], references: [id])
+    billing_id    Billing[]
 
     @@index(offer_id)
 }

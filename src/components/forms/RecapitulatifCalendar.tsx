@@ -236,7 +236,7 @@ console.log(momoTest)
         // Do whatever you need with blob here
 
         
-        return url&&<a href={url}  className="max-w-fit bg-cyan-800 text-slate-100 rounded-lg px-8 py-2" target="_blank">Prévisualiser la facture </a>;
+        return url&&<a href={url}  className="max-w-fit bg-cyan-800 text-slate-50 font-semibold rounded-lg px-8 py-2" target="_blank">Prévisualiser la facture </a>;
       }}
     </BlobProvider>
     </div>

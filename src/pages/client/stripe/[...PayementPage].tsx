@@ -41,7 +41,9 @@
 
 
 import { loadStripe } from "@stripe/stripe-js"
-const momo  =  loadStripe('pk_test_51MpHHPL8uKxb9Hfad754I86IlchzB5BQ9CfUyHzepkt72BpOnF97OU2CdXuk8oq10BiFdtHxARG6mZhq5N9pKPxg00Y4B0Lltn')
+import { env } from "~/env.mjs"; // On client - same import!
+
+const momo  =  loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 
 const PayementPage = () => {
@@ -54,17 +56,17 @@ try {
   const response = await fetch('/api/payement/stripe');
   const data = await response.json();
   // Process the received data here
-  console.log(data.sessionId)
+ 
   const stripe = await momo.then((e)=>{
-    console.log('inside')
+ 
     console.log(data?.sessionId)
-    console.log(e)
+
     return e?.redirectToCheckout({sessionId:data?.sessionId})
   })
-  console.log('slt')
 
-console.log(stripe)
-console.log('slt')
+
+
+
   
 
 } catch (error) {

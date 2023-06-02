@@ -39,7 +39,7 @@ console.log(momoTest)
 
 
 async function fetchData(){
-  const momo = await momoTest.mutateAsync()
+  const momo = await momoTest.mutateAsync({client_id:'1'})
   console.log(momo)
 }
 function getDates() {

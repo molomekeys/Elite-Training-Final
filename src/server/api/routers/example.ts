@@ -68,17 +68,19 @@ seeEventCalendar:publicProcedure.query(async ({ctx})=>{
 })
   ,
 
-  addEventsCalendar:publicProcedure.mutation(async ({ctx,input})=>{
+  addEventsCalendar:publicProcedure.input(z.object({client_id:z.string()})).mutation(async ({ctx,input})=>{
     console.log('pourquoi')
     
 
     if(ctx.session?.user.coach_table?.id!=undefined)
     {
      
-    const momo = await ctx.prisma.events.create({
-      data:{coach_id:Number(ctx.session.user.coach_table.id),
+    const momo = await ctx.prisma.events.createMany({
+      data:[{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),
         end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'
-      }
+      },{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),
+        end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'
+      }]
     })
 
     return momo

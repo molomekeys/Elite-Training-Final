@@ -54,12 +54,16 @@ export const exampleRouter = createTRPCRouter({
     // })
 
 seeEventCalendar:publicProcedure.query(async ({ctx})=>{
+  if(ctx.session?.user.id)
+  {
   const momo = await ctx.prisma.events.findMany({
+
     where:{
       coach_id:ctx.session?.user.coachTable?.id
     }
   })
   return momo
+}
 })
   ,
 

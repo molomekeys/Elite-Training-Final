@@ -113,7 +113,7 @@ seeEventCalendar:publicProcedure.query(async ({ctx})=>{
         }
         try {
             // await sgMail.send(sendGridMail);
-            console.log('Email sent successfully.');
+            // console.log('Email sent successfully.');
             return createUser
         
         } catch (error) {

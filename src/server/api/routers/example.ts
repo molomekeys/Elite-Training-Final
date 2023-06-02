@@ -59,7 +59,7 @@ seeEventCalendar:publicProcedure.query(async ({ctx})=>{
   const momo = await ctx.prisma.events.findMany({
 
     where:{
-   coach_id: ctx.session.user.coachTable?.id
+   coach_id: Number( ctx.session.user.coachTable?.id)
       
     }
   })

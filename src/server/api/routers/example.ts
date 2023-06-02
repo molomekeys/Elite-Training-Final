@@ -69,12 +69,15 @@ seeEventCalendar:publicProcedure.query(async ({ctx})=>{
   ,
 
   addEventsCalendar:publicProcedure.mutation(async ({ctx,input})=>{
+    if(ctx.session?.user.coachTable?.id!=undefined)
+    {
     const momo = await ctx.prisma.events.create({
       data:{coach_id:Number(ctx.session?.user?.coachTable?.id),
         end:new Date('2023-06-12'),start:new Date('2023-06-12'),hours:10,title:'entrainement de merouane'
       }
     })
     return momo
+  }
   })
     ,
     signInUser:publicProcedure.input(z.object(

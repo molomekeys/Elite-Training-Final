@@ -230,14 +230,16 @@ console.log(momoTest)
       </BlobProvider>} */}
   
     </div>
-    <BlobProvider document={<InvoiceComponent hours={40} dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
+    <div className='flex items-center justify-center w-full'>
+    <BlobProvider document={<InvoiceComponent eventInfo={{clientName:findClientName?.name? findClientName.name : '',salleName:selectedOffer[0]?.room_name? selectedOffer[0]?.room_name : '',hours:totalHours,unitPrice:truePrice? truePrice : 10,category:'coaching',coachName:'Ouzar Merouane'}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here
 
         
-        return url&&<a href={url}  className="bg-cyan-800 text-slate-100 rounded-lg px-8 py-2" target="_blank">Prévisualiser la facture </a>;
+        return url&&<a href={url}  className="max-w-fit bg-cyan-800 text-slate-100 rounded-lg px-8 py-2" target="_blank">Prévisualiser la facture </a>;
       }}
     </BlobProvider>
+    </div>
     <div className="flex flex-col items-center justify-center gap-8  justify-self-end">
       <button onClick={handleAddData}
       className="p-2 bg-slate-700 font-semibold px-4 text-slate-50 rounded-lg">Confirmer et sauvegarder</button>

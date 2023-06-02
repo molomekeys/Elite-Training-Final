@@ -54,12 +54,12 @@ export const exampleRouter = createTRPCRouter({
     // })
 
 seeEventCalendar:publicProcedure.query(async ({ctx})=>{
-  if(ctx.session?.user.coachTable?.id!=undefined)
+  if(ctx.session?.user.coach_table?.id!=undefined)
   {
   const momo = await ctx.prisma.events.findMany({
 
     where:{
-   coach_id: Number( ctx.session.user.coachTable?.id)
+   coach_id: Number( ctx.session.user.coach_table?.id)
       
     }
   })
@@ -69,13 +69,18 @@ seeEventCalendar:publicProcedure.query(async ({ctx})=>{
   ,
 
   addEventsCalendar:publicProcedure.mutation(async ({ctx,input})=>{
-    if(ctx.session?.user.coachTable?.id!=undefined)
+    console.log('pourquoi')
+    
+
+    if(ctx.session?.user.coach_table?.id!=undefined)
     {
+     
     const momo = await ctx.prisma.events.create({
-      data:{coach_id:Number(ctx.session?.user?.coachTable?.id),
-        end:new Date('2023-06-12'),start:new Date('2023-06-12'),hours:10,title:'entrainement de merouane'
+      data:{coach_id:Number(ctx.session.user.coach_table.id),
+        end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'
       }
     })
+
     return momo
   }
   })

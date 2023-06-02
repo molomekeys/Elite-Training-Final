@@ -31,6 +31,17 @@ model User {
     isPaidCustomer Boolean @default(false)
 }
 
+model Billing {
+    id             Int      @id @default(autoincrement())
+    price          Int
+    bill_invoice   String
+    coach_id       Int
+    client_id      Int
+    product_id     Int
+    isPaid         Boolean  @default(false)
+    related_events Events[]
+}
+
 model Coach {
     id              Int      @id @default(autoincrement())
     numero_siren    String
@@ -69,16 +80,18 @@ model ClientProfil {
 }
 
 model Events {
-    id        Int      @id @default(autoincrement())
-    start     DateTime
-    end       DateTime
-    title     String
-    coach_id  Int      @unique
-    client_id Int?     @unique
-    salle_id  Int?
-    hours     Float
-    isPaid    Boolean  @default(false)
+    id         Int      @id @default(autoincrement())
+    start      DateTime
+    end        DateTime
+    title      String
+    coach_id   Int
+    client_id  Int?
+    salle_id   Int?
+    hours      Float
+    isPaid     Boolean  @default(false)
+    billing_id Int?
 
+    billingPrisma      Billing?        @relation(fields: [billing_id], references: [id])
     salleIdPrisma      AvailablePlace? @relation(fields: [salle_id], references: [id])
     useridprismaClient Client?         @relation(fields: [client_id], references: [id])
     UserIdCoach        Coach?          @relation(fields: [coach_id], references: [id])
@@ -86,6 +99,7 @@ model Events {
     @@index(coach_id)
     @@index(client_id)
     @@index(salle_id)
+    @@index(billing_id)
 }
 
 model AvailablePlace {

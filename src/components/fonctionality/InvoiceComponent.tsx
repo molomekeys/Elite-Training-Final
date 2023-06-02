@@ -66,13 +66,22 @@ export interface DataEvent{
         title:string
     
 }
+type EventInfo={
+    category:string
+    coachName:string
+    unitPrice:number
+    hours:number
+    salleName:string 
+    clientName:string
+}
 interface dataforPdf{
     dataEvent?:DataEvent[]
+    eventInfo:EventInfo
     dateRange?:{dateStart:Date,dateEnd:Date}
-    hours?:number
+  
     
 }
-const InvoiceComponent = ({dataEvent,dateRange,hours}:dataforPdf) => 
+const InvoiceComponent = ({dataEvent,dateRange,eventInfo}:dataforPdf) => 
 
 {
    let singlePrice=''
@@ -157,18 +166,19 @@ return {price:totalPrice,hours:totalHours,salle:allSalle}
         
         </View>
         <View style={{padding:30}}>
-        <View style={{width:'100%'}}>
-            <Text style={{fontSize:'12px',color:'black',textAlign:'left',padding:10}}>Coach : Teddy Martinez</Text>
-        </View>
-      <View style={{flexDirection:'row',display:'flex',width:'100%',justifyContent:'space-between',alignItems:'center',alignContent:'center',padding:10}}>
-        <Text style={styles.title}>Facture pour {invoiceData.invoiceNumber}</Text>
-        <View style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-          <Text style={{fontSize:'14px'}}>Salle : </Text>
+        <View style={{width:'100%',gap:10}}>
+            <Text style={styles.stylesFooterTitle}>Coach : {eventInfo.coachName}</Text>
+            <Text style={styles.stylesFooterTitle}>Facture pour {eventInfo.clientName}</Text>
 
-      </View>
-      </View>
+        </View>
+   
       
       <View style={{alignItems:'flex-end',marginBottom:'10px',gap:'10px',display:'flex'}}>
+      <View style={{flexDirection:'row',display:'flex',width:'100%',marginVertical:20,
+   alignItems:'center',}}>
+        <Text style={[styles.stylesFooterTitle,{textAlign:'right'}]}>Salle : {eventInfo.salleName}</Text>
+
+      </View>
       <Text style={styles.stylesFooterTitle}>Date de facturation : {dateRange?.dateStart?.toLocaleDateString()} </Text>
         <Text style={styles.stylesFooterTitle}>Date limite : {dateRange?.dateEnd?.toLocaleDateString()}</Text>
       </View>
@@ -192,14 +202,14 @@ return {price:totalPrice,hours:totalHours,salle:allSalle}
       <View style={styles.tableStyle}>
        
   
-{priceMemo.price>0 &&<View style={{display:'flex',gap:'10px',
+{eventInfo.category=='coaching' &&<View style={{display:'flex',gap:'10px',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',padding:'10px',alignItems:'center'}}>
 <Text style={{}}>Coaching</Text>
-<Text>{hours}</Text>
-<Text>{priceMemo.price/priceMemo.hours} </Text>
-<Text>{priceMemo.price}</Text>
+<Text>{eventInfo.hours}</Text>
+<Text>{eventInfo.unitPrice} </Text>
+{eventInfo.unitPrice&&<Text>{eventInfo.hours*eventInfo?.unitPrice}</Text>}
 </View>}
-{fullPriceProgramme>0&&<View style={{display:'flex',gap:'10px',
+{eventInfo.category=='programme'&&<View style={{display:'flex',gap:'10px',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'center',padding:'10px'}}>
 <Text>Programme</Text>
 <Text>{fullHoursProgramme }</Text>
@@ -212,20 +222,20 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
                 <Text style={styles.stylesFooterTitle}>METHODES DE PAIEMENTS</Text>
                 <Text>Virement</Text>
                <Text style={styles.stylesFooterTitle}>Elite Training</Text>
-               <Text>IBAN : FR76 1659 8000 0121 7362 9000 194</Text>
-               <Text>BIC : FPELFR21XXX</Text>
+               <Text style={{fontFamily:'Helvetica-Bold'}}>IBAN : FR76 1659 8000 0121 7362 9000 194</Text>
+               <Text  style={{fontFamily:'Helvetica-Bold'}}>BIC : FPELFR21XXX</Text>
                <Text style={styles.stylesFooterTitle}>COACH</Text>
-               <Text>Teddy martinez</Text>
+               <Text  style={{fontFamily:'Helvetica-Bold',fontSize:'12px'}}>{eventInfo.coachName}</Text>
             </View>
             <View style={{width:'100%',alignItems:'flex-end',fontSize:'11px',gap:10}}>
                 <View style={{alignItems:'flex-end'}}>
-                <Text>Grand total : {priceMemo.price}</Text>
+                <Text>Grand total : {eventInfo.hours*eventInfo?.unitPrice}</Text>
                 <Text>Tva : N/A</Text>
                 </View>
                 <View style={{flexDirection:'row',fontSize:'12px',borderRadius:'25%',
                 paddingTop:20,padding:10,justifyContent:'space-between',gap:20,backgroundColor:'#282F44',color:'#FFDA8A'}}>
                 <Text >Grand total  </Text>
-                <Text>{priceMemo.price} euro TTC</Text>
+                <Text>{eventInfo.hours*eventInfo?.unitPrice} euro TTC</Text>
                 </View>
             </View>
             

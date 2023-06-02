@@ -71,14 +71,7 @@ const{futureDate,today}=getDates()
         loading ? 'Loading document...' : 'Download now!'
       }
     </PDFDownloadLink>} */}
-  <BlobProvider document={<InvoiceComponent hours={40} dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
-      {({ blob, url, loading, error }) => {
-        // Do whatever you need with blob here
 
-        
-        return url&&<a href={url}  className="bg-cyan-800 text-slate-100 rounded-lg px-8 py-2" target="_blank">Prévisualiser la facture </a>;
-      }}
-    </BlobProvider>
 
     </div>
 </section>

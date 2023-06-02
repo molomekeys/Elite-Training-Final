@@ -24,7 +24,7 @@ declare module "next-auth" {
     user: {
       id: string;
       role:string
-      coachTable?:{
+      coach_table?:{
         id:string
       }
       // ...other properties

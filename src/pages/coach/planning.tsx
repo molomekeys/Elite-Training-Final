@@ -15,6 +15,7 @@ const PlanningCoach = () => {
   function fetchDataBack(e:Events[]){
     setEventsData(e)
   }
+  const {data:eventsCalendar}=api.example.seeEventCalendar.useQuery()
 
   const allClient=api.example.fetchDataLoginCoach.useQuery(undefined,{staleTime:10000,refetchOnWindowFocus:false}).data?.map((e)=>{
     return {...e.UserIdPrisma,createdAt:e.created_at}
@@ -26,6 +27,8 @@ const PlanningCoach = () => {
 if(isLoading){
 
 }
+else if(!isLoading)
+{
 
   return (
     <main className="w-full flex flex-col p-4 gap-4 ">
@@ -35,10 +38,11 @@ if(isLoading){
       </div>
       <section className="w-full lg:px-5">
    <section className="lg:border-2 lg:p-2 rounded-md  border-[#3C486B]  lg:w-full">
-    <CalendarComponent event={eventsData}/>
+    <CalendarComponent event={eventsCalendar? eventsCalendar : []}/>
    </section>
    </section>
     </main>
   )
+}
 }
 export default PlanningCoach

@@ -17,7 +17,7 @@
     "@hookform/resolvers": "^3.1.0",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@prisma/client": "^4.11.0",
-    "@react-pdf/renderer": "^3.1.9",
+    "@react-pdf/renderer": "^3.1.10",
     "@reduxjs/toolkit": "^1.9.5",
     "@sendgrid/mail": "^7.7.0",
     "@stripe/react-stripe-js": "^2.1.0",

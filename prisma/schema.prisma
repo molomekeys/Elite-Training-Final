@@ -25,8 +25,8 @@ model User {
     password       String
     role           String
     phone_number   String
-    coach_table    Client?
-    client_table   Coach?
+    coach_table    Coach?
+    client_table   Client?
     password_reset String? @default("null")
     isPaidCustomer Boolean @default(false)
 }
@@ -35,13 +35,13 @@ model Coach {
     id              Int      @id @default(autoincrement())
     numero_siren    String
     licence_sportif String?
-    coach_id        String   @unique
+    user_id         String   @unique
     created_at      DateTime @default(now())
-    UserIdCoach     User     @relation(fields: [coach_id], references: [id])
+    UserIdCoach     User     @relation(fields: [user_id], references: [id])
     client          Client[]
     Events          Events[]
 
-    @@index(coach_id)
+    @@index(user_id)
 }
 
 model Client {
@@ -49,7 +49,7 @@ model Client {
     coach_id     String?
     user_id      String        @unique
     created_at   DateTime      @default(now())
-    coachId      Coach?        @relation(fields: [coach_id], references: [coach_id])
+    coachId      Coach?        @relation(fields: [coach_id], references: [user_id])
     UserIdPrisma User          @relation(fields: [user_id], references: [id])
     Profil       ClientProfil?
     event        Events[]
@@ -69,17 +69,23 @@ model ClientProfil {
 }
 
 model Events {
-    id                 Int      @id @default(autoincrement())
-    start              DateTime
-    end                DateTime
-    coach_id           Int      @unique
-    client_id          Int      @unique
-    salle              String
-    hours              BigInt
-    isPaid             Boolean  @default(false)
-    type_offer         BigInt   @unique
-    useridprismaClient Client   @relation(fields: [client_id], references: [id])
-    UserIdCoach        Coach    @relation(fields: [coach_id], references: [id])
+    id        Int      @id @default(autoincrement())
+    start     DateTime
+    end       DateTime
+    title     String
+    coach_id  Int      @unique
+    client_id Int?     @unique
+    salle_id  Int?
+    hours     Float
+    isPaid    Boolean  @default(false)
+
+    salleIdPrisma      AvailablePlace? @relation(fields: [salle_id], references: [id])
+    useridprismaClient Client?         @relation(fields: [client_id], references: [id])
+    UserIdCoach        Coach?          @relation(fields: [coach_id], references: [id])
+
+    @@index(coach_id)
+    @@index(client_id)
+    @@index(salle_id)
 }
 
 model AvailablePlace {
@@ -89,6 +95,7 @@ model AvailablePlace {
     phone_Number        String?
     email               String?
     related_offer       Int
+    related_events      Events[]
     related_offerPrisma OfferTable @relation(fields: [related_offer], references: [id])
 
     @@index(related_offer)

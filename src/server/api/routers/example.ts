@@ -5,8 +5,17 @@ import {
   protectedProcedure,
 } from "~/server/api/trpc";
 
+//schena pour les events
+
+const schemaEvent=z.object({start:z.date(),
+  end:z.date(),title:z.string(),clientId:z.string(),hours: z.number()})
+
+  //envoi email
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+//trpc
+
 export const exampleRouter = createTRPCRouter({
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
@@ -43,6 +52,26 @@ export const exampleRouter = createTRPCRouter({
     //     const fetchedData=await prisma.product.findMany({include:{offers:true}})
     //     return fetchedData
     // })
+
+seeEventCalendar:publicProcedure.query(async ({ctx})=>{
+  const momo = await ctx.prisma.events.findMany({
+    where:{
+      coach_id:ctx.session?.user.coachTable?.id
+    }
+  })
+  return momo
+})
+  ,
+
+  addEventsCalendar:publicProcedure.mutation(async ({ctx,input})=>{
+    const momo = await ctx.prisma.events.create({
+      data:{coach_id:ctx.session?.user?.coachTable?.id,
+        end:new Date('2023-05-12'),start:new Date('2023-05-12'),hours:10,title:'entrainement de merouane'
+      }
+    })
+    return momo
+  })
+    ,
     signInUser:publicProcedure.input(z.object(
       {name:z.string(),email:z.string(),phoneNumber:z.string(),sirenNumber:z.string(),password:z.string()})).
       mutation(async({ctx,input:{email,password,name,sirenNumber,phoneNumber}})=>{

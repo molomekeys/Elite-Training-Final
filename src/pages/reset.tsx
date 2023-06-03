@@ -87,28 +87,28 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
      
 
 
-   <main className="flex    lg:p-10 items-center
-    justify-center  w-full ">
+   <main className="flex  p-4  lg:p-10 items-center
+    justify-center  w-full  ">
    
     <motion.section  ref={refTest}
    
     
-    className="flex border-2 gap-8 lg:rounded-2xl lg:shadow-2xl
+    className="flex border-2 gap-6  lg:rounded-2xl lg:shadow-2xl
      border-slate-100 border-none  
     flex-col w-full  md:w-4/5 lg:w-3/5 justify-center   
-    p-1 h-full lg:m-0 md:p-10 bg-white pt-10   ">
+    p-1 h-full lg:m-0 md:p-10 bg-white pt-10    ">
     <h3 className='text-slate-800 text-2xl min-h-fit min-w-fit lg:text-3xl font-bold text-center relative '>
     Réinitialisation du mot de passe
 </h3>
-   
-        <form  onSubmit={handleSubmit(handleLogin)}
-        className='flex flex-col gap-4 
-         text-slate-50 font-semibold bg-white  p-4 text-slate-700 '>
-          <p>
+<p className=' text-sm font-semibold text-slate-700'>
           Saisissez l&apos;adresse e-mail associée à votre compte et
            nous vous enverrons un code à usage unique pour réinitialiser votre mot de passe.
 
           </p>
+        <form  onSubmit={handleSubmit(handleLogin)}
+        className='flex flex-col gap-4 
+         text-slate-50 font-semibold bg-white  p-4 text-slate-700 '>
+         
           <div className='flex flex-col   gap-4   w-full    '>
            <label htmlFor="email" className='text-slate-900  text-sm font-semibold 
              min-w-fit '>E-mail * </label>
@@ -120,7 +120,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
          </div>
         
           <div className='flex flex-col gap-2 m-4 w-full'>
-          <button type="submit"   className='bg-slate-800   w-4/5 lg:w-2/5 self-center py-3 rounded-lg text-slate-50'
+          <button type="submit"    className='bg-slate-700  self-center py-3 min-w-fit w-3/5 lg:w-3/5 rounded-lg text-slate-50'
         >
           Continuer
           </button>

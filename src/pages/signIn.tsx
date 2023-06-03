@@ -156,8 +156,7 @@ ext-center">
  className='w-full border-2 text-center hidden' />
  </div>
  <p className='text-xs font-bold text-sm text-red-500'>{errors.email?.message}</p>
-<button type="submit" className="bg-slate-800 max-w-fit px-4 py-2 my-4
- rounded-lg text-slate-100 font-bold text-sm self-center">Créer votre compte</button>
+<button type="submit"  className='bg-slate-700  self-center py-3 min-w-fit w-3/5 lg:w-3/5 rounded-lg text-slate-50'>Créer votre compte</button>
 
 <div className='flex gap-2 font-bold text-sm w-full items-center flex-row justify-center '>        
             <p>Vous avez déjà un compte?</p>

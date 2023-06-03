@@ -105,7 +105,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
         className='flex flex-col gap-4 
          text-slate-50 font-semibold bg-white  p-4 text-slate-700 '>
           <p>
-          Saisissez l'adresse e-mail associée à votre compte et
+          Saisissez l&apos;adresse e-mail associée à votre compte et
            nous vous enverrons un code à usage unique pour réinitialiser votre mot de passe.
 
           </p>

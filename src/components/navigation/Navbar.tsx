@@ -13,23 +13,24 @@ const Navbar = () => {
      justify-between  flex-row items-center bg-gradient-to-r from-black  via-black to-slate-700    ">
         <div className="w-full h-full bg-transparent items-center
          relative flex ">
-   
+
             <Link href='/'>
           
             <Image  width={110} height={85} className=' object-cover
              float-left relative'
             src={Logo} alt='logo'/>
             </Link>
-            <h3 className="text-slate-100 font-semibold  hidden lg:flex">Elite Training</h3>
+            <h3 className="text-slate-100 font-semibold text-lg ">Version beta</h3>
+
         </div>
         <div className="text-slate-50 
         
         items-center justify-center hidden lg:flex 
          h-full  font-semibold w-full  pr-10 gap-10">
-            <Link href='/'> <button className={`  ${router.pathname =='/'? "border-b-2 text-slate-200 border-white  font-semibold" : "text-slate-400 hover:text-slate-50"}`}>CONNEXION</button></Link>
-            <Link href='/signIn'> <button className={`  ${router.pathname =='/signIn'? "border-b-2 border-white text-slate-200 font-semibold" : " text-slate-400 hover:text-slate-50"}`}>INSCRIPTION</button></Link>
+            <Link href='/'> <button className={`  ${router.pathname =='/'? "border-b-2 text-slate-200 border-white  font-semibold" : "text-slate-400 hover:text-slate-50"}`}>Connexion</button></Link>
+            <Link href='/signIn'> <button className={`  ${router.pathname =='/signIn'? "border-b-2 border-white text-slate-200 font-semibold" : " text-slate-400 hover:text-slate-50"}`}>Inscription</button></Link>
             <a target={'_blank'}
-            href='https://elite-training.fr' className="hover:font-semibold text-slate-400 hover:text-yellow-100">Visitez Elite Training</a>
+            href='https://elite-training.fr' className="hover:font-semibold text-slate-400 hover:text-yellow-100">Elite Training</a>
         </div>
         <div className="flex lg:hidden  relative z-50 pr-10 w-full h-full justify-end">
        <button onClick={()=>{

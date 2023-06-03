@@ -132,8 +132,8 @@ placeholder="Veuillez inscrire votre prénom" type={'text'}
  <p className='text-xs font-bold text-sm text-red-500'>{errors.email?.message}</p>
  <label htmlFor='phoneNumber' className='font-bold text-sm  text-sm' >Numéro de télphone :</label>
 
-<input placeholder='Veuillez inscrire le numero de votre athlète'  
-id='firstName' type={'tel'}   className='form-input rounded-md  border-2 border-slate-400 py-2 px-2 bg-slate-100'
+<input placeholder='Veuillez inscrire le numéro de votre athlète'  
+id='firstName' type={'tel'}   className='w-full form-input bg-slate-100 rounded-md py-3 '
   {...register('phoneNumber')}/>
           <p className='text-xs font-bold text-sm text-red-500'>{errors.phoneNumber?.message}</p>
   <label className="font-bold text-sm">Mot de passe : </label>
@@ -156,7 +156,7 @@ ext-center">
  className='w-full border-2 text-center hidden' />
  </div>
  <p className='text-xs font-bold text-sm text-red-500'>{errors.email?.message}</p>
-<button type="submit"  className='bg-slate-700  self-center py-3 min-w-fit w-3/5 lg:w-3/5 rounded-lg text-slate-50'>Créer votre compte</button>
+<button type="submit"  className='bg-slate-700  self-center py-3 min-w-fit w-3/5 lg:w-3/5 rounded-lg text-white font-semibold my-6'>Créer votre compte</button>
 
 <div className='flex gap-2 font-bold text-sm w-full items-center flex-row justify-center '>        
             <p>Vous avez déjà un compte?</p>

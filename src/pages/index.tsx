@@ -77,7 +77,7 @@ setError('password',{message:'mot de passe inccorect'})
  if(status==="unauthenticated")
 {
   return (
-    <main className='flex flex-col   bg-white lg:bg-slate-50 gap-10 '>
+    <main className='flex flex-col   bg-slate-50  gap-10 '>
      
 
 <p  onClick={handleAnimate}>momo test </p>
@@ -106,7 +106,7 @@ setError('password',{message:'mot de passe inccorect'})
       </div>}
 
 
-   <main className="flex  lg:bg-slate-50  lg:p-10 items-center
+   <main className="flex    lg:p-10 items-center
     justify-center  w-full ">
    
     <motion.section  ref={refTest}
@@ -115,12 +115,12 @@ setError('password',{message:'mot de passe inccorect'})
     className="flex border-2 gap-8 lg:rounded-2xl lg:shadow-2xl
      border-slate-100 border-none  
     flex-col w-full  md:w-4/5 lg:w-3/5 justify-center   
-    p-1 h-full lg:m-0 md:p-10 bg-white lg:bg-slate-50  ">
+    p-1 h-full lg:m-0 md:p-10 bg-white   ">
     <h3 className='text-slate-800 text-3xl min-h-fit min-w-fit lg:text-5xl font-bold text-center relative '>Connexion</h3>
    
         <form  onSubmit={handleSubmit(handleLogin)}
         className='flex flex-col gap-4 text-lg 
-         text-slate-50 font-semibold bg-white lg:bg-slate-50 p-4 text-slate-700 '>
+         text-slate-50 font-semibold bg-white  p-4 text-slate-700 '>
           
           <div className='flex flex-col   gap-4   w-full    '>
            <label htmlFor="email" className='text-slate-900  text-sm font-semibold 

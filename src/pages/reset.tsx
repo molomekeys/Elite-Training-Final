@@ -135,7 +135,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
       
         <div className='flex gap-1 font-semibold w-full items-center flex-col md:flex-row justify-center '>        
             <p>Vous n&apos;avez pas de compte ?</p>
-            <Link href='signIn'><span className='text-cyan-800 font-semibold'>S'inscrire </span></Link>
+            <Link href='signIn'><span className='text-cyan-800 font-semibold'>S&apos;inscrire </span></Link>
         </div>
    
  </motion.section>

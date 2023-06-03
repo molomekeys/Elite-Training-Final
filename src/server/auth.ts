@@ -121,7 +121,7 @@ export const authOptions: NextAuthOptions = {
           }})
         console.log(credentials)
        
-        if(momo)
+        if(momo!=null)
         {
           console.log(momo)
           const {password,...rest}=momo

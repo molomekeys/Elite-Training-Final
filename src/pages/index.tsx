@@ -35,7 +35,10 @@ const [errorDisplay,setErrorDisplay]=useState(false)
       console.log(values)
       const signInStatus= await signIn('credentials',
       {username:values.email,password:values.password,redirect:false})
-     
+      
+      if(signInStatus?.error){
+        handleAnimate()
+      }
     }
 
     useEffect(()=>{
@@ -70,8 +73,7 @@ console.log(session)
 const [refTest,animate]=useAnimate()
 function handleAnimate(){
 animate(refTest.current,{x:['3%','-3%','3%','-3%','0%']},{duration:0.6})
-setError('email',{message:'email incorrect'})
-setError('password',{message:'mot de passe inccorect'})
+setError('password',{message:'* Email ou mot de passe incorrect'})
 }
 
  if(status==="unauthenticated")
@@ -80,7 +82,7 @@ setError('password',{message:'mot de passe inccorect'})
     <main className='flex flex-col   bg-slate-50  gap-10 '>
      
 
-<p  onClick={handleAnimate}>momo test </p>
+
 
      {errorDisplay&& <div onClick={()=>{
             setErrorDisplay(false)

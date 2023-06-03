@@ -71,12 +71,17 @@ seeEventCalendar:publicProcedure.query(async ({ctx})=>{
   addEventsCalendar:publicProcedure.input(z.object({client_id:z.string()})).mutation(async ({ctx,input})=>{
     console.log('pourquoi')
     
-
+    
     if(ctx.session?.user.coach_table?.id!=undefined)
     {
-     
+      const billClient=await ctx.prisma.billing.create({
+        data:{
+          hours:10,client_id:1,coach_id:2,bill_invoice_pdf:'1234',offer_id:1,related_place:1
+        }
+      })
+      const {id}=billClient
     const momo = await ctx.prisma.events.createMany({
-      data:[{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),
+      data:[{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),billing_id:id,
         end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'
       },{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),
         end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'

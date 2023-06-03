@@ -2,7 +2,7 @@ import React from "react";
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from ".././utils/api";
-
+import {motion} from 'framer-motion'
 
 type LoginFormType={
   firstName:string
@@ -96,9 +96,9 @@ async function onSubmit(values:LoginFormType)  {
       </div>}
      
   
-    <section className="  h-full bg-slate-100  justify-center 
+    <motion.section className="  h-full bg-slate-100  justify-center 
      lg:px-4 items-center md:p-10
-    w-full flex flex-col   ">  
+    w-full flex flex-col   " animate={{opacity:1,y:0}} initial={{opacity:0,y:'2%'}} transition={{duration:0.6,delay:0.1,ease:'easeIn'}}>  
 {/**Formulaire avec validation de donner */}
 
 
@@ -163,7 +163,7 @@ ext-center">
             <Link href='/'><span className='text-violet-900 font-bold text-sm'>Connectez vous </span></Link>
         </div>
 </form>
-    </section>
+    </motion.section>
     </main>
 
   );

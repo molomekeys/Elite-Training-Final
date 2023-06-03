@@ -90,7 +90,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
    <main className="flex    lg:p-10 items-center
     justify-center  w-full ">
    
-    <motion.section  ref={refTest}
+    <motion.section  ref={refTest} animate={{opacity:1}} initial={{opacity:0}} transition={{duration:0.5,delay:0.2,ease:'easeIn'}}
    
     
     className="flex border-2 gap-8 lg:rounded-2xl lg:shadow-2xl
@@ -101,7 +101,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
    
         <form  onSubmit={handleSubmit(handleLogin)}
         className='flex flex-col gap-4 text-lg 
-         text-slate-50 font-semibold bg-white  p-4 text-slate-700 '>
+         text-slate-50 font-semibold bg-white  px-10 text-slate-700 '>
           
           <div className='flex flex-col   gap-4   w-full    '>
            <label htmlFor="email" className='text-slate-900  text-sm font-bold 

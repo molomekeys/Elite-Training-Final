@@ -27,10 +27,10 @@ const Navbar = () => {
         
         items-center justify-center hidden lg:flex 
          h-full  font-semibold w-full  pr-10 gap-10">
-            <Link href='/'> <button className={`  ${router.pathname =='/'? "border-b-2 text-slate-200 border-white  font-semibold" : "text-slate-400 hover:text-slate-50"}`}>Connexion</button></Link>
-            <Link href='/signIn'> <button className={`  ${router.pathname =='/signIn'? "border-b-2 border-white text-slate-200 font-semibold" : " text-slate-400 hover:text-slate-50"}`}>Inscription</button></Link>
+            <Link href='/'> <button className={`  ${router.pathname =='/'? "border-b-2 text-slate-50 border-[#F2D388] font-semibold" : "text-slate-400 hover:text-slate-50"}`}>Connexion</button></Link>
+            <Link href='/signIn'> <button className={`  ${router.pathname =='/signIn'? "border-b-2 border-[#F2D388] text-slate-50 font-semibold" : " text-slate-400 hover:text-slate-50"}`}>Inscription</button></Link>
             <a target={'_blank'}
-            href='https://elite-training.fr' className="hover:font-semibold text-slate-400 hover:text-yellow-100">Elite Training</a>
+            href='https://elite-training.fr' className=" text-slate-400 hover:text-yellow-100 hover:font-bold">Elite Training</a>
         </div>
         <div className="flex lg:hidden  relative z-50 pr-10 w-full h-full justify-end">
        <button onClick={()=>{

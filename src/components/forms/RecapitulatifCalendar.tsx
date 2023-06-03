@@ -63,7 +63,7 @@ const findClientName=client?.find(user => user.id === firstStepInfo.clientId);
   const allDataClient=events?.map((e)=>{
     
     return (<div key={e.id}
-           className="flex flex-col  gap-2 pt-2 lg:w-4/5 py-1
+           className="flex flex-col  gap-2 pt-2 w-full  py-1
               items-center justify-center 
                   ">
               
@@ -182,7 +182,7 @@ console.log(momoTest)
   return (
     <section className="flex flex-col w-full gap-10 ">
       <h2 className="text-xl font-semibold text-slate-800 ">Titre : {firstStepInfo.title}</h2>
-    <div className="flex flex-row gap-8 w-full justify-between items-center ">
+    <div className="flex flex-col lg:flex-row gap-8 w-full justify-between lg:items-center ">
 
       <div className=''>
     {secondStepInfo.programmeName=='classique'? <p className=''>Formule : <span className='font-semibold'>classique</span></p>: 
@@ -196,20 +196,22 @@ console.log(momoTest)
     
        
     </div>
-    <h3 className="font-bold text-xl text-center text-slate-700">Vos séances inscrites :  </h3>
+    <h3 className="font-bold lg:text-xl lg:text-center text-slate-700">Vos séances inscrites :  </h3>
 
-    <div className="grid grid-cols-2  lg:grid-cols-4 gap-6  place-content-center place-items-center
-        lg:my-10 lg:border-none  py-3 px-1   bg-slate-200 shadow-sm rounded-md  border-slate-800  
+    <div className="grid grid-cols-2  lg:grid-cols-4 gap-2 lg:gap-6  
+    lg:place-content-center lg:place-items-center
+        lg:my-10 lg:border-none  py-3 px-1   bg-slate-100 shadow-sm rounded-md  border-slate-800  
         lg:p-4 w-full lg:w-full ">
         {allDataClient}
 
         </div>
-    <div className="border-b-2 border-slate-400 pb-10 flex justify-between ">
-      <p className="text-lg text-right font-semibold"><span>Le client paiera : </span>{totalHours*( truePrice==undefined? 1 : truePrice)} <span className='font-semibold '>&euro;</span>
-     </p>
-      <p className="text-lg text-right font-semibold"><span>Élite vous devra : </span>{totalHours*( truePriceCoach==undefined? 1 : truePriceCoach)} <span className='font-semibold '>&euro;</span>
+    <div className="border-b-2 border-slate-400 gap-4 pb-10 flex flex-col lg:flex-row justify-between ">
+    <p className="lg:text-lg lg:text-right font-semibold"><span>Élite Training vous devra : </span>{totalHours*( truePriceCoach==undefined? 1 : truePriceCoach)} <span className='font-semibold '>&euro;</span>
 
-      </p>
+</p>
+      <p className="lg:text-lg text-right font-semibold"><span>Le client paiera : </span>{totalHours*( truePrice==undefined? 1 : truePrice)} <span className='font-semibold '>&euro;</span>
+     </p>
+    
       
     </div>
     <div className="flex flex-col w-full items-center justify-center">

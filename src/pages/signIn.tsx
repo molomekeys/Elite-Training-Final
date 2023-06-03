@@ -108,7 +108,7 @@ className="flex w-full
 flex-col gap-4 p-5  md:w-4/5 lg:w-3/5 lg:p-10 bg-white shadow-2xl
 rounded-xl  ">
       
-<h3 className="font-bold text-2xl lg:text-4xl py-4 text-center">Page d&rsquo; inscription</h3>
+<h3 className="font-bold text-xl lg:text-xl py-4 text-center">Page d&rsquo;inscription</h3>
 
 <label className="font-bold text-sm">Numéro SIREN :</label>
 <input {...register('sirenNumber')} type={'text'} placeholder="Veuillez inscrire votre numéro SIREN"

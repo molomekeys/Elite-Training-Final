@@ -96,8 +96,8 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
     className="flex border-2 gap-8 lg:rounded-2xl lg:shadow-2xl
      border-slate-100 border-none  
     flex-col w-full  md:w-4/5 lg:w-3/5 justify-center   
-    p-1 h-full lg:m-0 md:p-10 bg-white   ">
-    <h3 className='text-slate-800 text-3xl min-h-fit min-w-fit lg:text-5xl font-bold text-center relative '>Connexion</h3>
+    p-1 h-full lg:m-0 md:p-10 bg-white  pt-10  ">
+    <h3 className='text-slate-800 text-2xl min-h-fit min-w-fit lg:text-2xl font-bold text-center relative '>Connexion</h3>
    
         <form  onSubmit={handleSubmit(handleLogin)}
         className='flex flex-col gap-4 text-lg 
@@ -134,9 +134,9 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
         </form>
         
       
-    <div className='flex gap-2 font-semibold w-full items-center flex-col md:flex-row justify-center '>        
-            <p>Vous avez pas encore de compte ?</p>
-            <Link href='signIn'><span className='text-cyan-800 font-semibold'>Inscrivez vous </span></Link>
+    <div className='flex gap-1 font-semibold w-full items-center flex-col md:flex-row justify-center '>        
+            <p>Vous n&apos;avez pas de compte ?</p>
+            <Link href='signIn'><span className='text-cyan-800 font-semibold'>S'inscrire </span></Link>
         </div>
    
  </motion.section>

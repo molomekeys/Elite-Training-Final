@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import {motion} from 'framer-motion'
 import {
     Modal,
     ModalOverlay,
@@ -100,12 +101,12 @@ refetchData()
 
     return (
       <>
-        <button onClick={onOpen} 
+        <motion.button onClick={onOpen}   whileHover={{scale:1.05}}
         className="relative bg-[rgb(19,28,46)] max-w-fit text-slate-50 font-semibold py-2 px-3 rounded-lg">
 
         Ajouter un client
 
-        </button>
+        </motion.button>
        
 
         

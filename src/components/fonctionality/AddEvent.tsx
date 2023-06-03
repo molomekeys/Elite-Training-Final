@@ -8,6 +8,7 @@ import {
     ModalCloseButton,Button,Progress
   } from '@chakra-ui/react'
 import FirstStepAddEvent from '../forms/FirstStepAddEvent'
+import { motion } from 'framer-motion'
 import {useState,createContext} from 'react'
 import SecondStepAddEvent from '../forms/SecondStepAddEvent'
 import SmartFormInput from '../forms/SmartFormAutoEvent'
@@ -185,9 +186,10 @@ console.log(saveSecondStepForm)
       <>
       <AddEventContext.Provider value={{allOffert:allRoom,saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
         events:isEventAdded,functionEvent:saveEventData}}>
-        <button  className='text-slate-50 px-3 py-2 w-min-fit 
+        <motion.button   whileHover={{scale:1.05}}
+        className='text-slate-50 px-3 py-2 w-min-fit 
           bg-[#3C486B] rounded-lg font-bold   '
-        onClick={onOpen}>Facturation client</button>
+        onClick={onOpen}>Facturation client</motion.button>
   
         <Modal isOpen={isOpen} onClose={()=>{
           onClose()

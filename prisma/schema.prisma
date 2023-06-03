@@ -32,31 +32,39 @@ model User {
 }
 
 model Billing {
-    id           Int    @id @default(autoincrement())
-    price        Int
-    bill_invoice String
-    coach_id     Int
-    client_id    Int
+    id Int @id @default(autoincrement())
 
-    createdAt       DateTime   @default(now())
-    hours           Int
-    isPaid          Boolean    @default(false)
-    offer_id        Int
-    offer_prisma_id PriceTable @relation(fields: [offer_id], references: [id])
-    related_events  Events[]
+    bill_invoice_pdf String
+    coach_id         Int
+    client_id        Int
+
+    createdAt        DateTime       @default(now())
+    hours            Int
+    isPaid           Boolean        @default(false)
+    offer_id         Int
+    related_place    Int
+    offer_prisma_id  PriceTable     @relation(fields: [offer_id], references: [id])
+    related_events   Events[]
+    prisma_place_id  AvailablePlace @relation(fields: [related_place], references: [id])
+    prisma_client_id Client         @relation(fields: [client_id], references: [id])
+    prisma_coach_id  Coach          @relation(fields: [coach_id], references: [id])
 
     @@index(offer_id)
+    @@index(coach_id)
+    @@index(client_id)
+    @@index(related_place)
 }
 
 model Coach {
-    id              Int      @id @default(autoincrement())
+    id              Int       @id @default(autoincrement())
     numero_siren    String
     licence_sportif String?
-    user_id         String   @unique
-    created_at      DateTime @default(now())
-    UserIdCoach     User     @relation(fields: [user_id], references: [id])
+    user_id         String    @unique
+    created_at      DateTime  @default(now())
+    UserIdCoach     User      @relation(fields: [user_id], references: [id])
     client          Client[]
     Events          Events[]
+    alllBilling     Billing[]
 
     @@index(user_id)
 }
@@ -68,8 +76,9 @@ model Client {
     created_at   DateTime      @default(now())
     coachId      Coach?        @relation(fields: [coach_id], references: [user_id])
     UserIdPrisma User          @relation(fields: [user_id], references: [id])
-    Profil       ClientProfil?
+    profil       ClientProfil?
     event        Events[]
+    alllBilling  Billing[]
 
     @@index(user_id)
     @@index(coach_id)
@@ -116,6 +125,7 @@ model AvailablePlace {
     email               String?
     related_offer       Int
     related_events      Events[]
+    all_related_billing Billing[]
     related_offerPrisma OfferTable @relation(fields: [related_offer], references: [id])
 
     @@index(related_offer)

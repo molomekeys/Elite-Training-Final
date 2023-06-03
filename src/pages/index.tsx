@@ -3,7 +3,7 @@ import Link from 'next/link'
 import {useRouter} from 'next/router'
 
 import { signIn, useSession } from "next-auth/react";
-
+import { useAnimate,motion } from 'framer-motion';
 
 import {useEffect} from 'react'
 
@@ -27,7 +27,7 @@ const [errorDisplay,setErrorDisplay]=useState(false)
     const {data:session,status}=useSession()
  
 
-    const {register,formState:{errors},handleSubmit}=useForm({defaultValues:{email:'',password:''},resolver:zodResolver(validationSchemaLogin)})
+    const {register,formState:{errors},setError,handleSubmit}=useForm({defaultValues:{email:'',password:''},resolver:zodResolver(validationSchemaLogin)})
 
     async function handleLogin(values:{password:string,email:string}){
       
@@ -67,13 +67,20 @@ const [errorDisplay,setErrorDisplay]=useState(false)
     },[session,router])
 console.log(session)
 
-
+const [refTest,animate]=useAnimate()
+function handleAnimate(){
+animate(refTest.current,{x:['3%','-3%','3%','-3%','0%']},{duration:0.6})
+setError('email',{message:'email incorrect'})
+setError('password',{message:'mot de passe inccorect'})
+}
 
  if(status==="unauthenticated")
 {
   return (
     <main className='flex flex-col   bg-white lg:bg-slate-50 gap-10 '>
      
+
+<p  onClick={handleAnimate}>momo test </p>
 
      {errorDisplay&& <div onClick={()=>{
             setErrorDisplay(false)
@@ -102,7 +109,10 @@ console.log(session)
    <main className="flex  lg:bg-slate-50  lg:p-10 items-center
     justify-center  w-full ">
    
-    <section className="flex border-2 gap-8 lg:rounded-2xl lg:shadow-2xl
+    <motion.section  ref={refTest}
+   
+    
+    className="flex border-2 gap-8 lg:rounded-2xl lg:shadow-2xl
      border-slate-100 border-none  
     flex-col w-full  md:w-4/5 lg:w-3/5 justify-center   
     p-1 h-full lg:m-0 md:p-10 bg-white lg:bg-slate-50  ">
@@ -146,7 +156,7 @@ console.log(session)
             <Link href='signIn'><span className='text-violet-900 font-semibold'>Inscrivez vous </span></Link>
         </div>
    
- </section>
+ </motion.section>
 
    </main>
    </main>

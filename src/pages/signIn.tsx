@@ -82,10 +82,10 @@ async function onSubmit(values:LoginFormType)  {
          p-4  rounded-lg lg:w-2/5 lg:h-1/5 h-2/6 min-h-fit  w-4/5'> 
          <div className='flex gap-10 flex-col w-full h-full items-center justify-center '>
         <h2 className=' text-xl font-bold text-slate-800'>Erreur :</h2>
-         <h2 className='text-red-800 text-lg font-semibold '>Adresse email déjà utiliser veuillez indiquez une autre adresse</h2>
+         <h2 className='text-red-800 text-lg font-bold text-sm '>Adresse email déjà utiliser veuillez indiquez une autre adresse</h2>
         <div className='h-full flex w-full items-center justify-center'>         
            <button  className='  w-max-48 self-center 
-          text-slate-50 bg-slate-800 px-8 rounded-lg  py-3'
+          text-slate-100 bg-slate-800 px-8 rounded-lg  py-3'
           onClick={()=>{
             setDisplayErrorLogin(false)
           }}>Compris</button>
@@ -105,63 +105,63 @@ async function onSubmit(values:LoginFormType)  {
 
 <form  onSubmit={handleSubmit(onSubmit)}
 className="flex w-full 
-flex-col gap-4 p-5  md:w-4/5 lg:w-3/5 lg:p-10 bg-slate-50 shadow-2xl
+flex-col gap-4 p-5  md:w-4/5 lg:w-3/5 lg:p-10 bg-white shadow-2xl
 rounded-xl  ">
       
 <h3 className="font-bold text-2xl lg:text-4xl py-4 text-center">Page d&rsquo; inscription</h3>
 
-<label className="font-semibold">Numéro SIREN :</label>
+<label className="font-bold text-sm">Numéro SIREN :</label>
 <input {...register('sirenNumber')} type={'text'} placeholder="Veuillez inscrire votre numéro SIREN"
- className='w-full form-input bg-slate-200 rounded-md  py-3'/>
- <p className='text-xs font-semibold text-red-500'>{errors.sirenNumber?.message}</p>
+ className='w-full form-input bg-slate-100 rounded-md  py-3'/>
+ <p className='text-xs font-bold text-sm text-red-500'>{errors.sirenNumber?.message}</p>
 
-  <label className="font-semibold">Nom :</label>
+  <label className="font-bold text-sm">Nom :</label>
 <input {...register('lastName')} type={'text'} placeholder="Veuillez inscrire votre nom"
- className='w-full form-input bg-slate-200  rounded-md py-3'/>
-<p className='text-xs font-semibold text-red-500'>{errors.lastName?.message}</p>
+ className='w-full form-input bg-slate-100  rounded-md py-3'/>
+<p className='text-xs font-bold text-sm text-red-500'>{errors.lastName?.message}</p>
 
-  <label className="font-semibold">Prénom : </label>
+  <label className="font-bold text-sm">Prénom : </label>
 <input {...register('firstName')} 
 placeholder="Veuillez inscrire votre prénom" type={'text'}
- className='w-full form-input bg-slate-200 rounded-md py-3 '/>
- <p className='text-xs font-semibold text-red-500'>{errors.firstName?.message}</p>
+ className='w-full form-input bg-slate-100 rounded-md py-3 '/>
+ <p className='text-xs font-bold text-sm text-red-500'>{errors.firstName?.message}</p>
 
-  <label className="font-semibold">Adresse e-mail : </label>
+  <label className="font-bold text-sm">Adresse e-mail : </label>
 <input {...register('email')} type={'email'} placeholder="Veuillez inscrire votre adresse e-mail"
- className='w-full form-input bg-slate-200 rounded-md py-3'/>
- <p className='text-xs font-semibold text-red-500'>{errors.email?.message}</p>
- <label htmlFor='phoneNumber' className='font-semibold  text-sm' >Numéro de télphone :</label>
+ className='w-full form-input bg-slate-100 rounded-md py-3'/>
+ <p className='text-xs font-bold text-sm text-red-500'>{errors.email?.message}</p>
+ <label htmlFor='phoneNumber' className='font-bold text-sm  text-sm' >Numéro de télphone :</label>
 
 <input placeholder='Veuillez inscrire le numero de votre athlète'  
 id='firstName' type={'tel'}   className='form-input rounded-md  border-2 border-slate-400 py-2 px-2 bg-slate-100'
   {...register('phoneNumber')}/>
-          <p className='text-xs font-semibold text-red-500'>{errors.phoneNumber?.message}</p>
-  <label className="font-semibold">Mot de passe : </label>
+          <p className='text-xs font-bold text-sm text-red-500'>{errors.phoneNumber?.message}</p>
+  <label className="font-bold text-sm">Mot de passe : </label>
 <input {...register('password')}    placeholder="Veuillez indiquez un mot de passe (minimum 6 caractères)"
  type={'password'}
- className='w-full form-input bg-slate-200  rounded-md py-3'/>
- <p className='text-xs font-semibold text-red-500'>{errors.password?.message}</p>
+ className='w-full form-input bg-slate-100  rounded-md py-3'/>
+ <p className='text-xs font-bold text-sm text-red-500'>{errors.password?.message}</p>
 
-  <label className="font-semibold">Confirmer votre mot de passe : </label>
+  <label className="font-bold text-sm">Confirmer votre mot de passe : </label>
 <input {...register('confirmPassword')} type={"password"} 
  placeholder="Veuillez confirmez votre mot de passe"
- className='w-full form-input bg-slate-200  rounded-md py-3'/>
-<p className='text-xs font-semibold text-red-500'>{errors.confirmPassword?.message}</p>
-<div className="w-full form-input bg-slate-200 py-3 rounded-md   flex flex-col
+ className='w-full form-input bg-slate-100  rounded-md py-3'/>
+<p className='text-xs font-bold text-sm text-red-500'>{errors.confirmPassword?.message}</p>
+<div className="w-full form-input bg-slate-100 py-3 rounded-md   flex flex-col
 ext-center">
-<label htmlFor="fileInput" className="font-semibold w-full text-center text-slate-600 ">Ajouter votre licence de coach : </label>
+<label htmlFor="fileInput" className="font-bold text-sm w-full text-center text-slate-600 ">Ajouter votre licence de coach : </label>
 
 <input type={'file'}  placeholder="Veuillez ajouter votre carte sportif"
  id="fileInput"
  className='w-full border-2 text-center hidden' />
  </div>
- <p className='text-xs font-semibold text-red-500'>{errors.email?.message}</p>
+ <p className='text-xs font-bold text-sm text-red-500'>{errors.email?.message}</p>
 <button type="submit" className="bg-slate-800 max-w-fit px-4 py-2 my-4
- rounded-lg text-slate-50 font-semibold self-center">Créer votre compte</button>
+ rounded-lg text-slate-100 font-bold text-sm self-center">Créer votre compte</button>
 
-<div className='flex gap-2 font-semibold w-full items-center flex-row justify-center '>        
+<div className='flex gap-2 font-bold text-sm w-full items-center flex-row justify-center '>        
             <p>Vous avez déjà un compte?</p>
-            <Link href='/'><span className='text-violet-900 font-semibold'>Connectez vous </span></Link>
+            <Link href='/'><span className='text-violet-900 font-bold text-sm'>Connectez vous </span></Link>
         </div>
 </form>
     </section>

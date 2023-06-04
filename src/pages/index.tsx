@@ -55,7 +55,7 @@ const [errorDisplay,setErrorDisplay]=useState(false)
           else if(session.user.role=='coach')
           {
             console.log('slt')
-            router.push('/coach/dashboardCoach')
+            router.push('/coach/planning')
 
           }
           else if(session.user.role=='client')

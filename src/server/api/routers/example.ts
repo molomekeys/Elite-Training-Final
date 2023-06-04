@@ -82,7 +82,31 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
   }
   })
     ,
-
+fetchBillingClient:publicProcedure.query(async({ctx})=>{
+  if(ctx.session?.user.client_table?.id)
+  {
+const allBillInfo=await ctx.prisma.billing.findMany(({
+  where:{
+    client_id:Number(ctx.session?.user.client_table?.id)
+  },select:{
+    bill_invoice_pdf:true,
+    hours:true,
+    isPaid:true,
+    createdAt:true,
+    offer_prisma_id:{
+      select:{
+        stripe_id:true ,client_price:true
+      }
+    }
+  }
+}))
+const allBillInfoFltered=allBillInfo.map((e)=>{
+  const {offer_prisma_id,...rest}=e
+  return {...offer_prisma_id,...rest}
+})
+return allBillInfoFltered
+}
+}),
   addEventsCalendar:publicProcedure.input(z.object({
     billingData:z.object({prisma_client_id:z.number(),prisma_coach_id:z.number(),hours:z.number(),
       prisma_place_id:z.number(),bill_invoice_pdf:z.string(),offer_prisma_id:z.number()}),

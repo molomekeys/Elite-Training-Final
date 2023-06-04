@@ -7,7 +7,13 @@ import { useState } from "react"
 import {HiUser} from 'react-icons/hi2'
 import {MdEmail,MdCall} from 'react-icons/md'
 import {BsFillCalendarPlusFill} from 'react-icons/bs'
-import {AiOutlineFilePdf} from 'react-icons/ai'
+import {AiOutlineFilePdf,AiFillCheckCircle} from 'react-icons/ai'
+import {FaMoneyBillWave} from 'react-icons/fa'
+import { loadStripe } from "@stripe/stripe-js"
+import { env } from "~/env.mjs"; // On client - same import!
+
+const momo  =  loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+
 import {v4} from 'uuid'
 type ClientDataType={
   name: string;
@@ -17,10 +23,45 @@ type ClientDataType={
 }
 const FactureClient = () => {
 
+
+  async function fetchKeysStripe(billId:string): Promise<void>{
+
+
+
+    try {
+      const response = await fetch('/api/payement/stripe');
+      const data = await response.json();
+      // Process the received data here
+     
+      const stripe = await momo.then((e)=>{
+     
+        console.log(data?.sessionId)
+    
+        return e?.redirectToCheckout({sessionId:data?.sessionId})
+      })
+    
+    
+    
+    
+      
+    
+    } catch (error) {
+     console.log(error)
+    }
+    
+    
+     }
+
+
+
   const {data}=useSession()
   const dispatch = useDispatch()
   console.log(data?.user)
 const [client,setClient]=useState<ClientDataType[]>([])
+
+const billFetched=api.example.fetchBillingClient.useQuery().data
+console.log(billFetched)
+
 
 // if(data?.user)
 // {
@@ -45,15 +86,18 @@ const [client,setClient]=useState<ClientDataType[]>([])
 // })
 
  
-  // const allFetchedClient=testmomo?.map((e)=>{
-  //  return(  <tr key={e.id} className=" py-4  w-full grid grid-cols-3 lg:grid-cols-4  ">
-  //     <td key={v4()}   className="py-3 text-xs font-semibold italic pl-4 ">{e.createdAt.toLocaleDateString()}</td>
-  //     <td key={v4()} className="py-3 font-bold text-xs ">{e.name}</td>
-  //     <td key={v4()} className="py-3 font-bold text-xs">{e.phone_number}</td>
-  //     <td key={v4()} className="py-3  font-bold text-xs hidden lg:flex">{e.email}</td>
-  //   </tr>)
+  const allFetchedClient=billFetched?.map((e)=>{
+   return(  <tr key={v4()} className=" py-4  text-center w-full grid grid-cols-3 lg:grid-cols-4  ">
+      <td key={v4()}   className="py-3 text-xs font-semibold italic pl-4 ">{e?.createdAt?.toLocaleDateString()}</td>
 
-  // })
+      <td key={v4()} className="py-3 font-bold text-xs">{e.bill_invoice_pdf}</td>
+      <td key={v4()}  onClick={()=>fetchKeysStripe(e.stripe_id)} className="py-3  w-full flex justify-center font-bold text-xs hidden lg:flex text-center">{e.hours*e.client_price}</td>
+      <td key={v4()}  onClick={()=>fetchKeysStripe(e.stripe_id)} className="py-3   flex justify-center  cursor-pointer  font-bold text-xs hidden lg:flex">payer</td>
+{e.isPaid==true?<td key={v4()}  onClick={()=>fetchKeysStripe(e.stripe_id)} className="py-3   flex justify-center  cursor-pointer  font-bold text-xs hidden lg:flex">payer</td>
+: <td key={v4()}  className="py-3   flex justify-center  cursor-pointer  font-bold text-xs hidden lg:flex"><AiFillCheckCircle size={'25px'}/></td>}
+    </tr>)
+
+  })
   console.log(client)
   return (
    <main className="flex flex-col w-full gap-10 ">
@@ -69,17 +113,18 @@ const [client,setClient]=useState<ClientDataType[]>([])
       <tr className="  bg-slate-200 grid grid-cols-3 lg:grid-cols-4 w-full ">
 
       <th className="py-4 px-2   pl-4 text-center flex self-center items-center justify-center "><BsFillCalendarPlusFill width={25}/></th>
-      <th className="py-4 text-center justify-center flex  "><HiUser width={25}/></th>
    
      <th className="py-4  text-center flex  justify-center hidden lg:flex "><AiOutlineFilePdf width={25}/></th>
-     <th className="py-4  text-center flex  justify-center hidden lg:flex "></th>
+     <th className="py-4 text-center justify-center flex  "><FaMoneyBillWave width={25}/></th>
+
+     <th className="py-4  text-center flex  justify-center hidden lg:flex "> </th>
 
 
     </tr>
 
       </thead>
       <tbody className="bg-slate-50  bg-slate-100 w-full ">
-        {/* {allFetchedClient} */}
+        {allFetchedClient}
       </tbody>
      </motion.table>
      </section>

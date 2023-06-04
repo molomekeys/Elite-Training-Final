@@ -90,11 +90,10 @@ console.log(billFetched)
    return(  <tr key={v4()} className=" py-4  text-center w-full grid grid-cols-3 lg:grid-cols-4  ">
       <td key={v4()}   className="py-3 text-xs font-semibold italic pl-4 ">{e?.createdAt?.toLocaleDateString()}</td>
 
-      <td key={v4()} className="py-3 font-bold text-xs">{e.bill_invoice_pdf}</td>
-      <td key={v4()}  onClick={()=>fetchKeysStripe(e.stripe_id)} className="py-3  w-full flex justify-center font-bold text-xs hidden lg:flex text-center">{e.hours*e.client_price}</td>
-      <td key={v4()}  onClick={()=>fetchKeysStripe(e.stripe_id)} className="py-3   flex justify-center  cursor-pointer  font-bold text-xs hidden lg:flex">payer</td>
-{e.isPaid==true?<td key={v4()}  onClick={()=>fetchKeysStripe(e.stripe_id)} className="py-3   flex justify-center  cursor-pointer  font-bold text-xs hidden lg:flex">payer</td>
-: <td key={v4()}  className="py-3   flex justify-center  cursor-pointer  font-bold text-xs hidden lg:flex"><AiFillCheckCircle size={'25px'}/></td>}
+      <td key={v4()} className="py-3 font-bold text-xs hidden lg:flex justify-center">{e.bill_invoice_pdf}</td>
+      <td key={v4()}  onClick={()=>fetchKeysStripe(e.stripe_id)} className="py-3  w-full flex justify-center font-bold text-xs flex text-center">{e.hours*e.client_price}</td>
+{e.isPaid==false?<td key={v4()}  onClick={()=>fetchKeysStripe(e.stripe_id)} className="py-3   flex justify-center  cursor-pointer  text-xs  font-semibold  flex rounded-xl bg-slate-200 mx-4 lg:mx-12">faire un payement</td>
+: <td key={v4()}  className="py-3   flex justify-center  cursor-pointer  font-bold  hidden lg:flex"><AiFillCheckCircle size={'25px'}/></td>}
     </tr>)
 
   })

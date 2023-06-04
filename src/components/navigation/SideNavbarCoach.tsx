@@ -126,7 +126,7 @@ async function signOutTest(): Promise<void> {
       </Link>
 
 
-        <Link href='/agenda' className=" w-full ">
+        <Link href='/coach/planning' className=" w-full ">
           <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/agenda'? 'bg-slate-700' : ''}`}>
             <span><BsCalendar3 size={25}/></span><li className=" py-2 ">Planning</li>
             </div>
@@ -134,7 +134,7 @@ async function signOutTest(): Promise<void> {
 
 
 
-        <Link href='/client' className=" w-full ">
+        <Link href='/coach/client' className=" w-full ">
           
           
           
@@ -143,7 +143,7 @@ async function signOutTest(): Promise<void> {
             </div>
           
           </Link>
-        <Link href='/facturationCoach' className=" w-full ">
+        <Link href='/coach/facture' className=" w-full ">
           
         <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/client'? 'bg-slate-700' : ''}`}>
             <span><FaFileInvoiceDollar size={25}/></span>
@@ -151,13 +151,19 @@ async function signOutTest(): Promise<void> {
             </div>
 </Link>
 
+<div   onClick={()=>signOut({callbackUrl:'/'})}
+    className=" my-10 h-20 p-3 cursor-pointer text-slate-800
+     hover:bg-gradient-to-r  hover:text-slate-100 from-slate-600 to-cyan-700   flex self-center w-full justify-center  ">
+   
+        < RiLogoutCircleRLine  size={30} className='scale-y-2   lg:flex  -rotate-90  '/>
 
+</div>
 
        </ul>
       
        
     </div>
-          
+
         </div>}
     </section >
   )

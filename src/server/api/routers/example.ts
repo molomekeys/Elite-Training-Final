@@ -91,7 +91,7 @@ const allBillInfo=await ctx.prisma.billing.findMany(({
   },select:{
     bill_invoice_pdf:true,
     hours:true,
-    isPaid:true,
+    isPaid:true,id:true,
     createdAt:true,
     offer_prisma_id:{
       select:{

@@ -4,6 +4,7 @@ import { useMediaQuery } from '@chakra-ui/media-query';
 import 'moment/locale/fr'; // import the French locale
 
 import "../../styles/specifiqueStyleCalendar.css"
+import { getFileInfo } from 'prettier';
 type SingleEvent={
  
   start:Date
@@ -17,12 +18,12 @@ type SingleEvent={
 }
 interface Props {
   event:SingleEvent[];
-  // getInfo:(e:any)=>void
-  // openTheMod:()=>void
+  getInfo:(e:any)=>void
+  openTheMod:()=>void
   // openTheEvent:()=>void
 }
 
-function CalendarComponent({event}:Props) {
+function CalendarComponent({event,openTheMod,getInfo}:Props) {
 
 
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
@@ -196,8 +197,13 @@ console.log(event)
   messages={messages}// replace with your own events array
   startAccessor="start"
   
-  // onSelectEvent={(e)=>{getInfo(e)
-  // openTheMod()}}
+
+  // getInfo(e)
+
+  onSelectEvent={(e)=>{
+    console.log(e)
+  getInfo(e)
+  openTheMod()}}
   endAccessor="end"
   selectable
   

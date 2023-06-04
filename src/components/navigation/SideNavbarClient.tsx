@@ -88,59 +88,50 @@ const SideNavbarClient = () => {
   {/**Speciale menu navigation mobile  */}
   {toggleNavigationBar&&  <div 
       className="w-screen h-screen flex flex-col lg:hidden inset-0 
-         bg-opacity-25 z-40 bg-slate-800  absolute ">
+         bg-opacity-25 z-40 bg-slate-800  absolute   ">
        
        <div className="flex flex-col
-       lg:flex-col bg-white w-full text-lg
+       lg:flex-col bg-white w-full text-lg h-full
         h-full text-slate-800 items-center justify-center w-full "> 
-       <ul className="   font-medium lg:flex flex-col h-screen  flex
-           justify-start pt-10  lg:items-start gap-4 
+       <ul className="   font-medium lg:flex flex-col justify-center items-center h-full  flex
+          pt-10  lg:items-start gap-14
         w-full lg:flex-col  ">
-       <Link href="/coach/dashboardCoach" className=" w-full "> 
-      
-       <div className={`flex items-center px-10 py-2  w-full gap-4 ${router.pathname=='/coach/dashboardCoach'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
-                 <span>
-                  <AiOutlineDashboard size={35}/>
-                  </span>
-                  <li className="hover:font-semibold hover:text-black text-lg   py-2
-                  ">Dashboard</li>
+   
+
+
+          <div className={`flex items-center px-10  w-full gap-4  ${router.pathname=='/coach/planning'? 'bg-slate-700' : ''}`}>
+          <Link href='/client/planning' className=" w-full ">
+
+            <span><BsCalendar3 size={25}/></span><li 
+            className="hover:font-bold  ">Planning</li>
+                        </Link>
+
             </div>
-      
-      </Link>
-
-
-        <Link href='/agenda' className=" w-full ">
-          <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/agenda'? 'bg-slate-700' : ''}`}>
-            <span><BsCalendar3 size={35}/></span><li className="hover:font-semibold hover:text-black text-lg rounded-md  hover:px-2 py-2 hover:bg-slate-50">Planning</li>
-            </div>
-            </Link>
 
 
 
-        <Link href='/client' className=" w-full ">
+    
+        <Link href='/client/facture' className=" w-full ">
           
-          
-          
-        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/coach/client'? 'bg-slate-700' : ''}`}>
-            <span><HiOutlineUserGroup size={35}/></span><li className="hover:font-semibold hover:text-black text-lg rounded-md  hover:px-2 py-2 hover:bg-slate-50">Client</li>
-            </div>
-          
-          </Link>
-        <Link href='/facturationCoach' className=" w-full ">
-          
-        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/client'? 'bg-slate-700' : ''}`}>
-            <span><FaFileInvoiceDollar size={35}/></span>
-            <li className="hover:font-semibold hover:text-black text-lg rounded-md  hover:px-2 py-2 hover:bg-slate-50">Facturation</li>
+        <div className={`flex items-center px-10  w-full gap-4  ${router.pathname=='/client/facturation'? 'bg-slate-700' : ''}`}>
+            <span><FaFileInvoiceDollar size={25}/></span>
+            <li className="hover:font-semibold hover:text-black text-lg rounded-md  hover:px-2 ">Facturation</li>
             </div>
 </Link>
 
 
 
        </ul>
-      
+       <div   onClick={()=>signOut({callbackUrl:'/'})}
+    className=" my-10 h-20 p-3 cursor-pointer text-slate-800
+     hover:bg-gradient-to-r  hover:text-slate-100 from-slate-600 to-cyan-700   flex self-center w-full justify-center  ">
+   
+        < RiLogoutCircleRLine  size={30} className='scale-y-2   lg:flex  -rotate-90  '/>
+
+</div>
        
     </div>
-          
+ 
         </div>}
     </section >
   )

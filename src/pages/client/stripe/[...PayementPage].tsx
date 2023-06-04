@@ -55,6 +55,7 @@ const PayementPage = () => {
 try {
   const response = await fetch('/api/payement/stripe');
   const data = await response.json();
+  console.log(data)
   // Process the received data here
  
   const stripe = await momo.then((e)=>{

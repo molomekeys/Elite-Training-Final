@@ -130,7 +130,7 @@ c'est pour afficher l'agenda et non pas la page pour la modifier
              <p className=''>{informationData.end.getHours().toLocaleString() +':'+ informationData.start.getMinutes().toLocaleString().padStart(2,'0')}</p> 
              </div> :
           <div className='flex flex-col w-full gap-6   text-left'> 
-            <label className='font-semibold text-sm'>Indiquez la nouvelle date d'entrainement</label>
+            <label className='font-semibold text-sm'>Indiquez la nouvelle date d&apos;entrainement</label>
             <input type={'date'} className=" form-input w-full
                bg-slate-50  py-3  rounded-lg"
          {...register('dateEvent')}

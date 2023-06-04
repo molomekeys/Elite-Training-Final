@@ -27,6 +27,9 @@ declare module "next-auth" {
       coach_table?:{
         id:string
       }
+      client_table?:{
+        id:string
+      }
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -63,6 +66,9 @@ export const authOptions: NextAuthOptions = {
         email?: string | null | undefined;
         image?: string | null | undefined;
         coachTable?:{
+          id:string
+        }
+        clientTable?:{
           id:string
         }
     }
@@ -118,6 +124,7 @@ export const authOptions: NextAuthOptions = {
         const momo =await prisma.user.findFirst(
           {where:{email:credentials?.username},include:{
             coach_table:true
+            ,client_table:true
           }})
         console.log(credentials)
        

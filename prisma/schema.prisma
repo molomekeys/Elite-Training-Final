@@ -42,17 +42,17 @@ model Billing {
     hours            Int
     isPaid           Boolean        @default(false)
     offer_id         Int
-    related_place    Int
+    salle_id         Int
     offer_prisma_id  PriceTable     @relation(fields: [offer_id], references: [id])
     related_events   Events[]
-    prisma_place_id  AvailablePlace @relation(fields: [related_place], references: [id])
+    prisma_place_id  AvailablePlace @relation(fields: [salle_id], references: [id])
     prisma_client_id Client         @relation(fields: [client_id], references: [id])
     prisma_coach_id  Coach          @relation(fields: [coach_id], references: [id])
 
     @@index(offer_id)
     @@index(coach_id)
     @@index(client_id)
-    @@index(related_place)
+    @@index(salle_id)
 }
 
 model Coach {
@@ -100,8 +100,8 @@ model Events {
     end        DateTime
     title      String
     coach_id   Int
-    client_id  Int?
-    salle_id   Int?
+    client_id  Int
+    salle_id   Int
     hours      Float
     isPaid     Boolean  @default(false)
     billing_id Int?

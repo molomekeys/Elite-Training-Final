@@ -17,10 +17,15 @@ const PlanningCoach = () => {
   function fetchDataBack(e:Events[]){
     setEventsData(e)
   }
-  const {data:eventsCalendar}=api.example.seeEventCalendar.useQuery()
+  const {data:eventsCalendar,refetch}=api.example.seeEventCalendarCoach.useQuery()
+
+ async function refetchEvents(){
+  await refetch()
+ }
+
 
   const allClient=api.example.fetchDataLoginCoach.useQuery(undefined,{staleTime:10000,refetchOnWindowFocus:false}).data?.map((e)=>{
-    return {...e.UserIdPrisma,createdAt:e.created_at}
+    return {...e.UserIdPrisma,createdAt:e.created_at,idClient:String(e.id)}
   })
 
   const {data,isLoading}=api.example.availableOffer.useQuery()
@@ -34,7 +39,7 @@ if(isLoading){
   return (
     <main className="w-full flex flex-col p-4 gap-4 ">
       <motion.div  animate={{opacity:1,y:0}} initial={{opacity:0,y:'-30%'}} transition={{duration:0.5,delay:0.5}} className="w-full flex justify-end p-4">
-       <AddEvent  allRoom={data? data : []}
+       <AddEvent  allRoom={data? data : []} saveEventCalendar={refetchEvents}
         updateData={fetchDataBack} allClient={allClient? allClient : []}/>
       </motion.div>
       <motion.section animate={{opacity:1,y:0}} initial={{opacity:0,y:2}} transition={{duration:1,delay:0.1}}

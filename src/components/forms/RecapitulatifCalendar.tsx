@@ -11,6 +11,7 @@ import {FirstStepState,setSecondStepForm} from '../../features/event/eventSlice'
 import {AiOutlineUser} from 'react-icons/ai'
 import {MdRoom} from 'react-icons/md'
 import { useSession } from 'next-auth/react';
+import { api } from "~/utils/api"
 type specClient={
   id:string
   fullName:string
@@ -24,9 +25,12 @@ interface Props {
 
 //fonction réaction
 
-const RecapitulatifCalendar = () => {
+const RecapitulatifCalendar = ({close}:{close:()=>void}) => {
 const {data}=useSession()
-  const {events,client,saveEvent,allOffert}=useContext(AddEventContext)
+
+const addEvents=api.example.addEventsCalendar.useMutation()
+
+  const {events,client,saveEvent,allOffert,saveEventCalendarContext}=useContext(AddEventContext)
   const firstStepInfo=useSelector((state:RootState)=>state.eventReducer.firstStep)
   const secondStepInfo=useSelector((state:RootState)=>state.eventReducer.secondStep)
 console.log(allOffert)
@@ -146,11 +150,25 @@ async function handleAddData(){
 // })
 const momoTest=events.map((eventData)=>{
   const {id,...rest}=eventData
-  return( {...rest,title:firstStepInfo.title,room:secondStepInfo.programmeName,
-    client:firstStepInfo.clientId,coachId:data?.user.id})
+ 
+  return( {...rest,title:firstStepInfo.title,salle_id:Number(secondStepInfo.programmeName),
+    client_id:Number(firstStepInfo.clientId),coach_id:Number(data?.user.coach_table?.id)})
+
 })
 console.log(momoTest)
+if((momoTest!=undefined &&data?.user.coach_table?.id!=undefined)&&selectedOfferTest!=undefined)
+{
+  
+const testMomo= await addEvents.mutateAsync({eventData:[...momoTest],billingData:{bill_invoice_pdf:'...',prisma_client_id:Number(firstStepInfo.clientId),prisma_coach_id:Number(data?.user.coach_table?.id)
+,hours:totalHours,prisma_place_id:Number(secondStepInfo.programmeName),offer_prisma_id:selectedOfferTest[0]!=undefined? selectedOfferTest[0]?.id :5}})
 
+
+console.log(testMomo)
+
+
+saveEventCalendarContext()
+close()
+}
 //   manualyEvent.map(async(e)=>{
 //     const docBatch =  batch.set(doc(collection(db, 'users',userLoged,'events')), {
 //      ...e,clientName:nameClient,clientId:firstStepForm.client,type:firstStepForm.type
@@ -179,6 +197,7 @@ console.log(momoTest)
 // console.log(firstStepForm)
 // console.log(totalPriceToSave)
 }
+
   return (
     <section className="flex flex-col w-full gap-10 ">
       <h2 className="text-xl font-semibold text-slate-800 ">Titre : {firstStepInfo.title}</h2>
@@ -233,7 +252,8 @@ console.log(momoTest)
   
     </div>
     <div className='flex items-center justify-center w-full'>
-    <BlobProvider document={<InvoiceComponent eventInfo={{clientName:findClientName?.name? findClientName.name : '',salleName:selectedOffer[0]?.room_name? selectedOffer[0]?.room_name : '',hours:totalHours,unitPrice:truePrice? truePrice : 10,category:'coaching',coachName:'Ouzar Merouane'}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
+    <BlobProvider document={<InvoiceComponent eventInfo={{clientName:findClientName?.name? findClientName.name : '',salleName:selectedOffer[0]?.room_name? selectedOffer[0]?.room_name : '',
+    hours:totalHours,unitPrice:truePrice? truePrice : 10,category:'coaching',coachName:data?.user.name? data.user.name : ''}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here
 

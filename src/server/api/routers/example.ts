@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { number, z } from "zod";
 import {
   createTRPCRouter,
   publicProcedure,
@@ -53,7 +53,7 @@ export const exampleRouter = createTRPCRouter({
     //     return fetchedData
     // })
 
-seeEventCalendar:publicProcedure.query(async ({ctx})=>{
+seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
   if(ctx.session?.user.coach_table?.id!=undefined)
   {
   const momo = await ctx.prisma.events.findMany({
@@ -66,29 +66,73 @@ seeEventCalendar:publicProcedure.query(async ({ctx})=>{
   return momo
 }
 })
-  ,
+  ,seeEventCalendarCient:publicProcedure.query(async ({ctx})=>{
 
-  addEventsCalendar:publicProcedure.input(z.object({client_id:z.string()})).mutation(async ({ctx,input})=>{
+    console.log(ctx.session?.user.client_table?.id)
+    if(ctx.session?.user.client_table?.id)
+    {
+    const momo = await ctx.prisma.events.findMany({
+  
+      where:{
+     client_id: Number(ctx.session.user.client_table.id)
+        
+      }
+    })
+    return momo
+  }
+  })
+    ,
+
+  addEventsCalendar:publicProcedure.input(z.object({
+    billingData:z.object({prisma_client_id:z.number(),prisma_coach_id:z.number(),hours:z.number(),
+      prisma_place_id:z.number(),bill_invoice_pdf:z.string(),offer_prisma_id:z.number()}),
+    
+    
+    eventData:z.array(z.object({
+      start:z.date(),end:z.date(),title:z.string(),hours:z.number(),salle_id:z.number(),
+      coach_id:z.number(),client_id:z.number()}))
+  })).mutation(async ({ctx,input})=>{
     console.log('pourquoi')
-    
-    
+    const {billingData,eventData}=input
+    console.log(billingData)
+    const {bill_invoice_pdf,hours,offer_prisma_id,prisma_client_id,prisma_coach_id,prisma_place_id}=billingData
     if(ctx.session?.user.coach_table?.id!=undefined)
     {
       const billClient=await ctx.prisma.billing.create({
         data:{
-          hours:10,client_id:1,coach_id:2,bill_invoice_pdf:'1234',offer_id:1,related_place:1
+        bill_invoice_pdf:bill_invoice_pdf,hours:hours,client_id:prisma_client_id,
+        coach_id:prisma_coach_id,offer_id:offer_prisma_id,salle_id:prisma_place_id, 
         }
       })
+  
       const {id}=billClient
-    const momo = await ctx.prisma.events.createMany({
-      data:[{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),billing_id:id,
-        end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'
-      },{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),
-        end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'
-      }]
-    })
 
-    return momo
+//events to put in the db
+const finalEvents=eventData.map((e)=>{
+  return {...e,billing_id:id}
+})
+
+
+      const momo =await ctx.prisma.events.createMany({
+        data:[...finalEvents]
+      })
+
+     if(momo){
+      return 'succes addes'
+     }
+     else if(!momo){
+      return 'une erreur est survenue'
+     }
+        
+    // const momo = await ctx.prisma.events.createMany({
+    //   data:[{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),billing_id:id,
+    //     end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'
+    //   },{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),
+    //     end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'
+    //   }]
+    // })
+
+    // return momo
   }
   })
     ,
@@ -238,9 +282,10 @@ return momo
                
              },select:{
               created_at:true,
+              id:true,
               UserIdPrisma:{
                 select:{
-                  email:true,name:true,id:true,phone_number:true
+                  email:true,name:true,id:true,phone_number:true,
                 }
               }
              }

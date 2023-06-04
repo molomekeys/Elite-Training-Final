@@ -21,7 +21,7 @@ export default async function handler(
     {
       // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
       price: 'price_1NDtlEL8uKxb9Hfaz5CIb6M6',
-      quantity: 10,
+      quantity: 1,
     },
   ],
   mode: 'payment',

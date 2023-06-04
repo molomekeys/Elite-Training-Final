@@ -26,6 +26,7 @@ export type AllClientType={
   id: string;
   name: string;
   email: string;
+  idClient:string
   phone_number: string;
 
 }
@@ -60,25 +61,26 @@ interface PropsAddEvent{
   updateData:(e:Events[])=>void
   allClient:AllClientType[]
   allRoom:AllPrice[]
+  saveEventCalendar:()=>void
 
 }
 interface ContextEventInterface{
-  client:{ createdAt: Date;
-    name: string;
-    email: string;
-    id: string;
-    phone_number: string;}[],
+  client:AllClientType[],
 events:EventsTypeAgenda[], saveEvent:(e:Events[])=>void,
 functionEvent:(eventData:EventsType[])=>void
 functionAddSubEvent:(eventData:EventsType[])=>void
 clearEventData:()=>void
 allOffert :AllPrice[]
+saveEventCalendarContext:()=>void
+
 }
 
 // react context
 
 export const AddEventContext=createContext<ContextEventInterface>(
-  {functionAddSubEvent:()=>{
+  {saveEventCalendarContext:()=>{
+    return
+  },functionAddSubEvent:()=>{
     return 
   },allOffert:[],clearEventData:()=>{
     return 
@@ -93,7 +95,7 @@ export const AddEventContext=createContext<ContextEventInterface>(
 
 
   // react function 
-const AddEvent = ({updateData,allClient,allRoom}:PropsAddEvent) => {
+const AddEvent = ({updateData,allClient,allRoom,saveEventCalendar}:PropsAddEvent) => {
 //cela permet d'utiliser chakra ui
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
@@ -184,7 +186,7 @@ console.log(saveSecondStepForm)
 
     return (
       <>
-      <AddEventContext.Provider value={{allOffert:allRoom,saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
+      <AddEventContext.Provider value={{saveEventCalendarContext:saveEventCalendar,allOffert:allRoom,saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
         events:isEventAdded,functionEvent:saveEventData}}>
         <motion.button   whileHover={{scale:1.05}}
         className='text-slate-50 px-3 py-2 w-min-fit 
@@ -210,7 +212,7 @@ console.log(saveSecondStepForm)
            />}
              { stepForm==2&&<SecondStepAddEvent  />}
           {stepForm==3&&<DateFormSelect/>}
-          {stepForm==4&& <RecapitulatifCalendar/>}
+          {stepForm==4&& <RecapitulatifCalendar close={onClose}/>}
             </ModalBody>
   
             <ModalFooter>

@@ -38,7 +38,7 @@ const FirstStepAddEvent = () => {
     ]
  
     const allOptionsOffer=client.map((e)=>{
-        return (<option value={e.id} key={e.id}>{e.name}</option>)
+        return (<option value={e.idClient} key={e.id}>{e.name}</option>)
     })
 
 

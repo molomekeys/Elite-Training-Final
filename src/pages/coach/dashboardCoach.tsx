@@ -22,8 +22,7 @@ const DashboardCoach = () => {
     {
 const dataCoach =api.example.fetchDataLoginCoach.useQuery()
 
-const momoTest=api.example.addEventsCalendar.useMutation()
-console.log(momoTest)
+
     console.log('render')
    
     const momo =dataCoach.data
@@ -38,8 +37,7 @@ console.log(momoTest)
 
 
 async function fetchData(){
-  const momo = await momoTest.mutateAsync({client_id:'1'})
-  console.log(momo)
+
 }
 function getDates() {
   const today = new Date();

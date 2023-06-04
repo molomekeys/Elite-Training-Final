@@ -56,10 +56,11 @@ export const exampleRouter = createTRPCRouter({
 seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
   if(ctx.session?.user.coach_table?.id!=undefined)
   {
+    console.log(ctx.session.user.coach_table.id)
   const momo = await ctx.prisma.events.findMany({
 
     where:{
-   coach_id: Number( ctx.session.user.coach_table?.id)
+   coach_id: Number( ctx.session.user.coach_table.id)
       
     }
   })

@@ -22,6 +22,7 @@ const PlanningCoach = () => {
  async function refetchEvents(){
   await refetch()
  }
+ console.log(eventsCalendar)
 
 
 

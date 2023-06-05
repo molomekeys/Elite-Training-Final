@@ -101,7 +101,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
    
         <form  onSubmit={handleSubmit(handleLogin)}
         className='flex flex-col gap-4 text-lg 
-         text-slate-50 font-semibold bg-white  lg:px-10 text-slate-700 '>
+         text-slate-50 font-semibold bg-white px-2 lg:px-10 text-slate-700 '>
           
           <div className='flex flex-col   gap-4   w-full    '>
            <label htmlFor="email" className='text-slate-900  text-sm font-bold 

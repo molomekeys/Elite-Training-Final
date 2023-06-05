@@ -40,10 +40,10 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50">
         </Link>
 
         <Link href='/signIn'>
-      <li className="  hover:bg-white w-screen  self-start flex py-2 px-1 "  onClick={()=>setLayoutMobile(false) } >inscrption</li>
+      <li className="  hover:bg-white w-screen  self-start flex py-2 px-1 "  onClick={()=>setLayoutMobile(false) } >inscription</li>
       </Link>
         <Link href='https://elite-training.fr' target={'_blank'} >
-      <li className="  hover:bg-white w-screen  self-start flex py-2 px-1 "  onClick={()=>setLayoutMobile(false) } >inscrption</li>
+      <li className="  hover:bg-white w-screen  self-start flex py-2 px-1 "  onClick={()=>setLayoutMobile(false) } >Visitez notre site </li>
       </Link>
     </ul>
     </motion.div>

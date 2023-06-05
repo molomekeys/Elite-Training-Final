@@ -41,12 +41,12 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
    
     
 >
-    <ul className=" relative w-full h-full z-50 flex self-start  text-lg flex-col text-slate-700 font-semibold
+    <ul className=" relative w-full  z-50 flex self-start  text-lg flex-col text-slate-700 font-semibold
    bg-slate-100 lg:hidden
       w-screen h-screen  items-start  p-10 gap-4   ">
    
    <Link href="/coach/dashboardCoach">
-        <li className=" hover:bg-white w-screen gap-3  self-start flex py-2 px-1" onClick={()=>{   window.scrollTo(0,0)
+        <li className=" hover:bg-white w-full gap-3  self-start flex " onClick={()=>{   window.scrollTo(0,0)
           setLayoutMobile(false) 
          } }>                <span>   <AiOutlineDashboard size={25}/></span>
         <span> dashboard</span></li>
@@ -57,20 +57,27 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
         <Link href='/coach/planning'>
       <li className="  hover:bg-white w-screen gap-3  self-start flex py-2 px-1 "  onClick={()=>setLayoutMobile(false) } >
       <span>  <BsCalendar3  size={25}/></span>
-        <span> plannng</span></li>
+        <span> planning</span></li>
       </Link>
         <Link href='/coach/client'  >
-      <li className="  hover:bg-white w-screen gap-3 self-start flex py-2 px-1 "  onClick={()=>setLayoutMobile(false) } >clients</li>
+      <li className="  hover:bg-white w-screen gap-3 self-start flex py-2 px-1 " 
+       onClick={()=>setLayoutMobile(false) } ><span>
+        <HiOutlineUserGroup   size={25}/></span>
+        <span> clients</span></li>
       </Link>
       <Link href='/coach/facturation'  >
-      <li className="  hover:bg-white w-screen  gap-3 self-start flex py-2 px-1 "  onClick={()=>setLayoutMobile(false) } >facturation</li>
+      <li className="  hover:bg-white w-screen  gap-3 self-start flex py-2 px-1 "
+        onClick={()=>setLayoutMobile(false) } >
+          <span>
+       <FaFileInvoiceDollar  size={25}/></span>
+        <span> facturation</span></li>
       </Link>
       <div   onClick={()=>signOut({callbackUrl:'/'})}
-    className=" my-10 p-3 cursor-pointer 
-      hover:bg-gradient-to-r text-slate-800 from-slate-600 to-cyan-700  
-    lg:hidden flex  w-full justify-center">
+    className="  cursor-pointer my-auto hover:bg-slate-200 p-3 rounded-lg 
+       text-slate-800 from-slate-600 to-cyan-700  
+    lg:hidden flex    w-4/5 justify-center">
    
-        < RiLogoutCircleRLine size={30} className='scale-y-2  flex lg:hidden  -rotate-90'/>
+        < RiLogoutCircleRLine size={30} className='  flex lg:hidden  -rotate-90'/>
 
 </div>
     </ul>

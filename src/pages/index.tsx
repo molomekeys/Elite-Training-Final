@@ -72,7 +72,7 @@ console.log(session)
 
 const [refTest,animate]=useAnimate()
 function handleAnimate(){
-animate(refTest.current,{x:['3%','-3%','3%','-3%','0%']},{duration:0.6})
+animate(refTest.current,{x:['3%','-3%','0%','3%',"0%","-3%","0%"]},{duration:0.5})
 setError('password',{message:'* Email ou mot de passe incorrect'})
 }
 

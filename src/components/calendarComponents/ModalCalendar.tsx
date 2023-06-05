@@ -100,7 +100,7 @@ async function handleChangeDate(val:ModifiedEventDat){
           <ModalContent className='flex flex-col  lg:pt-0   shadow-xl'>
             <form className='w-full flex flex-col   ' onSubmit={handleSubmit(handleChangeDate)}>
             <ModalHeader className={` ${isChangeEvent? 'text-left g text-slate-800' :'text-center text-sm text-slate-200 bg-slate-900'}`}>{isChangeEvent? informationData.title : 'Vous modifier les dates'}</ModalHeader>
-            <ModalCloseButton />
+            <ModalCloseButton color={'whiteAlpha.900'} />
             <ModalBody className='w-full h-full flex flex-col  items-center justify-center'>
            <section className='flex flex-col gap-4  w-full h-full pt-4 '>
         

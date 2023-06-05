@@ -5,7 +5,7 @@ import { api } from ".././utils/api";
 import {motion} from 'framer-motion'
 import {storage,app} from '.././firebaseConfig'
 import {  ref, uploadBytes } from "firebase/storage";
-
+import {useAnimate} from 'framer-motion'
 type LoginFormType={
   firstName:string
   lastName: string
@@ -42,40 +42,40 @@ const SignIn = () => {
   const createdUser =  api.example.signInUser.useMutation()
 console.log(app)
   const router = useRouter()
-  const {register,handleSubmit,getValues,formState:{errors,},setValue,clearErrors,trigger,setError}=useForm({defaultValues:{firstName:'',
-  lastName:'',email:'',password:'',phoneNumber:'', picture_image:'',
+  const {register,handleSubmit,getValues,setFocus,formState:{errors,},setValue,clearErrors,trigger,setError}=useForm({defaultValues:{firstName:'',
+  lastName:'',email:'',password:'',phoneNumber:'', picture_image:'fdsdsfdfs',
   confirmPassword:'',sirenNumber:''},resolver:zodResolver(validationSchema)})
 
 //function pour creer le coach
 async function handleLicenceUpload(e:React.ChangeEvent<HTMLInputElement>){
   console.log('slt')
   e.preventDefault()
-if(e.target.files&&e?.target?.files[0]!=null)
-{
-  const file = e.target.files[0];
-  console.log(file)
-  console.log('coucou')
-  const imagesRef = ref(storage, `coach/${file.name}`);
-  console.log(imagesRef)
-  setValue('picture_image','link')
-  clearErrors('picture_image')
-try{
-  const momo = await uploadBytes(imagesRef, file)
-  console.log('slt')
-console.log(momo)
+// if(e.target.files&&e?.target?.files[0]!=null)
+// {
+//   const file = e.target.files[0];
+//   console.log(file)
+//   console.log('coucou')
+//   const imagesRef = ref(storage, `coach/${file.name}`);
+//   console.log(imagesRef)
+//   setValue('picture_image','link')
+//   clearErrors('picture_image')
+// try{
+//   const momo = await uploadBytes(imagesRef, file)
+//   console.log('slt')
+// console.log(momo)
 
-setError('picture_image',{
-  message:''
-})
-const omo=getValues()
-console.log(omo)
+// setError('picture_image',{
+//   message:''
+// })
+// const omo=getValues()
+// console.log(omo)
 
-}catch(error){
+// }catch(error){
 
-}
+// }
 
 
-}
+// }
 
 
 }
@@ -83,26 +83,27 @@ console.log(omo)
 async function onSubmit(values:LoginFormType)  {
 
     console.log(values)
-//   const createdUsertest = await createdUser.
-//   mutateAsync({email:values.email,password:values.password,name:`${values.lastName +' '+ values.firstName}`,sirenNumber:values.sirenNumber,phoneNumber:values.phoneNumber}).
-//   then((e)=>{
-//     console.log(e)
-//     if(e!='user already existe')
-//     {
-//     router.push('/')
-// }
-//   })
-// if(createdUsertest=='user already existe')
-// {
+  const createdUsertest = await createdUser.
+  mutateAsync({email:values.email,password:values.password,
+    name:`${values.lastName +' '+ values.firstName}`,sirenNumber:values.sirenNumber,
+    phoneNumber:values.phoneNumber})
+if(createdUsertest=='user already existe')
+{
+  handleAnimate()
+  setError('email',{message:'email déjà existant, veuillez choisir une autre adresse'})
+  setFocus('email')
+}
+else if(createdUsertest!=undefined){
 
-// }
-// else if(createdUsertest!=undefined){
-
-// }
+router.push('/')
+}
 
 
 }
-
+const [refTest,animate]=useAnimate()
+function handleAnimate(){
+animate(refTest.current,{x:['3%','-3%','0%','3%',"0%","-3%","0%"]},{duration:0.75})
+}
   return (
     <main className="w-screen flex relative flex-col   
     items-center justify-center h-max  bg-slate-100">
@@ -132,7 +133,8 @@ async function onSubmit(values:LoginFormType)  {
       </div>}
      
   
-    <motion.section className="  h-full bg-slate-100  justify-center 
+    <motion.section ref={refTest}
+     className="  h-full bg-slate-100  justify-center 
      lg:px-4 items-center md:p-10
     w-full flex flex-col   " animate={{opacity:1,y:0}} initial={{opacity:0,y:'2%'}} transition={{duration:0.6,delay:0.1,ease:'easeIn'}}>  
 {/**Formulaire avec validation de donner */}

@@ -211,7 +211,9 @@ console.log(saveSecondStepForm)
              { stepForm==1&&<FirstStepAddEvent 
            />}
              { stepForm==2&&<SecondStepAddEvent  />}
-          {stepForm==3&&<DateFormSelect/>}
+
+          {stepForm==3&& <DateFormSelect/>}
+
           {stepForm==4&& <RecapitulatifCalendar close={onClose}/>}
             </ModalBody>
   

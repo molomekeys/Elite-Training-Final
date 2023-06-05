@@ -18,10 +18,9 @@ const  validationSecondStepSchema=z.object({
 })
 const SecondStepAddEvent = () => {
   
-const dataStat=useSelector((state:RootState)=>state.eventReducer)
-const formData=useSelector((state:RootState)=>state.eventReducer)
+const {firstStep,secondStep}=useSelector((state:RootState)=>state.eventReducer)
 const {allOffert}=useContext(AddEventContext)
-const {register,handleSubmit,setValue,formState:{errors}}=useForm({defaultValues:{ ...formData.secondStep},resolver:zodResolver(validationSecondStepSchema)})
+const {register,handleSubmit,setValue,formState:{errors}}=useForm({defaultValues:{ ...secondStep},resolver:zodResolver(validationSecondStepSchema)})
 console.log('rerender')
 const dispatch=useDispatch()
    
@@ -30,7 +29,7 @@ const dispatch=useDispatch()
     })
 
   //function to submit data
-  function saveSecondStepForm(data:typeof formData['secondStep']){
+  function saveSecondStepForm(data:typeof secondStep){
     // nextStep()
    
     dispatch(setSecondStepForm(data))
@@ -64,7 +63,10 @@ className="pl-3 text-lg  rounded-md  bg-slate-50  t border-slate-400" >
 <p className='text-xs font-semibold text-red-500'>{errors?.programmeName?.message}</p>
 
 
-<label className="text-xs font-bold text-slate-900">Selectionner le nombre de séance </label>
+{firstStep.productCategory=='coaching'&&
+    <>
+ 
+    <label className="text-xs font-bold text-slate-900">Selectionner le nombre de séance </label>
 
 <select  placeholder="ajouter des infos"   {...register('seanceWeekNumber')}
 className=" pl-3 text-lg  rounded-md  bg-slate-50 t border-slate-400 " >
@@ -87,6 +89,8 @@ className=" pl-3 text-lg  rounded-md  bg-slate-50 t border-slate-400 " >
     <option value={'auto'}> Automatique</option>
 </select>
 <p className='text-xs font-semibold text-red-500'>{errors?.typeOfDate?.message}</p>
+</>
+}
 
  <button type='submit'
          

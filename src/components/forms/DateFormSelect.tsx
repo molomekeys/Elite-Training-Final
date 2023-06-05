@@ -6,6 +6,7 @@ import ManualySelectEvent from "./ManualySelectEvent"
 import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
 import { useContext } from 'react';
 import {AddEventContext} from '../fonctionality/AddEvent'
+import ProgrammeFormDate from "./ProgrammeFormDate"
 const defaultValue={  dateFirstWeek: "",
 dateSecondWeek:"",
 dateThreeWeek:"",
@@ -25,7 +26,7 @@ hourEndFourthWeek:"",
 }
 
 const DateFormSelect = () => {
-    const {secondStep}=useSelector((state:RootState)=>state.eventReducer)
+    const {secondStep,firstStep}=useSelector((state:RootState)=>state.eventReducer)
     const [firstManualyForm,setFirstManualyForm]=useState(defaultValue)
     const [secondManualyForm,setSecondManualyForm]=useState(defaultValue)
     const [thirdManualyForm,setThirdManualyForm]=useState(defaultValue)
@@ -61,10 +62,13 @@ console.log(events)
     <section>
 
    
-{secondStep.typeOfDate=='auto'&& 
+{secondStep.typeOfDate=='auto'&& firstStep.productCategory=='coaching'&&
 <SmartFormAutoEvent numberOfSeance={secondStep.seanceWeekNumber}/>
 }       
-{secondStep.typeOfDate=='manualy'&&
+{ firstStep.productCategory=='programme'&&
+<ProgrammeFormDate/>
+}       
+{secondStep.typeOfDate=='manualy'&&firstStep.productCategory!='programme'&&
 <section >
   <section className="w-full justify-between flex ">
   {<button className=" cursor-pointer" onClick={()=>{

@@ -39,15 +39,16 @@ console.log(secondStepInfo)
    return String(e.id)===secondStepInfo.programmeName
   })
   console.log(selectedOffer)
-  const selectedOfferTest=selectedOffer[0]?.pricing.
-  filter((e)=>e.seance_week===secondStepInfo.seanceWeekNumber)
+  const selectedOfferTest=selectedOffer[0]?.pricing?.filter((e)=>{
+    return e.seance_week ===(secondStepInfo.seanceWeekNumber)
+  })
 
   
-  
+  console.log(selectedOfferTest[0])
  
   const truePrice=selectedOfferTest&&selectedOfferTest[0]?.client_price
   const truePriceCoach=selectedOfferTest&&selectedOfferTest[0]?.coach_price
-
+console.log(selectedOfferTest&&selectedOfferTest[0]?.client_price)
   const totalHours=events.reduce((accumulator, currentValue) => accumulator + currentValue.hours, 0);
 console.log(totalHours)
 

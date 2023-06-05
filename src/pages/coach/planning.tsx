@@ -37,7 +37,8 @@ const PlanningCoach = () => {
 
 
   const [openCalendar,setOpenCalendar]=useState(false)
-const [isSelectEvent,setIsSelectEvent]=useState({start:new Date(),clientName:'merouane',end:new Date(),salle:'momo',id:'test',title:'Salut Merouane'})
+const [isSelectEvent,setIsSelectEvent]=useState({start:new Date(),name:'',phone_number:'',
+  clientName:'merouane',end:new Date(),salle:'momo',id:'test',title:'Salut Merouane'})
 
 function selectEvent(e:typeof isSelectEvent){
 

@@ -16,7 +16,7 @@ import {
 import { useState } from 'react'
 import {useForm} from 'react-hook-form'
 
-
+import {MdEmail,MdCall} from 'react-icons/md'
 
   type ModifiedEventDat={
     dateEvent:string 
@@ -32,6 +32,8 @@ import {useForm} from 'react-hook-form'
     salle:string
     id:string
     clientName:string
+    name:string
+    phone_number:string
    
         customNote?:string
   }
@@ -77,7 +79,7 @@ async function handleChangeDate(val:ModifiedEventDat){
 
 
   //avec ça je ferme le model une fois que tout est realiser
-changeTheModal()
+// changeTheModal()
 
 
   //fin de la function 
@@ -97,7 +99,7 @@ changeTheModal()
           <ModalOverlay className='' />
           <ModalContent className='flex flex-col  lg:pt-0   shadow-xl'>
             <form className='w-full flex flex-col   ' onSubmit={handleSubmit(handleChangeDate)}>
-            <ModalHeader className={` ${isChangeEvent? 'text-left g text-slate-800' :'text-center text-slate-50 bg-cyan-800'}`}>{isChangeEvent? informationData.title : 'Vous modifier les dates'}</ModalHeader>
+            <ModalHeader className={` ${isChangeEvent? 'text-left g text-slate-800' :'text-center text-sm text-slate-200 bg-slate-900'}`}>{isChangeEvent? informationData.title : 'Vous modifier les dates'}</ModalHeader>
             <ModalCloseButton />
             <ModalBody className='w-full h-full flex flex-col  items-center justify-center'>
            <section className='flex flex-col gap-4  w-full h-full pt-4 '>
@@ -151,21 +153,21 @@ c'est pour afficher l'agenda et non pas la page pour la modifier
      
            <div className='flex items-center w-full  justify-center'>            
            {!isChangeEvent&&<div className=' flex flex-col w-full  lg:px-4 lg:flex-row gap-8 w-full lg:w-2/5'>
-            <div className=' w-full flex flex-col 
+            <div className=' w-full flex flex-col gap-2
             lg:flex-row lg:items-center justify-center '>
-          <label className='lg:w-1/5 font-semibold text-sm'>De :</label>
-          <div className='flex items-center gap-8 w-full'>
+          <label className='lg:w-1/5 font-semibold text-sm whitespace-nowrap '>De :</label>
+          <div className='flex items-center gap-8 w-full py-1 lg:py-3'>
          
           <input  type={'time'} placeholder="test bro"
          {...register('hourStart')}
-           className=' w-full  form-input bg-slate-50 py-3  rounded-lg'
+           className='  min-w-full   form-input bg-slate-50 py-3  rounded-lg '
             disabled={isChangeEvent} />
             </div>
             
             </div>
-            <div className='gap-3 w-full flex lg:items-center justify-center flex-col lg:flex-row'>
-            <label className='w-1/5 font-semibold text-sm'>À :</label>
-          <input type={'time'} className=" w-full bg-slate-50 form-input py-3 rounded-lg"
+            <div className='gap-3 w-full flex lg:items-center justify-center flex-col lg:flex-row ga-2'>
+            <label className='w-1/5 font-semibold text-sm whitespace-nowrap'>À :</label>
+          <input type={'time'} className=" min-w-full w-full bg-slate-50 form-input py-3 rounded-lg"
 {...register('hourEnd') } 
 
 disabled={isChangeEvent} 
@@ -173,15 +175,15 @@ disabled={isChangeEvent}
           </div>
           </div>}
             </div>
-            <div className='flex w-full   h-full gap-10  lg:items-center lg:justify-between'>
+            <div className='flex w-full flex-col lg:flex-row  py-3   h-full gap-10  lg:items-center lg:justify-between'>
         <div className='w-full flex gap-6 lg:justify-center'>
        <AiOutlineUser size={20} color='black'/>
-          <span className='font-bold text-slate-600 text-sm'>{informationData?.clientName}</span>
+          <span className='font-bold text-slate-600 text-sm'>{informationData?.name}</span>
 
         </div>
         <div className='w-full flex gap-6 lg:justify-center'>
-          <MdRoom size={20 } color='black'/>
-          <span className='font-bold text-sm text-slate-600'>{informationData.salle}</span>
+          <MdCall size={20 } color='black'/>
+          <span className='font-bold text-sm text-slate-600'>{informationData.phone_number}</span>
         </div>
         </div>
 
@@ -201,24 +203,13 @@ disabled={isChangeEvent}
             </ModalBody>
   
             <ModalFooter>
-              {isChangeEvent&& 
-              
-              
-              <button   type='button'
-              className='bg-slate-800 text-slate-50 px-4 mr-3 py-2 rounded-lg'
-              onClick={()=>{
-                setIsChangeEvent(true)
-                reset()
-                changeTheModal()
-                }}>
-                Fermer
-              </button>}
+          
 
              {!isChangeEvent&& <button type='submit' 
-              className='bg-cyan-800 text-slate-50 mr-5 px-3 py-2 rounded-lg'>Enregistrer </button>}
+              className='bg-slate-800 text-slate-50 mr-5 px-3 py-2 rounded-lg'>Enregistrer </button>}
               
               <button type='button'
-               className='bg-slate-100 hover:bg-slate-800 hover:text-slate-50 text-slate-800 px-3 py-2 rounded-lg font-semibold'
+               className='bg-slate-100 hover:bg-cyan-800 hover:text-slate-50 text-slate-800 px-3 py-2 rounded-lg font-semibold'
               
               onClick={()=>setIsChangeEvent((prev)=>(prev=!prev))}>{isChangeEvent? 'Modifier' : 'Réviser'}</button>
             </ModalFooter>

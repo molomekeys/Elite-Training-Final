@@ -43,10 +43,10 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
 >
     <ul className=" relative w-full  z-50 flex self-start  text-lg flex-col text-slate-700 font-semibold
    bg-slate-100 lg:hidden
-      w-screen h-screen  items-start  p-10 gap-4   ">
+      w-screen h-screen  items-start p-4 pl-10 pt-20 gap-8   ">
    
    <Link href="/coach/dashboardCoach">
-        <li className=" hover:bg-white w-full gap-3  self-start flex " onClick={()=>{   window.scrollTo(0,0)
+        <li className="  w-full gap-3  self-start flex " onClick={()=>{   window.scrollTo(0,0)
           setLayoutMobile(false) 
          } }>                <span>   <AiOutlineDashboard size={25}/></span>
         <span> dashboard</span></li>
@@ -55,18 +55,18 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
         </Link>
 
         <Link href='/coach/planning'>
-      <li className="  hover:bg-white w-screen gap-3  self-start flex py-2 px-1 "  onClick={()=>setLayoutMobile(false) } >
+      <li className="   w-full gap-3  self-start flex  "  onClick={()=>setLayoutMobile(false) } >
       <span>  <BsCalendar3  size={25}/></span>
         <span> planning</span></li>
       </Link>
         <Link href='/coach/client'  >
-      <li className="  hover:bg-white w-screen gap-3 self-start flex py-2 px-1 " 
+      <li className="  n gap-3 self-start flex " 
        onClick={()=>setLayoutMobile(false) } ><span>
         <HiOutlineUserGroup   size={25}/></span>
         <span> clients</span></li>
       </Link>
       <Link href='/coach/facturation'  >
-      <li className="  hover:bg-white w-screen  gap-3 self-start flex py-2 px-1 "
+      <li className="   gap-3 self-start flex "
         onClick={()=>setLayoutMobile(false) } >
           <span>
        <FaFileInvoiceDollar  size={25}/></span>

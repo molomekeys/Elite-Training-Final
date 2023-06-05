@@ -53,36 +53,78 @@ export const exampleRouter = createTRPCRouter({
     //     return fetchedData
     // })
 
-seeEventCalendarCoach:publicProcedure.query(async ({input,ctx})=>{
+seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
   if(ctx.session?.user.coach_table?.id!=undefined)
   {
     console.log(ctx.session.user.coach_table.id)
     console.log('je sais pas pourquoi ça marche')
     console.log(ctx.session.user.coach_table.id)
-  const momo = await ctx.prisma.events.findMany({
+  const dbEventsFetched = await ctx.prisma.events.findMany({
 
     where:{
       coach_id:Number(ctx.session.user.coach_table.id)
       
-    }
-  })
-  return momo
-}
+    },select:{id:true,
+      start:true,title:true,end:true,hours:true,isPaid:true,useridprismaClient:{
+        select:{
+         UserIdPrisma:{
+          select:{
+            name:true,phone_number:true
+            
+          }
+         }
+      
+        }}}})
+  
+ 
+  const filteredData =dbEventsFetched.map((e)=>{
+    const {useridprismaClient,...rest}=e
+    return {...useridprismaClient?.UserIdPrisma,...rest}})
+  return filteredData
+  }
+
+
 })
   ,seeEventCalendarCient:publicProcedure.query(async ({ctx})=>{
 
     console.log(ctx.session?.user.client_table?.id)
     if(ctx.session?.user.client_table?.id)
     {
-    const momo = await ctx.prisma.events.findMany({
+    const dbEventsFetchedClient= await ctx.prisma.events.findMany({
   
+
       where:{
-     client_id: Number(ctx.session.user.client_table.id)
+        coach_id:Number(ctx.session.user.client_table.id)
         
+      },select:{
+        start:true,title:true,end:true,hours:true,isPaid:true,
+        id:true,UserIdCoach:{
+          select:{
+            UserIdCoach:{
+                select:{
+              name:true , phone_number:true
+                }
+            }
+          }
+        }
       }
     })
-    return momo
+   
+    const filteredData =dbEventsFetchedClient.map((e)=>{
+      const {UserIdCoach,...rest}=e
+      return {...UserIdCoach?.UserIdCoach,...rest}
+    })
+    return filteredData
+
+ 
   }
+
+
+
+
+
+
+
   })
     ,
     fetchAllBillsAdmin:publicProcedure.query(async({ctx})=>{

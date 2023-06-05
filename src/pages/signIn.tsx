@@ -57,11 +57,13 @@ if(e.target.files&&e?.target?.files[0]!=null)
   console.log('coucou')
   const imagesRef = ref(storage, `coach/${file.name}`);
   console.log(imagesRef)
+  setValue('picture_image','link')
+  clearErrors('picture_image')
 try{
   const momo = await uploadBytes(imagesRef, file)
   console.log('slt')
 console.log(momo)
-setValue('picture_image','link')
+
 setError('picture_image',{
   message:''
 })

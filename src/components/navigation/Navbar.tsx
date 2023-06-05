@@ -52,8 +52,8 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50">
  }
  </AnimatePresence>
    <motion.div key='sideBar' 
-    animate={{opacity:1,y:0}} initial={{opacity:0,y:'-100%'}} transition={{duration:0.5,delay:0.25}} 
-    exit={{x:'100%'}}
+    animate={{opacity:1,y:0}} initial={{opacity:0}} transition={{duration:0.5,delay:0.25}} 
+  
     className="w-full flex  gap-10 items-end justify-end items-center">
  
 

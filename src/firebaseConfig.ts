@@ -15,10 +15,8 @@ const firebaseConfig = {
   storageBucket: env.NEXT_PUBLIC_storageBucket,
   messagingSenderId: env.NEXT_PUBLIC_messagingSenderId,
   appId: env.NEXT_PUBLIC_appId,
-  measurementId: env.NEXT_PUBLIC_measurementId
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const storage = getStorage(app)
+export const app = initializeApp(firebaseConfig);
+export const storage = getStorage(app)

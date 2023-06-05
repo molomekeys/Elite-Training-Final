@@ -3,6 +3,8 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from ".././utils/api";
 import {motion} from 'framer-motion'
+import {storage,app} from '.././firebaseConfig'
+import {  ref, uploadBytes } from "firebase/storage";
 
 type LoginFormType={
   firstName:string
@@ -12,6 +14,7 @@ type LoginFormType={
   confirmPassword:string
 phoneNumber:string
   sirenNumber:string
+  picture_image:string
 }
 const validationSchema = z.object({
   firstName: z.string().nonempty("Le prénom est requis").min(3,"Prénom non valide, minimun 3 caractères"),
@@ -20,6 +23,7 @@ const validationSchema = z.object({
   phoneNumber:z.string().nonempty("Veuillez insérez le numéro de votre athlète").length(10,'Numéro non valide'),
   password: z.string().min(6,"Le mot de passe doit contenir au moins 6 caractères "),
   confirmPassword:z.string().min(6,"Le mot de passe doit contenir au moins 6 caractères "),
+  picture_image:z.string().nonempty('Vous devez ajouter votre licence'),
   sirenNumber:z.string().nonempty("Le numéro SIREN est requis").length(9,"Le Numéro SIREN invalide, 9 caracthères")
 }).refine((data)=>{ return (data.confirmPassword===data.password)},{message:'Le champs indiquée ne correspond pas à votre mot de passe ',path:['confirmPassword']})
 import Link from "next/link";
@@ -36,26 +40,56 @@ import { useState } from "react";
 const SignIn = () => {
   const [displayErrorLogin,setDisplayErrorLogin]=useState(false)
   const createdUser =  api.example.signInUser.useMutation()
-
+console.log(app)
   const router = useRouter()
-  const {register,handleSubmit,formState:{errors}}=useForm({defaultValues:{firstName:'',
-  lastName:'',email:'',password:'',phoneNumber:''
-  ,confirmPassword:'',sirenNumber:''},resolver:zodResolver(validationSchema)})
+  const {register,handleSubmit,getValues,formState:{errors,},setValue,clearErrors,trigger,setError}=useForm({defaultValues:{firstName:'',
+  lastName:'',email:'',password:'',phoneNumber:'', picture_image:'',
+  confirmPassword:'',sirenNumber:''},resolver:zodResolver(validationSchema)})
 
 //function pour creer le coach
+async function handleLicenceUpload(e:React.ChangeEvent<HTMLInputElement>){
+  console.log('slt')
+  e.preventDefault()
+if(e.target.files&&e?.target?.files[0]!=null)
+{
+  const file = e.target.files[0];
+  console.log(file)
+  console.log('coucou')
+  const imagesRef = ref(storage, `coach/${file.name}`);
+  console.log(imagesRef)
+try{
+  const momo = await uploadBytes(imagesRef, file)
+  console.log('slt')
+console.log(momo)
+setValue('picture_image','link')
+setError('picture_image',{
+  message:''
+})
+const omo=getValues()
+console.log(omo)
+
+}catch(error){
+
+}
+
+
+}
+
+
+}
 
 async function onSubmit(values:LoginFormType)  {
 
-    
-  const createdUsertest = await createdUser.
-  mutateAsync({email:values.email,password:values.password,name:`${values.lastName +' '+ values.firstName}`,sirenNumber:values.sirenNumber,phoneNumber:values.phoneNumber}).
-  then((e)=>{
-    console.log(e)
-    if(e!='user already existe')
-    {
-    router.push('/')
-}
-  })
+    console.log(values)
+//   const createdUsertest = await createdUser.
+//   mutateAsync({email:values.email,password:values.password,name:`${values.lastName +' '+ values.firstName}`,sirenNumber:values.sirenNumber,phoneNumber:values.phoneNumber}).
+//   then((e)=>{
+//     console.log(e)
+//     if(e!='user already existe')
+//     {
+//     router.push('/')
+// }
+//   })
 // if(createdUsertest=='user already existe')
 // {
 
@@ -151,11 +185,12 @@ id='firstName' type={'tel'}   className='w-full form-input bg-slate-100 rounded-
 ext-center">
 <label htmlFor="fileInput" className="font-bold text-sm w-full text-center text-slate-600 ">Ajouter votre licence de coach : </label>
 
-<input type={'file'}  placeholder="Veuillez ajouter votre carte sportif"
+<input type={'file'}  onChange={(e)=>handleLicenceUpload(e)} 
+ placeholder="Veuillez ajouter votre carte sportif"
  id="fileInput"
  className='w-full border-2 text-center hidden' />
  </div>
- <p className='text-xs font-bold text-sm text-red-500'>{errors.email?.message}</p>
+ <p className='text-xs font-bold text-sm text-red-500'>{errors.picture_image?.message}</p>
 <button type="submit"  className='bg-slate-700  self-center py-3 min-w-fit w-3/5 lg:w-3/5 rounded-lg text-white font-semibold my-6'>Créer votre compte</button>
 
 <div className='flex gap-2 font-bold text-sm w-full items-center flex-row justify-center '>        

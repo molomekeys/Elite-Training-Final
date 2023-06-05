@@ -93,7 +93,7 @@ if(createdUsertest=='user already existe')
   setError('email',{message:'email déjà existant, veuillez choisir une autre adresse'})
   setFocus('email')
 }
-else if(createdUsertest!=undefined){
+else if(createdUsertest!=undefined&&createdUsertest!="error"){
 
 router.push('/')
 }

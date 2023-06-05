@@ -41,7 +41,6 @@ export const env = createEnv({
   NEXT_PUBLIC_storageBucket: z.string(),
   NEXT_PUBLIC_messagingSenderId: z.string(),
   NEXT_PUBLIC_appId: z.string(),
-  NEXT_PUBLIC_measurementId: z.string(),
   
 
   },
@@ -64,6 +63,5 @@ export const env = createEnv({
   NEXT_PUBLIC_storageBucket:  process.env.NEXT_PUBLIC_storageBucket,
   NEXT_PUBLIC_messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId ,
   NEXT_PUBLIC_appId:   process.env.NEXT_PUBLIC_appId,
-  NEXT_PUBLIC_measurementId:   process.env.NEXT_PUBLIC_measurementId,
   },
 });

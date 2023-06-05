@@ -44,7 +44,7 @@ console.log(secondStepInfo)
   })
 
   
-  console.log(selectedOfferTest[0])
+  
  
   const truePrice=selectedOfferTest&&selectedOfferTest[0]?.client_price
   const truePriceCoach=selectedOfferTest&&selectedOfferTest[0]?.coach_price

@@ -29,6 +29,7 @@
     "@trpc/react-query": "^10.18.0",
     "@trpc/server": "^10.18.0",
     "@types/stripe": "^8.0.417",
+    "firebase": "^9.22.1",
     "framer-motion": "^10.12.12",
     "moment": "^2.29.4",
     "next": "^13.4.3",

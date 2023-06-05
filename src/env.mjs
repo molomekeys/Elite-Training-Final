@@ -10,6 +10,7 @@ export const env = createEnv({
     STRIPE_SECRET_KEY:z.string().min(1),
     SENDGRID_API_KEY:z.string().min(1),
     DATABASE_URL: z.string().url(),
+  
     NODE_ENV: z.enum(["development", "test", "production"]),
     NEXTAUTH_SECRET:
       process.env.NODE_ENV === "production"
@@ -34,6 +35,14 @@ export const env = createEnv({
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:z.string(),
+  NEXT_PUBLIC_apiKey: z.string(),
+  NEXT_PUBLIC_authDomain: z.string(),
+  NEXT_PUBLIC_projectId: z.string(),
+  NEXT_PUBLIC_storageBucket: z.string(),
+  NEXT_PUBLIC_messagingSenderId: z.string(),
+  NEXT_PUBLIC_appId: z.string(),
+  NEXT_PUBLIC_measurementId: z.string(),
+  
 
   },
 
@@ -48,6 +57,13 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     STRIPE_SECRET_KEY:process.env.STRIPE_SECRET_KEY,
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
-    SENDGRID_API_KEY:process.env.SENDGRID_API_KEY
+    SENDGRID_API_KEY:process.env.SENDGRID_API_KEY,
+    NEXT_PUBLIC_apiKey:  process.env.apiKey,
+  NEXT_PUBLIC_authDomain:  process.env.authDomain,
+  NEXT_PUBLIC_projectId:   process.env.projectId,
+  NEXT_PUBLIC_storageBucket:  process.env.storageBucket,
+  NEXT_PUBLIC_messagingSenderId: process.env.messagingSenderId ,
+  NEXT_PUBLIC_appId:   process.env.appId,
+  NEXT_PUBLIC_measurementId:   process.env.measurementId,
   },
 });

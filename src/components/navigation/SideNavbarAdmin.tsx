@@ -69,6 +69,15 @@ const SideNavbarAdmin = () => {
             </div>
           
           </Link>
+          <Link href='/admin/coach' className=" w-full ">
+          
+          
+          
+          <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/admin/coach'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
+              <span><HiOutlineUserGroup size={25}/></span><li className="  text-sm    py-2 ">Client</li>
+              </div>
+            
+            </Link>
         <Link href='/admin/comptabilite' className=" w-full ">
           
         <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/admin/comptabilite'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>

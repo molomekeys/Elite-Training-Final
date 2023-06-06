@@ -21,7 +21,7 @@ const router = useRouter()
     exit={{x:'100%',opacity:0}}
     animate={{opacity:1,x:'0'}} initial={{opacity:0,x:'100%'}}
      transition={{duration:0.4}}
-    className="flex  overflow-x-hidden   w-full    h-screen  inset-0    z-20 absolute">
+    className="flex  overflow-x-hidden   w-full    h-screen  inset-0  absolute  z-20">
 
 
 
@@ -56,10 +56,13 @@ className="  bg-opacity-5 w-full   bg-slate-800 z-50">
    
  }
  </AnimatePresence>
+
+
+
    <motion.div key='sideBar' 
-    animate={{opacity:1,y:0}} initial={{opacity:0}} transition={{duration:0.5,delay:0.25}} 
+   
   
-    className="w-full flex  gap-10 items-end justify-end items-center">
+    className="w-full flex  gap-10 items-end justify-end items-center relative">
  
 
 

@@ -249,7 +249,7 @@ console.log('rerender')
             <label>De :</label>
              <input  {...register('hourStartFirstWeek')}
             
-            className="border-2  rounded-lg bg-slate-50 border-slate-500  min-w-fit px-3 "  type='time'/>
+            className="border-2  rounded-lg bg-slate-50 border-slate-500  w-4/5 min-w-fit px-3 "  type='time'/>
           </div>
           <div className='w-full text-center'>            
              <p className='text-xs font-semibold  text-red-500'>{errors?.hourStartFirstWeek?.message}</p>
@@ -265,7 +265,7 @@ console.log('rerender')
               
                <input 
                 {...register('hourEndFirstWeek')}
-                className="border-2  rounded-lg bg-slate-50 border-slate-500  min-w-fit px-3"  type={'time'}  />
+                className="border-2   rounded-lg bg-slate-50 border-slate-500  w-4/5  min-w-fit px-3"  type={'time'}  />
 
                  </div>
 
@@ -319,7 +319,7 @@ console.log('rerender')
                         <label>De :</label>
                          <input  {...register('hourStartSecondWeek')}
                         
-                        className="border-2  rounded-lg bg-slate-50 border-slate-500  min-w-fit px-3"  type='time'/>
+                        className="border-2 w-4/5  rounded-lg bg-slate-50 border-slate-500  min-w-fit px-3"  type='time'/>
                       </div>
                       <div className='w-full text-center'>            
                          <p className='text-xs font-semibold  text-red-500'>{errors?.hourStartSecondWeek?.message}</p>
@@ -335,7 +335,7 @@ console.log('rerender')
                           
                            <input 
                             {...register('hourEndSecondWeek')}
-                            className="border-2  rounded-lg bg-slate-50 border-slate-500 min-w-fit px-3 "  type={'time'}  />
+                            className="border-2  w-4/5 rounded-lg bg-slate-50 border-slate-500 min-w-fit px-3 "  type={'time'}  />
             
                              </div>
             
@@ -381,7 +381,7 @@ console.log('rerender')
             <label>De :</label>
              <input   {...register('hourStartThirdWeek')}
             
-            className="border-2  rounded-lg bg-slate-50 border-slate-500 " type='time'/>
+            className="border-2 w-4/5  rounded-lg bg-slate-50 border-slate-500 " type='time'/>
           </div>
           <div className='w-full text-center'>            
              <p className='text-xs font-semibold  text-red-500'>{errors?.hourStartThirdWeek?.message}</p>
@@ -397,7 +397,7 @@ console.log('rerender')
               
                <input 
                 {...register('hourEndThirdWeek')}
-                className="border-2  rounded-lg bg-slate-50 border-slate-500 "  type={'time'}  />
+                className="border-2 w-4/5  rounded-lg bg-slate-50 border-slate-500 "  type={'time'}  />
 
                  </div>
 

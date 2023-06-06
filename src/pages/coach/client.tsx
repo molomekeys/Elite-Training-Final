@@ -55,7 +55,7 @@ const testmomo=dataCoach.data&&dataCoach.data.map((e)=>{
   })
   console.log(client)
   return (
-   <main className="flex flex-col w-full gap-10 ">
+   <main className="flex flex-col w-full gap-10  ">
 
      <motion.div  animate={{opacity:1,x:'0'}} initial={{opacity:0,x:'20%'}} transition={{duration:0.5,delay:0}}
       className="w-full flex justify-end p-4 pt-10 pr-8">

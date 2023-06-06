@@ -28,9 +28,9 @@ const router = useRouter()
 
     <motion.div  key='sidebar'    
     
-   exit={{opacity:[1,0],x:'50%'}}
+  
      transition={{duration:0.4}}
-     animate={{opacity:[0,1],x:['50%','0%']}}
+    
     className="flex     w-full   inset-0  z-50  h-screen  absolute   ">
 <motion.div  onClick={()=> setLayoutMobile(prev=>prev=!prev)}
 className="  bg-opacity-25 w-1/5  relative  bg-slate-800 z-50">

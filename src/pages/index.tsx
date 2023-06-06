@@ -79,7 +79,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
  if(status==="unauthenticated")
 {
   return (
-    <main className='flex flex-col   bg-slate-50  gap-10 '>
+    <main className='flex flex-col   bg-slate-50  gap-10 overflow-x-hidden '>
      
 
 

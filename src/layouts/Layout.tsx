@@ -23,7 +23,8 @@ const Layout = ({children }:LayoutPage) => {
   
   return (
     <>
-    <section className="flex flex-col w-full  min-h-max overflow-x-hidden">
+    <section className="flex flex-col w-full gap-4
+      min-h-max overflow-x-hidden">
 <div>
    {(session?.user==null&& status!="loading")&& <Navbar/>}
 </div>

@@ -53,7 +53,7 @@ function openTheModalCalendar(){
 
 
   return (
-    <main className="w-full flex flex-col p-4 gap-4 ">
+    <main className="w-full flex flex-col p-4 gap-4 overflow-x-hidden ">
       <motion.div  animate={{opacity:1,x:0}} initial={{opacity:0,x:'20%'}} transition={{duration:0.5,delay:0.5}} className="w-full flex justify-end p-4">
        <LayoutAddEvent   saveEventCalendar={refetchEvents}
         updateData={fetchDataBack} />

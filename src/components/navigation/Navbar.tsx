@@ -10,7 +10,7 @@ const router = useRouter()
   return (
     <motion.div 
     className='w-full flex  text-center  z-10 p-4   overflow-x-hidden
-      shadow-sm lg:flex-row gap-4 bg-black  justify-between w-full     items-center  lg:px-20'>
+      shadow-sm lg:flex-row gap-4 bg-black  justify-between w-full      items-center  lg:px-20'>
 
     
     <AnimatePresence>
@@ -20,7 +20,7 @@ const router = useRouter()
     <motion.div  key='sidebar'    
     exit={{x:'100%',opacity:0}}
     animate={{opacity:1,x:'0%'}} initial={{opacity:0,x:'100%'}}
-     transition={{duration:0.4}}
+     transition={{duration:0.75}}
     className="flex  overflow-x-hidden    w-full    h-screen  inset-0  absolute  z-20">
 
 
@@ -97,7 +97,10 @@ className="  bg-opacity-5 w-full   bg-slate-800 z-50">
 
 
 
-  <motion.a  onClick={()=> setLayoutMobile((prev)=> {
+{ layoutMobile? <p  className="z-40 relative text-black" onClick={()=> setLayoutMobile((prev)=> {
+   return  prev= !prev
+ }
+  )}>click to go back</p> : <motion.a  onClick={()=> setLayoutMobile((prev)=> {
    return  prev= !prev
  }
   )}
@@ -108,7 +111,7 @@ className="  bg-opacity-5 w-full   bg-slate-800 z-50">
   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
 </svg>
 
-  </motion.a>
+  </motion.a>}
  
  
 

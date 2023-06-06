@@ -178,7 +178,7 @@ const customDayPropGetter = () => {
   
 }
 }
-console.log(event)
+
   return (
     <div className=" h-full  ">
      <Calendar

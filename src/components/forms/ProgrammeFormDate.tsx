@@ -61,31 +61,25 @@ const smartAutoDefaultValue=useSelector((state:RootState)=>state.eventReducer.fo
 function handleSubmitSmartForm(val:DefaultValue){
 
   //cette condition est pour faire en sorte  de repeter les evenemtns
+  const firstDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
+  const firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
+  
+  const secondStartDate=new Date(val.dateSecondWeek+'T'+val.hourStartSecondWeek+':00')
+  const secondEndDate=new Date(val.dateSecondWeek+'T'+val.hourEndSecondWeek+':00')
+  
+  const thirdStartDate=new Date(val.dateThirdWeek+'T'+val.hourStartThirdWeek+':00')
+  const thirdEndDate=new Date(val.dateThirdWeek+'T'+val.hourEndThirdWeek+':00')
+
 
 dispatch(setAutoEventForm(val))
-const firstDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
-const firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
-
-const secondStartDate=new Date(val.dateSecondWeek+'T'+val.hourStartSecondWeek+':00')
-const secondEndDate=new Date(val.dateSecondWeek+'T'+val.hourEndSecondWeek+':00')
-
-const thirdStartDate=new Date(val.dateThirdWeek+'T'+val.hourStartThirdWeek+':00')
-const thirdEndDate=new Date(val.dateThirdWeek+'T'+val.hourEndThirdWeek+':00')
-
-
-const compareDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
 
 
 
-    const newDate = new Date(firstDate)
-    const newEndDate = new Date(firstEndDate)
-    const newSecondStartDate = new Date(secondStartDate)
-    const newSecondEndDate = new Date(secondEndDate)
-    const newThirdStartDate = new Date(thirdStartDate)
-    const newThirdEndDate = new Date(thirdEndDate)
     
     let momo:EventsType[] =[]
-
+momo.push({end:firstEndDate,start:firstDate,hours:(firstEndDate.getTime()-firstDate.getTime())/3600000,id:v4()}
+,{end:secondEndDate,start:secondStartDate,hours:(secondEndDate.getTime()-secondStartDate.getTime())/3600000,id:v4()},
+{end:thirdEndDate,start:thirdStartDate,hours:(thirdEndDate.getTime()-thirdStartDate.getTime())/3600000,id:v4()})
 //je vais faire une boucle do while pour repeter la date 
 
 functionEvent(momo)

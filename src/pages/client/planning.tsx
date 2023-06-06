@@ -32,7 +32,7 @@ if(isLoading){
 
 }
 
-console.log(eventsCalendar)
+
   return (
     <main className="w-full flex flex-col p-4 gap-4 ">
      

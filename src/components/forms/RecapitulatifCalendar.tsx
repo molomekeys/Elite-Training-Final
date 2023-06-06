@@ -33,12 +33,11 @@ const addEvents=api.example.addEventsCalendar.useMutation()
   const {events,client,saveEvent,allOffert,saveEventCalendarContext}=useContext(AddEventContext)
   const firstStepInfo=useSelector((state:RootState)=>state.eventReducer.firstStep)
   const secondStepInfo=useSelector((state:RootState)=>state.eventReducer.secondStep)
-console.log(allOffert)
-console.log(secondStepInfo)
+
   const selectedOffer=allOffert.filter((e)=>{
    return String(e.id)===secondStepInfo.programmeName
   })
-  console.log(selectedOffer)
+
   const selectedOfferTest=selectedOffer[0]?.pricing?.filter((e)=>{
     return e.seance_week ===(secondStepInfo.seanceWeekNumber)
   })
@@ -50,7 +49,8 @@ console.log(secondStepInfo)
   const truePriceCoach=selectedOfferTest&&selectedOfferTest[0]?.coach_price
 console.log(selectedOfferTest&&selectedOfferTest[0]?.client_price)
   const totalHours=events.reduce((accumulator, currentValue) => accumulator + currentValue.hours, 0);
-console.log(totalHours)
+
+  console.log(events)
 
 function getDates() {
   const today = new Date();
@@ -218,10 +218,10 @@ close()
     </div>
     <h3 className="font-bold lg:text-xl lg:text-center text-slate-700">Vos séances inscrites :  </h3>
 
-    <div className="grid grid-cols-2  lg:grid-cols-4 gap-2 lg:gap-6  
+    <div className={`grid grid-cols-2  ${firstStepInfo.productCategory=='coaching'? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-2 lg:gap-6  
     lg:place-content-center lg:place-items-center
         lg:my-10 lg:border-none  py-3 px-1   bg-slate-100 shadow-sm rounded-md  border-slate-800  
-        lg:p-4 w-full lg:w-full ">
+        lg:p-4 w-full lg:w-full `}>
         {allDataClient}
 
         </div>

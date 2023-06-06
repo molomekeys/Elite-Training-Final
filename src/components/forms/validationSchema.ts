@@ -67,7 +67,7 @@ export const FirstValidationTypeSchema= z.object({
      
     }).refine((data)=>{
 
-//premier refine
+//premier refine de la seconde date
 
         const [hourStartFirstWeek=0, minuteStartFirstWeek=0] = data.hourStartFirstWeek.split(":").map(Number)
         const [hoursEndFirstWeek=0, minuteEndFirstWeek=0] = data.hourEndFirstWeek.split(":").map(Number)
@@ -86,6 +86,10 @@ export const FirstValidationTypeSchema= z.object({
      return true
     },{message: 'La date de fin de séance doit être supérieure',
     path:['hourEndFirstWeek']}).refine((data)=>{
+
+
+//deuxieme refine qui sera le final pour ce schema
+
       let isPased=true
       if(data?.hourStartSecondWeek&&data?.hourEndSecondWeek)
       {
@@ -187,47 +191,54 @@ console.log(TotalTimeEndWeek)
   return isPased
   
  
-  },{message: 'La date de fin deu de séance doit être supérieure',
+  },{message: 'La date de fin  de séance doit être supérieure à la date du début',
   path:['hourEndSecondWeek']}).refine((data)=>{
 
 
-    //second date refine for hours
+    //troseme date refine for hours
     
-          let isPased=true
-          if(data?.hourStartSecondWeek&&data?.hourEndSecondWeek)
-          {
-            const {hourStartSecondWeek,hourEndSecondWeek}=data
-            if(hourStartSecondWeek.length>1&&hourEndSecondWeek.length>1)
-            {
-            const momo =data.hourStartFirstWeek
-          const [hourStartSecondWeekT=0, minuteStartSecondWeek=0] = data?.hourStartSecondWeek?.split(":")?.map(Number)
-          const [hoursEndSecondWeek=0, minuteEndSecondWeek=0] = data?.hourEndSecondWeek?.split(":").map(Number)
-            console.log(data.hourStartSecondWeek)
-            console.log(data.hourEndSecondWeek)
-    
-        const TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
-        const TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
-        console.log(TotalTimeStartFirstWeek)
-    console.log(TotalTimeEndWeek)
-        if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)
-        {
-         console.log('false')
-          return isPased=false
-    
-        }
-      }
-        return isPased
-      }
-      return isPased
-      
-     
-      },{message: 'La date de fin deu de séance doit être supérieure',
-      path:['hourEndThirdWeek']})
+    let isPased=true
+    if(data?.hourStartThirdWeek&&data?.hourEndThirdWeek)
+    {
+      const {hourStartThirdWeek,hourEndThirdWeek}=data
+      if(hourStartThirdWeek.length>1&&hourEndThirdWeek.length>1)
+      {
+      const momo =data.dateThirdWeek
+ console.log(momo)
+
+    const [hourStartThirdWeekT=0, minuteStartThirdWeek=0] = data?.hourStartThirdWeek?.split(":")?.map(Number)
+    const [hoursEndThirdWeek=0, minuteEndThirdWeek=0] = data?.hourEndThirdWeek?.split(":").map(Number)
+      console.log(data.hourStartSecondWeek)
+      console.log(data.hourEndSecondWeek)
+
+  const TotalTimeStartThirdWeek=hourStartThirdWeekT*60+minuteStartThirdWeek
+  const TotalTimeEndWeek=hoursEndThirdWeek*60+minuteEndThirdWeek
+ 
+  if(TotalTimeEndWeek<=TotalTimeStartThirdWeek)
+  {
+   console.log('false')
+    return isPased=false
+
+  }
+}
+  return isPased
+}
+
+
+
+},{message: 'La date de fin deu de séance doit être supérieure',
+path:['hourEndThirdWeek']})
 
 
 //derniere validation
 
-      export const FourthValidationTypeSchema = z.object({
+
+
+
+
+// pour le type 4
+
+      const FourthValidationTypeSchema = z.object({
         dateFirstWeek: z.string().nonempty('Veuillez insérer une date'),
         hourStartFirstWeek: z.string().nonempty(),
         hourEndFirstWeek: z.string().nonempty(),
@@ -300,22 +311,21 @@ console.log(TotalTimeEndWeek)
         //quatrieme date date refine for hours
         
               let isPased=true
-              if(data?.hourStartSecondWeek&&data?.hourEndSecondWeek)
+              if(data?.hourStartThirdWeek&&data?.hourEndThirdWeek)
               {
-                const {hourStartSecondWeek,hourEndSecondWeek}=data
-                if(hourStartSecondWeek.length>1&&hourEndSecondWeek.length>1)
+                const {hourStartThirdWeek,hourEndThirdWeek}=data
+                if(hourStartThirdWeek.length>1&&hourEndThirdWeek.length>1)
                 {
                 const momo =data.hourStartFirstWeek
-              const [hourStartSecondWeekT=0, minuteStartSecondWeek=0] = data?.hourStartSecondWeek?.split(":")?.map(Number)
-              const [hoursEndSecondWeek=0, minuteEndSecondWeek=0] = data?.hourEndSecondWeek?.split(":").map(Number)
+              const [hourStartThirdWeekT=0, minuteStartThirdWeek=0] = data?.hourStartThirdWeek?.split(":")?.map(Number)
+              const [hoursEndThirdWeek=0, minuteEndThirdWeek=0] = data?.hourEndThirdWeek?.split(":").map(Number)
                 console.log(data.hourStartSecondWeek)
                 console.log(data.hourEndSecondWeek)
         
-            const TotalTimeStartFirstWeek=hourStartSecondWeekT*60+minuteStartSecondWeek
-            const TotalTimeEndWeek=hoursEndSecondWeek*60+minuteEndSecondWeek
-            console.log(TotalTimeStartFirstWeek)
-        console.log(TotalTimeEndWeek)
-            if(TotalTimeEndWeek<=TotalTimeStartFirstWeek)
+            const TotalTimeStartThirdWeek=hourStartThirdWeekT*60+minuteStartThirdWeek
+            const TotalTimeEndWeek=hoursEndThirdWeek*60+minuteEndThirdWeek
+           
+            if(TotalTimeEndWeek<=TotalTimeStartThirdWeek)
             {
              console.log('false')
               return isPased=false
@@ -328,4 +338,4 @@ console.log(TotalTimeEndWeek)
           
          
           },{message: 'La date de fin deu de séance doit être supérieure',
-          path:['hourEndFourth  Week']})
+          path:['hourEndThirdWeek']})

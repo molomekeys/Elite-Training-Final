@@ -151,7 +151,7 @@ const smartAutoDefaultValue=useSelector((state:RootState)=>state.eventReducer.fo
         ...smartAutoDefaultValue
 
        
-        },resolver:zodResolver(numberOfSeance=='1'? FirstValidationTypeSchema : numberOfSeance=='2'? SecondValidationTypeSchema : ThirdValidationTypeSchema)})
+        },resolver:zodResolver(numberOfSeance=='1'? FirstValidationTypeSchema : numberOfSeance=='2'? SecondValidationTypeSchema : numberOfSeance=='3'? ThirdValidationTypeSchema : ThirdValidationTypeSchema)})
 
 function handleSubmitSmartForm(val:DefaultValue){
 

@@ -4,6 +4,7 @@ import AddEvent from "~/components/fonctionality/AddEvent"
 import { api } from "~/utils/api"
 import {motion} from 'framer-motion'
 import ModelCalendrier from "~/components/calendarComponents/ModalCalendar"
+import LayoutAddEvent from "~/components/fonctionality/LayoutAddEvent"
 export type Events={
 id:string 
 start:Date 
@@ -17,7 +18,9 @@ const PlanningCoach = () => {
   function fetchDataBack(e:Events[]){
     setEventsData(e)
   }
-  const {data:eventsCalendar,refetch}=api.example.seeEventCalendarCoach.useQuery()
+  const {data:eventsCalendar,refetch}=api.example.seeEventCalendarCoach.useQuery(undefined,{
+    staleTime:5000
+  })
 
  async function refetchEvents(){
   await refetch()
@@ -28,12 +31,8 @@ const PlanningCoach = () => {
 
 
 
-  const allClient=api.example.fetchDataLoginCoach.useQuery(undefined,{staleTime:10000,refetchOnWindowFocus:false}).data?.map((e)=>{
-    return {...e.UserIdPrisma,createdAt:e.created_at,idClient:String(e.id)}
-  })
 
-  const {data,isLoading}=api.example.availableOffer.useQuery()
-  
+
 
 
   const [openCalendar,setOpenCalendar]=useState(false)
@@ -50,16 +49,14 @@ function openTheModalCalendar(){
 }
 
 
-if(isLoading){
 
-}
 
 
   return (
     <main className="w-full flex flex-col p-4 gap-4 ">
       <motion.div  animate={{opacity:1,x:0}} initial={{opacity:0,x:'20%'}} transition={{duration:0.5,delay:0.5}} className="w-full flex justify-end p-4">
-       <AddEvent  allRoom={data? data : []} saveEventCalendar={refetchEvents}
-        updateData={fetchDataBack} allClient={allClient? allClient : []}/>
+       <LayoutAddEvent   saveEventCalendar={refetchEvents}
+        updateData={fetchDataBack} />
       </motion.div>
       <motion.section animate={{opacity:1,y:0}} initial={{opacity:0,y:2}} transition={{duration:0.75,delay:0.1}}
        className="w-full lg:px-5">

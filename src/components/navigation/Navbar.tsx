@@ -1,17 +1,35 @@
 import Link  from "next/link"
 import {motion,AnimatePresence, delay} from 'framer-motion'
 import {useState} from 'react'
+import { useRouter } from "next/router"
+import Image from "next/image"
+import Logo from '../../../public/logo.png';
+
 const Navbar = () => {
   const [layoutMobile,setLayoutMobile]=useState(false)
-
+const router = useRouter()
   return (
     <motion.div 
-    className='w-full flex absolute text-center relative z-10 p-4   shadow-sm lg:flex-row gap-4   justify-between w-screen  bg-white    items-center  lg:px-20'>
+    className='w-full flex absolute text-center bg-black z-10 p-4   shadow-sm lg:flex-row gap-4   justify-between w-screen     items-center  lg:px-20'>
   <motion.div  animate={{opacity:1,x:0}} initial={{opacity:1,x:'-100%'}} transition={{duration:0.75}}
   className="w-full  h-full text-left">
-   <Link href='/'>
-    <p className='font-semibold   text-emerald-600 text-3xl  inline  cursor-pointer z-20 relative' onClick={()=> window.scrollTo(0,0)}>Food Easy</p>
-    </Link>
+
+<div className="w-full h-full text-left  items-center lg:justify-center min-w-fit
+         relative flex  ">
+   
+            <Link href='/coach/dashboardCoach' className="w-full items-center lg:justify-center flex h-full">
+          
+            <Image  width={110} height={40} className=' object-cover
+             float-left relative'
+            src={Logo} alt='logo'/>
+            </Link>
+            <div className="w-full text-left flex b">
+        <p className='font-semibold  whitespace-nowrap text-left  text-slate-200 text-xs 
+               cursor-pointer z-20 relative
+    ' onClick={()=> window.scrollTo(0,0)}>version beta</p>
+  </div>
+        </div>
+  
     </motion.div>
     
     <AnimatePresence>
@@ -54,15 +72,16 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50">
     animate={{opacity:1,y:0}} initial={{opacity:0,y:'-100%'}} transition={{duration:0.5,delay:0.25}} 
     exit={{x:'100%'}}
     className="w-full flex  gap-10 items-end justify-end items-center">
-    <Link href='/meal'>
-  <motion.button className='p-2 px-4 hidden lg:block lg:px-12 cursor-pointer bg-emerald-600 text-slate-100 border-2 font-semibold border-emerald-600 text-base text-slate-700 text-md rounded-lg text-center  '>Discover our recipes</motion.button>
-
-  </Link>
-  
-  <Link href='/recipe'>
-  <motion.button className='p-2 hidden lg:block  px-4 lg:px-12 cursor-pointer  bg-white font-semibold text-slate-800 text-md rounded- text-base  border-slate-800 rounded-lg lg text-center  border-2   shadow-sm ' onClick={()=> window.scrollTo(0,0)}>Explore a new flavor</motion.button>
-
-  </Link>
+  <div className="text-slate-50 
+        
+        items-center justify-center hidden lg:flex 
+         h-full  font-semibold w-full  pr-10 gap-10">
+            <Link href='/'> <button className={`  ${router.pathname =='/'? "border-b-2 text-slate-50 border-[#F2D388] font-semibold" : "text-slate-400 hover:text-slate-50"}`}>Connexion</button></Link>
+            <Link href='/signIn'> 
+            <button className={`  ${router.pathname =='/signIn'? "border-b-2 border-[#F2D388] text-slate-50 font-semibold" : " text-slate-400 hover:text-slate-50"}`}>Inscription</button></Link>
+            <a target={'_blank'}
+            href='https://elite-training.fr' className=" text-slate-400 hover:text-yellow-100 hover:font-bold">Elite Training</a>
+        </div>
  
   </motion.div>
 

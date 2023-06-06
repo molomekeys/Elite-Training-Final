@@ -19,7 +19,7 @@ const router = useRouter()
     <motion.div  
     className='bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700  
     lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800
-     flex items-center  lg:flex-col lg:w-full h-max lg:min-h-screen w-full overflow-hidden '>
+     flex items-center  lg:flex-col lg:w-full  lg:min-h-screen w-full overflow-hidden '>
 
     
     <AnimatePresence>
@@ -27,21 +27,22 @@ const router = useRouter()
     { layoutMobile &&
 
     <motion.div  key='sidebar'    
-    exit={{x:'100%',opacity:0}}
-    animate={{opacity:1,x:'0'}} initial={{opacity:0,x:'100%'}}
+    
+   exit={{opacity:[1,0],x:'50%'}}
      transition={{duration:0.4}}
-    className="flex  overflow-x-hidden   w-full     h-screen  inset-0  absolute  z-50 ">
+     animate={{opacity:[0,1],x:['50%','0%']}}
+    className="flex     w-full   inset-0  z-50  h-screen  absolute   ">
 <motion.div  onClick={()=> setLayoutMobile(prev=>prev=!prev)}
 className="  bg-opacity-25 w-1/5  relative  bg-slate-800 z-50">
       
 </motion.div>
    
-    <motion.div  className="w-4/5 h-screen relatve z-50 bg-slate-200 flex flex-col"
+    <motion.div  className="w-4/5 h-screen  relative z-50 bg-slate-200 flex flex-col"
    
    
     
 >
-    <ul className=" relative w-full  flex self-start z-50  text-lg flex-col text-slate-700 font-semibold
+    <ul className=" relative w-full relative  flex self-start z-50  text-lg flex-col text-slate-700 font-semibold
    bg-slate-100 lg:hidden
        h-screen  items-start p-4 pl-10 pt-20 gap-8   ">
    

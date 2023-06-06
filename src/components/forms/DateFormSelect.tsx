@@ -43,18 +43,8 @@ console.log(events)
     }
    console.log('render from dateformselect')
 
-    const [subStepForm,setSubStepForm]=useState(1)
-    function nextStepSubForm(){
-      setSubStepForm((prev)=>prev+=1)
-    }
-    function stepBackSubForm(){
-      setSubStepForm((prev)=>{
-        if(prev==1){
-          return prev
-        }
-
-        return prev-=1})
-    }
+   const{subStepForm,nextSubStepForm}=useContext(AddEventContext)
+  
     console.log(firstManualyForm)
     console.log(secondManualyForm)
     console.log(thirdManualyForm)
@@ -68,22 +58,24 @@ console.log(events)
 { firstStep.productCategory=='programme'&&
 <ProgrammeFormDate/>
 }       
+
+
 {secondStep.typeOfDate=='manualy'&&firstStep.productCategory!='programme'&&
 <section >
   <section className="w-full justify-between flex ">
   {<button className=" cursor-pointer" onClick={()=>{
    
-    stepBackSubForm()}}><AiOutlineArrowLeft size={30}/></button>}
-    {
+   }}><AiOutlineArrowLeft size={30}/></button>}
+    
       <button onClick={
        
-        nextStepSubForm}><AiOutlineArrowRight size={30}/></button>
-    }
+        nextSubStepForm}><AiOutlineArrowRight size={30}/></button>
+    
     </section>
 {secondStep.seanceWeekNumber=='1'&&subStepForm==1&&
 <section>
   <ManualySelectEvent  saveStepForm={saveFirstSubEvent}
-  defaultValueForm={firstManualyForm} nextStepSubEvent={nextStepSubForm}/>
+  defaultValueForm={firstManualyForm}/>
   <p className="text-right font-semibold text-lg p-10">{subStepForm}/{secondStep.seanceWeekNumber}</p>
 
   </section>}
@@ -93,13 +85,13 @@ console.log(events)
 {subStepForm==1&&
 <ManualySelectEvent  
   saveStepForm={saveFirstSubEvent}
-defaultValueForm={firstManualyForm}  nextStepSubEvent={nextStepSubForm}/>}
+defaultValueForm={firstManualyForm}  />}
 
 
 
 {subStepForm==2&&<ManualySelectEvent  
   saveStepForm={saveSecondSubEvent}
-defaultValueForm={secondManualyForm}  nextStepSubEvent={nextStepSubForm}/>}
+defaultValueForm={secondManualyForm}  />}
 
 
 
@@ -111,11 +103,11 @@ defaultValueForm={secondManualyForm}  nextStepSubEvent={nextStepSubForm}/>}
 {subStepForm==1&&<ManualySelectEvent  
 
 saveStepForm={saveFirstSubEvent}
-defaultValueForm={firstManualyForm}  nextStepSubEvent={nextStepSubForm}/>}
+defaultValueForm={firstManualyForm} />}
 {subStepForm==2&&<ManualySelectEvent   saveStepForm={saveSecondSubEvent}
- nextStepSubEvent={nextStepSubForm} defaultValueForm={secondManualyForm}/>}
+  defaultValueForm={secondManualyForm}/>}
 {subStepForm==3&&<ManualySelectEvent   saveStepForm={saveThirdSubEvent}
-nextStepSubEvent={nextStepSubForm} defaultValueForm={thirdManualyForm}/>}
+defaultValueForm={thirdManualyForm}/>}
 </section> }
 
 

@@ -5,10 +5,11 @@ import {AddEventContext} from '../fonctionality/AddEvent'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FourValidationTypeSchema } from "./validationSchema";
 interface Props{
-nextStepSubEvent:()=>void
+
 saveStepForm:(events:DefaultValue)=>void
 defaultValueForm:DefaultValue
 subStepForm?:boolean
+isSubmit?: boolean
 }
 type DefaultValue={
    
@@ -31,12 +32,12 @@ type DefaultValue={
     hourEndFourthWeek:string,
 
 }
-const ManualySelectEvent = ({nextStepSubEvent,defaultValueForm,saveStepForm,subStepForm}:Props) => {
+const ManualySelectEvent = ({defaultValueForm,saveStepForm}:Props) => {
 
 
     
 
-
+const {nextSubStepForm,subStepForm}=useContext(AddEventContext)
  const {functionAddSubEvent}=useContext(AddEventContext)
     //hook pour initialiser le formulaire avec les valeur par defaut
     const { register, handleSubmit, watch, formState: { errors },getValues ,reset} = useForm({resolver:zodResolver(FourValidationTypeSchema),
@@ -52,10 +53,10 @@ function ValidateDataPick(val:DefaultValue){
 
     // ici je creee les variable pour les recuperer obligatoire pour creer une date
     console.log(val)
-    setIsSubmit(true)
-saveStepForm(val)
+ 
 
-nextStepSubEvent()
+
+
 
 const firstStartDate=new Date(val.dateFirstWeek+'T'+val.hourStartFirstWeek+':00')
 const firstEndDate=new Date(val.dateFirstWeek+'T'+val.hourEndFirstWeek+':00')
@@ -87,7 +88,8 @@ const momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),id:'1',
 console.log(momo)
 
 // setManualyEvent(momo)
-functionAddSubEvent(momo)
+nextSubStepForm()
+
 }
 
 useEffect(()=>{
@@ -381,6 +383,7 @@ if(defaultValueForm.dateFirstWeek.length>1)
           
           className="bg-slate-700 px-20  font-semibold text-lg  self-center text-slate-50 py-2 rounded-lg my-8">Valider et répeter</button>
         </form>
+        <p>{subStepForm}</p>
     </section>
    </main>
   )

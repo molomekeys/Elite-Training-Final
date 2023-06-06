@@ -23,16 +23,16 @@ const Layout = ({children }:LayoutPage) => {
   
   return (
     <>
-    <section className="flex flex-col w-full gap-4 overflow-hidden relatve  overscroll-x-none
+    <section className="flex flex-col w-full gap-4 overflow-hidden  overscroll-x-none
       min-h-max overflow-x-hidden">
 <div className="overflow-hidden  ">
    {(session?.user==null&& status!="loading")&& <Navbar/>}
 </div>
-    <main className="flex relative pt-10 flex-col lg:flex-row  h-full g:from-slate-900 lg:from-50% 
+    <main className="flex   flex-col lg:flex-row  h-full g:from-slate-900 lg:from-50% 
      lg:via-slate-800 lg:via-80% lg:to-slate-800    ">
       
         {session?.user.role=='coach'&& 
-        <div className="w-full  relative   overflow-x-hidden
+        <div className="w-full    overflow-x-hidden
          lg:w-4/12 lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800    ">
           <SideNavbarCoach/></div>}
 

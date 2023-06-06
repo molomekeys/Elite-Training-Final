@@ -16,10 +16,10 @@ const SideNavbarCoach = () => {
   const [layoutMobile,setLayoutMobile]=useState(false)
 const router = useRouter()
   return (
-    <motion.div 
-    className='bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700 
+    <motion.div  
+    className='bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700  relative
     lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800
-     flex items-center relative lg:flex-col lg:w-full h-max lg:min-h-screen w-full '>
+     flex items-center relative lg:flex-col lg:w-full h-max lg:min-h-screen w-full overflow-hidden '>
 
     
     <AnimatePresence>

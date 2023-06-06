@@ -9,7 +9,8 @@ const Navbar = () => {
 const router = useRouter()
   return (
     <motion.div 
-    className='w-full flex absolute text-center relative z-10 p-4   shadow-sm lg:flex-row gap-4   justify-between w-screen  bg-black   items-center  lg:px-20'>
+    className='w-full flex relative text-center relative z-10 p-4  overflow-hidden
+      shadow-sm lg:flex-row gap-4   justify-between w-full  bg-black   items-center  lg:px-20'>
 
     
     <AnimatePresence>
@@ -22,7 +23,7 @@ const router = useRouter()
      transition={{duration:0.4}}
     className="flex  h-screen  w-full   inset-0  z-20 absolute">
 <motion.div  onClick={()=> setLayoutMobile(prev=>prev=!prev)}
-className=" bg-slate-700 bg-opacity-5 w-1/5  relative h-full z-50">
+className=" bg-slate-700 bg-opacity-5 w-2/5  relative h-full z-50">
       
 </motion.div>
    

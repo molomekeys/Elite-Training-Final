@@ -15,13 +15,13 @@ const router = useRouter()
     
     <AnimatePresence>
 
-    { layoutMobile &&
+    { layoutMobile&&
 
     <motion.div  key='sidebar'    
-    exit={{x:'50%',opacity:0}}
-    animate={{opacity:1,x:'0'}} initial={{opacity:0,x:'50%'}}
+    exit={{x:'100%',opacity:0}}
+    animate={{opacity:1,x:'0%'}} initial={{opacity:0,x:'100%'}}
      transition={{duration:0.4}}
-    className="flex  overflow-x-hidden   w-full    h-screen  inset-0  absolute  z-20">
+    className="flex  overflow-x-hidden    w-full    h-screen  inset-0  absolute  z-20">
 
 
 

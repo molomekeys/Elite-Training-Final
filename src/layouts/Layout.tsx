@@ -23,7 +23,7 @@ const Layout = ({children }:LayoutPage) => {
   
   return (
     <>
-    <section className="flex flex-col w-full gap-4
+    <section className="flex flex-col w-full gap-4 overflow
       min-h-max overflow-x-hidden">
 <div>
    {(session?.user==null&& status!="loading")&& <Navbar/>}
@@ -32,7 +32,7 @@ const Layout = ({children }:LayoutPage) => {
      lg:via-slate-800 lg:via-80% lg:to-slate-800    ">
       
         {session?.user.role=='coach'&& 
-        <div className="w-full   lg:min-h-screen 
+        <div className="w-full   lg:min-h-screen  overflow-x-hidden
          lg:w-4/12 lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800    ">
           <SideNavbarCoach/></div>}
 
@@ -48,7 +48,7 @@ const Layout = ({children }:LayoutPage) => {
        <SideNavbarClient/>   </div>}
 
      
-        <div className="w-full bg-white">
+        <div className="w-full bg-white overflow-x-hidden">
         {children}
         </div>
     </main>

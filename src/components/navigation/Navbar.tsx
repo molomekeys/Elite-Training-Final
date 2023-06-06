@@ -1,109 +1,93 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-
+import { Link } from "react-router-dom"
+import {motion,AnimatePresence, delay} from 'framer-motion'
+import {useState} from 'react'
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const navRef = useRef(null);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
-
+  const [layoutMobile,setLayoutMobile]=useState(false)
 
   return (
-    <nav className="bg-gray-800">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div className=" flex items-center justify-between h-16">
-          <div className="flex items-center justify-start">
-            <div className="flex-shrink-0">
-              <span className="text-white font-semibold">Logo</span>
-            </div>
-            <div className="hidden md:block">
-              <span className="text-white ml-10 font-semibold">Version Beta</span>
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="mr-4 md:hidden ">
-              <button               onClick={toggleMenu}
-                type="button"
-  
-                className="inline-flex   items-center justify-center p-2 rounded-md text-gray-400 hover:text-white z-40 relative
-                 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                aria-controls="mobile-menu"
-                aria-expanded="false"
-              >
-                
-                {isOpen==true?<svg    
-                  className={`${isOpen ? 'hidden' : 'block'} h-6 relative z-20 w-6`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg> :
-                <svg  
-                  className={`${isOpen ? 'block' : 'hidden'} h-6 w-6 z-20 text-blue-500 relative`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>}
-              </button>
-            </div>
-            <AnimatePresence>
-              {isOpen && (
-                <motion.div
-                  ref={navRef}
-                  initial={{ opacity: 0, x: '100%' }}
-                  animate={{ opacity: 1, x: '0%' }}
-                  exit={{ opacity: 0, x: '100%' }}
-                  transition={{ duration: 0.2 }}
-                  className="md:hidden absolute bottom-0 right-0 top-0 inset-0  bg-slate-200   z-10  shadow-lg"
-                >
-                  <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col  h-screen relative">
-                    <a
-                      href="#"
-                      className="text-gray-800 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                    >
-                      Menu Item 1
-                    </a>
-                    <a
-                      href="#"
-                      className="text-gray-800 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                    >
-                      Menu Item 2
-                    </a>
-                    <a
-                      href="#"
-                      className="text-gray-800 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                    >
-                      Menu Item 3
-                    </a>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
-};
+    <motion.div 
+    className='w-full flex absolute text-center relative z-10 p-4   shadow-sm lg:flex-row gap-4   justify-between w-screen  bg-white    items-center  lg:px-20'>
+  <motion.div  animate={{opacity:1,x:0}} initial={{opacity:1,x:'-100%'}} transition={{duration:0.75}}
+  className="w-full  h-full text-left">
+   <Link to='/'>
+    <p className='font-semibold   text-emerald-600 text-3xl  inline  cursor-pointer z-20 relative' onClick={()=> window.scrollTo(0,0)}>Food Easy</p>
+    </Link>
+    </motion.div>
+    
+    <AnimatePresence>
 
-export default Navbar;
+    { layoutMobile &&
+
+    <motion.div  key='sidebar'    
+    exit={{x:'200%'}}
+    animate={{opacity:1,x:'0'}} initial={{opacity:0,x:'100%'}}
+     transition={{duration:0.5}}
+    className="flex  h-screen  w-screen    inset-0  z-20 absolute">
+<motion.div  onClick={()=> setLayoutMobile(prev=>prev=!prev)}
+className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50">
+      
+</motion.div>
+   
+    <motion.div  className="w-4/6"
+   
+   
+    
+>
+    <ul className=" relative w-full h-full z-50 flex self-start  text-lg flex-col bg-slate-100 text-slate-800 w-screen h-screen  items-start  p-10 gap-4  font-semibold">
+   
+   <Link to="/meal">
+        <li className=" hover:bg-white w-screen  self-start flex py-2 px-1" onClick={()=>{   window.scrollTo(0,0)
+          setLayoutMobile(false) 
+         } }>All meals</li>
+        </Link>
+        <Link to='/recipe'>
+      <li className="  hover:bg-white w-screen  self-start flex py-2 px-1 "  onClick={()=>setLayoutMobile(false) } >Discover a meal</li>
+      </Link>
+       
+    </ul>
+    </motion.div>
+    </motion.div>
+   
+ }
+ </AnimatePresence>
+   <motion.div key='sideBar' 
+    animate={{opacity:1,y:0}} initial={{opacity:0,y:'-100%'}} transition={{duration:0.5,delay:0.25}} 
+    exit={{x:'100%'}}
+    className="w-full flex  gap-10 items-end justify-end items-center">
+    <Link to='/meal'>
+  <motion.button className='p-2 px-4 hidden lg:block lg:px-12 cursor-pointer bg-emerald-600 text-slate-100 border-2 font-semibold border-emerald-600 text-base text-slate-700 text-md rounded-lg text-center  '>Discover our recipes</motion.button>
+
+  </Link>
+  
+  <Link to='/recipe'>
+  <motion.button className='p-2 hidden lg:block  px-4 lg:px-12 cursor-pointer  bg-white font-semibold text-slate-800 text-md rounded- text-base  border-slate-800 rounded-lg lg text-center  border-2   shadow-sm ' onClick={()=> window.scrollTo(0,0)}>Explore a new flavor</motion.button>
+
+  </Link>
+ 
+  </motion.div>
+
+
+
+
+  <motion.a  onClick={()=> setLayoutMobile((prev)=> {
+   return  prev= !prev
+ }
+  )}
+  
+  animate={{opacity:1,x:0}} initial={{opacity:0,x:'100%'}} transition={{duration:0.75}}
+  className=" relative z-50 lg:hidden cursor-pointer">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+</svg>
+
+  </motion.a>
+ 
+ 
+
+
+
+    </motion.div>
+   
+  )
+}
+export default Navbar

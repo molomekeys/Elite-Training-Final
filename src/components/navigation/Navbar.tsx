@@ -23,12 +23,12 @@ function endAnimate(){
     
     <AnimatePresence>
 
-    {layoutMobile&& <motion.div   exit={{opacity:0,x:['0%','100%'],transition:{duration:0.5}}}
+    {layoutMobile&& <motion.div   exit={{opacity:[1,0],x:['0%','100%'],transition:{duration:0.5}}}
     key='sidebar'  animate={{opacity:'1',x:'0'}} transition={{duration:0.1}}
     initial={{opacity:'0',x:'100%'}} ref={refTest}  
    
-    className={`flex  overflow-x-hidden    transition-all duration-200 delay-150  w-full  
-      h-screen  inset-0  absolute z-20`}>
+    className={`flex  overflow-x-hidden  transition-all duration-200 delay-150  
+       inset-0  absolute z-20`}>
 
 
 
@@ -66,14 +66,14 @@ className="   w-1/5 overscroll-none relative   bg-slate-800 z-50">
 
 
 
-   <motion.div key='sideBarmo' 
+   <motion.div 
    
   
-    className="w-full flex  gap-10 items-end justify-end items-center relative">
+    className="w-full  flex  gap-10 justify-end items-center relative">
  
 
 
-        <div className="w-full h-full bg-transparent items-center
+        <div className="w-full h-full bg-black items-center
          relative flex ">
 
             <Link href='/'>

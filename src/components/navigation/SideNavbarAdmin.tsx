@@ -30,7 +30,7 @@ const router = useRouter()
     exit={{x:'100%',opacity:0}}
     animate={{opacity:1,x:'0'}} initial={{opacity:0,x:'100%'}}
      transition={{duration:0.4}}
-    className="flex  h-screen  w-screen    inset-0  z-20 absolute ">
+    className="flex  h-screen  w-full    inset-0  z-20 absolute ">
 <motion.div  onClick={()=> setLayoutMobile(prev=>prev=!prev)}
 className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
       

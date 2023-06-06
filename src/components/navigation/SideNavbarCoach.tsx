@@ -19,7 +19,7 @@ const router = useRouter()
     <motion.div 
     className='bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700 
     lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800
-     flex items-center relative flex-col lg:w-full h-max lg:min-h-screen w-full '>
+     flex items-center relative lg:flex-col lg:w-full h-max lg:min-h-screen w-full '>
 
     
     <AnimatePresence>
@@ -30,20 +30,20 @@ const router = useRouter()
     exit={{x:'100%',opacity:0}}
     animate={{opacity:1,x:'0'}} initial={{opacity:0,x:'100%'}}
      transition={{duration:0.4}}
-    className="flex  h-screen  w-screen    inset-0  z-50 absolute ">
+    className="flex  h-screen  w-full    inset-0  z-50 absolute ">
 <motion.div  onClick={()=> setLayoutMobile(prev=>prev=!prev)}
-className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
+className=" bg-slate-900 bg-opacity-5 w-1/5  relative h-full z-50 ">
       
 </motion.div>
    
-    <motion.div  className="w-5/6 lg:hidden"
+    <motion.div  className="w-full lg:hidden"
    
    
     
 >
     <ul className=" relative w-full  z-50 flex self-start  text-lg flex-col text-slate-700 font-semibold
    bg-slate-100 lg:hidden
-      w-screen h-screen  items-start p-4 pl-10 pt-20 gap-8   ">
+       h-screen  items-start p-4 pl-10 pt-20 gap-8   ">
    
    <Link href="/coach/dashboardCoach">
         <li className="  w-full gap-3  self-start flex " onClick={()=>{   window.scrollTo(0,0)
@@ -166,7 +166,7 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
 
 
 
-<div className="w-full flex items-center justify-end pr-5 ">  <motion.a   
+<div className="w-full flex justify-end items-center pr-5 ">  <motion.a   
   onClick={()=> setLayoutMobile((prev)=> {
    return  prev= !prev
  }

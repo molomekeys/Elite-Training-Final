@@ -242,30 +242,32 @@ console.log('rerender')
    
    */}
 
-              <div className="grid grid-cols-2 gap-2  w-full
+              <div className="flex justify-betwenn items-center gap-2  w-full
                ">
                 <div className='flex flex-col gap-4  items-center w-full'>
-         <div className='flex items-center gap-4 '>
-            <label>De :</label>
+         <div className='flex items-center gap-4 w-full '>
+          
              <input  {...register('hourStartFirstWeek')}
             
-            className="border-2  rounded-lg bg-slate-50 border-slate-500  w-4/5 min-w-fit px-3 "  type='time'/>
+            className=" rounded-lg bg-slate-50 border-slate-500  w-full min-w-fit px-3 "  type='time'/>
           </div>
+ 
           <div className='w-full text-center'>            
              <p className='text-xs font-semibold  text-red-500'>{errors?.hourStartFirstWeek?.message}</p>
           </div>
 
            </div>
+           <p className='whitespace-nowrap'>--</p>
            <div className='flex  items-center flex-col gap-4 w-full'>
               
-              <div className='flex items-center  gap-2'>
-              <label>A :</label>
-              <div className='flex flex-col'>
+              <div className='flex items-center w-full  gap-2'>
+            
+              <div className='flex flex-col w-full'>
 
               
                <input 
                 {...register('hourEndFirstWeek')}
-                className="border-2   rounded-lg bg-slate-50 border-slate-500  w-4/5  min-w-fit px-3"  type={'time'}  />
+                className="   rounded-lg bg-slate-50 border-slate-500  w-full  min-w-fit px-3"  type={'time'}  />
 
                  </div>
 
@@ -297,11 +299,11 @@ console.log('rerender')
 
             {/* ceci est pour la date de la deuxieme seance*/}
             
-                            <div className='flex flex-col gap-4'>
+                            <div className='flex flex-col gap-4 w-full'>
                         <label  className="font-semibold text-sm">{`Deuxième Séance :`}</label>
                         <input placeholder="Premiere seance" {...register('dateSecondWeek')}
                         type={'date'}
-                        className="border-2  rounded-lg bg-slate-50 border-slate-500 "  />
+                        className=" w-full rounded-lg bg-slate-50 border-slate-500 "  />
             <p className='text-xs font-semibold text-red-500'>{errors?.dateSecondWeek?.message}</p>
             
             </div>
@@ -312,30 +314,35 @@ console.log('rerender')
                
                */}
             
-                          <div className="grid grid-cols-2 gap-2  w-full
+                          <div className="flex  justify-between items-center   px-4 gap-10 w-full
                            ">
-                            <div className='flex flex-col gap-4  items-center w-full'>
-                     <div className='flex items-center gap-4 '>
-                        <label>De :</label>
+                            <div className='flex flex-col gap-4 w-full items-center w-full'>
+                     <div className='flex items-center gap-4 w-full '>
+                      
                          <input  {...register('hourStartSecondWeek')}
                         
-                        className="border-2 w-4/5  rounded-lg bg-slate-50 border-slate-500  min-w-fit px-3"  type='time'/>
+                        className=" w-full  rounded-lg bg-slate-50 border-slate-500  min-w-fit px-3"  type='time'/>
                       </div>
                       <div className='w-full text-center'>            
                          <p className='text-xs font-semibold  text-red-500'>{errors?.hourStartSecondWeek?.message}</p>
                       </div>
             
                        </div>
+                       <div className='flex items-center h-full justify-center'>
+                       <p className='whitespace-nowrap'>--</p>
+                       </div>
                        <div className='flex  items-center flex-col gap-4 w-full'>
                           
-                          <div className='flex items-center  gap-2'>
-                          <label>A :</label>
-                          <div className='flex flex-col'>
+
+                          
+                          <div className='flex items-center w-full  gap-2'>
+                         
+                          <div className='flex flex-col w-full'>
             
                           
                            <input 
                             {...register('hourEndSecondWeek')}
-                            className="border-2  w-4/5 rounded-lg bg-slate-50 border-slate-500 min-w-fit px-3 "  type={'time'}  />
+                            className=" w-full   rounded-lg bg-slate-50 border-slate-500 min-w-fit px-3 "  type={'time'}  />
             
                              </div>
             
@@ -363,7 +370,7 @@ console.log('rerender')
             <label  className="font-semibold text-sm">{`Troisième séance :`}</label>
             <input placeholder="Premiere seance" {...register('dateThirdWeek')}
             type={'date'}
-            className="border-2  rounded-lg bg-slate-50 border-slate-500 "  />
+            className="  rounded-lg bg-slate-50 border-slate-500 "  />
 <p className='text-xs font-semibold text-red-500'>{errors?.dateThirdWeek?.message}</p>
 
 </div>
@@ -374,30 +381,33 @@ console.log('rerender')
    
    */}
 
-              <div className="grid grid-cols-2 gap-2  w-full
+              <div className="flex items-center px-4 w-full justify-center gap-8  w-full
                ">
-                <div className='flex flex-col gap-4  items-center w-full'>
-         <div className='flex items-center gap-4 '>
-            <label>De :</label>
+                <div className='flex  w-full flex-col gap-4  items-center w-full'>
+         <div className='flex items-center gap-4 w-full '>
+           
              <input   {...register('hourStartThirdWeek')}
             
-            className="border-2 w-4/5  rounded-lg bg-slate-50 border-slate-500 " type='time'/>
+            className="  w-full  rounded-lg bg-slate-50 border-slate-500 " type='time'/>
           </div>
           <div className='w-full text-center'>            
              <p className='text-xs font-semibold  text-red-500'>{errors?.hourStartThirdWeek?.message}</p>
           </div>
 
            </div>
+           <p className='whitespace-nowrap'>--</p>
+
+
            <div className='flex  items-center flex-col gap-4 w-full'>
               
-              <div className='flex items-center  gap-2'>
-              <label>A :</label>
-              <div className='flex flex-col'>
+              <div className='flex items-center  w-full gap-2'>
+            
+              <div className='flex flex-col w-full'>
 
               
                <input 
                 {...register('hourEndThirdWeek')}
-                className="border-2 w-4/5  rounded-lg bg-slate-50 border-slate-500 "  type={'time'}  />
+                className="  rounded-lg bg-slate-50 border-slate-500 "  type={'time'}  />
 
                  </div>
 

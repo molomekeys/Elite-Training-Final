@@ -101,8 +101,7 @@ className="  bg-opacity-5 w-full   bg-slate-800 z-50">
    return  prev= !prev
  }
   )}
-  
-  animate={{opacity:1,x:0}} initial={{opacity:0,x:'100%'}} transition={{duration:0.75}}
+
   className={`relative z-50 lg:hidden cursor-pointer
    ${layoutMobile? 'text-slate-800' :'text-slate-100'}`}>
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">

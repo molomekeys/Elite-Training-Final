@@ -10,7 +10,7 @@ const router = useRouter()
   return (
     <motion.div 
     className='w-full flex  text-center  z-10 p-4   overflow-x-hidden
-      shadow-sm lg:flex-row gap-4 bg-black  justify-between w-full      items-center  lg:px-20'>
+      shadow-sm lg:flex-row gap-4 bg-black  w-full      items-center  lg:px-20'>
 
     
     <AnimatePresence>

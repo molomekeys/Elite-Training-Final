@@ -32,7 +32,7 @@ const Layout = ({children }:LayoutPage) => {
      lg:via-slate-800 lg:via-80% lg:to-slate-800    ">
       
         {session?.user.role=='coach'&& 
-        <div className="w-full   lg:min-h-screen  overflow-x-hidden
+        <div className="w-full     overflow-x-hidden
          lg:w-4/12 lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800    ">
           <SideNavbarCoach/></div>}
 
@@ -43,7 +43,7 @@ const Layout = ({children }:LayoutPage) => {
 
         {(session?.user.role=='client' && router.pathname!='/client/paiement/[test]')&&
 
-        <div className=" w-full lg:w-4/12 absolute lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800">
+        <div className=" w-full lg:w-4/12  lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800">
 
        <SideNavbarClient/>   </div>}
 

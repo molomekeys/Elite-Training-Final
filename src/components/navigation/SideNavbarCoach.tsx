@@ -19,7 +19,7 @@ const router = useRouter()
     <motion.div  
     className='bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700  relative
     lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800
-     flex items-center relative lg:flex-col lg:w-full h-max lg:min-h-screen w-full overflow-hidden '>
+     flex items-center relative  lg:flex-col lg:w-full h-max lg:min-h-screen w-full overflow-hidden '>
 
     
     <AnimatePresence>
@@ -36,7 +36,7 @@ className=" bg-slate-900 bg-opacity-5 w-1/5  relative h-full z-50 ">
       
 </motion.div>
    
-    <motion.div  className="w-full lg:hidden"
+    <motion.div  className="w-full lg:hidden h-screen bg-black relative z-50"
    
    
     

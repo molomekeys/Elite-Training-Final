@@ -9,8 +9,8 @@ const Navbar = () => {
 const router = useRouter()
   return (
     <motion.div 
-    className='w-full flex relative text-center relative z-10 p-4  overflow-hidden
-      shadow-sm lg:flex-row gap-4   justify-between w-full  bg-black   items-center  lg:px-20'>
+    className='w-full flex  text-center  z-10 p-4   overflow-x-hidden
+      shadow-sm lg:flex-row gap-4 bg-black  justify-between w-full     items-center  lg:px-20'>
 
     
     <AnimatePresence>
@@ -21,18 +21,22 @@ const router = useRouter()
     exit={{x:'100%',opacity:0}}
     animate={{opacity:1,x:'0'}} initial={{opacity:0,x:'100%'}}
      transition={{duration:0.4}}
-    className="flex  h-screen  w-full   inset-0  z-20 absolute">
+    className="flex  overflow-x-hidden   w-full    h-screen  inset-0    z-20 absolute">
+
+
+
 <motion.div  onClick={()=> setLayoutMobile(prev=>prev=!prev)}
-className=" bg-slate-700 bg-opacity-5 w-2/5  relative h-full z-50">
+className="  bg-opacity-5 w-full   bg-slate-800 z-50">
       
 </motion.div>
    
-    <motion.div  className="w-full"
+    <motion.div  className="w-4/5 h-screen  bg-slate-200 flex flex-col "
    
    
     
 >
-    <ul className=" relative w-full h-full z-50 flex self-start  text-lg flex-col bg-slate-100 text-slate-800 w-screen h-screen  items-start  p-10 gap-4  font-semibold">
+    <ul className=" relative w-full  z-40 flex self-start  text-lg flex-col  
+     text-slate-800   items-start  p-10 gap-4  font-semibold">
    
    <Link href="/">
         <li className=" hover:bg-white w-screen  self-start flex py-2 px-1" onClick={()=>{   window.scrollTo(0,0)
@@ -96,7 +100,8 @@ className=" bg-slate-700 bg-opacity-5 w-2/5  relative h-full z-50">
   )}
   
   animate={{opacity:1,x:0}} initial={{opacity:0,x:'100%'}} transition={{duration:0.75}}
-  className={`relative z-50 lg:hidden cursor-pointer ${layoutMobile? 'text-slate-800' :'text-white'}`}>
+  className={`relative z-50 lg:hidden cursor-pointer
+   ${layoutMobile? 'text-slate-800' :'text-slate-100'}`}>
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
 </svg>

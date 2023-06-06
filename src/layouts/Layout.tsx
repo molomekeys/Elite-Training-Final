@@ -23,9 +23,9 @@ const Layout = ({children }:LayoutPage) => {
   
   return (
     <>
-    <section className="flex flex-col w-full gap-4 overflow
+    <section className="flex flex-col w-full gap-4 overflow-hidden   overscroll-x-none
       min-h-max overflow-x-hidden">
-<div>
+<div className="overflow-hidden">
    {(session?.user==null&& status!="loading")&& <Navbar/>}
 </div>
     <main className="flex flex-col lg:flex-row  h-full g:from-slate-900 lg:from-50% 
@@ -48,7 +48,7 @@ const Layout = ({children }:LayoutPage) => {
        <SideNavbarClient/>   </div>}
 
      
-        <div className="w-full bg-white overflow-x-hidden">
+        <div className="w-full bg-white  overflow-hidden">
         {children}
         </div>
     </main>

@@ -72,13 +72,18 @@ functionAddSubEvent:(eventData:EventsType[])=>void
 clearEventData:()=>void
 allOffert :AllPrice[]
 saveEventCalendarContext:()=>void
+subStepForm:number 
+nextSubStepForm:()=>void
 
 }
 
 // react context
 
 export const AddEventContext=createContext<ContextEventInterface>(
-  {saveEventCalendarContext:()=>{
+  {subStepForm:1,nextSubStepForm:()=>{
+    return 
+  }
+    ,saveEventCalendarContext:()=>{
     return
   },functionAddSubEvent:()=>{
     return 
@@ -106,8 +111,11 @@ const stepForm=useSelector((state:RootState)=>state.eventReducer.stepForm)
 
     //le stat qui controler les étapes du forms
     const [isEventAdded,setIsEventAdded]=useState<EventsType[]>([])
+  const [subStepForm,setSubStepForm]=useState(1)
 
-
+ function nextSubStepForm(){
+  setSubStepForm((prev)=>prev+=1)
+ }
     const [isStepForm,setIsStepForm]=useState(1)
     console.log('render from add Event')
 
@@ -187,7 +195,7 @@ console.log(saveSecondStepForm)
     return (
       <>
       <AddEventContext.Provider value={{saveEventCalendarContext:saveEventCalendar,allOffert:allRoom,saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
-        events:isEventAdded,functionEvent:saveEventData}}>
+        events:isEventAdded,functionEvent:saveEventData,subStepForm:subStepForm,nextSubStepForm:nextSubStepForm}}>
         <motion.button   whileHover={{scale:1.05}}
         className='text-slate-50 px-3 py-2 w-min-fit 
           bg-[#3C486B] rounded-lg font-bold   '

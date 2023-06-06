@@ -79,7 +79,8 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
  if(status==="unauthenticated")
 {
   return (
-    <main className='flex flex-col   bg-slate-50  gap-10 overflow-x-hidden '>
+    <main className='flex flex-col 
+     overflow-hidden  bg-slate-50  gap-10 overflow-x-hidden overscroll-x-none '>
      
 
 
@@ -87,13 +88,13 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
     
 
 
-   <main className="flex    lg:p-10 items-center
+   <main className="flex  overflow-hidden  lg:p-10 items-center
     justify-center  w-full ">
    
     <motion.section  ref={refTest} animate={{opacity:1}} initial={{opacity:0}} transition={{duration:0.5,delay:0.2,ease:'easeIn'}}
    
     
-    className="flex border-2 gap-8 lg:rounded-2xl lg:shadow-2xl
+    className="flex border-2 gap-8 lg:rounded-2xl lg:shadow-2xl overflow-hidden
      border-slate-100 border-none  
     flex-col w-full  md:w-4/5 lg:w-3/5 justify-center   
     p-1 h-full lg:m-0  px-2  bg-white  p-10  ">

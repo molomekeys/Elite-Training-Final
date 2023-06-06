@@ -9,13 +9,13 @@ import {AddEventContext} from '../fonctionality/AddEvent'
 import ProgrammeFormDate from "./ProgrammeFormDate"
 const defaultValue={  dateFirstWeek: "",
 dateSecondWeek:"",
-dateThreeWeek:"",
+dateThirdWeek:"",
 dateFourthWeek:"",
 
 hourStartFirstWeek:"",
 hourEndFirstWeek:"",
 
-hourStartSecondtWeek:"",
+hourStartSecondWeek:"",
 hourEndSecondWeek:"",
 
 hourStartThirdWeek:"",

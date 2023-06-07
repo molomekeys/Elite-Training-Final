@@ -38,7 +38,7 @@ const ManualySelectEvent = ({defaultValueForm,saveStepForm}:Props) => {
     
 
 const {nextSubStepForm,subStepForm}=useContext(AddEventContext)
- const {functionAddSubEvent}=useContext(AddEventContext)
+ const {functionAddSubEvent,}=useContext(AddEventContext)
     //hook pour initialiser le formulaire avec les valeur par defaut
     const { register, handleSubmit, watch, formState: { errors },getValues ,reset} = useForm({resolver:zodResolver(FourValidationTypeSchema),
         defaultValues:{
@@ -88,7 +88,7 @@ const momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),id:'1',
 console.log(momo)
 
 // setManualyEvent(momo)
-nextSubStepForm()
+nextSubStepForm(subStepForm)
 
 }
 

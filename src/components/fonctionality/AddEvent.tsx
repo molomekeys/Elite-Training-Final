@@ -73,7 +73,7 @@ clearEventData:()=>void
 allOffert :AllPrice[]
 saveEventCalendarContext:()=>void
 subStepForm:number 
-nextSubStepForm:()=>void
+nextSubStepForm:(stepForm:number)=>void
 backSubStepForm:()=>void
 
 }
@@ -83,7 +83,7 @@ backSubStepForm:()=>void
 export const AddEventContext=createContext<ContextEventInterface>(
   {subStepForm:1,backSubStepForm:()=>{
     return
-  },nextSubStepForm:()=>{
+  },nextSubStepForm:(momo)=>{
     return 
   }
     ,saveEventCalendarContext:()=>{
@@ -118,9 +118,17 @@ const stepForm=useSelector((state:RootState)=>state.eventReducer.stepForm)
 
 
   //sous formulaire pour les dates manuel
- function nextSubStepForm(){
-  setSubStepForm((prev)=>prev+=1)
+ function nextSubStepForm(stepForm:number){
+  setSubStepForm((prev)=>{
+    if(prev==stepForm)
+    {
+      return prev
+    }
+    return prev+=1
+  })
  }
+
+
  function backSubStepForm(){
   setSubStepForm((prev)=>{
 
@@ -138,7 +146,7 @@ const stepForm=useSelector((state:RootState)=>state.eventReducer.stepForm)
 
  //fin des fonctions 
 
- 
+
     const [isStepForm,setIsStepForm]=useState(1)
     console.log('render from add Event')
 

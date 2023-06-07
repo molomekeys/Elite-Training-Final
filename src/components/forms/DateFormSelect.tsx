@@ -64,9 +64,9 @@ const DateFormSelect = () => {
   <section className="w-full justify-between flex ">
   {<button className=" cursor-pointer" onClick={backSubStepForm}><AiOutlineArrowLeft size={30}/></button>}
     
-      <button onClick={
+      <button onClick={()=>
        
-        nextSubStepForm}><AiOutlineArrowRight size={30}/></button>
+        nextSubStepForm(Number(secondStep.seanceWeekNumber))}><AiOutlineArrowRight size={30}/></button>
     
     </section>
 {secondStep.seanceWeekNumber=='1'&&subStepForm==1&&

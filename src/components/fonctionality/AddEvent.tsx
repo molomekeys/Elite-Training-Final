@@ -74,13 +74,16 @@ allOffert :AllPrice[]
 saveEventCalendarContext:()=>void
 subStepForm:number 
 nextSubStepForm:()=>void
+backSubStepForm:()=>void
 
 }
 
 // react context
 
 export const AddEventContext=createContext<ContextEventInterface>(
-  {subStepForm:1,nextSubStepForm:()=>{
+  {subStepForm:1,backSubStepForm:()=>{
+    return
+  },nextSubStepForm:()=>{
     return 
   }
     ,saveEventCalendarContext:()=>{
@@ -113,9 +116,29 @@ const stepForm=useSelector((state:RootState)=>state.eventReducer.stepForm)
     const [isEventAdded,setIsEventAdded]=useState<EventsType[]>([])
   const [subStepForm,setSubStepForm]=useState(1)
 
+
+  //sous formulaire pour les dates manuel
  function nextSubStepForm(){
   setSubStepForm((prev)=>prev+=1)
  }
+ function backSubStepForm(){
+  setSubStepForm((prev)=>{
+
+    //si le numero ==1
+  if(prev==1)
+  {
+    return prev
+  }
+  //pour les autres valeurs
+  else {
+  return prev-=1
+}
+ })
+ }
+
+ //fin des fonctions 
+
+ 
     const [isStepForm,setIsStepForm]=useState(1)
     console.log('render from add Event')
 
@@ -194,7 +217,8 @@ console.log(saveSecondStepForm)
 
     return (
       <>
-      <AddEventContext.Provider value={{saveEventCalendarContext:saveEventCalendar,allOffert:allRoom,saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
+      <AddEventContext.Provider value={{backSubStepForm:backSubStepForm,
+        saveEventCalendarContext:saveEventCalendar,allOffert:allRoom,saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
         events:isEventAdded,functionEvent:saveEventData,subStepForm:subStepForm,nextSubStepForm:nextSubStepForm}}>
         <motion.button   whileHover={{scale:1.05}}
         className='text-slate-50 px-3 py-2 w-min-fit 

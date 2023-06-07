@@ -10,7 +10,7 @@ const Navbar = () => {
 const router = useRouter()
   return (
     <motion.div 
-    className='w-full flex absolute text-center bg-black z-10 p-4   shadow-sm lg:flex-row gap-4   justify-between w-screen     items-center  lg:px-20'>
+    className='w-full flex  text-center bg-black z-10 p-4   shadow-sm lg:flex-row gap-4   justify-between w-screen     items-center  lg:px-20'>
   <motion.div  animate={{opacity:1,x:0}} initial={{opacity:1,x:'-100%'}} transition={{duration:0.75}}
   className="w-full  h-full text-left">
 
@@ -32,42 +32,62 @@ const router = useRouter()
   
     </motion.div>
     
+    
+ 
     <AnimatePresence>
 
     { layoutMobile &&
 
     <motion.div  key='sidebar'    
-    exit={{x:'200%'}}
-    animate={{opacity:1,x:'0'}} initial={{opacity:0,x:'100%'}}
-     transition={{duration:0.5}}
-    className="flex  h-screen  w-screen    inset-0  z-20 absolute">
+    
+  
+     transition={{duration:0.4}}
+    
+    className="flex     w-full   inset-0  z-50  h-screen  absolute   ">
 <motion.div  onClick={()=> setLayoutMobile(prev=>prev=!prev)}
-className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50">
+className="  bg-opacity-25 w-1/5  relative  bg-slate-800 z-50">
       
 </motion.div>
    
-    <motion.div  className="w-4/6"
+    <motion.div  className="w-4/5 h-screen   z-50 bg-slate-200 flex flex-col"
    
    
     
 >
-    <ul className=" relative w-full h-full z-50 flex self-start  text-lg flex-col bg-slate-100 text-slate-800 w-screen h-screen  items-start  p-10 gap-4  font-semibold">
+    <ul className=" relative w-full   flex self-start z-50  text-lg flex-col text-slate-700 font-semibold
+   bg-slate-100 lg:hidden
+       h-screen  items-start p-4 pl-10 pt-20 gap-8   ">
    
-   <Link href="/meal">
-        <li className=" hover:bg-white w-screen  self-start flex py-2 px-1" onClick={()=>{   window.scrollTo(0,0)
+   <Link href="/">
+        <li className="  w-full gap-3  self-start flex " onClick={()=>{   window.scrollTo(0,0)
           setLayoutMobile(false) 
-         } }>All meals</li>
+         } }>             
+        <span>Connexion</span></li>
+         <span>
+                  </span>
         </Link>
-        <Link href='/recipe'>
-      <li className="  hover:bg-white w-screen  self-start flex py-2 px-1 "  onClick={()=>setLayoutMobile(false) } >Discover a meal</li>
+
+        <Link href='/signIn'>
+      <li className="   w-full gap-3  self-start flex  "  onClick={()=>setLayoutMobile(false) } >
+ 
+        <span>Inscription</span></li>
       </Link>
-       
+        <Link href='https://elite-training.fr/'  target={'_blank'} >
+      <li className="  n gap-3 self-start flex " 
+       onClick={()=>setLayoutMobile(false) } >
+     
+        <span> Notre site internet</span></li>
+      </Link>
+      
     </ul>
     </motion.div>
     </motion.div>
    
  }
  </AnimatePresence>
+
+
+
    <motion.div key='sideBar' 
     animate={{opacity:1,y:0}} initial={{opacity:0,y:'-100%'}} transition={{duration:0.5,delay:0.25}} 
     exit={{x:'100%'}}
@@ -93,9 +113,9 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50">
  }
   )}
   
-  animate={{opacity:1,x:0}} initial={{opacity:0,x:'100%'}} transition={{duration:0.75}}
-  className=" relative z-50 lg:hidden cursor-pointer">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+  
+  className={` relative   z-50 lg:hidden cursor-pointer`}>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8  ${layoutMobile==true? 'text-slate-800' : 'text-white' }`}>
   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
 </svg>
 

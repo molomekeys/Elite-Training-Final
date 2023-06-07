@@ -30,8 +30,7 @@ const DateFormSelect = () => {
     const [firstManualyForm,setFirstManualyForm]=useState(defaultValue)
     const [secondManualyForm,setSecondManualyForm]=useState(defaultValue)
     const [thirdManualyForm,setThirdManualyForm]=useState(defaultValue)
-const {events,clearEventData}=useContext(AddEventContext)
-console.log(events)
+
     function saveFirstSubEvent (events:typeof defaultValue){
       setFirstManualyForm(events)
     }
@@ -43,7 +42,7 @@ console.log(events)
     }
    console.log('render from dateformselect')
 
-   const{subStepForm,nextSubStepForm}=useContext(AddEventContext)
+   const{subStepForm,nextSubStepForm,backSubStepForm,events,clearEventData}=useContext(AddEventContext)
   
     console.log(firstManualyForm)
     console.log(secondManualyForm)
@@ -63,9 +62,7 @@ console.log(events)
 {secondStep.typeOfDate=='manualy'&&firstStep.productCategory!='programme'&&
 <section >
   <section className="w-full justify-between flex ">
-  {<button className=" cursor-pointer" onClick={()=>{
-   
-   }}><AiOutlineArrowLeft size={30}/></button>}
+  {<button className=" cursor-pointer" onClick={backSubStepForm}><AiOutlineArrowLeft size={30}/></button>}
     
       <button onClick={
        

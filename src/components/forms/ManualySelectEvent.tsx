@@ -324,7 +324,7 @@ if(defaultValueForm.dateFirstWeek.length>1)
 {/* ceci est pour la date de la troisieme  seance*/}
 
                 <div className='flex flex-col gap-4'>
-            <label  className="font-semibold text-sm">{`Troisième séance :`}</label>
+            <label  className="font-semibold text-sm">{`Quatrième séance :`}</label>
             <input placeholder="Premiere seance" {...register('dateFourthWeek')}
             type={'date'}
             className="  rounded-lg bg-slate-50 border-slate-500 "  />
@@ -383,7 +383,6 @@ if(defaultValueForm.dateFirstWeek.length>1)
           
           className="bg-slate-700 px-20  font-semibold text-lg  self-center text-slate-50 py-2 rounded-lg my-8">Valider et répeter</button>
         </form>
-        <p>{subStepForm}</p>
     </section>
    </main>
   )

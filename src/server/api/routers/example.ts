@@ -30,6 +30,7 @@ export const exampleRouter = createTRPCRouter({
         
           select:{
             created_at:true,
+          
             UserIdPrisma:{
               select:{
                 email:true,
@@ -70,7 +71,11 @@ export const exampleRouter = createTRPCRouter({
       const allClient = await ctx.prisma.coach.findMany({
       
         select:{
+          numero_siren:true,
+          id:true,
           created_at:true,
+          licence_sportif:true,
+          
           UserIdCoach:{
             select:{
               email:true,
@@ -90,7 +95,7 @@ export const exampleRouter = createTRPCRouter({
       const allClientFIltered=allClient.map((e)=>{
         const {UserIdCoach,_count,created_at,...rest}=e
        
-        return {clients:_count.client,...UserIdCoach,created_at:created_at}
+        return {clients:_count.client,...UserIdCoach,created_at:created_at,...rest}
       
     
       })

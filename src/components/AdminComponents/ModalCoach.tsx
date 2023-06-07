@@ -14,33 +14,42 @@ import {
 
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { type ClientDataType } from '~/pages/admin/coach';
 interface ModalCoachType{
 isOpen:boolean
 onOpen:()=>void 
 onClose:()=>void
+coachInfo:ClientDataType
 }
-const ModalCoach = ({isOpen,onClose,onOpen}:ModalCoachType) => {
+const ModalCoach = ({isOpen,onClose,onOpen,coachInfo}:ModalCoachType) => {
    
-
+    const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+    const modalSize = isLargerThan768 ? "xl" : "full";
   return (
   
       <>
        
   
-        <Modal isOpen={isOpen} onClose={onClose} size='2xl'>
+        <Modal isOpen={isOpen} onClose={onClose} size={modalSize}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Profil de </ModalHeader>
+            <ModalHeader>{coachInfo.name} </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-             
+             <section className='font-semibold'>
+                <p>Numero : {coachInfo.phone_number}</p>
+                <p>Clients : {coachInfo.clients}</p>
+                <p>Email : {coachInfo.email}</p>
+                <p>Numero Siren : {coachInfo.numero_siren}</p>
+                <p>Licence sportif : </p>
+             </section>
             </ModalBody>
   
             <ModalFooter>
-              <Button colorScheme='blue' mr={3} onClick={onClose}>
-                Close
+              <Button className='text-slate-800' mr={3} onClick={onClose}>
+               Fermer
               </Button>
-              <Button variant='ghost'>Secondary Action</Button>
+              <Button variant='ghost'>Validation de la licence</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

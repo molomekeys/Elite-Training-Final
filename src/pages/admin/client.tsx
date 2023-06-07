@@ -38,7 +38,6 @@ if(isLoading==true)
 
 
 
- 
   const allFetchedClient=data!='no client'&&data?.map((e)=>{
    return(  <tr key={v4()} className=" py-4  w-full grid grid-cols-4 lg:grid-cols-5  ">
       <td key={v4()}   className="py-3 text-xs font-semibold italic pl-4 ">{e?.created_at.toLocaleDateString()}</td>

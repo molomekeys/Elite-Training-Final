@@ -12,7 +12,7 @@ import {
   import { AiOutlineUser } from 'react-icons/ai';
   import { BsFillCalendarWeekFill } from 'react-icons/bs';
   import {MdRoom, MdWhereToVote} from 'react-icons/md'
-
+import { useAnimate } from 'framer-motion';
 import { useState } from 'react'
 import {useForm} from 'react-hook-form'
 
@@ -46,7 +46,7 @@ changeTheModal:()=>void
  
 export default function ModelCalendrier({informationData,openModal,updateScreen,changeTheModal}:Props) {
    
-
+   
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const modalSize = isLargerThan768 ? "3xl" : "full";
   const options = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
@@ -99,8 +99,8 @@ async function handleChangeDate(val:ModifiedEventDat){
           <ModalOverlay className='' />
           <ModalContent className='flex flex-col  lg:pt-0   shadow-xl'>
             <form className='w-full flex flex-col   ' onSubmit={handleSubmit(handleChangeDate)}>
-            <ModalHeader className={` ${isChangeEvent? 'text-left g text-slate-800' :'text-center text-sm text-slate-200 bg-slate-900'}`}>{isChangeEvent? informationData.title : 'Vous modifier les dates'}</ModalHeader>
-            <ModalCloseButton color={'black.900'} />
+            <ModalHeader className={` ${isChangeEvent? 'text-left g text-slate-800 rounded-lg' :'text-center text-sm text-slate-200 bg-slate-900'} rounded-t-md `}>{isChangeEvent? informationData.title : 'Vous modifier les dates'}</ModalHeader>
+            <ModalCloseButton color={isChangeEvent? 'black.900' :'white'} />
             <ModalBody className='w-full h-full flex flex-col  items-center justify-center'>
            <section className='flex flex-col gap-4  w-full h-full pt-4 '>
         

@@ -130,19 +130,20 @@ refetchData()
   <ModalOverlay />
 
          <ModalContent className='rounded-lg'>
-         <ModalHeader className='text-center bg-slate-100 rounded-lg text-slate-700 font-semibold '>Vous ajouter un nouveau client</ModalHeader>
+         <ModalHeader className='text-center bg-white rounded-lg text-slate-700 font-semibold '>Vous ajouter un nouveau client</ModalHeader>
           <ModalCloseButton className='text-slate-00 '  />
 
 
           <motion.form  
-          className='flex bg-slate-100  flex-col gap-4  lg:p-10  w-full rounded-lg ' onSubmit={
+          className='flex   bg-white  flex-col gap-4  lg:p-10  w-full rounded-lg ' onSubmit={
    
 
    handleSubmit(createClient)}>
 <ModalBody className='flex flex-col gap-3'>
      
             <label htmlFor='lastName' className='font-semibold text-sm'>Nom :</label>
-            <input   className='form-input rounded-md bg-slate-50   py-3 px-2' id='lastName'
+            <input   className="bg-slate-50 border-slate-400  
+         rounded-md  py-3 pl-4 form-input" id='lastName'
             placeholder='Veuillez inscrire le nom de votre athlète'  {...register('lastName')}
             
            />
@@ -150,14 +151,16 @@ refetchData()
            <label htmlFor='firstName' className='font-semibold  text-sm' >Prénom :</label>
 
             <input placeholder='Veuillez inscrire le prénom de votre athlète'  
-            id='firstName'   className='form-input rounded-md   py-3 px-2 bg-slate-50'
+            id='firstName'   className="bg-slate-50 border-slate-400 
+            rounded-md  py-3 pl-4 form-input"
               {...register('firstName')}/>
                       <p className='text-xs font-semibold text-red-500'>{errors.firstName?.message}</p>
 
                       <label htmlFor='phoneNumber' className='font-semibold  text-sm' >Numéro de télphone :</label>
 
 <input placeholder='Veuillez inscrire le numero de votre athlète'  
-id='firstName' type={'tel'}   className='form-input rounded-md   py-3 px-2 bg-slate-50'
+id='firstName' type={'tel'}  className="bg-slate-50 border-slate-400 
+rounded-md  py-3 pl-4 form-input"
   {...register('phoneNumber')}/>
           <p className='text-xs font-semibold text-red-500'>{errors.phoneNumber?.message}</p>
 
@@ -165,8 +168,8 @@ id='firstName' type={'tel'}   className='form-input rounded-md   py-3 px-2 bg-sl
 
 
             <input  type={'email'}  placeholder="Veuillez inscrire l'adresse email de votre athlète" 
-              {...register('email')}  id='email'  className='
-              form-input rounded-md bg-slate-50  py-3 px-2'     
+              {...register('email')}  id='email'  className="bg-slate-50 border-slate-400 
+              rounded-md  py-3 pl-4 form-input"
                  />
                                        <motion.p ref={refTest}
                                        className='text-xs font-semibold text-red-500'> {errors.email?.message}</motion.p>
@@ -175,7 +178,9 @@ id='firstName' type={'tel'}   className='form-input rounded-md   py-3 px-2 bg-sl
                                         htmlFor='confirmEmail'>Veuillez confirmer email de votre athlète :</label>
 
             <input  type={'email'}
-             placeholder="Confirmer l'adresse email de votre athlète"   {...register('confirmEmail')}     className='form-input rounded-md bg-slate-50  py-3 px-2'   
+             placeholder="Confirmer l'adresse email de votre athlète"   {...register('confirmEmail')}  
+             className="bg-slate-50 border-slate-400 
+             rounded-md  py-3 pl-4 form-input"
                   />
                                         <p className='text-xs font-semibold text-red-500'>{errors.confirmEmail?.message}</p>
 

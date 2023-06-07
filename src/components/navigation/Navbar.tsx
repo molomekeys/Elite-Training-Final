@@ -11,7 +11,7 @@ const router = useRouter()
   return (
     <motion.div 
     className='w-full flex  text-center bg-black z-10 p-4   shadow-sm lg:flex-row gap-4   justify-between w-screen     items-center  lg:px-20'>
-  <motion.div  animate={{opacity:1,x:0}} initial={{opacity:1,x:'-100%'}} transition={{duration:0.75}}
+  <motion.div 
   className="w-full  h-full text-left">
 
 <div className="w-full h-full text-left  items-center lg:justify-center min-w-fit
@@ -89,8 +89,7 @@ className="  bg-opacity-25 w-1/5  relative  bg-slate-800 z-50">
 
 
    <motion.div key='sideBar' 
-    animate={{opacity:1,y:0}} initial={{opacity:0,y:'-100%'}} transition={{duration:0.5,delay:0.25}} 
-    exit={{x:'100%'}}
+   
     className="w-full flex  gap-10 items-end justify-end items-center">
   <div className="text-slate-50 
         

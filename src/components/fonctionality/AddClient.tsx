@@ -19,7 +19,7 @@ import { api } from '~/utils/api';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-
+import {useAnimate} from 'framer-motion'
 
 // ce qui sera transmis au formulaire par react hook form 
 
@@ -54,7 +54,10 @@ export default function AddClient({refetchData}:Props) {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const modalSize = isLargerThan768 ? "3xl" : "full";
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    const [refTest,animate]=useAnimate()
+    function handleAnimate(){
+    animate(refTest.current,{x:['3%','-3%','0%','3%',"0%","-3%","0%"]},{duration:0.75})
+    }
     const initialRef = useRef(null)
     const[succesAddClient,setSuccesAddClient]=useState(false)
     const[isClientAdded,setIsAddClient]=useState(false)
@@ -62,7 +65,7 @@ export default function AddClient({refetchData}:Props) {
    
   
     
-    const { register, handleSubmit ,formState:{errors},watch,reset} = useForm(
+    const { register,setFocus, handleSubmit,setError ,formState:{errors},watch,reset} = useForm(
       
       {defaultValues:{email:'',lastName:'',firstName:'',confirmEmail:'',phoneNumber:''}, resolver: zodResolver(validationSchema),});
 
@@ -80,6 +83,12 @@ const password=`${correctFirstName.toLowerCase()}${correctLastName.toLowerCase()
       name:`${correctLastName+" "+correctFirstName}`,password:password})
   if(tryCreatedUser=='utilisateur déjà existant'){
     console.log(tryCreatedUser)
+    setError('email',{
+      message:'Cet email est déjà affilié à un client'
+    })
+    setFocus('email')
+    handleAnimate()
+    
 
   } 
   else if(tryCreatedUser=='bravo utilisateur ajouter avec succès'){
@@ -111,7 +120,7 @@ refetchData()
 
         
        
-        <Modal  size={modalSize}
+        <Modal  size={modalSize} 
           initialFocusRef={initialRef}
           finalFocusRef={finalRef}
           isOpen={isOpen}
@@ -120,19 +129,20 @@ refetchData()
           
   <ModalOverlay />
 
-         <ModalContent>
-         <ModalHeader className='text-center text-slate-700 font-semibold '>Vous ajouter un nouveau client</ModalHeader>
-          <ModalCloseButton className='text-slate-200 '  />
+         <ModalContent className='rounded-lg'>
+         <ModalHeader className='text-center bg-slate-100 rounded-lg text-slate-700 font-semibold '>Vous ajouter un nouveau client</ModalHeader>
+          <ModalCloseButton className='text-slate-00 '  />
 
 
-          <form className='flex  flex-col gap-4 p-2 lg:p-10  w-full ' onSubmit={
+          <motion.form  
+          className='flex bg-slate-100  flex-col gap-4  lg:p-10  w-full rounded-lg ' onSubmit={
    
 
    handleSubmit(createClient)}>
 <ModalBody className='flex flex-col gap-3'>
      
             <label htmlFor='lastName' className='font-semibold text-sm'>Nom :</label>
-            <input   className='form-input rounded-md bg-slate-100  border-2 border-slate-400 py-2 px-2' id='lastName'
+            <input   className='form-input rounded-md bg-slate-50   py-3 px-2' id='lastName'
             placeholder='Veuillez inscrire le nom de votre athlète'  {...register('lastName')}
             
            />
@@ -140,14 +150,14 @@ refetchData()
            <label htmlFor='firstName' className='font-semibold  text-sm' >Prénom :</label>
 
             <input placeholder='Veuillez inscrire le prénom de votre athlète'  
-            id='firstName'   className='form-input rounded-md  border-2 border-slate-400 py-2 px-2 bg-slate-100'
+            id='firstName'   className='form-input rounded-md   py-3 px-2 bg-slate-50'
               {...register('firstName')}/>
                       <p className='text-xs font-semibold text-red-500'>{errors.firstName?.message}</p>
 
                       <label htmlFor='phoneNumber' className='font-semibold  text-sm' >Numéro de télphone :</label>
 
 <input placeholder='Veuillez inscrire le numero de votre athlète'  
-id='firstName' type={'tel'}   className='form-input rounded-md  border-2 border-slate-400 py-2 px-2 bg-slate-100'
+id='firstName' type={'tel'}   className='form-input rounded-md   py-3 px-2 bg-slate-50'
   {...register('phoneNumber')}/>
           <p className='text-xs font-semibold text-red-500'>{errors.phoneNumber?.message}</p>
 
@@ -156,15 +166,16 @@ id='firstName' type={'tel'}   className='form-input rounded-md  border-2 border-
 
             <input  type={'email'}  placeholder="Veuillez inscrire l'adresse email de votre athlète" 
               {...register('email')}  id='email'  className='
-              form-input rounded-md bg-slate-100 border-2 border-slate-400 py-2 px-2'     
+              form-input rounded-md bg-slate-50  py-3 px-2'     
                  />
-                                       <p className='text-xs font-semibold text-red-500'> {errors.email?.message}</p>
+                                       <motion.p ref={refTest}
+                                       className='text-xs font-semibold text-red-500'> {errors.email?.message}</motion.p>
 
                                        <label className='font-semibold text-sm'
                                         htmlFor='confirmEmail'>Veuillez confirmer email de votre athlète :</label>
 
             <input  type={'email'}
-             placeholder="Confirmer l'adresse email de votre athlète"   {...register('confirmEmail')}     className='form-input rounded-md bg-slate-100 border-2 border-slate-400 py-2 px-2'   
+             placeholder="Confirmer l'adresse email de votre athlète"   {...register('confirmEmail')}     className='form-input rounded-md bg-slate-50  py-3 px-2'   
                   />
                                         <p className='text-xs font-semibold text-red-500'>{errors.confirmEmail?.message}</p>
 
@@ -173,9 +184,9 @@ id='firstName' type={'tel'}   className='form-input rounded-md  border-2 border-
                                      
          </ModalBody>                 
         
-          <ModalFooter >
+          <ModalFooter  className=''>
             <div className='w-full flex justify-between'>
-          <button className='text-slate-50 bg-cyan-800 py-2 px-4 rounded-lg font-semibold' type='submit'>Sauvegarder</button>
+          <button className='text-slate-50 bg-slate-800 py-2 px-4 rounded-lg font-semibold' type='submit'>Ajouter</button>
           <Button onClick={()=>{
             reset()
             onClose()
@@ -183,12 +194,13 @@ id='firstName' type={'tel'}   className='form-input rounded-md  border-2 border-
             }}>Annuler</Button>
           </div>
          </ModalFooter>
-         </form>
+         </motion.form>
          </ModalContent>
         
         </Modal>
         
       
       </>
+      
     )
   }

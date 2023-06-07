@@ -16,11 +16,21 @@ const  validationSecondStepSchema=z.object({
     typeOfDate:z.string().nonempty('Veuillez selectionner une valeur'),
     seanceWeekNumber:z.string().nonempty('veuillez répondre à cette question'),
 })
+//pour le programme
+const  validationSecondProgramme=z.object({
+    programmeName:z.string().nonempty('Veuillez selectionner une valeur') ,
+    typeOfDate:z.string(),
+    seanceWeekNumber:z.string()
+})
+
+
+
 const SecondStepAddEvent = () => {
   
 const {firstStep,secondStep}=useSelector((state:RootState)=>state.eventReducer)
 const {allOffert}=useContext(AddEventContext)
-const {register,handleSubmit,setValue,formState:{errors}}=useForm({defaultValues:{ ...secondStep},resolver:zodResolver(validationSecondStepSchema)})
+const {register,handleSubmit,setValue,formState:{errors}}=useForm({defaultValues:{ ...secondStep},
+    resolver:zodResolver(firstStep.productCategory=='programme'? validationSecondProgramme:validationSecondStepSchema)})
 console.log('rerender')
 const dispatch=useDispatch()
    

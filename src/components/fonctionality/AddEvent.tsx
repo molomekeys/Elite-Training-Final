@@ -75,13 +75,13 @@ saveEventCalendarContext:()=>void
 subStepForm:number 
 nextSubStepForm:(stepForm:number)=>void
 backSubStepForm:()=>void
-
+clearSubStep?:()=>void
 }
 
 // react context
 
 export const AddEventContext=createContext<ContextEventInterface>(
-  {subStepForm:1,backSubStepForm:()=>{
+  {subStepForm:1,clearSubStep:()=>{},backSubStepForm:()=>{
     return
   },nextSubStepForm:(momo)=>{
     return 
@@ -115,6 +115,16 @@ const stepForm=useSelector((state:RootState)=>state.eventReducer.stepForm)
     //le stat qui controler les étapes du forms
     const [isEventAdded,setIsEventAdded]=useState<EventsType[]>([])
   const [subStepForm,setSubStepForm]=useState(1)
+
+
+//pour clear le sous formulaire pour evitez les bugs
+function clearSubStepForm(){
+
+  setSubStepForm(1)
+
+}
+
+
 
 
   //sous formulaire pour les dates manuel
@@ -264,7 +274,7 @@ console.log(saveSecondStepForm)
 
               
 {stepForm>1&&<Button variant='solid' onClick={()=>{
-
+  clearSubStepForm()
   dispatch(backStepForm())}}>Précedent</Button>}
               
             </ModalFooter>

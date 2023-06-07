@@ -73,7 +73,6 @@ const DateFormSelect = () => {
 <section>
   <ManualySelectEvent  saveStepForm={saveFirstSubEvent}
   defaultValueForm={firstManualyForm}/>
-  <p className="text-right font-semibold text-lg p-10">{subStepForm}/{secondStep.seanceWeekNumber}</p>
 
   </section>}
 

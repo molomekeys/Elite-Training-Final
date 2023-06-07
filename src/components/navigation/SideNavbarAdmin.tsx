@@ -12,14 +12,14 @@ import {HiOutlineUserGroup} from 'react-icons/hi'
 import {FaFileInvoiceDollar} from 'react-icons/fa'
 import {RiLogoutCircleRLine} from 'react-icons/ri'
 
-const SideNavbarAdmin = () => {
+const SideNavbarCoach = () => {
   const [layoutMobile,setLayoutMobile]=useState(false)
 const router = useRouter()
   return (
-    <motion.div 
-    className='bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700 
+    <motion.div  
+    className='bg-gradient-to-r from-black from-20%  via-slate-900 to-slate-700  
     lg:bg-gradient-to-b lg:from-slate-900 lg:from-50%  lg:via-slate-800 lg:via-80% lg:to-slate-800
-     flex items-center relative flex-col lg:w-full h-max lg:min-h-screen w-full '>
+     flex items-center  lg:flex-col lg:w-full  lg:min-h-screen w-full overflow-hidden '>
 
     
     <AnimatePresence>
@@ -27,23 +27,24 @@ const router = useRouter()
     { layoutMobile &&
 
     <motion.div  key='sidebar'    
-    exit={{x:'100%',opacity:0}}
-    animate={{opacity:1,x:'0'}} initial={{opacity:0,x:'100%'}}
+    
+  
      transition={{duration:0.4}}
-    className="flex  h-screen  w-full    inset-0  z-20 absolute ">
+    
+    className="flex     w-full   inset-0  z-50  h-screen  absolute   ">
 <motion.div  onClick={()=> setLayoutMobile(prev=>prev=!prev)}
-className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
+className="  bg-opacity-25 w-1/5  relative  bg-slate-800 z-50">
       
 </motion.div>
    
-    <motion.div  className="w-5/6 lg:hidden"
+    <motion.div  className="w-4/5 h-screen  relative z-50 bg-slate-200 flex flex-col"
    
    
     
 >
-    <ul className=" relative w-full  z-50 flex self-start  text-lg flex-col text-slate-700 font-semibold
+    <ul className=" relative w-full relative  flex self-start z-50  text-lg flex-col text-slate-700 font-semibold
    bg-slate-100 lg:hidden
-      w-screen h-screen  items-start p-4 pl-10 pt-20 gap-8   ">
+       h-screen  items-start p-4 pl-10 pt-20 gap-8   ">
    
    <Link href="/admin/dashboardAdmin">
         <li className="  w-full gap-3  self-start flex " onClick={()=>{   window.scrollTo(0,0)
@@ -54,26 +55,24 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
                   </span>
         </Link>
 
-      
+        <Link href='/admin/coach'  >
+      <li className="  n gap-3 self-start flex " 
+       onClick={()=>setLayoutMobile(false) } ><span>
+        <HiOutlineUserGroup   size={25}/></span>
+        <span> Coachs</span></li>
+      </Link>
         <Link href='/admin/client'  >
       <li className="  n gap-3 self-start flex " 
        onClick={()=>setLayoutMobile(false) } ><span>
         <HiOutlineUserGroup   size={25}/></span>
         <span> Clients</span></li>
       </Link>
-        
-      <Link href='/admin/coach'  >
-      <li className="  n gap-3 self-start flex " 
-       onClick={()=>setLayoutMobile(false) } ><span>
-        <HiOutlineUserGroup   size={25}/></span>
-        <span> Coach</span></li>
-      </Link>
       <Link href='/admin/comptabilite'  >
       <li className="   gap-3 self-start flex "
         onClick={()=>setLayoutMobile(false) } >
           <span>
        <FaFileInvoiceDollar  size={25}/></span>
-        <span> facturation</span></li>
+        <span> Comptabilit&eacute;</span></li>
       </Link>
       <div   onClick={()=>signOut({callbackUrl:'/'})}
     className="  cursor-pointer my-auto hover:bg-slate-200 p-3 rounded-lg 
@@ -99,7 +98,7 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
  <div className="w-full h-full  items-center lg:justify-center min-w-fit
          relative flex  ">
    
-            <Link href='/admin/dashboardCoach' className="w-full items-center lg:justify-center flex h-full">
+            <Link href='/coach/dashboardCoach' className="w-full items-center lg:justify-center flex h-full">
           
             <Image  width={110} height={40} className=' object-cover
              float-left relative'
@@ -109,9 +108,9 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
     <div className="flex lg:flex-col items-center justify-center w-full "> 
        <ul className=" text-white hidden   font-medium lg:flex flex-row  items-center lg:items-start
         w-full lg:flex-col  gap-2 ">
-       <Link href="/admin/dashboardCoach" className=" w-full flex-grow "> 
+       <Link href="/coach/dashboardCoach" className=" w-full flex-grow "> 
       
-       <div className={`flex items-center px-10 py-3  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/admin/dashboardCoach'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
+       <div className={`flex items-center px-10 py-3  w-full gap-4 hover:bg-slate-700 ${router.pathname=='/coach/dashboardCoach'? ' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800' : ''}`}  >
                  <span>
                   <AiOutlineDashboard size={25}/>
                   </span>
@@ -122,7 +121,7 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
       </Link>
 
 
-       
+      
 
 
 
@@ -131,7 +130,7 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
           
           
         <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/admin/coach'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
-            <span><HiOutlineUserGroup size={25}/></span><li className="  text-sm    py-2 ">Coach</li>
+            <span><HiOutlineUserGroup size={25}/></span><li className="  text-sm    py-2 ">Coachs</li>
             </div>
           
           </Link>
@@ -140,15 +139,15 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
           
           
           <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/admin/client'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
-              <span><HiOutlineUserGroup size={25}/></span><li className="  text-sm    py-2 ">Client</li>
+              <span><HiOutlineUserGroup size={25}/></span><li className="  text-sm    py-2 ">Clients</li>
               </div>
             
             </Link>
         <Link href='/admin/comptabilite' className=" w-full ">
           
-        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/coach/facturation'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
+        <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/admin/comptabilite'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
             <span><FaFileInvoiceDollar size={25}/></span>
-            <li className=" text-sm  py-2 ">Facturation</li>
+            <li className=" text-sm  py-2 ">Comptabilit&eacute;</li>
             </div>
 </Link>
 
@@ -174,7 +173,7 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
 
 
 
-<div className="w-full flex items-center justify-end pr-5 ">  <motion.a   
+<div className="w-full flex justify-end items-center pr-5 ">  <motion.a   
   onClick={()=> setLayoutMobile((prev)=> {
    return  prev= !prev
  }
@@ -197,4 +196,4 @@ className=" bg-slate-700 bg-opacity-5 w-full  relative h-full z-50 ">
    
   )
 }
-export default SideNavbarAdmin
+export default SideNavbarCoach

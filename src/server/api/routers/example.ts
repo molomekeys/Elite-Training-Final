@@ -24,7 +24,84 @@ export const exampleRouter = createTRPCRouter({
         greeting: `Hello ${input.text}`,
       };
     }),
+    fetchAllClient:publicProcedure.query(async ({ctx})=>{
 
+        const allClient = await ctx.prisma.client.findMany({
+        
+          select:{
+            created_at:true,
+            UserIdPrisma:{
+              select:{
+                email:true,
+                 name:true,
+                 phone_number:true
+                 ,
+              }
+            
+            },coachId:{
+              select:{
+                UserIdCoach:{
+                  select:{
+                    name:true,
+                  }
+                }
+              }
+            }
+          }
+        })
+        const allClientFIltered=allClient.map((e)=>{
+          const {UserIdPrisma,coachId,...rest}=e
+          if(coachId?.UserIdCoach)
+          {
+          return {...UserIdPrisma,coachName:coachId.UserIdCoach.name,...rest}
+        }
+      
+        })
+        if(allClientFIltered)
+        {
+      return allClientFIltered
+    }
+    else {
+      return 'no client'
+    }
+    }),
+    fetchAllCoach:publicProcedure.query(async ({ctx})=>{
+
+      const allClient = await ctx.prisma.coach.findMany({
+      
+        select:{
+          created_at:true,
+          UserIdCoach:{
+            select:{
+              email:true,
+               name:true,
+               phone_number:true
+               ,
+            }
+          
+          },
+         _count:{
+          select:{
+            client:true
+          }
+         }
+        }
+      })
+      const allClientFIltered=allClient.map((e)=>{
+        const {UserIdCoach,_count,created_at,...rest}=e
+       
+        return {clients:_count.client,...UserIdCoach,created_at:created_at}
+      
+    
+      })
+      if(allClientFIltered)
+      {
+    return allClientFIltered
+  }
+  else {
+    return 'no client'
+  }
+  }),
  
 
   getSecretMessage: protectedProcedure.query(() => {

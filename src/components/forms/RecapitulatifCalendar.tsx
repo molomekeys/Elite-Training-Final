@@ -64,7 +64,9 @@ function getDates() {
 }
 const{futureDate,today}=getDates()
 
-const findClientName=client?.find(user => user.id === firstStepInfo.clientId);
+const findClientName=client?.filter(user => user.idClient === firstStepInfo.clientId);
+console.log(client)
+console.log(findClientName)
   const allDataClient=events?.map((e)=>{
     
     return (<div key={e.id}
@@ -211,7 +213,7 @@ close()
 </div>
     <div className='flex gap-4 ' >
     <AiOutlineUser size={20} color='black'/>
-    <p className='font-semibold '>{findClientName?.name}</p>
+    <p className='font-semibold '>{findClientName[0]?.name}</p>
     </div>
     
        
@@ -253,7 +255,7 @@ close()
   
     </div>
     <div className='flex items-center justify-center w-full'>
-    <BlobProvider document={<InvoiceComponent eventInfo={{clientName:findClientName?.name? findClientName.name : '',salleName:selectedOffer[0]?.room_name? selectedOffer[0]?.room_name : '',
+    <BlobProvider document={<InvoiceComponent eventInfo={{clientName:findClientName[0]?.name? findClientName[0].name : '',salleName:selectedOffer[0]?.room_name? selectedOffer[0]?.room_name : '',
     hours:totalHours,unitPrice:truePrice? truePrice : 10,category:'coaching',coachName:data?.user.name? data.user.name : ''}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here

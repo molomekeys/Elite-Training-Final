@@ -50,32 +50,31 @@ console.log(app)
 async function handleLicenceUpload(e:React.ChangeEvent<HTMLInputElement>){
   console.log('slt')
   e.preventDefault()
-// if(e.target.files&&e?.target?.files[0]!=null)
-// {
-//   const file = e.target.files[0];
-//   console.log(file)
-//   console.log('coucou')
-//   const imagesRef = ref(storage, `coach/${file.name}`);
-//   console.log(imagesRef)
-//   setValue('picture_image','link')
-//   clearErrors('picture_image')
-// try{
-//   const momo = await uploadBytes(imagesRef, file)
-//   console.log('slt')
-// console.log(momo)
+if(e.target.files&&e?.target?.files[0]!=null)
+{
+  const file = e.target.files[0];
+  console.log(file)
+  console.log('coucou')
+  const imagesRef = ref(storage, `momo/${file.name}`);
+  console.log(imagesRef)
 
-// setError('picture_image',{
-//   message:''
-// })
-// const omo=getValues()
-// console.log(omo)
+try{
+  const momo = await uploadBytes(imagesRef, file)
+  console.log('slt')
+console.log(momo)
 
-// }catch(error){
+setError('picture_image',{
+  message:''
+})
+const omo=getValues()
+console.log(omo)
 
-// }
+}catch(error){
+
+}
 
 
-// }
+}
 
 
 }
@@ -208,4 +207,4 @@ ext-center">
   );
 };
 
-export default SignIn;
+export default SignIn

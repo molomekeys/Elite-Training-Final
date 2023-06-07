@@ -3,7 +3,7 @@ import { useSession, } from "next-auth/react"
 import { useDispatch } from "react-redux"
 import { api } from "~/utils/api"
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { MouseEventHandler, ReactEventHandler, useState } from "react"
 import {HiUser} from 'react-icons/hi2'
 import {MdEmail,MdCall} from 'react-icons/md'
 import {BsFillCalendarPlusFill} from 'react-icons/bs'
@@ -20,7 +20,8 @@ export type ClientDataType={
     clients: number;
     numero_siren :string
 }
-
+import { storage } from "~/firebaseConfig"
+import { ref,getDownloadURL } from "firebase/storage"
 const Coach = () => {
 
   const {data}=useSession()
@@ -45,17 +46,48 @@ if(isLoading==true)
  return 
 }
 
-function hundleSpecifiqueCoach(idCoach:number){
-  if(data!='no client')
-  {
-  const specifique=data?.filter((e)=>{
-      return e?.id===idCoach
+async function hundleSpecifiqueCoach(idCoach:number){
+//   if(data!='no client')
+//   {
+//   const specifique=data?.filter((e)=>{
+//       return e?.id===idCoach
+//   })
+//   if(specifique&&specifique[0]){
+//       setSpecifiqueCoach(specifique[0])
+//       onOpen()
+//   }
+// }
+
+console.log('slt')
+const pathReference = ref(storage, 'testpdf.pdf');
+console.log(pathReference)
+try {
+  const pathurl = await getDownloadURL(pathReference).then((url) => {
+    // `url` is the download URL for 'images/stars.jpg'
+
+    // This can be downloaded directly:
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = (event) => {
+      const blob = xhr.response;
+    };
+    xhr.open('GET', url);
+    xhr.send();
+
+    // Or inserted into an <img> element
+    
   })
-  if(specifique&&specifique[0]){
-      setSpecifiqueCoach(specifique[0])
-      onOpen()
-  }
+  
+
+  console.log(pathurl);
+  // Update state or perform any other logic with the path URL
+} catch (error) {
+  console.log("Error fetching download URL:", error);
+  // Handle the error appropriately (e.g., display an error message)
 }
+
+
+
 }
 
  
@@ -70,8 +102,8 @@ function hundleSpecifiqueCoach(idCoach:number){
       <td key={v4()} className="py-3 font-bold text-xs whitespace-nowrap text-red-400">en attente </td>
 
       <td key={v4()} className="py-3 font-bold text-xs"><button onClick={()=>{
-        hundleSpecifiqueCoach(e.id)
-        onOpen}
+        hundleSpecifiqueCoach(e.id,)
+      }
         }>consulter</button></td>
 
     </tr>)

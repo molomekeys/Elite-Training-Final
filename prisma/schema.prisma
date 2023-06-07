@@ -59,6 +59,7 @@ model Coach {
     id              Int       @id @default(autoincrement())
     numero_siren    String
     licence_sportif String?
+    isValid         Boolean   @default(false)
     user_id         String    @unique
     created_at      DateTime  @default(now())
     UserIdCoach     User      @relation(fields: [user_id], references: [id])

@@ -22,7 +22,9 @@ export type ClientDataType={
 }
 import { storage } from "~/firebaseConfig"
 import { ref,getDownloadURL } from "firebase/storage"
+import {useDownloadURL} from 'react-firebase-hooks/storage'
 const Coach = () => {
+
 
   const {data}=useSession()
   const dispatch = useDispatch()
@@ -30,6 +32,8 @@ const Coach = () => {
 const [client,setClient]=useState<ClientDataType[]>([])
 const {isOpen,onClose,onOpen}=useDisclosure()
 const [specifiqueCoach,setSpecifiqueCoach]=useState<ClientDataType>()
+
+
 
 if(data?.user)
 {
@@ -59,23 +63,27 @@ async function hundleSpecifiqueCoach(idCoach:number){
 // }
 
 console.log('slt')
-const pathReference = ref(storage, 'testpdf.pdf');
+const pathReference = ref(storage, '/momo/bg.pdf');
+
 console.log(pathReference)
 try {
   const pathurl = await getDownloadURL(pathReference).then((url) => {
     // `url` is the download URL for 'images/stars.jpg'
 
     // This can be downloaded directly:
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = (event) => {
-      const blob = xhr.response;
-    };
-    xhr.open('GET', url);
-    xhr.send();
+    // const xhr = new XMLHttpRequest();
+    // xhr.responseType = 'blob';
+    // xhr.onload = (event) => {
+    //   const blob = xhr.response;
+    // };
+    // xhr.open('GET', url);
+
 
     // Or inserted into an <img> element
+    return url
     
+  }).then((e)=>{
+    window.open(e,'_blank')
   })
   
 

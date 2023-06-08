@@ -43,7 +43,7 @@ const SignIn = () => {
 console.log(app)
   const router = useRouter()
   const {register,handleSubmit,getValues,setFocus,formState:{errors,},setValue,clearErrors,trigger,setError}=useForm({defaultValues:{firstName:'',
-  lastName:'',email:'',password:'',phoneNumber:'', picture_image:'fdsdsfdfs',
+  lastName:'',email:'',password:'',phoneNumber:'', picture_image:'',
   confirmPassword:'',sirenNumber:''},resolver:zodResolver(validationSchema)})
 
 //function pour creer le coach
@@ -55,17 +55,15 @@ if(e.target.files&&e?.target?.files[0]!=null)
   const file = e.target.files[0];
   console.log(file)
   console.log('coucou')
-  const imagesRef = ref(storage, `momo/${file.name}`);
+  const imagesRef = ref(storage, `coach/${file.name}`);
   console.log(imagesRef)
 
 try{
   const momo = await uploadBytes(imagesRef, file)
   console.log('slt')
 console.log(momo)
-
-setError('picture_image',{
-  message:''
-})
+setValue('picture_image',momo.ref.fullPath)
+clearErrors('picture_image')
 const omo=getValues()
 console.log(omo)
 
@@ -83,7 +81,7 @@ async function onSubmit(values:LoginFormType)  {
 
     console.log(values)
   const createdUsertest = await createdUser.
-  mutateAsync({email:values.email,password:values.password,
+  mutateAsync({email:values.email,password:values.password,licence_sportif:values.picture_image,
     name:`${values.lastName +' '+ values.firstName}`,sirenNumber:values.sirenNumber,
     phoneNumber:values.phoneNumber})
 if(createdUsertest=='user already existe')

@@ -10,12 +10,14 @@ import {BsFillCalendarPlusFill} from 'react-icons/bs'
 import {v4} from 'uuid'
 import { useDisclosure } from "@chakra-ui/react"
 import ModalCoach from "~/components/AdminComponents/ModalCoach"
+import {AiOutlineCheckCircle} from 'react-icons/ai'
 export type ClientDataType={
   id: number;
     licence_sportif: string | null;
     created_at: Date;
     name: string;
     email: string;
+    isValid:boolean;
     phone_number: string;
     clients: number;
     numero_siren :string
@@ -50,49 +52,21 @@ if(isLoading==true)
  return 
 }
 
-async function hundleSpecifiqueCoach(idCoach:number){
-//   if(data!='no client')
-//   {
-//   const specifique=data?.filter((e)=>{
-//       return e?.id===idCoach
-//   })
-//   if(specifique&&specifique[0]){
-//       setSpecifiqueCoach(specifique[0])
-//       onOpen()
-//   }
-// }
-
-console.log('slt')
-const pathReference = ref(storage, '/momo/bg.pdf');
-
-console.log(pathReference)
-try {
-  const pathurl = await getDownloadURL(pathReference).then((url) => {
-    // `url` is the download URL for 'images/stars.jpg'
-
-    // This can be downloaded directly:
-    // const xhr = new XMLHttpRequest();
-    // xhr.responseType = 'blob';
-    // xhr.onload = (event) => {
-    //   const blob = xhr.response;
-    // };
-    // xhr.open('GET', url);
+async function hundleSpecifiqueCoach(idCoach:number,refImage:string){
 
 
-    // Or inserted into an <img> element
-    return url
-    
-  }).then((e)=>{
-    window.open(e,'_blank')
-  })
   
-
-  console.log(pathurl);
-  // Update state or perform any other logic with the path URL
-} catch (error) {
-  console.log("Error fetching download URL:", error);
-  // Handle the error appropriately (e.g., display an error message)
+  if(data!='no client')
+  {
+  const specifique=data?.filter((e)=>{
+      return e?.id===idCoach
+  })
+  if(specifique&&specifique[0]){
+      setSpecifiqueCoach({...specifique[0]})
+      onOpen()
+  }
 }
+  // Update state or perform any other logic with the path URL
 
 
 
@@ -107,10 +81,10 @@ try {
 
 
       <td key={v4()} className="py-3 font-bold text-xs hidden lg:flex justify-center">{e?.phone_number}</td>
-      <td key={v4()} className="py-3 font-bold text-xs whitespace-nowrap text-red-400">en attente </td>
+      <td key={v4()} className={`py-3 font-bold text-xs whitespace-nowrap ${e.isValid? 'text-slate-800' : 'text-red-400 '} justify-center flex` }>{e.isValid? <AiOutlineCheckCircle size={'25px'}/> : <p>en attente </p> }</td>
 
       <td key={v4()} className="py-3 font-bold text-xs"><button onClick={()=>{
-        hundleSpecifiqueCoach(e.id,)
+        hundleSpecifiqueCoach(e.id,e.licence_sportif? e.licence_sportif : '')
       }
         }>consulter</button></td>
 
@@ -121,7 +95,8 @@ try {
   return (
    <main className="flex flex-col w-full gap-10  ">
  
-{specifiqueCoach&& <ModalCoach isOpen={isOpen} onClose={onClose} onOpen={onOpen} coachInfo={specifiqueCoach}/>
+{specifiqueCoach&& <ModalCoach  refetchData={handleRefetch}
+isOpen={isOpen} onClose={onClose} onOpen={onOpen} coachInfo={specifiqueCoach}/>
 }  
      <section className="flex flex-col px-2 lg:px-10 w-full pt-20 ">
      <section className="flex flex-col w-full border-2 rounded-lg bg-slate-200   shadow-md  border-y-slate-50 ">

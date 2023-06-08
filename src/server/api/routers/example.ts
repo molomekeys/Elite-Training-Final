@@ -72,7 +72,7 @@ export const exampleRouter = createTRPCRouter({
       
         select:{
           numero_siren:true,
-          id:true,
+          id:true,isValid:true,
           created_at:true,
           licence_sportif:true,
           
@@ -340,10 +340,28 @@ const finalEvents=eventData.map((e)=>{
     // return momo
   }
   })
-    ,
+    ,validationLicenceCoach:publicProcedure.input(z.object({idCoach:z.string(),validate:z.boolean()}))
+    .mutation(async ({ctx,input})=>{
+      const {idCoach,validate}=input
+      const validateCoach=await ctx.prisma.coach.update({
+        where:{
+          id:Number(idCoach)
+        },data:{
+          isValid:validate
+        }
+      })
+      if(validateCoach)
+      {
+return 'success'
+}
+else if(!validateCoach)
+{
+  return 'un probleme est survenue'
+}
+    }),
     signInUser:publicProcedure.input(z.object(
-      {name:z.string(),email:z.string(),phoneNumber:z.string(),sirenNumber:z.string(),password:z.string()})).
-      mutation(async({ctx,input:{email,password,name,sirenNumber,phoneNumber}})=>{
+      {name:z.string(),email:z.string(),licence_sportif:z.string(),phoneNumber:z.string(),sirenNumber:z.string(),password:z.string()})).
+      mutation(async({ctx,input:{email,password,name,sirenNumber,phoneNumber,licence_sportif}})=>{
         const existingUser = await ctx.prisma.user.findUnique({
           where: {
             email: email // Replace with the email you want to check
@@ -358,7 +376,7 @@ const finalEvents=eventData.map((e)=>{
           email:email,password:password,role:'coach',name:name},select:{id:true}})
           
          const {id}=createUser
-          const createCoach=await ctx.prisma.coach.create({data:{
+          const createCoach=await ctx.prisma.coach.create({data:{licence_sportif:licence_sportif,
             numero_siren:sirenNumber,UserIdCoach:{
              connect:{
               id:id

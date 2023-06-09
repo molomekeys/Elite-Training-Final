@@ -102,8 +102,34 @@ export const AddEventContext=createContext<ContextEventInterface>(
 
 
 
+  export const defaultValue={  dateFirstWeek: "",
+  dateSecondWeek:"",
+  dateThirdWeek:"",
+  dateFourthWeek:"",
+  
+  hourStartFirstWeek:"",
+  hourEndFirstWeek:"",
+  
+  hourStartSecondWeek:"",
+  hourEndSecondWeek:"",
+  
+  hourStartThirdWeek:"",
+  hourEndThirdWeek:"",
+  
+  hourStartFourthWeek:"",
+  hourEndFourthWeek:"",
+  }
+
   // react function 
+
+
 const AddEvent = ({updateData,allClient,allRoom,saveEventCalendar}:PropsAddEvent) => {
+
+  const [firstManualyForm,setFirstManualyForm]=useState(defaultValue)
+  const [secondManualyForm,setSecondManualyForm]=useState(defaultValue)
+  const [thirdManualyForm,setThirdManualyForm]=useState(defaultValue)
+
+ 
 //cela permet d'utiliser chakra ui
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
@@ -153,7 +179,17 @@ function clearSubStepForm(){
 }
  })
  }
+ //pour les formulaire en manuel fonction
 
+ function saveFirstSubEvent (events:typeof defaultValue){
+  setFirstManualyForm(events)
+}
+function saveSecondSubEvent (events:typeof defaultValue){
+  setSecondManualyForm(events)
+}
+function saveThirdSubEvent (events:typeof defaultValue){
+  setThirdManualyForm(events)
+}
  //fin des fonctions 
 
 

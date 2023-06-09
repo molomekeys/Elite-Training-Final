@@ -36,6 +36,8 @@ export default async function handler(
   {
   const {hours,offer_prisma_id,isPaid}=fetchBill
   
+
+
  const session= await stripe.checkout.sessions.create({
   line_items: [
     {
@@ -45,7 +47,9 @@ export default async function handler(
     },
   ],
   mode: 'payment',
- 
+ metadata:{
+billIdForDb:`${idBill}`
+ },
   success_url: `${referer}?success=true`,
   cancel_url: `${referer}?canceled=true`,
 })

@@ -9,7 +9,7 @@ type SingleEvent={
  
   start:Date
   end:Date
- 
+ isPaid:boolean
   resource?:{
    
     customMessage?:string
@@ -128,11 +128,7 @@ const eventStyleGetter = (event:SingleEvent, start:Date, ) => {
   };
 
   const today = new Date()
-  if (event.end < new Date()) { // check if the event has already ended
-    style.backgroundColor = 'black'; // set background color to grey for finished events
-    style.opacity = 0.6
-    return {style}; // reduce opacity for finished events
-  }
+ 
   
   // if (event.type === 'meeting') {
   //   style.backgroundColor = '#f0'
@@ -145,23 +141,15 @@ const eventStyleGetter = (event:SingleEvent, start:Date, ) => {
   // // }
  
    
-    if(start.getDay=== today.getDay){
-      if(start.getMonth=== today.getMonth){
-
-      style.backgroundColor='#0d9488'
-    
-        return {
-          style
-        };
-    }
- 
-  }
   
-  if (event.end > new Date()) { // check if the event has already ended
-   style.backgroundColor='#064e3b'
-    return {style}; // reduce opacity for finished events
-  }
+  
 
+if(event.isPaid==true){
+  style.backgroundColor='#116A7B'
+}
+else if(event.isPaid==false){
+  style.backgroundColor='#E06469'
+}
   return {
     style,
   };

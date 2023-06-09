@@ -9,7 +9,7 @@ import {MdRoom, MdWhereToVote} from 'react-icons/md'
 import {HiUser} from 'react-icons/hi2'
 import {MdEmail,MdCall} from 'react-icons/md'
 import {BsFillCalendarPlusFill} from 'react-icons/bs'
-import {AiOutlineFilePdf,AiFillCheckCircle} from 'react-icons/ai'
+import {AiOutlineFilePdf,AiFillCheckCircle,AiFillCheckSquare} from 'react-icons/ai'
 import {FaMoneyBillWave} from 'react-icons/fa'
 import { loadStripe } from "@stripe/stripe-js"
 import { env } from "~/env.mjs"; // On client - same import!
@@ -104,7 +104,7 @@ console.log(billFetched)
       <td key={v4()} className=" font-bold text-xs hidden lg:flex justify-center">{e.bill_invoice_pdf}</td>
       <td key={v4()}  className="  w-full hidden lg:flex justify-center font-bold text-xs text-center">{e.hours*e.client_price}</td>
       <td key={v4()}  className="  w-full hidden lg:flex justify-center font-bold text-xs  text-center">{e.hours*e.coach_price}</td>
-      <td key={v4()}  className={`  w-full flex justify-center font-bold text-xs flex text-center ${e.isPaid==false&&'text-red-400'}`}>non payer</td>
+      <td key={v4()}  className={`  w-full flex justify-center font-bold text-xs flex text-center ${e.isPaid==true? 'text-cyan-800':'text-red-400'}`}>{e.isPaid? <AiFillCheckCircle size={'25px'}/> : 'non payée'}</td>
 
     </tr>)
 

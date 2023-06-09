@@ -31,6 +31,7 @@
     "@types/stripe": "^8.0.417",
     "firebase": "^9.22.1",
     "framer-motion": "^10.12.12",
+    "micro": "^10.0.1",
     "moment": "^2.29.4",
     "next": "^13.4.3",
     "next-auth": "^4.21.0",

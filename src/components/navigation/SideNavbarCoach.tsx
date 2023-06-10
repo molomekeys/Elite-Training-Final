@@ -73,6 +73,13 @@ className="  bg-opacity-25 w-1/5  relative  bg-slate-800 z-50">
        <FaFileInvoiceDollar  size={25}/></span>
         <span> facturation</span></li>
       </Link>
+      <Link href='/coach/comptabilite'  >
+      <li className="   gap-3 self-start flex "
+        onClick={()=>setLayoutMobile(false) } >
+          <span>
+       <FaFileInvoiceDollar  size={25}/></span>
+        <span>comptabilite</span></li>
+      </Link>
       <div   onClick={()=>signOut({callbackUrl:'/'})}
     className="  cursor-pointer my-auto hover:bg-slate-200 p-3 rounded-lg 
        text-slate-800 from-slate-600 to-cyan-700  
@@ -145,7 +152,13 @@ className="  bg-opacity-25 w-1/5  relative  bg-slate-800 z-50">
             </div>
 </Link>
 
-
+<Link href='/coach/comptabilite' className=" w-full ">
+          
+          <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/coach/comptabilite'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
+              <span><FaFileInvoiceDollar size={25}/></span>
+              <li className=" text-sm  py-2 ">Comptabilite</li>
+              </div>
+  </Link>
 
        </ul>
       

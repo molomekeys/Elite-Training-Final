@@ -228,9 +228,7 @@ close()
 
         </div>
     <div className="border-b-2 border-slate-400 gap-4 pb-10 flex flex-col lg:flex-row justify-between ">
-    <p className="lg:text-lg lg:text-right font-semibold"><span>Élite Training vous devra : </span>{totalHours*( truePriceCoach==undefined? 1 : truePriceCoach)} <span className='font-semibold '>&euro;</span>
-
-</p>
+ 
       <p className="lg:text-lg text-right font-semibold"><span>Le client paiera : </span>{totalHours*( truePrice==undefined? 1 : truePrice)} <span className='font-semibold '>&euro;</span>
      </p>
     

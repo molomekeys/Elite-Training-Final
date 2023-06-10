@@ -207,7 +207,46 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
 
 
 
-  })
+  }),    fetchAllBillsCoach:publicProcedure.query(async({ctx})=>{
+    if(ctx.session?.user.role=='coach')
+    { 
+   
+         const allBills = await ctx.prisma.billing.findMany({where:{
+          coach_id:Number(ctx.session.user.coach_table?.id)
+         },
+         select:{
+           bill_invoice_pdf:true,
+           hours:true,
+           isPaid:true,id:true,
+           createdAt:true,
+           prisma_place_id:{
+             select:{
+               room_name:true
+             }
+           },
+         prisma_client_id:{
+             select:{
+               UserIdPrisma:{
+                 select:{
+                   name:true
+                 }
+               }
+             }
+           }
+             
+           
+         }
+       })
+       const allBillInfoFltered=allBills.map((e)=>{
+         const {prisma_client_id,prisma_place_id,...rest}=e
+         return {place:e.prisma_place_id.room_name,...rest,client_name:prisma_client_id.UserIdPrisma.name}
+       })
+       return allBillInfoFltered
+       }
+     else {
+       return 'access denied'
+     }
+     })
     ,
     fetchAllBillsAdmin:publicProcedure.query(async({ctx})=>{
  if(ctx.session?.user.role=='admin')
@@ -412,6 +451,16 @@ else if(!validateCoach)
           
        
       }
+      }),availaibleRoom:publicProcedure.query(async({ctx})=>{
+
+        const {prisma}=ctx 
+        const allRoom = await prisma.availablePlace.findMany({
+          select:{
+            room_name:true,id:true
+          }
+        })  
+
+return allRoom
       }),
       availableOffer:publicProcedure.query(async( {ctx})=>{
         const {prisma}=ctx

@@ -26,7 +26,7 @@ const router = useRouter()
             <div className="w-full text-left flex b">
         <p className='font-semibold  whitespace-nowrap text-left  text-slate-200 text-xs 
                cursor-pointer z-20 relative
-    ' onClick={()=> window.scrollTo(0,0)}>version beta</p>
+    ' onClick={()=> window.scrollTo(0,0)}>BETA</p>
   </div>
         </div>
   

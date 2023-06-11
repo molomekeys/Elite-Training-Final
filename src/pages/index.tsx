@@ -13,6 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod'
 import { GetServerSidePropsContext } from 'next';
 import { getServerAuthSession } from '~/server/auth';
+import {AiFillEye,AiFillEyeInvisible} from 'react-icons/ai'
 const validationSchemaLogin=z.object({
   email:z.string().nonempty('Veuillez indiquez votre email').email('Adresse e-mail non valide'),
   password:z.string().nonempty('Veuillez saisir votre mot de passe').min(6,'Veuillez indiquez votre mot de passe (Le mot de passe doit contenir au moins 6 caractères)')
@@ -26,7 +27,7 @@ const [errorDisplay,setErrorDisplay]=useState(false)
     //avec ça je peux verifier si l'utilisateur est sign in
     const {data:session,status}=useSession()
  
-
+ const [isShowPassword,setIsShowPassword]=useState(false)
     const {register,formState:{errors},setError,handleSubmit}=useForm({defaultValues:{email:'',password:''},resolver:zodResolver(validationSchemaLogin)})
 
     async function handleLogin(values:{password:string,email:string}){
@@ -115,10 +116,18 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
          </div>
          <div className='flex flex-col  gap-4   w-full'>
           <label htmlFor="password" className='text-slate-700  min-w-fit text-sm font-bold '>Mot de passe *</label>
-          <input {...register('password')}  className="border-2 w-full py-3
-           border-slate-200 rounded-md bg-slate-100 text-slate-400"
-           name="password" type="password" placeholder="Mot de passe" />
+         <div className='flex items-center  border-2 w-full py-1 gap-2
+
+border-slate-200 rounded-md bg-slate-100 text-slate-400"'>
+          <input {...register('password')}  className='w-11/12 border-none bg-slate-100'
+
+           
+           name="password" type={isShowPassword? 'text' : 'password'} placeholder="Mot de passe" />
+           <button type='button' onClick={()=>setIsShowPassword((prev)=>!prev)}> {isShowPassword?   <AiFillEyeInvisible size={20}/>:<AiFillEye size={20}/> }</button>
+           </div>
            <p className='text-xs font-semibold text-red-500'>{errors.password?.message}</p>
+
+
 
         </div>
           <div className='flex flex-col gap-2 m-4'>

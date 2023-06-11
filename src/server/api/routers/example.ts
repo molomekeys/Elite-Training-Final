@@ -191,7 +191,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
   
 
       where:{
-        coach_id:Number(ctx.session.user.client_table.id)
+        client_id:Number(ctx.session.user.client_table.id)
         
       },select:{custom_message:true,
         start:true,title:true,end:true,hours:true,isPaid:true,

@@ -15,7 +15,7 @@ export default async function webhookHandler(req:NextApiRequest,res:NextApiRespo
 
   
         const stripe:Stripe = require('stripe')(env.STRIPE_SECRET_KEY)
-        const endPointSecret='whsec_2cb155c70789924e550d846d3aa11e66f614a02abee6d5d43a11b457acba0a32'
+        const endPointSecret=env.STRIPE_SIGNIN_SECRET
         if(req.method==='GET'){
             res.status(200).json({momo:'slt'})
           

@@ -44,9 +44,7 @@ const DateFormSelect = () => {
 
    const{subStepForm,nextSubStepForm,backSubStepForm,events,clearEventData,saveEvent}=useContext(AddEventContext)
   
-    console.log(firstManualyForm)
-    console.log(secondManualyForm)
-    console.log(thirdManualyForm)
+  
   return (
     <section>
 

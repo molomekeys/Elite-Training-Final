@@ -93,7 +93,7 @@ console.log(momo)
 if(isSubmit==true)
 {
     // pour sauvegarder les dates 
-    saveStepForm(momo)
+    
     functionEvent(momo)
     dispatch(nextStepForm())
     

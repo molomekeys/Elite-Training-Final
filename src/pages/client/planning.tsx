@@ -15,8 +15,8 @@ const PlanningClient = () => {
   console.log('rerender from planning')
 
   const [openCalendar,setOpenCalendar]=useState(false)
-  const {data:eventsCalendar,isLoading}=api.example.seeEventCalendarCient.useQuery()
-  const [isSelectEvent,setIsSelectEvent]=useState({start:new Date(),name:'',phone_number:'',
+  const {data:eventsCalendar,isLoading,refetch}=api.example.seeEventCalendarCient.useQuery()
+  const [isSelectEvent,setIsSelectEvent]=useState({start:new Date(),name:'',phone_number:'',custom_message:'',
   clientName:'merouane',end:new Date(),salle:'momo',id:'test',title:'Salut Merouane'})
 function selectEvent(e:typeof isSelectEvent){
 
@@ -26,7 +26,7 @@ function selectEvent(e:typeof isSelectEvent){
 function openTheModalCalendar(){
   setOpenCalendar((prev)=>!prev)
 }
-  
+  console.log(eventsCalendar)
 
 if(isLoading){
 
@@ -44,7 +44,7 @@ if(isLoading){
    </section>
    </motion.section>
 
-   <ModelCalendrier  changeTheModal={openTheModalCalendar}
+   <ModelCalendrier  changeTheModal={openTheModalCalendar} updateCalendar={refetch}
    
    openModal={openCalendar} informationData={isSelectEvent} />
     </main>

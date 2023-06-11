@@ -1,3 +1,4 @@
+
 import { number, z } from "zod";
 import {
   createTRPCRouter,
@@ -7,8 +8,6 @@ import {
 
 //schena pour les events
 
-const schemaEvent=z.object({start:z.date(),
-  end:z.date(),title:z.string(),clientId:z.string(),hours: z.number()})
 
   //envoi email
 const sgMail = require('@sendgrid/mail')
@@ -23,6 +22,22 @@ export const exampleRouter = createTRPCRouter({
       return {
         greeting: `Hello ${input.text}`,
       };
+    }),changeDateEvent:publicProcedure.input(z.object({customMessage:z.string(),idEvent:z.number(),start:z.date(),end:z.date()})).mutation(async({ctx,input})=>{
+      const {idEvent,start,end,customMessage}=input
+      const changeEvent = await ctx.prisma.events.update({
+        where:{
+            id:idEvent
+        },data:{
+          start:start,end:end,custom_message:customMessage
+        }
+      })
+     if(changeEvent)
+     {
+      return 'success'
+     }
+     else if(changeEvent==null){
+      return 'false '
+     }
     }),
     fetchAllClient:publicProcedure.query(async ({ctx})=>{
 
@@ -146,7 +161,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
     where:{
       coach_id:Number(ctx.session.user.coach_table.id)
       
-    },select:{id:true,
+    },select:{id:true,custom_message:true,
       start:true,title:true,end:true,hours:true,isPaid:true,useridprismaClient:{
         select:{
          UserIdPrisma:{
@@ -178,7 +193,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
       where:{
         coach_id:Number(ctx.session.user.client_table.id)
         
-      },select:{
+      },select:{custom_message:true,
         start:true,title:true,end:true,hours:true,isPaid:true,
         id:true,UserIdCoach:{
           select:{

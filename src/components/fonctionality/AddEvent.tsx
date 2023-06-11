@@ -75,13 +75,14 @@ saveEventCalendarContext:()=>void
 subStepForm:number 
 nextSubStepForm:(stepForm:number)=>void
 backSubStepForm:()=>void
+nextStepForm:()=>void
 clearSubStep?:()=>void
 }
 
 // react context
 
 export const AddEventContext=createContext<ContextEventInterface>(
-  {subStepForm:1,clearSubStep:()=>{},backSubStepForm:()=>{
+  {subStepForm:1,clearSubStep:()=>{},nextStepForm:()=>{},backSubStepForm:()=>{
     return
   },nextSubStepForm:(momo)=>{
     return 
@@ -271,7 +272,7 @@ console.log(saveSecondStepForm)
 
     return (
       <>
-      <AddEventContext.Provider value={{backSubStepForm:backSubStepForm,
+      <AddEventContext.Provider value={{backSubStepForm:backSubStepForm, nextStepForm:nextStepForm,
         saveEventCalendarContext:saveEventCalendar,allOffert:allRoom,saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
         events:isEventAdded,functionEvent:saveEventData,subStepForm:subStepForm,nextSubStepForm:nextSubStepForm}}>
         <motion.button   whileHover={{scale:1.05}}

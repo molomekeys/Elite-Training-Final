@@ -15,14 +15,14 @@ import {
 import { useAnimate } from 'framer-motion';
 import { useState } from 'react'
 import {useForm} from 'react-hook-form'
-
+import { api } from '~/utils/api';
 import {MdEmail,MdCall} from 'react-icons/md'
 
   type ModifiedEventDat={
     dateEvent:string 
     hourStart:string 
     hourEnd:string
-    customNote?:string
+    customNote:string
    
   }
   type inFo={
@@ -35,33 +35,43 @@ import {MdEmail,MdCall} from 'react-icons/md'
     name:string
     phone_number:string
    
-        customNote?:string
+        custom_message?:string
   }
   interface Props{
 informationData:inFo
 openModal:boolean
 updateScreen?:()=>void
 changeTheModal:()=>void
+updateCalendar:()=> void
+
   }
+
+
+
+  // debut de la fonction react
  
-export default function ModelCalendrier({informationData,openModal,updateScreen,changeTheModal}:Props) {
+export default function ModelCalendrier({informationData,openModal,updateScreen,updateCalendar,changeTheModal}:Props) {
    
+
+
+
+
+    const updateEvent=api.example.changeDateEvent.useMutation()
    
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const modalSize = isLargerThan768 ? "3xl" : "full";
   const options = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
   const defaultTime= new Date().setMilliseconds(0)
 
+  
   const { register, handleSubmit, watch, formState: { errors },reset } = useForm(
     {defaultValues:{dateEvent:'',hourStart:'',hourEnd:
-  '',customNote:informationData?.customNote
+  '',customNote:''
   }});
 
 const [isChangeEvent,setIsChangeEvent]=useState(true)
 
 
-
-console.log(watch('customNote'))
 
 
 
@@ -71,13 +81,19 @@ console.log(watch('customNote'))
 
 //function pour modifier les dates
 async function handleChangeDate(val:ModifiedEventDat){
-  console.log(val)
+  
 
+const {dateEvent,hourEnd,hourStart,customNote}= val
+  const newStartDate=new Date(dateEvent+'T'+hourStart+':00')
+  const newEndDate=new Date(dateEvent+'T'+hourEnd+':00')
 
+const updateData = await updateEvent.mutateAsync({customMessage:customNote,idEvent:Number(informationData.id),end:newEndDate,start:newStartDate})
 
-
-
-
+if(updateData=='success')
+{
+    updateCalendar()
+   changeTheModal()
+}
   //avec ça je ferme le model une fois que tout est realiser
 // changeTheModal()
 
@@ -194,7 +210,7 @@ disabled={isChangeEvent}
                
                 {isChangeEvent?  
                 <p className=' border-t-2 border-slate-400  pt-2
-                 border-b-0 border-x-0 w-full'>{informationData.customNote? informationData.customNote : "Il n'y a aucune note pour cette évenement "} </p> :
+                 border-b-0 border-x-0 w-full'>{informationData.custom_message? informationData.custom_message : "Il n'y a aucune note pour cette évenement "} </p> :
 
                 <textarea className='resize-none outline-none  w-full
                 form-textarea rounded-md border-2 border-slate-300 ' {...register('customNote')}placeholder='Indiquez la note que vous voulez ajouter à cette agenda'></textarea>}

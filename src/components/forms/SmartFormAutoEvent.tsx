@@ -10,6 +10,7 @@ import {setAutoEventForm,nextStepForm} from '../../features/event/eventSlice'
 import { useContext } from 'react';
 import {AddEventContext} from '../fonctionality/AddEvent'
 import { RootState } from '~/app/store';
+
 interface Props{
     numberOfSeance:string
  

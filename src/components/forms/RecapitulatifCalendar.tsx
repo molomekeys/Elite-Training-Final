@@ -43,7 +43,7 @@ const addEvents=api.example.addEventsCalendar.useMutation()
   })
 
   
-  
+  console.log(events)
  
   const truePrice=selectedOfferTest&&selectedOfferTest[0]?.client_price
   const truePriceCoach=selectedOfferTest&&selectedOfferTest[0]?.coach_price

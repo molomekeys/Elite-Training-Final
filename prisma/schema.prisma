@@ -96,17 +96,17 @@ model ClientProfil {
 }
 
 model Events {
-    id         Int      @id @default(autoincrement())
-    start      DateTime
-    end        DateTime
-    title      String
-    coach_id   Int
-    client_id  Int
-    salle_id   Int
-    hours      Float
-    isPaid     Boolean  @default(false)
-    billing_id Int?
-
+    id                 Int             @id @default(autoincrement())
+    start              DateTime
+    end                DateTime
+    title              String
+    coach_id           Int
+    client_id          Int
+    salle_id           Int
+    hours              Float
+    isPaid             Boolean         @default(false)
+    billing_id         Int?
+    custom_message     String?
     billingPrisma      Billing?        @relation(fields: [billing_id], references: [id])
     salleIdPrisma      AvailablePlace? @relation(fields: [salle_id], references: [id])
     useridprismaClient Client?         @relation(fields: [client_id], references: [id])

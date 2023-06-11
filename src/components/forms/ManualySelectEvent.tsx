@@ -4,12 +4,14 @@ import { useContext, useEffect, useState } from 'react';
 import {AddEventContext} from '../fonctionality/AddEvent'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FourValidationTypeSchema } from "./validationSchema";
+import {useDispatch} from 'react-redux'
+import {nextStepForm} from '../../features/event/eventSlice'
 interface Props{
 
 saveStepForm:(events:DefaultValue)=>void
 defaultValueForm:DefaultValue
 subStepForm?:boolean
-isSubmit?: boolean
+isSubmit: boolean
 }
 type DefaultValue={
    
@@ -32,12 +34,12 @@ type DefaultValue={
     hourEndFourthWeek:string,
 
 }
-const ManualySelectEvent = ({defaultValueForm,saveStepForm}:Props) => {
+const ManualySelectEvent = ({defaultValueForm,saveStepForm,isSubmit}:Props) => {
 
 
-    
-
-const {nextSubStepForm,subStepForm}=useContext(AddEventContext)
+    //pour utiliser redux pour passer à la prochaine step
+const dispatch=useDispatch()
+const {nextSubStepForm,subStepForm,saveEvent,functionEvent}=useContext(AddEventContext)
  const {functionAddSubEvent,}=useContext(AddEventContext)
     //hook pour initialiser le formulaire avec les valeur par defaut
     const { register, handleSubmit, watch, formState: { errors },getValues ,reset} = useForm({resolver:zodResolver(FourValidationTypeSchema),
@@ -45,7 +47,7 @@ const {nextSubStepForm,subStepForm}=useContext(AddEventContext)
 
        ...defaultValueForm
         }});
-        const [isSubmit,setIsSubmit]=useState(false)
+     
 
 
         //function pour submit le formulaire
@@ -88,16 +90,22 @@ const momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),id:'1',
 console.log(momo)
 
 // setManualyEvent(momo)
-nextSubStepForm(subStepForm)
-
-}
-
-useEffect(()=>{
-if(defaultValueForm.dateFirstWeek.length>1)
+if(isSubmit==true)
 {
-    setIsSubmit(true)
+    // pour sauvegarder les dates 
+    saveStepForm(momo)
+    functionEvent(momo)
+    dispatch(nextStepForm())
+    
 }
-},[defaultValueForm])
+else if(isSubmit==false)
+{
+
+}
+
+}
+
+
 
 // le return de la fonction qui permet d'afficher les composants 
 

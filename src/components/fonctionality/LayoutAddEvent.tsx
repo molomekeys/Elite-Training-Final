@@ -45,6 +45,7 @@ export type AllClientType={
     saveEventCalendar:()=>void
   
   }
+  // save Event permet de refetch la data 
 const LayoutAddEvent = ({saveEventCalendar,updateData}:PropsAddEvent) => {
 
     const {data,isLoading}=api.example.availableOffer.useQuery(undefined,{

@@ -42,7 +42,7 @@ const DateFormSelect = () => {
     }
    console.log('render from dateformselect')
 
-   const{subStepForm,nextSubStepForm,backSubStepForm,events,clearEventData}=useContext(AddEventContext)
+   const{subStepForm,nextSubStepForm,backSubStepForm,events,clearEventData,saveEvent}=useContext(AddEventContext)
   
     console.log(firstManualyForm)
     console.log(secondManualyForm)
@@ -69,7 +69,8 @@ const DateFormSelect = () => {
     </section>
 {secondStep.seanceWeekNumber=='1'&&subStepForm==1&&
 <section>
-  <ManualySelectEvent  saveStepForm={saveFirstSubEvent}
+  <ManualySelectEvent   isSubmit={true}
+  saveStepForm={saveFirstSubEvent}  
   defaultValueForm={firstManualyForm}/>
 
   </section>}
@@ -77,13 +78,13 @@ const DateFormSelect = () => {
 
 {secondStep.seanceWeekNumber=='2'&&<section> 
 {subStepForm==1&&
-<ManualySelectEvent  
+<ManualySelectEvent  isSubmit={false}
   saveStepForm={saveFirstSubEvent}
 defaultValueForm={firstManualyForm}  />}
 
 
 
-{subStepForm==2&&<ManualySelectEvent  
+{subStepForm==2&&<ManualySelectEvent isSubmit={true}  
   saveStepForm={saveSecondSubEvent}
 defaultValueForm={secondManualyForm}  />}
 
@@ -94,13 +95,15 @@ defaultValueForm={secondManualyForm}  />}
 
 
 {secondStep.seanceWeekNumber=='3' &&<section> 
-{subStepForm==1&&<ManualySelectEvent  
+{subStepForm==1&&<ManualySelectEvent   isSubmit={false}
 
 saveStepForm={saveFirstSubEvent}
 defaultValueForm={firstManualyForm} />}
-{subStepForm==2&&<ManualySelectEvent   saveStepForm={saveSecondSubEvent}
+{subStepForm==2&&<ManualySelectEvent   isSubmit={false}
+saveStepForm={saveSecondSubEvent}
   defaultValueForm={secondManualyForm}/>}
-{subStepForm==3&&<ManualySelectEvent   saveStepForm={saveThirdSubEvent}
+{subStepForm==3&&<ManualySelectEvent  isSubmit={true}
+ saveStepForm={saveThirdSubEvent}
 defaultValueForm={thirdManualyForm}/>}
 </section> }
 

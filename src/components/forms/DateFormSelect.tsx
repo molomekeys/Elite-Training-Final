@@ -26,23 +26,13 @@ hourEndFourthWeek:"",
 }
 
 const DateFormSelect = () => {
-    const {secondStep,firstStep}=useSelector((state:RootState)=>state.eventReducer)
-    const [firstManualyForm,setFirstManualyForm]=useState(defaultValue)
-    const [secondManualyForm,setSecondManualyForm]=useState(defaultValue)
-    const [thirdManualyForm,setThirdManualyForm]=useState(defaultValue)
 
-    function saveFirstSubEvent (events:typeof defaultValue){
-      setFirstManualyForm(events)
-    }
-    function saveSecondSubEvent (events:typeof defaultValue){
-      setSecondManualyForm(events)
-    }
-    function saveThirdSubEvent (events:typeof defaultValue){
-      setThirdManualyForm(events)
-    }
    console.log('render from dateformselect')
+   const {secondStep,firstStep}=useSelector((state:RootState)=>state.eventReducer)
 
-   const{subStepForm,nextSubStepForm,backSubStepForm,events,clearEventData,saveEvent}=useContext(AddEventContext)
+
+   const{subStepForm,nextSubStepForm,backSubStepForm,events,clearEventData,saveEvent
+  ,firstEventManualy,secondEventManualy,thirdEventManualy,setFirstEventManualy,setSecondEventManualy,setThirdEventManualy}=useContext(AddEventContext)
   
   
   return (
@@ -68,8 +58,8 @@ const DateFormSelect = () => {
 {secondStep.seanceWeekNumber=='1'&&subStepForm==1&&
 <section>
   <ManualySelectEvent   isSubmit={true}
-  saveStepForm={saveFirstSubEvent}  
-  defaultValueForm={firstManualyForm}/>
+  saveStepForm={setFirstEventManualy}  
+  defaultValueForm={firstEventManualy}/>
 
   </section>}
 
@@ -77,14 +67,14 @@ const DateFormSelect = () => {
 {secondStep.seanceWeekNumber=='2'&&<section> 
 {subStepForm==1&&
 <ManualySelectEvent  isSubmit={false}
-  saveStepForm={saveFirstSubEvent}
-defaultValueForm={firstManualyForm}  />}
+  saveStepForm={setFirstEventManualy}
+defaultValueForm={firstEventManualy}  />}
 
 
 
 {subStepForm==2&&<ManualySelectEvent isSubmit={true}  
-  saveStepForm={saveSecondSubEvent}
-defaultValueForm={secondManualyForm}  />}
+  saveStepForm={setSecondEventManualy}
+defaultValueForm={secondEventManualy}  />}
 
 
 
@@ -95,14 +85,14 @@ defaultValueForm={secondManualyForm}  />}
 {secondStep.seanceWeekNumber=='3' &&<section> 
 {subStepForm==1&&<ManualySelectEvent   isSubmit={false}
 
-saveStepForm={saveFirstSubEvent}
-defaultValueForm={firstManualyForm} />}
+saveStepForm={setFirstEventManualy}
+defaultValueForm={firstEventManualy} />}
 {subStepForm==2&&<ManualySelectEvent   isSubmit={false}
-saveStepForm={saveSecondSubEvent}
-  defaultValueForm={secondManualyForm}/>}
+saveStepForm={setSecondEventManualy}
+  defaultValueForm={secondEventManualy}/>}
 {subStepForm==3&&<ManualySelectEvent  isSubmit={true}
- saveStepForm={saveThirdSubEvent}
-defaultValueForm={thirdManualyForm}/>}
+ saveStepForm={setThirdEventManualy}
+defaultValueForm={thirdEventManualy}/>}
 </section> }
 
 

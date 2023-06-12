@@ -20,6 +20,25 @@ import { api } from '~/utils/api'
 
 import type { RootState } from '~/app/store'
 import { Events } from '~/pages/coach/planning'
+
+
+export const defaultValue={  dateFirstWeek: "",
+  dateSecondWeek:"",
+  dateThirdWeek:"",
+  dateFourthWeek:"",
+  
+  hourStartFirstWeek:"",
+  hourEndFirstWeek:"",
+  
+  hourStartSecondWeek:"",
+  hourEndSecondWeek:"",
+  
+  hourStartThirdWeek:"",
+  hourEndThirdWeek:"",
+  
+  hourStartFourthWeek:"",
+  hourEndFourthWeek:"",
+  }
 export type AllClientType={
   
   createdAt: Date;
@@ -77,6 +96,13 @@ nextSubStepForm:(stepForm:number)=>void
 backSubStepForm:()=>void
 nextStepForm:()=>void
 clearSubStep?:()=>void
+firstEventManualy:typeof defaultValue
+secondEventManualy:typeof defaultValue
+thirdEventManualy:typeof defaultValue
+setFirstEventManualy:(e:typeof defaultValue)=>void
+setSecondEventManualy:(e:typeof defaultValue)=>void
+setThirdEventManualy:(e:typeof defaultValue)=>void
+
 }
 
 // react context
@@ -95,6 +121,8 @@ export const AddEventContext=createContext<ContextEventInterface>(
     return 
   },client:[],saveEvent:(e:Events[])=>{
     return
+  },firstEventManualy:defaultValue,secondEventManualy:defaultValue,thirdEventManualy:defaultValue,setFirstEventManualy:(e)=>{},setSecondEventManualy:(e)=>{},setThirdEventManualy:(e)=> {
+    
   },
   events:
   [{end:new Date(),hours:5,id:'1',start:new Date()}] ,functionEvent:()=>{
@@ -103,32 +131,14 @@ export const AddEventContext=createContext<ContextEventInterface>(
 
 
 
-  export const defaultValue={  dateFirstWeek: "",
-  dateSecondWeek:"",
-  dateThirdWeek:"",
-  dateFourthWeek:"",
   
-  hourStartFirstWeek:"",
-  hourEndFirstWeek:"",
-  
-  hourStartSecondWeek:"",
-  hourEndSecondWeek:"",
-  
-  hourStartThirdWeek:"",
-  hourEndThirdWeek:"",
-  
-  hourStartFourthWeek:"",
-  hourEndFourthWeek:"",
-  }
 
   // react function 
 
 
 const AddEvent = ({updateData,allClient,allRoom,saveEventCalendar}:PropsAddEvent) => {
 
-  const [firstManualyForm,setFirstManualyForm]=useState(defaultValue)
-  const [secondManualyForm,setSecondManualyForm]=useState(defaultValue)
-  const [thirdManualyForm,setThirdManualyForm]=useState(defaultValue)
+
 
  
 //cela permet d'utiliser chakra ui
@@ -182,15 +192,7 @@ function clearSubStepForm(){
  }
  //pour les formulaire en manuel fonction
 
- function saveFirstSubEvent (events:typeof defaultValue){
-  setFirstManualyForm(events)
-}
-function saveSecondSubEvent (events:typeof defaultValue){
-  setSecondManualyForm(events)
-}
-function saveThirdSubEvent (events:typeof defaultValue){
-  setThirdManualyForm(events)
-}
+ 
  //fin des fonctions 
 
 
@@ -212,22 +214,7 @@ function saveThirdSubEvent (events:typeof defaultValue){
 //quand le calendar est fait manuelellement pour garder les valeurs 
 //premier etape
 
-function saveFirstStep(e:typeof formDataSteps.firstStep){
-  setFormDataSteps((prev)=>{
-    return({...prev,firstStep:e})
-  })
 
-}
-
-//quand le calendar est fait manuelellement pour garder les valeurs 
-//deuxieme etape
-
-function saveSecondStep(e:typeof formDataSteps.secondStep){
-  setFormDataSteps((prev)=>{
-    return({...prev,secondStep:e})
-  })
-
-}
 
 ////quand le calendar est fait auto pour garder les valeurs 
 //du calendrier avec use contexte 
@@ -268,11 +255,35 @@ console.log(formDataSteps)
     console.log('rerender from add Event')
 
 console.log(saveSecondStepForm)
+
+
+//avec ça je controle les sous formualaires 
+
+const [firstManualyForm,setFirstManualyForm]=useState(defaultValue)
+const [secondManualyForm,setSecondManualyForm]=useState(defaultValue)
+const [thirdManualyForm,setThirdManualyForm]=useState(defaultValue)
+
+function saveFirstSubEvent (events:typeof defaultValue){
+  setFirstManualyForm(events)
+}
+function saveSecondSubEvent (events:typeof defaultValue){
+  setSecondManualyForm(events)
+}
+function saveThirdSubEvent (events:typeof defaultValue){
+  setThirdManualyForm(events)
+}
+
+
+
+
 //function réact qui affiche a a l'utilissalateur l'ui
 
     return (
       <>
-      <AddEventContext.Provider value={{backSubStepForm:backSubStepForm, nextStepForm:nextStepForm,
+      <AddEventContext.Provider value={{
+        
+        firstEventManualy:firstManualyForm,secondEventManualy:secondManualyForm,thirdEventManualy:thirdManualyForm,setFirstEventManualy:saveFirstSubEvent,setSecondEventManualy:saveSecondSubEvent,setThirdEventManualy:saveThirdSubEvent,
+        backSubStepForm:backSubStepForm, nextStepForm:nextStepForm,
         saveEventCalendarContext:saveEventCalendar,allOffert:allRoom,saveEvent:updateData,client:allClient? allClient : [],clearEventData:clearEventData,functionAddSubEvent:saveSubEventData,
         events:isEventAdded,functionEvent:saveEventData,subStepForm:subStepForm,nextSubStepForm:nextSubStepForm}}>
         <motion.button   whileHover={{scale:1.05}}

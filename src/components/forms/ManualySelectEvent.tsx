@@ -89,7 +89,7 @@ const momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),id:'1',
     {end: new Date(dateEndFourthdWeek),start: new Date(dateStartFourthdWeek),id:'1',hours:hoursFourthWeek}]
 console.log(momo)
 
-// setManualyEvent(momo)
+saveStepForm(val)
 if(isSubmit==true)
 {
     // pour sauvegarder les dates 

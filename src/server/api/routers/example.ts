@@ -441,15 +441,15 @@ else if(!validateCoach)
          
           const sendGridMail={
             to: email,
-            from :'ouzar.merouane@gmail.com',
-            templateId:"d-9f8483eff2c943d4a994e5e97cce8ff3",
+            from :"elitetraining38@gmail.com",
+            templateId:"d-80f1d4b1219e4d98bdefa4270b41bffa",
             dynamic_template_data:{
                 coachName:name
             }
         }
         try {
-            // await sgMail.send(sendGridMail);
-            // console.log('Email sent successfully.');
+            await sgMail.send(sendGridMail);
+            console.log('Email sent successfully.');
             return createUser
         
         } catch (error) {

@@ -184,10 +184,10 @@ id='firstName' type={'tel'}   className='w-full form-input bg-slate-100 rounded-
 <p className='text-xs font-bold text-sm text-red-500'>{errors.confirmPassword?.message}</p>
 <div className="w-full form-input bg-slate-100 py-3 rounded-md   flex flex-col
 ext-center">
-<label htmlFor="fileInput" className="font-bold text-sm w-full text-center text-slate-600 ">Ajouter votre licence de coach : </label>
+<label htmlFor="fileInput" className="font-bold text-sm w-full text-center text-slate-600 ">Ajouter votre carte professionnelle : </label>
 
 <input type={'file'}  onChange={(e)=>handleLicenceUpload(e)} 
- placeholder="Veuillez ajouter votre carte sportif"
+ placeholder="Ajouter votre carte professionnelle "
  id="fileInput"
  className='w-full border-2 text-center hidden' />
  </div>

@@ -90,7 +90,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
 
 
    <main className="flex  overflow-hidden  lg:p-10 items-center
-    justify-center  w-full ">
+    justify-center  w-full xl:w-4/5 ">
    
     <motion.section  ref={refTest} animate={{opacity:1}} initial={{opacity:0}} transition={{duration:0.5,delay:0.2,ease:'easeIn'}}
    

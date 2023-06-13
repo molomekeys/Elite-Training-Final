@@ -53,14 +53,19 @@ export default async function webhookHandler(req:NextApiRequest,res:NextApiRespo
                         },data:{
                             isPaid:true
                         }
-                    })
-                    const changeEvent = await prisma.events.updateMany({
-                        where:{
-                            billing_id:Number(metadata?.billIdForDb)
-                        },data:{
-                            isPaid:true
+                    }).then(async ()=>{
+                       const momoTest= await prisma.events.updateMany({
+                            where:{
+                                billing_id:Number(metadata.billIdForDb)
+                            },data:{
+                                isPaid:true
+                            }
+                        })
+                        if(momoTest){
+                            console.log('congratulation')
                         }
                     })
+                  
                 }
                 }
                 else{

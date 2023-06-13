@@ -61,7 +61,7 @@ function openTheModalCalendar(){
       </motion.div>
       <motion.section animate={{opacity:1,y:0}} initial={{opacity:0,y:2}} transition={{duration:0.75,delay:0.1}}
        className="w-full lg:px-5">
-   <section className="lg:border-2 lg:p-2 rounded-md  border-[#3C486B]  lg:w-full">
+   <section className="lg:border-2 lg:p-2 rounded-md  border-[#3C486B]  lg:w-full xl:w-4/5">
     <CalendarComponent openTheMod={openTheModalCalendar} getInfo={selectEvent} 
     event={eventsCalendar? eventsCalendar : []}/>
    </section>

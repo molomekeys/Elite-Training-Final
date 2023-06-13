@@ -550,7 +550,20 @@ return momo
           const addForClient=await ctx.prisma.client.create({data:{
             coach_id:ctx.session?.user.id,user_id:createUser.id,
           }})
-        
+          
+          const sendGridMail={
+            to: email,
+            from :"elitetraining38@gmail.com",
+            templateId:"d-80f1d4b1219e4d98bdefa4270b41bffa",
+            dynamic_template_data:{
+              
+                coachName:ctx.session?.user.name
+                ,emailClient: email,password:password,clientName:name
+                
+                
+            }
+          }
+          await sgMail.send(sendGridMail);
           return 'bravo utilisateur ajouter avec succès'
         }
         }),fetchCoachData:publicProcedure.input(z.object({id:z.string()})).

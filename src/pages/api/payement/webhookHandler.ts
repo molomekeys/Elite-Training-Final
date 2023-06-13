@@ -46,7 +46,11 @@ export default async function webhookHandler(req:NextApiRequest,res:NextApiRespo
 
                 res.status(200).send('success');
                 if(metadata?.billIdForDb!=undefined)
-                {
+
+
+                {   console.log(metadata.billIdForDb)
+
+
                     const changeDataOnDb= await prisma.billing.update({
                         where:{
                             id:Number(metadata?.billIdForDb)
@@ -54,6 +58,8 @@ export default async function webhookHandler(req:NextApiRequest,res:NextApiRespo
                             isPaid:true
                         }
                     }).then(async ()=>{
+
+                        console.log('debut de changement des evennts')
                        const momoTest= await prisma.events.updateMany({
                             where:{
                                 billing_id:Number(metadata.billIdForDb)

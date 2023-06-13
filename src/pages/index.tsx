@@ -90,7 +90,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
 
 
    <main className="flex  overflow-hidden  lg:p-10 items-center
-    justify-center  w-full xl:w-4/5 ">
+    justify-center  w-full  ">
    
     <motion.section  ref={refTest} animate={{opacity:1}} initial={{opacity:0}} transition={{duration:0.5,delay:0.2,ease:'easeIn'}}
    
@@ -119,7 +119,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
          <div className='flex items-center  border-2 w-full py-1 gap-2
 
 border-slate-200 rounded-md bg-slate-100 text-slate-400"'>
-          <input {...register('password')}  className='w-11/12 border-none bg-slate-100'
+          <input {...register('password')}  className='w-11/12 border-none bg-slate-100 '
 
            
            name="password" type={isShowPassword? 'text' : 'password'} placeholder="Mot de passe" />

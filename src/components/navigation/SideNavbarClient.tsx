@@ -11,7 +11,7 @@ import {AiOutlineDashboard} from 'react-icons/ai'
 import {HiOutlineUserGroup} from 'react-icons/hi'
 import {FaFileInvoiceDollar} from 'react-icons/fa'
 import {RiLogoutCircleRLine} from 'react-icons/ri'
-
+import { CgProfile } from "react-icons/cg";
 const SideNavbarClient = () => {
   const [layoutMobile,setLayoutMobile]=useState(false)
 const router = useRouter()
@@ -61,6 +61,13 @@ className="  bg-opacity-25 w-1/5  relative  bg-slate-800 z-50">
        <FaFileInvoiceDollar  size={25}/></span>
         <span> facturation</span></li>
       </Link>
+      <Link href='/client/clientProfile' className=" w-full ">
+          
+          <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/coach/comptabilite'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
+              <span><CgProfile size={25}/></span>
+              <li className=" text-sm  py-2 ">Profil</li>
+              </div>
+  </Link>
       <div   onClick={()=>signOut({callbackUrl:'/'})}
     className="  cursor-pointer my-auto hover:bg-slate-200 p-3 rounded-lg 
        text-slate-800 from-slate-600 to-cyan-700  
@@ -116,7 +123,13 @@ className="  bg-opacity-25 w-1/5  relative  bg-slate-800 z-50">
 </Link>
 
 
-
+<Link href='/client/clientProfile' className=" w-full ">
+          
+          <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/coach/comptabilite'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
+              <span><CgProfile size={25}/></span>
+              <li className=" text-sm  py-2 ">Profil</li>
+              </div>
+  </Link>
        </ul>
       
        

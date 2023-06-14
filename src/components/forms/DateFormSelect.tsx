@@ -50,7 +50,6 @@ const DateFormSelect = () => {
 {secondStep.typeOfDate=='manualy'&&firstStep.productCategory!='programme'&&
 <section >
   <section className="w-full justify-between flex ">
-  {<button className=" cursor-pointer" onClick={backSubStepForm}><AiOutlineArrowLeft size={30}/></button>}
     
     
     

@@ -6,6 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FourValidationTypeSchema } from "./validationSchema";
 import {useDispatch} from 'react-redux'
 import {nextStepForm} from '../../features/event/eventSlice'
+import { useSelector } from "react-redux";
+import { RootState } from "~/app/store";
+
+
 interface Props{
 
 saveStepForm:(events:DefaultValue)=>void
@@ -36,10 +40,11 @@ type DefaultValue={
 }
 const ManualySelectEvent = ({defaultValueForm,saveStepForm,isSubmit}:Props) => {
 
+    const secondStepInfo=useSelector((state:RootState)=>state.eventReducer.secondStep)
 
     //pour utiliser redux pour passer à la prochaine step
 const dispatch=useDispatch()
-const {nextSubStepForm,subStepForm,saveEvent,functionEvent}=useContext(AddEventContext)
+const {nextSubStepForm,subStepForm,saveEvent,functionEvent,saveEventMultyTime}=useContext(AddEventContext)
  const {functionAddSubEvent,}=useContext(AddEventContext)
     //hook pour initialiser le formulaire avec les valeur par defaut
     const { register, handleSubmit, watch, formState: { errors },getValues ,reset} = useForm({resolver:zodResolver(FourValidationTypeSchema),
@@ -90,16 +95,25 @@ const momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),id:'1',
 console.log(momo)
 
 saveStepForm(val)
-if(isSubmit==true)
-{
+
     // pour sauvegarder les dates 
     
-    functionEvent(momo)
-    dispatch(nextStepForm())
+ 
     
-}
-else if(isSubmit==false)
+
+
+
+    saveEventMultyTime(momo)
+
+
+if (subStepForm==Number(secondStepInfo.seanceWeekNumber))
 {
+    dispatch(nextStepForm())
+
+}
+else if(subStepForm!==Number(secondStepInfo.seanceWeekNumber))
+{
+    nextSubStepForm(Number(secondStepInfo.seanceWeekNumber))
 
 }
 

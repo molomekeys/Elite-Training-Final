@@ -566,6 +566,33 @@ return momo
           await sgMail.send(sendGridMail);
           return 'bravo utilisateur ajouter avec succès'
         }
+        }),updatePassword:publicProcedure.input(z.object({password:z.string(),newPassword:z.string()})).mutation(async({ctx,input})=>{
+
+          const checkingPassword= await ctx.prisma.user.findUnique({
+            where:{
+              id:ctx.session?.user.id
+            },select:{
+              password:true
+            }
+          })
+          if(checkingPassword?.password==input.password){
+            let changingPassord = await ctx.prisma.user.update({
+              where:{
+                id:ctx.session?.user.id
+              },data:{
+                password:input.newPassword
+              }
+            })
+            if(changingPassord){
+              return 'succes'
+            }
+            
+          }
+          else {
+            return 'mot de passe incorrect'
+          }
+
+         
         }),fetchCoachData:publicProcedure.input(z.object({id:z.string()})).
         query(async ({input,ctx})=>{
           const findUser= await ctx.prisma.user.findFirst({where:{

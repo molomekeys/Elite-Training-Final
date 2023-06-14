@@ -100,7 +100,7 @@ const {register,handleSubmit}=useForm({defaultValues:{isValid:coachInfo.isValid?
                 <p>Email : {coachInfo.email}</p>
                 <p>Numero Siren : {coachInfo.numero_siren}</p>
                 <div className='flex items-center gap-4'>
-                <p>Licence sportif : </p>
+                <p>Carte  : </p>
                 <p onClick={openData} className='cursor-pointer font-semibold text-sm hover:text-blue-800'>consulter la licence</p>
                 </div>
              </section>}

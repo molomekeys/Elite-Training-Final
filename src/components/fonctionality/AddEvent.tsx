@@ -102,6 +102,7 @@ thirdEventManualy:typeof defaultValue
 setFirstEventManualy:(e:typeof defaultValue)=>void
 setSecondEventManualy:(e:typeof defaultValue)=>void
 setThirdEventManualy:(e:typeof defaultValue)=>void
+saveEventMultyTime:(eventData:EventsType[])=>void
 
 }
 
@@ -115,7 +116,7 @@ export const AddEventContext=createContext<ContextEventInterface>(
   }
     ,saveEventCalendarContext:()=>{
     return
-  },functionAddSubEvent:()=>{
+  },saveEventMultyTime:()=>{},functionAddSubEvent:()=>{
     return 
   },allOffert:[],clearEventData:()=>{
     return 
@@ -222,6 +223,17 @@ function clearSubStepForm(){
 function saveEventData(events:Events[]){
   setIsEventAdded(events)
 }
+function saveEventDataMultiTime(events:Events[]){
+  setIsEventAdded((prev)=>{
+    
+    return [...prev,...events]})
+}
+//clear les events
+function clearAllEVents(events:Events[]){
+  setIsEventAdded((prev)=>{
+    
+    return []})
+}
 
 //quand le calendar est fait manuelellement pour garder les valeurs 
 //manuel de chaque etape
@@ -280,7 +292,7 @@ function saveThirdSubEvent (events:typeof defaultValue){
 
     return (
       <>
-      <AddEventContext.Provider value={{
+      <AddEventContext.Provider value={{saveEventMultyTime:saveEventDataMultiTime,
         
         firstEventManualy:firstManualyForm,secondEventManualy:secondManualyForm,thirdEventManualy:thirdManualyForm,setFirstEventManualy:saveFirstSubEvent,setSecondEventManualy:saveSecondSubEvent,setThirdEventManualy:saveThirdSubEvent,
         backSubStepForm:backSubStepForm, nextStepForm:nextStepForm,
@@ -321,10 +333,14 @@ function saveThirdSubEvent (events:typeof defaultValue){
               </Button>}
 
               
-{stepForm>1&&<Button variant='solid' onClick={()=>{
+{stepForm>1&&stepForm<4&&<Button variant='solid' onClick={()=>{
   clearSubStepForm()
   dispatch(backStepForm())}}>Précedent</Button>}
               
+              {stepForm==4&&<Button variant='solid' onClick={()=>{
+clearEventData()
+  clearSubStepForm()
+  dispatch(backStepForm())}}>Précedent</Button>}
             </ModalFooter>
           </ModalContent>
         </Modal>

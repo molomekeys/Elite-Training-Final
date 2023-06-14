@@ -190,13 +190,16 @@ return {price:totalPrice,hours:totalHours,salle:allSalle}
                 Description
             </Text>
             <Text>
-                Heures
+               {eventInfo.category=='coaching'? 'Heures' : 'Quantité'}
             </Text>
             <Text>
-                Taux
+            {eventInfo.category=='coaching'? 'Taux' : 'Prix'}
+
             </Text>
             <Text>
                 Montant
+                {eventInfo.category=='coaching'? 'Montant' : 'Total'}
+
             </Text>
       </View>
       <View style={styles.tableStyle}>
@@ -212,7 +215,7 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',padding:'10px
 {eventInfo.category=='programme'&&<View style={{display:'flex',gap:'10px',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'center',padding:'10px'}}>
 <Text>Programme</Text>
-<Text>{fullHoursProgramme }</Text>
+<Text>1</Text>
 <Text>{singleProgrammePrice} </Text>
 <Text>{`${fullPriceProgramme}`}</Text>
 </View>}

@@ -12,23 +12,23 @@ const router = useRouter()
     <motion.div 
     className='w-full flex  text-center bg-black z-10 p-4   shadow-sm lg:flex-row gap-4   justify-between w-screen     items-center  lg:px-20'>
   <motion.div 
-  className="w-full  h-full text-left">
+  className="w-full  h-full flex items-center ">
 
-<div className="w-full h-full text-left  items-center lg:justify-center min-w-fit
+<div className="w-full h-full text-left   min-w-fit
          relative flex  ">
-   
-            <Link href='/coach/dashboardCoach' className="w-full items-center lg:justify-center flex h-full">
+          
+            <Link href='/coach/dashboardCoach' className="flex text-left justify-start items-center">
           
             <Image  width={110} height={40} className=' object-cover
              float-left relative'
             src={Logo} alt='logo'/>
-            </Link>
-            <div className="w-full text-left flex b">
-        <p className='font-semibold  whitespace-nowrap text-left  text-slate-200 text-xs 
+             <p className='font-semibold  whitespace-nowrap text-left  text-slate-200 text-xs 
                cursor-pointer z-20 relative
     ' onClick={()=> window.scrollTo(0,0)}>BETA</p>
-  </div>
+            </Link>
+           
         </div>
+      
   
     </motion.div>
     

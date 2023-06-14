@@ -254,7 +254,7 @@ close()
     </div>
     <div className='flex items-center justify-center w-full'>
     <BlobProvider document={<InvoiceComponent eventInfo={{clientName:findClientName[0]?.name? findClientName[0].name : '',salleName:selectedOffer[0]?.room_name? selectedOffer[0]?.room_name : '',
-    hours:totalHours,unitPrice:truePrice? truePrice : 10,category:'coaching',coachName:data?.user.name? data.user.name : ''}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
+    hours:totalHours,unitPrice:truePrice? truePrice : 10,category:firstStepInfo.productCategory,coachName:data?.user.name? data.user.name : ''}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here
 

@@ -45,12 +45,13 @@ export default function BilanElite() {
     const {isOpen:isOpenValidate,onOpen:onOpenValdate,onClose:onCloseValidate}=useDisclosure()
 console.log(fetchBills.data)
 const allElement=fetchBills.data!='non valide '&&fetchBills.data!=undefined&&fetchBills?.data?.map((e)=>{
-return (<tr className='grid grid-cols-4 w-full text-center'>
+return (<tr  key={v4()}
+className='grid grid-cols-4 w-full text-center'>
 
-  <td>{e.createdAt.toLocaleDateString()}</td>
-  <td>{e.place}</td>
-  <td>{e.hours}</td>
-  <td>{e.hours*e.price}</td>
+  <td  key={v4()}>{e.createdAt.toLocaleDateString()}</td>
+  <td  key={v4()}>{e.place}</td>
+  <td  key={v4()}>{e.hours}</td>
+  <td  key={v4()}>{e.hours*e.price}</td>
 </tr>
   )
 })

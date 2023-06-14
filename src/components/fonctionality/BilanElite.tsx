@@ -43,14 +43,24 @@ export default function BilanElite() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const fetchBills = api.example.billEliteForCoach.useMutation()
     const {isOpen:isOpenValidate,onOpen:onOpenValdate,onClose:onCloseValidate}=useDisclosure()
+console.log(fetchBills.data)
+const allElement=fetchBills.data!='non valide '&&fetchBills.data!=undefined&&fetchBills?.data?.map((e)=>{
+return (<tr className='grid grid-cols-4 w-full text-center'>
 
+  <td>{e.createdAt.toLocaleDateString()}</td>
+  <td>{e.place}</td>
+  <td>{e.hours}</td>
+  <td>{e.hours*e.price}</td>
+</tr>
+  )
+})
 const allRoom=allSalle&&allSalle?.map((e)=>{
- return <option value={e.room_name} key={e.id}>{e.room_name}</option>
+ return <option value={e.id} key={e.id}>{e.room_name}</option>
 })
     const initialRef = useRef(null)
    
     const finalRef = useRef(null)
-  
+  const [isFetched,setIsFetched]=useState(false)
     const { register, handleSubmit ,formState:{errors,defaultValues},reset} = useForm(
       
       {defaultValues:{monthSelected:"",rommName:""
@@ -69,8 +79,12 @@ async function createClient(data:ClientData) {
    const momo = await fetchBills.mutateAsync({ dateEnd:new Date(data.monthSelected),dateSart:new Date(data.monthSelected),roomName:data.rommName })
 if(momo=="non valide ")
 {
-  console.log(momo)
+
   onOpenValdate()
+}
+else if(momo){
+  console.log(momo)
+setIsFetched(true)
 }
 }
   
@@ -96,6 +110,7 @@ if(momo=="non valide ")
           isOpen={isOpen}
           onClose={()=>{
             reset()
+            setIsFetched(false)
             onClose()}
         }
         >
@@ -132,17 +147,40 @@ if(momo=="non valide ")
               
                    
               
-                <button 
+                <button  disabled={isFetched}
                 
                 
-                type='submit' className='py-2 px-8 bg-slate-800 text-slate-50 rounded-lg max-w-fit self-center'>Suivant</button> </div>
+                type='submit' className='py-2 px-8 bg-slate-800 text-slate-50 rounded-lg max-w-fit self-center'>{isFetched? 'confirmez vos dates' :'Suivant'}</button> </div>
 
 {/**Tarif une seance par semaine
  * 
  * cela feras partie de la step 2
  */}
 
-
+      {isFetched&&
+      <section className='w-full pt-10 flex flex-col'>
+      <table className='table-auto'>
+            <thead className='w-full'>
+                  <tr className='grid grid-cols-4 w-full text-center'>
+                    <th className='text-center flex justify-center flex-row w-full'>
+                      date de creation
+                    </th>
+                    <th className='w-full text-center'>
+                     salle
+                    </th>
+                    <th>
+                      heures
+                    </th>
+                    <th>
+                      total
+                    </th>
+                  </tr>
+            </thead>
+            <tbody className=' border-t-2 w-full flex flex-col gap-4 pt-2 '>
+              {allElement}
+            </tbody>
+          </table>
+          </section>}
         
           <ModalFooter >
           

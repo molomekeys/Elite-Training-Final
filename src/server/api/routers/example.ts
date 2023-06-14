@@ -192,7 +192,30 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
     }
   })
   if(fetchData?.isValid==true){
-    return 'valide'
+
+    const fetchBilling=await ctx.prisma.billing.findMany({
+      where:{
+        coach_id:Number(ctx.session?.user.coach_table?.id),isPaid:true,salle_id:Number(input.roomName)
+      },select:{
+        createdAt:true,hours:true,offer_prisma_id:{
+          select:{
+            coach_price:true,
+          }
+        },prisma_place_id:{
+         select:{
+          room_name:true
+         }
+        }
+      }
+    })
+
+    const fetchBillingFiltered=fetchBilling.map((e)=>{
+      const {offer_prisma_id,prisma_place_id,...rest}=e
+      return {price:offer_prisma_id.coach_price,place:prisma_place_id?.room_name,...rest}
+    })
+ 
+   
+  return fetchBillingFiltered
 
   }
   else {

@@ -77,8 +77,20 @@ async function createClient(data:ClientData) {
 
 
   console.log(data)
-   const momo = await fetchBills.mutateAsync({ dateEnd:new Date(data.monthSelected),dateSart:new Date(data.monthSelected),roomName:data.rommName })
-if(momo=="non valide ")
+
+
+  let DayVal= new Date(data.monthSelected)
+
+  let dayStart=new Date(DayVal.getFullYear(),DayVal.getMonth()+1,1)
+  let dayEnd=new Date(DayVal.getFullYear(),DayVal.getMonth()+2,0,23,59,59)
+
+  console.log(dayEnd,dayStart)
+   const momo = await fetchBills.mutateAsync({ 
+    dateEnd:dayEnd,dateSart:dayStart,roomName:data.rommName })
+
+
+
+   if(momo=="non valide ")
 {
 
   onOpenValdate()
@@ -189,7 +201,8 @@ setIsFetched(true)
           
        
           <Button  onClick={
-           ()=> {   reset()
+           ()=> {   setIsFetched(false)
+            reset()
                 onClose()}}>Annuler</Button>
 
          </ModalFooter>

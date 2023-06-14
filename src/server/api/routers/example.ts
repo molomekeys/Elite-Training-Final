@@ -196,6 +196,9 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
     const fetchBilling=await ctx.prisma.billing.findMany({
       where:{
         coach_id:Number(ctx.session?.user.coach_table?.id),isPaid:true,salle_id:Number(input.roomName)
+        ,createdAt:{
+          lte: input.dateEnd,gte:input.dateSart
+        }
       },select:{
         createdAt:true,hours:true,offer_prisma_id:{
           select:{

@@ -11,15 +11,18 @@ const CoachProfile = () => {
     }})
     const {data}=useSession()
   return (
-   <main className="flex flex-col w-full items-center justify-center">
+   <main className="flex flex-col w-full items-center bg-slate-200 justify-center">
 
-    <section className="flex flex-col w-full bg-slate-100 border-2 p-10
+    <section className="flex flex-col w-full bg-white border-2 p-10 gap-4
     ">
-        <h2 className="font-semibold text-lg">Profile</h2>
-        <p className="border-b-2 ">Nom : {data?.user.name} </p>
-        <h3>Mot de passe </h3>
-        <button onClick={onOpen}>modifier </button>
-  
+        <h2 className="font-semibold text-lg pb-20">Profile</h2>
+        <p className="border-b-2  font-semibold">Nom : {data?.user.name} </p>
+        <p className="border-b-2  font-semibold">Email : {data?.user.email} </p>
+
+        <div className="flex flex-col lg:flex-row items-center  gap-4 ">
+        <h3 className="text-lg font-semibold">Mot de passe </h3>
+        <button onClick={onOpen} className='bg-cyan-900 px-6 py-2 text-slate-100 rounded-md'>modifier </button>
+        </div>
     </section>
     <ModalProfile  isOpen={isOpen}  onClose={onClose} onOpen={onOpen}/>
    </main>

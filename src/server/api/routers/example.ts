@@ -181,6 +181,24 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
   }
 
 
+}),billEliteForCoach:publicProcedure.input(z.object({dateSart:z.date(),
+  dateEnd:z.date(),roomName:z.string()})).mutation(async({ctx,input})=>{
+  
+  const fetchData= await ctx.prisma.coach.findUnique({
+    where:{
+      id:Number(ctx.session?.user?.coach_table?.id)
+    },select:{
+      isValid:true
+    }
+  })
+  if(fetchData?.isValid==true){
+    return 'valide'
+
+  }
+  else {
+    return 'non valide '
+  }
+ 
 })
   ,seeEventCalendarCient:publicProcedure.query(async ({ctx})=>{
 

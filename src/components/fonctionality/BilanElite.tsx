@@ -4,16 +4,16 @@ import {
     ModalOverlay,
     ModalContent,
     ModalHeader,useMediaQuery,
-    ModalFooter,
+    ModalFooter,useDisclosure,
    
     ModalCloseButton,Button
   } from '@chakra-ui/react'
-  import {useDisclosure} from '@chakra-ui/react'
   import {useRef, useState} from 'react'
 
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {api} from '../../utils/api'
+import CoachAlerteValidation from './CoachAlerteValidation';
 
 
 // ce qui sera transmis au formulaire par react hook form 
@@ -33,14 +33,17 @@ const validationSchema = z.object({
 
 //function qui affiche à l'ecran
 
+
 export default function BilanElite() {
 
 
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const modalSize = isLargerThan768 ? "5xl" : "full";
-
   const allSalle = api.example.availaibleRoom.useQuery().data
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const fetchBills = api.example.billEliteForCoach.useMutation()
+    const {isOpen:isOpenValidate,onOpen:onOpenValdate,onClose:onCloseValidate}=useDisclosure()
+
 const allRoom=allSalle&&allSalle?.map((e)=>{
  return <option value={e.room_name} key={e.id}>{e.room_name}</option>
 })
@@ -57,13 +60,18 @@ const allRoom=allSalle&&allSalle?.map((e)=>{
     }, resolver: zodResolver(validationSchema),});
 
 
-        const[stepFormSalle,setStepFormSalle]=useState(1)
 //function async pour creer un client au niveau de firebase
 
-function createClient(data:ClientData) {
+async function createClient(data:ClientData) {
 
 
   console.log(data)
+   const momo = await fetchBills.mutateAsync({ dateEnd:new Date(data.monthSelected),dateSart:new Date(data.monthSelected),roomName:data.rommName })
+if(momo=="non valide ")
+{
+  console.log(momo)
+  onOpenValdate()
+}
 }
   
  
@@ -72,6 +80,7 @@ function createClient(data:ClientData) {
 
     return (
       <>
+      <CoachAlerteValidation isOpen={isOpenValidate} onClose={onCloseValidate} onOpen={onOpenValdate}/>
         <button onClick={onOpen} className="relative  bg-slate-800 py-3 text-slate-50 font-semibold py-2 px-6 rounded-lg">
 
         Bilan mensuel 
@@ -86,7 +95,6 @@ function createClient(data:ClientData) {
           finalFocusRef={finalRef}
           isOpen={isOpen}
           onClose={()=>{
-            setStepFormSalle(1)
             reset()
             onClose()}
         }
@@ -102,7 +110,7 @@ function createClient(data:ClientData) {
    
 
           handleSubmit(createClient)}>
-         { stepFormSalle==1&&<div className='flex flex-col w-full gap-3'>
+         <div className='flex flex-col w-full gap-3'>
               <label htmlFor='lastName'  className='font-semibold text-sm'>Selectionner le mois :</label>
             <input   type={'month'}  className='form-input py-2 px-3  rounded-md bg-slate-50  py-3' id='lastName'
        {...register('monthSelected')}
@@ -124,13 +132,10 @@ function createClient(data:ClientData) {
               
                    
               
-                <button onClick={()=>{
-                    setStepFormSalle(2)
-    }
-            }
+                <button 
                 
                 
-                type='button' className='py-2 px-8 bg-slate-800 text-slate-50 rounded-lg max-w-fit self-center'>Suivant</button> </div>}
+                type='submit' className='py-2 px-8 bg-slate-800 text-slate-50 rounded-lg max-w-fit self-center'>Suivant</button> </div>
 
 {/**Tarif une seance par semaine
  * 
@@ -140,16 +145,12 @@ function createClient(data:ClientData) {
 
         
           <ModalFooter >
-            <div className='w-full flex justify-between'>
-          {stepFormSalle==3&&<Button type='submit'>Sauvegarder</Button>}
-          {stepFormSalle<4&&stepFormSalle>1&&<Button type='button' onClick={()=>{
-            setStepFormSalle((prev)=>prev-1)
-          }}>Précedent</Button>}
-          <Button onClick={
-           ()=> {   setStepFormSalle(1)
-                reset()
+          
+       
+          <Button  onClick={
+           ()=> {   reset()
                 onClose()}}>Annuler</Button>
-          </div>
+
          </ModalFooter>
          </form>
          </ModalContent>

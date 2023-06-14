@@ -3,7 +3,7 @@ import {useForm} from 'react-hook-form'
 import { useSession } from "next-auth/react"
 import ModalProfile from "~/components/fonctionality/ModalProfile"
 import { useDisclosure } from "@chakra-ui/react"
-const coachProfile = () => {
+const CoachProfile = () => {
     const [updatePassword,setUpdatePassword]=useState(false)
     const {isOpen,onClose,onOpen}=useDisclosure()
     const {register}=useForm({defaultValues:{
@@ -26,4 +26,4 @@ const coachProfile = () => {
 
   )
 }
-export default coachProfile
+export default CoachProfile

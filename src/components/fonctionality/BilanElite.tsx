@@ -127,14 +127,16 @@ setIsFetched(true)
           handleSubmit(createClient)}>
          <div className='flex flex-col w-full gap-3'>
               <label htmlFor='lastName'  className='font-semibold text-sm'>Selectionner le mois :</label>
-            <input   type={'month'}  className='form-input py-2 px-3  rounded-md bg-slate-50  py-3' id='lastName'
+            <input  disabled={isFetched}
+             type={'month'}  className='form-input py-2 px-3  rounded-md bg-slate-50  py-3' id='lastName'
        {...register('monthSelected')}
             
            />
            <p className='text-xs font-semibold text-red-500'>{errors.monthSelected?.message}</p>
            <label htmlFor='firstName' className='font-semibold text-sm' >Selectonner votre salle : </label>
 
-            <select placeholder='Selectionner votre salle'  id='firstName'  
+            <select  disabled={isFetched}
+            placeholder='Selectionner votre salle'  id='firstName'  
              className='form-input rounded-md py-3 px-3 bg-slate-50'
               {...register('rommName')}>
                 <option value={''}>Selectonner votre salle </option>

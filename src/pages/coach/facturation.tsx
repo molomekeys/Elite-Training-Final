@@ -78,7 +78,7 @@ console.log(billFetched)
    return(  <tr key={v4()} className=" py-4  text-center w-full grid grid-cols-4 lg:grid-cols-5  ">
       <td key={v4()}   className=" text-xs font-semibold italic pl-4 ">{e?.createdAt?.toLocaleDateString()}</td>
       <td key={v4()} className=" font-bold text-xs  flex justify-center">{e.client_name}</td>
-      <td key={v4()} className=" font-bold text-xs hidden lg:flex justify-center">{e.place}</td>
+      <td key={v4()} className=" font-bold text-xs flex justify-center">{e.place}</td>
 
       <td key={v4()} className=" font-bold text-xs hidden lg:flex justify-center">{e.bill_invoice_pdf}</td>
 
@@ -110,7 +110,7 @@ if(billFetched=="access denied"){
 
       <th className=" flex  items-center justify-center w-full  "><BsFillCalendarPlusFill width={25}/></th>
       <th className=" flex  items-center justify-center w-full text-xs  ">client</th>
-      <th className=" flex  items-center justify-center w-full hidden lg:flex  "><MdWhereToVote/></th>
+      <th className=" flex  items-center justify-center w-full  "><MdWhereToVote/></th>
 
 
       <th className="flex  items-center justify-center w-full hidden lg:flex  "><AiOutlineFilePdf width={25}/></th>

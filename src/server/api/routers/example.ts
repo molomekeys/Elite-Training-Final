@@ -324,7 +324,11 @@ const allBillInfo=await ctx.prisma.billing.findMany(({
   where:{
     client_id:Number(ctx.session?.user.client_table?.id)
   },select:{
-    bill_invoice_pdf:true,
+    bill_invoice_pdf:true,prisma_place_id:{
+      select:{
+        room_name:true
+      }
+    },
     hours:true,
     isPaid:true,id:true,
     createdAt:true,
@@ -336,8 +340,8 @@ const allBillInfo=await ctx.prisma.billing.findMany(({
   }
 }))
 const allBillInfoFltered=allBillInfo.map((e)=>{
-  const {offer_prisma_id,...rest}=e
-  return {...offer_prisma_id,...rest}
+  const {offer_prisma_id,prisma_place_id,...rest}=e
+  return {...offer_prisma_id,...rest,roomName:prisma_place_id.room_name}
 })
 return allBillInfoFltered
 }

@@ -225,6 +225,20 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
     return 'non valide '
   }
  
+}),dashboardCoach:publicProcedure.query(async({ctx})=>{
+  const {prisma,session}=ctx
+  const awaitFetch= await prisma.client.count({
+    where:{
+      coach_id:Number(session?.user.coach_table?.id)
+    }
+  })
+  const awaitBill = await prisma.billing.count({
+    where:{
+
+      coach_id:Number(session?.user.coach_table?.id)
+    }
+  })
+  return 
 })
   ,seeEventCalendarCient:publicProcedure.query(async ({ctx})=>{
 
@@ -596,7 +610,7 @@ return momo
           }})
 
           const addForClient=await ctx.prisma.client.create({data:{
-            coach_id:ctx.session?.user.id,user_id:createUser.id,
+            coach_id:Number(ctx.session?.user.coach_table?.id),user_id:createUser.id,
           }})
           
           const sendGridMail={
@@ -653,7 +667,7 @@ return momo
         {
           const fetchRelatedCoach=await ctx.prisma.client.findMany({
             where:{
-              coach_id:ctx.session.user.id,
+              coach_id:Number(ctx.session.user?.coach_table?.id),
                
              },select:{
               created_at:true,

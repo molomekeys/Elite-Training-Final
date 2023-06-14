@@ -72,10 +72,10 @@ model Coach {
 
 model Client {
     id           Int           @id @default(autoincrement())
-    coach_id     String?
+    coach_id     Int?
     user_id      String        @unique
     created_at   DateTime      @default(now())
-    coachId      Coach?        @relation(fields: [coach_id], references: [user_id])
+    coachId      Coach?        @relation(fields: [coach_id], references: [id])
     UserIdPrisma User          @relation(fields: [user_id], references: [id])
     profil       ClientProfil?
     event        Events[]

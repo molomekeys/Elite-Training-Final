@@ -213,7 +213,7 @@ close()
 </div>
     <div className='flex gap-4 ' >
     <AiOutlineUser size={20} color='black'/>
-    <p className='font-semibold '>{findClientName[0]?.name}</p>
+    <p className='font-semibold '>{findClientName[0]?.name +' ('+(findClientName[0]?.email+")")}</p>
     </div>
     
        
@@ -227,7 +227,7 @@ close()
         {allDataClient}
 
         </div>
-    <div className="border-b-2 border-slate-400 gap-4 pb-10 flex flex-col lg:flex-row justify-between ">
+    <div className="border-b-2 border-slate-400 gap-4 pb-10 flex flex-col lg:flex-row  w-full text-right justify-end ">
  
       <p className="lg:text-lg text-right font-semibold"><span>Le client paiera : </span>{totalHours*( truePrice==undefined? 1 : truePrice)} <span className='font-semibold '>&euro;</span>
      </p>

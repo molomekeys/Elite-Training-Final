@@ -161,7 +161,7 @@ className="  bg-opacity-25 w-1/5  relative  bg-slate-800 z-50">
   </Link>
   <Link href='/coach/coachProfile' className=" w-full ">
           
-          <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/coach/comptabilite'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
+          <div className={`flex items-center px-10  w-full gap-4 hover:bg-slate-700 py-3  ${router.pathname=='/coach/coachProfile'?' bg-gradient-to-r from-slate-50 to-slate-500 font-bold text-slate-800 ' : ''}`}>
               <span><CgProfile size={25}/></span>
               <li className=" text-sm  py-2 ">Profil</li>
               </div>

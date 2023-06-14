@@ -504,7 +504,7 @@ else if(!validateCoach)
           const sendGridMail={
             to: email,
             from :"elitetraining38@gmail.com",
-            templateId:"d-80f1d4b1219e4d98bdefa4270b41bffa",
+            templateId:"d-fab816f818c047b284bb78a0a49d3a33 ",
             dynamic_template_data:{
                 coachName:name
             }

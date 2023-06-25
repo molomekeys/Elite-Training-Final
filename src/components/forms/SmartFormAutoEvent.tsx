@@ -1,6 +1,6 @@
 
 import {useForm} from 'react-hook-form'
-
+import HoursErrors from './HoursErrors'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { number } from 'zod';
 import {v4} from 'uuid'
@@ -10,7 +10,9 @@ import {setAutoEventForm,nextStepForm} from '../../features/event/eventSlice'
 import { useContext } from 'react';
 import {AddEventContext} from '../fonctionality/AddEvent'
 import { RootState } from '~/app/store';
-
+import {
+ useDisclosure
+} from '@chakra-ui/react'
 interface Props{
     numberOfSeance:string
  
@@ -141,6 +143,10 @@ const SmartFormInput = ({ numberOfSeance}:Props) => {
 const {events,functionEvent}=useContext(AddEventContext)
 console.log(events)
 
+
+//model pour afficher 
+
+ const {isOpen,onOpen,onClose}=useDisclosure()
 const dispatch=useDispatch()
 const smartAutoDefaultValue=useSelector((state:RootState)=>state.eventReducer.formAutoEvent)
     //hook pour initialiser le formulaire avec les valeur par defaut
@@ -198,8 +204,23 @@ if(Number(numberOfSeance)==3)
     [newSecondStartDate,newSecondEndDate],[newThirdStartDate,newThirdEndDate])
 }
 
+
 functionEvent(momo)
+
+const totalHours=momo.reduce((accumulator,current)=>
+{
+  return  accumulator+current.hours
+},0)
+
+
+//je verifie que le nombre d'heure est rond
+if (totalHours % 1 === 0) {
   dispatch(nextStepForm())
+ 
+} else {
+  onOpen()
+}
+  
 
 }
 
@@ -210,6 +231,8 @@ console.log('rerender')
 
   return (
    <main className="flex flex-col w-full">
+
+    <HoursErrors isOpen={isOpen} onClose={onClose} onOpen={onOpen}/>
     <section className="flex flex-col gap-4 mt-10">
   
         <h3 className="text-lg text-center font-semibold">{`Inscrivez vos s\xE9ances`} </h3>

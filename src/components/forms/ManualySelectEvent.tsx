@@ -9,7 +9,11 @@ import {nextStepForm} from '../../features/event/eventSlice'
 import { useSelector } from "react-redux";
 import { RootState } from "~/app/store";
 
-
+import {
+    useDisclosure
+   } from '@chakra-ui/react'
+import HoursErrors from "./HoursErrors";
+import { v4 } from "uuid";
 interface Props{
 
 saveStepForm:(events:DefaultValue)=>void
@@ -41,6 +45,7 @@ type DefaultValue={
 const ManualySelectEvent = ({defaultValueForm,saveStepForm,isSubmit}:Props) => {
 
     const secondStepInfo=useSelector((state:RootState)=>state.eventReducer.secondStep)
+    const {isOpen,onOpen,onClose}=useDisclosure()
 
     //pour utiliser redux pour passer à la prochaine step
 const dispatch=useDispatch()
@@ -75,7 +80,7 @@ const dateStartThirdWeek=new Date(val.dateThirdWeek+'T'+val.hourStartThirdWeek+'
 const dateEndThirdWeek=new Date(val.dateThirdWeek+'T'+val.hourEndThirdWeek+':00')
 
 const dateStartFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourStartFourthWeek+':00')
-const dateEndFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourEndThirdWeek+':00')
+const dateEndFourthdWeek=new Date(val.dateFourthWeek+'T'+val.hourEndFourthWeek+':00')
 
 //calcul des heures
 
@@ -86,12 +91,12 @@ const hoursFourthWeek=(dateEndFourthdWeek.getTime()-dateStartFourthdWeek.getTime
 // dans cette partie je sauvegarde les dates créer et génerer pour les 
 //sauvegarde dans le store 
 
-const momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),id:'1',
+const momo =[{hours:hoursFirstWeek,start:new Date(firstStartDate),id:v4(),
     end:
     new Date(firstEndDate)},
-    {end:dateEndSecondWeek,start:dateStartSecondWeek,hours:hoursSecondtWeek,id:'1'},
-    {end: new Date(dateEndThirdWeek),start: new Date(dateStartThirdWeek),id:'1',hours:hoursThirdtWeek},
-    {end: new Date(dateEndFourthdWeek),start: new Date(dateStartFourthdWeek),id:'1',hours:hoursFourthWeek}]
+    {end:dateEndSecondWeek,start:dateStartSecondWeek,hours:hoursSecondtWeek,id:v4()},
+    {end: new Date(dateEndThirdWeek),start: new Date(dateStartThirdWeek),id:v4(),hours:hoursThirdtWeek},
+    {end: new Date(dateEndFourthdWeek),start: new Date(dateStartFourthdWeek),id:v4(),hours:hoursFourthWeek}]
 console.log(momo)
 
 saveStepForm(val)
@@ -100,8 +105,15 @@ saveStepForm(val)
     
  
     
-
-
+    const totalHours=momo.reduce((accumulator,current)=>
+    {
+      return  accumulator+current.hours
+    },0)
+    console.log(totalHours)
+    if (totalHours % 1 === 0) {
+     
+       
+      
 
     saveEventMultyTime(momo)
 
@@ -116,6 +128,11 @@ else if(subStepForm!==Number(secondStepInfo.seanceWeekNumber))
     nextSubStepForm(Number(secondStepInfo.seanceWeekNumber))
 
 }
+}
+
+else if(totalHours){
+    onOpen()
+}
 
 }
 
@@ -127,6 +144,7 @@ else if(subStepForm!==Number(secondStepInfo.seanceWeekNumber))
   return (
    
     <main className="flex flex-col w-full">
+        <HoursErrors isOpen={isOpen} onClose={onClose} onOpen={onOpen}/>
     <section className="flex flex-col gap-4 mt-10">
   
         <h3 className="text-lg text-center font-semibold">{`Inscrivez vos s\xE9ances`} </h3>

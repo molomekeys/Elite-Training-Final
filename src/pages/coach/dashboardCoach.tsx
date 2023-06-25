@@ -60,7 +60,6 @@ const{futureDate,today}=getDates()
    
     <div className="flex flex-col">
    
-  <button onClick={fetchData}>Test momo</button>
     </div>
     <div>
    {/* {isInClient&& <PDFDownloadLink document={<InvoiceComponent dateRange={{dateEnd:futureDate,dateStart:today}}  />} fileName="somename.pdf">

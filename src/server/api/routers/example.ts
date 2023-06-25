@@ -225,7 +225,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
     return 'non valide '
   }
  
-}),dashboardCoach:publicProcedure.query(async({ctx})=>{
+}),dashboardCoachData:publicProcedure.query(async({ctx})=>{
   const {prisma,session}=ctx
   const awaitFetch= await prisma.client.count({
     where:{
@@ -238,7 +238,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
       coach_id:Number(session?.user.coach_table?.id)
     }
   })
-  return 
+  return {client:awaitFetch,bills:awaitBill}
 })
   ,seeEventCalendarCient:publicProcedure.query(async ({ctx})=>{
 

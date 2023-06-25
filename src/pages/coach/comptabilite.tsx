@@ -1,6 +1,6 @@
 import BilanElite from "~/components/fonctionality/BilanElite"
-
 const comptabilite = () => {
+
   return (
     <section className='flex flex-col 
     '>

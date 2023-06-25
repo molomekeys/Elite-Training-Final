@@ -27,7 +27,7 @@ const HoursErrors = ({isOpen,onClose,onOpen}:Props) => {
       </AlertDialogHeader>
 
       <AlertDialogBody>
-       Vous devez inscrire un nombre d'heures rond 
+       Vous devez inscrire un nombre d&apos;heures rond 
       </AlertDialogBody>
 
       <AlertDialogFooter className='flex gap-4'>

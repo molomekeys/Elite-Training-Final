@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 
 //react function
-const changePassword = () => {
+const ChangePassword = () => {
     const {register}=useForm({defaultValues:{
         password:'',confirmPassword:''
     }})
@@ -26,4 +26,4 @@ const changePassword = () => {
  </section>
   )
 }
-export default changePassword
+export default ChangePassword

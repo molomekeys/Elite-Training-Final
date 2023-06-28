@@ -54,100 +54,17 @@ const invoiceData = {
 };
 
 // Create component
-export interface DataEvent{
-    
-    dateStart: Date
-    dateEnd:  Date
-    price:number
-    type:string
-    hours:number
-    salle:string
-    category:string
-        title:string
-    
-}
-type EventInfo={
-    category:string
-    coachName:string
-    unitPrice:number
-    hours:number
-    salleName:string 
-    clientName:string
-}
-type paiementInfo ={
-  price:number,roomName:string,type:string
-}
-interface dataforPdf{
-    dataEvent?:DataEvent[]
-    eventInfo:EventInfo
-    dateRange?:{dateStart:Date,dateEnd:Date}
-    billInfo : paiementInfo
-    }
-  
+
     
 
-const InvoiceComponent = ({dataEvent,dateRange,eventInfo,billInfo}:dataforPdf) => 
+const InvoiceElite = () => 
 
 {
-   let singlePrice=''
-   let singleProgrammePrice=''
- let fullHoursCoaching=0
- let fullHoursProgramme=0
-let fullCoachingPrice=0
+
 
 
 //J'utilise useMemo pour faire du caching l'information(pour pas la recalculer)
-const priceMemo=useMemo(()=>{
-  let totalPrice=0
-  let totalHours=0
-  let allSalle:string[]=[]
-const fullPrice=dataEvent&&dataEvent.map((e,index)=>{
-  totalPrice+=(e.price)
-  totalHours+=e.hours
-  if(index==0)
-  {
-    allSalle.push(e.salle)
-  }
-  else if(index>0) {
-      if(dataEvent[index-1]?.salle==e.salle)
-      {
 
-      }
-      else{
-        allSalle.push(e.salle)
-      }
-  } 
-})
-return {price:totalPrice,hours:totalHours,salle:allSalle}
-},[dataEvent])
-
-//autre test
-   console.log(dataEvent)
-   dataEvent?.map((e)=>{
-    if(e.type==='coaching')
-    {
-     fullHoursCoaching+=e.hours
-     fullCoachingPrice+=e.price
-     
-      // fullHoursCoaching+=(e.dateEnd.getTime()-e.dateStart.getTime())/(1000 * 60 * 60)
-
-    }
-    else if(e.type==='programme')
-    {
-     
-      // fullHoursProgramme+=(e.dateEnd.getTime()-e.dateStart.getTime())/(1000 * 60 * 60)
-
-    }
-   })
-
-
-
-   let fullPriceCoaching=Number(singlePrice)*fullHoursCoaching
-   let fullPriceProgramme=Number(singleProgrammePrice)*fullHoursProgramme
-
-   console.log(fullCoachingPrice)
-   console.log(priceMemo)
-  
     return (
         
   <Document >
@@ -172,8 +89,8 @@ return {price:totalPrice,hours:totalHours,salle:allSalle}
         </View>
         <View style={{padding:30}}>
         <View style={{width:'100%',gap:10}}>
-            <Text style={styles.stylesFooterTitle}>Coach : {eventInfo.coachName}</Text>
-            <Text style={styles.stylesFooterTitle}>Facture pour {eventInfo.clientName}</Text>
+            <Text style={styles.stylesFooterTitle}>Coach :</Text>
+            <Text style={styles.stylesFooterTitle}>Facture pour </Text>
 
         </View>
    
@@ -181,11 +98,11 @@ return {price:totalPrice,hours:totalHours,salle:allSalle}
       <View style={{alignItems:'flex-end',marginBottom:'10px',gap:'10px',display:'flex'}}>
       <View style={{flexDirection:'row',display:'flex',width:'100%',marginVertical:20,
    alignItems:'center',}}>
-        <Text style={[styles.stylesFooterTitle,{textAlign:'right'}]}>Salle : {eventInfo.salleName}</Text>
+        <Text style={[styles.stylesFooterTitle,{textAlign:'right'}]}>Salle : </Text>
 
       </View>
-      <Text style={styles.stylesFooterTitle}>Date de facturation : {dateRange?.dateStart?.toLocaleDateString()} </Text>
-        <Text style={styles.stylesFooterTitle}>Date limite : {dateRange?.dateEnd?.toLocaleDateString()}</Text>
+      <Text style={styles.stylesFooterTitle}>Date de facturation : </Text>
+        <Text style={styles.stylesFooterTitle}>Date limite :</Text>
       </View>
       
       <View style={{display:'flex',padding:10,fontSize:'12px',borderTopLeftRadius:'15%',borderTopRightRadius:'15%'
@@ -195,10 +112,10 @@ return {price:totalPrice,hours:totalHours,salle:allSalle}
                 Description
             </Text>
             <Text>
-               {eventInfo.category=='coaching'? 'Heures' : 'Quantité'}
+               
             </Text>
             <Text>
-            {eventInfo.category=='coaching'? 'Taux' : 'Prix'}
+           
 
             </Text>
             <Text>
@@ -209,20 +126,20 @@ return {price:totalPrice,hours:totalHours,salle:allSalle}
       <View style={styles.tableStyle}>
        
   
-{eventInfo.category=='coaching' &&<View style={{display:'flex',gap:'10px',
+<View style={{display:'flex',gap:'10px',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',padding:'10px',alignItems:'center'}}>
 <Text style={{}}>Coaching</Text>
-<Text>{eventInfo.hours}</Text>
-<Text>{eventInfo.unitPrice} </Text>
-{eventInfo.unitPrice&&<Text>{eventInfo.hours*billInfo.price}</Text>}
-</View>}
-{eventInfo.category=='programme'&&<View style={{display:'flex',gap:'10px',
+<Text></Text>
+<Text></Text>
+<Text></Text>
+</View>
+<View style={{display:'flex',gap:'10px',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'center',padding:'10px'}}>
 <Text>Programme</Text>
 <Text>1</Text>
-<Text>{billInfo.price} </Text>
-<Text>{`${billInfo.price}`}</Text>
-</View>}
+<Text>1 </Text>
+<Text>1</Text>
+</View>
       </View>
       <View style={styles.totalSection}>
             <View style={{width:'100%',gap:10,fontSize:'11px'}}>
@@ -232,17 +149,17 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
                <Text style={{fontFamily:'Helvetica-Bold'}}>IBAN : FR76 1659 8000 0121 7362 9000 194</Text>
                <Text  style={{fontFamily:'Helvetica-Bold'}}>BIC : FPELFR21XXX</Text>
                <Text style={styles.stylesFooterTitle}>COACH</Text>
-               <Text  style={{fontFamily:'Helvetica-Bold',fontSize:'12px'}}>{eventInfo.coachName}</Text>
+               <Text  style={{fontFamily:'Helvetica-Bold',fontSize:'12px'}}></Text>
             </View>
             <View style={{width:'100%',alignItems:'flex-end',fontSize:'11px',gap:10}}>
                 <View style={{alignItems:'flex-end'}}>
-                <Text>Grand total : {eventInfo.category=='coaching'? eventInfo.hours*eventInfo?.unitPrice : billInfo.price}</Text>
+                <Text>Grand total :</Text>
                 <Text>Tva : N/A</Text>
                 </View>
                 <View style={{flexDirection:'row',fontSize:'12px',borderRadius:'25%',
                 paddingTop:20,padding:10,justifyContent:'space-between',gap:20,backgroundColor:'#282F44',color:'#FFDA8A'}}>
                 <Text >Grand total  </Text>
-                <Text>{eventInfo.category=='coaching'? eventInfo.hours*eventInfo?.unitPrice : billInfo.price} euro TTC</Text>
+                <Text> euro TTC</Text>
                 </View>
             </View>
             
@@ -252,4 +169,4 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
   </Document>
 )};
 
-export default InvoiceComponent;
+export default InvoiceElite;

@@ -35,6 +35,13 @@ export type AllClientType={
         client_price: number;
         type_offert: string;
     }[];
+    programme?: {
+      client_price: number
+  coach_price: number
+  id: number
+  stripe_id: string
+  type_offert: string
+  }[];
     id: number;
     room_name: string;
   }

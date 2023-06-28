@@ -24,7 +24,11 @@ export default async function handler(
     where:{
       id:idBill
     },select:{
-      hours:true,isPaid:true,offer_prisma_id:{
+      hours:true,isPaid:true,type_offer:true,offer_prisma_id:{
+        select:{
+          stripe_id:true
+        }
+      },programme_selling_id:{
         select:{
           stripe_id:true
         }
@@ -34,7 +38,7 @@ export default async function handler(
   console.log(fetchBill)
   if(fetchBill)
   {
-  const {hours,offer_prisma_id,isPaid}=fetchBill
+  const {hours,offer_prisma_id,isPaid,programme_selling_id,type_offer}=fetchBill
   
 
 
@@ -42,8 +46,8 @@ export default async function handler(
   line_items: [
     {
       // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-      price: offer_prisma_id.stripe_id,
-      quantity: hours,
+      price: type_offer.toLocaleLowerCase()=='coaching'? offer_prisma_id?.stripe_id : programme_selling_id?.stripe_id ,
+      quantity: type_offer.toLocaleLowerCase()=='coaching'? hours: 1,
     },
   ],
   mode: 'payment',

@@ -5,10 +5,11 @@ import {  useDispatch } from 'react-redux'
 import { PDFDownloadLink,BlobProvider} from '@react-pdf/renderer';
 import { useEffect, useState } from "react";
 import InvoiceComponent from "~/components/fonctionality/InvoiceComponent";
-
 const DashboardCoach = () => {
  
   const[isInClient,SetIsInClient]=useState(false)
+  const {data:dashboardData}=api.dashboardInfo.fetchingDashboard.useQuery()
+  console.log(dashboardData)
   useEffect(()=>{
     if(isInClient==false)
     {

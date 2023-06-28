@@ -128,27 +128,7 @@ export const exampleRouter = createTRPCRouter({
     return "you can now see this secret message!";
   }),
 
-  // addRoom:publicProcedure.input(z.object({
-  //   name:z.string()
-
-
-  // })).mutation(async({ctx,input})=>{
-  //    const addUser= await ctx.prisma.product.create({data:{
-  //  name:input.name
-  //    ,adress:'dernierajout',offers:{
-  //  create:   [{clientPrice:50,coachPrice:40,weekNumber:2},
-  //   {clientPrice:50,coachPrice:40,weekNumber:2}]
-  //    }
-  //     }})
-  // return addUser
-  //   })
   
-    // findOffer:
-    // publicProcedure.input(z.object({name:z.string()})).query
-    // (async({input,ctx:{prisma}})=>{
-    //     const fetchedData=await prisma.product.findMany({include:{offers:true}})
-    //     return fetchedData
-    // })
 
 seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
   if(ctx.session?.user.coach_table?.id!=undefined)
@@ -183,7 +163,6 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
 
 }),billEliteForCoach:publicProcedure.input(z.object({dateSart:z.date(),
   dateEnd:z.date(),roomName:z.string()})).mutation(async({ctx,input})=>{
-  
   const fetchData= await ctx.prisma.coach.findUnique({
     where:{
       id:Number(ctx.session?.user?.coach_table?.id)
@@ -192,15 +171,21 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
     }
   })
   if(fetchData?.isValid==true){
-
+    console.log(fetchData)
+    console.log(input)
+    const {dateEnd,dateSart}=input
+    let newStartDate=new Date(dateSart.getFullYear(),dateSart.getMonth()-1,0)
+    let newEndDate= new Date(dateEnd.getFullYear(),dateEnd.getMonth(),0)
+    console.log(newEndDate)
     const fetchBilling=await ctx.prisma.billing.findMany({
       where:{
-        coach_id:Number(ctx.session?.user.coach_table?.id),isPaid:true,salle_id:Number(input.roomName)
+        coach_id:Number(ctx.session?.user.coach_table?.id),
+        isPaid:true,salle_id:Number(input.roomName)
         ,createdAt:{
-          lte: input.dateEnd,gte:input.dateSart
+          lte: newEndDate,gte:newStartDate
         }
       },select:{
-        createdAt:true,hours:true,offer_prisma_id:{
+        createdAt:true,hours:true,price:true,offer_prisma_id:{
           select:{
             coach_price:true,
           }
@@ -211,10 +196,12 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
         }
       }
     })
+    console.log(fetchBilling)
+
 
     const fetchBillingFiltered=fetchBilling.map((e)=>{
       const {offer_prisma_id,prisma_place_id,...rest}=e
-      return {price:offer_prisma_id.coach_price,place:prisma_place_id?.room_name,...rest}
+      return {place:prisma_place_id?.room_name,...rest}
     })
  
    
@@ -384,15 +371,20 @@ const allBillInfo=await ctx.prisma.billing.findMany(({
   },select:{
     bill_invoice_pdf:true,prisma_place_id:{
       select:{
-        room_name:true
+        room_name:true,
+
       }
-    },
-    hours:true,
+    },type_offer:true,
+    hours:true,price:true,
     isPaid:true,id:true,
     createdAt:true,
     offer_prisma_id:{
       select:{
         stripe_id:true ,client_price:true
+      }
+    },programme_selling_id:{
+      select:{
+        stripe_id:true,client_price:true
       }
     }
   }
@@ -405,32 +397,65 @@ return allBillInfoFltered
 }
 }),
   addEventsCalendar:publicProcedure.input(z.object({
-    billingData:z.object({prisma_client_id:z.number(),prisma_coach_id:z.number(),hours:z.number(),
-      prisma_place_id:z.number(),bill_invoice_pdf:z.string(),offer_prisma_id:z.number()}),
+    billingData:z.object({
+      prisma_client_id:z.number(),price:z.number(),type:z.string(),
+      prisma_coach_id:z.number(),hours:z.number(),
+      prisma_place_id:z.number(),bill_invoice_pdf:z.string(),
+      offer_prisma_id:z.number()}),
     
     
     eventData:z.array(z.object({
       start:z.date(),end:z.date(),title:z.string(),hours:z.number(),salle_id:z.number(),
       coach_id:z.number(),client_id:z.number()}))
   })).mutation(async ({ctx,input})=>{
-    console.log('pourquoi')
+ 
+// debut de la function
+
     const {billingData,eventData}=input
-    console.log(billingData)
-    const {bill_invoice_pdf,hours,offer_prisma_id,prisma_client_id,prisma_coach_id,prisma_place_id}=billingData
+let billingId=0
+    const {bill_invoice_pdf,hours,offer_prisma_id,
+      prisma_client_id,prisma_coach_id,prisma_place_id}=billingData
     if(ctx.session?.user.coach_table?.id!=undefined)
     {
+
+      if(billingData.type=='coaching')
+      {
       const billClient=await ctx.prisma.billing.create({
-        data:{
-        bill_invoice_pdf:bill_invoice_pdf,hours:hours,client_id:prisma_client_id,
-        coach_id:prisma_coach_id,offer_id:offer_prisma_id,salle_id:prisma_place_id, 
+        data:{type_offer:billingData.type,price:
+        billingData.hours*billingData.price ,
+        bill_invoice_pdf:bill_invoice_pdf,hours:hours,
+        client_id:prisma_client_id,offer_id:billingData.offer_prisma_id,
+        coach_id:prisma_coach_id,salle_id:prisma_place_id, 
         }
+
       })
-  
       const {id}=billClient
+
+      billingId=id
+
+  }
+
+  if(billingData.type=='programme')
+      {
+      const billClient=await ctx.prisma.billing.create({
+        data:{type_offer:billingData.type,price:
+        billingData.price ,programme_id:billingData.offer_prisma_id,
+        bill_invoice_pdf:bill_invoice_pdf,hours:hours,
+        client_id:prisma_client_id,
+        coach_id:prisma_coach_id,salle_id:prisma_place_id, 
+        }
+
+      })
+
+      const {id}=billClient
+      billingId=id
+  }
+
+
 
 //events to put in the db
 const finalEvents=eventData.map((e)=>{
-  return {...e,billing_id:id}
+  return {...e,billing_id:billingId}
 })
 
 
@@ -541,6 +566,8 @@ return allRoom
       }),
       availableOffer:publicProcedure.query(async( {ctx})=>{
         const {prisma}=ctx
+
+        //prisma pour fetch les salles 
         const fetchPlaces=await prisma.availablePlace.findMany({
           select:{
             room_name:true,
@@ -559,16 +586,16 @@ select:{
     
   }
 }
-            }
+            },programme_price:true
           }
         })
 const momo =fetchPlaces.map((e)=>{
-  const {related_offerPrisma,...rest}=e
+  const {related_offerPrisma,programme_price,...rest}=e
   const test =related_offerPrisma.pricing_offer.map((e)=>{
    
     return {...e}
   })
-  return {...rest,pricing:test}
+  return {...rest,pricing:test,programme:programme_price}
 })
 
 

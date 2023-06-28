@@ -68,27 +68,7 @@ const billFetched=api.example.fetchBillingClient.useQuery().data
 console.log(billFetched)
 
 
-// if(data?.user)
-// {
-// console.log('render')
-// // const dataCoach =api.example.fetchDataLoginCoach.useQuery()
 
-// const momo =dataCoach.data
-// const {refetch}=dataCoach
-
-// async function  handleRefetch(){
-// refetch()
-// }
-// if(dataCoach.isLoading==true)
-// {
-//  return 
-// }
-
-
-
-// const testmomo=dataCoach.data&&dataCoach.data.map((e)=>{
-//   return {...e.UserIdPrisma,createdAt:e.created_at}
-// })
 
  
   const allFetchedClient=billFetched?.map((e)=>{
@@ -97,7 +77,7 @@ console.log(billFetched)
       <td key={v4()} className="py-3 font-bold text-xs hidden lg:flex justify-center">{e.roomName}</td>
 
       <td key={v4()} className="py-3 font-bold text-xs flex justify-center">{e.bill_invoice_pdf}</td>
-      <td key={v4()}  className="py-3  w-full flex justify-center font-bold text-xs flex text-center">{e.hours*e.client_price}</td>
+      <td key={v4()}  className="py-3  w-full flex justify-center font-bold text-xs flex text-center">{e.price}</td>
 {e.isPaid==false?<td key={v4()}  onClick={()=>fetchKeysStripe(e.id)} className="py-3   flex justify-center  cursor-pointer  text-xs  font-semibold  flex rounded-xl bg-slate-200 mx-4 lg:mx-12">{'effectué un payement'}</td>
 : <td key={v4()}  className="py-3   flex justify-center  cursor-pointer  font-bold  text-cyan-800  lg:flex"><AiFillCheckCircle size={'25px'}/></td>}
     </tr>)

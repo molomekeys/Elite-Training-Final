@@ -1,6 +1,6 @@
 
 import { PDFDownloadLink, Document, Page,PDFViewer,BlobProvider } from '@react-pdf/renderer';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {v4} from 'uuid'
 import InvoiceComponent from '../fonctionality/InvoiceComponent';
 import { useContext } from 'react';
@@ -23,35 +23,104 @@ interface Props {
     
 }
 
-//fonction réaction
+//fonction react
 
 const RecapitulatifCalendar = ({close}:{close:()=>void}) => {
-const {data}=useSession()
 
-const addEvents=api.example.addEventsCalendar.useMutation()
+  const addEvents=api.example.addEventsCalendar.useMutation()
 
   const {events,client,saveEvent,allOffert,saveEventCalendarContext}=useContext(AddEventContext)
   const firstStepInfo=useSelector((state:RootState)=>state.eventReducer.firstStep)
   const secondStepInfo=useSelector((state:RootState)=>state.eventReducer.secondStep)
+  const [selectedPriceOffer,setSelectedPriceOffer]=useState({price:0,
+    roomName:'',type:'',hours:0,id:0})
+
+// useEffect permet lors de l'affichage du premier render de faire les calcules des prix
+
+useEffect(()=>{
+
+
+// le calcul des heures
+  const totalHours=events.reduce((accumulator, currentValue) => accumulator + currentValue.hours, 0);
+
+  //ici je filtre pour trouver la salle correspondante 
+  const selectedOffer=allOffert.filter((e)=>{
+    return String(e.id)===secondStepInfo.programmeName
+   })
+   //ici je fait le filtre pour mettre dans le state après avoir filtré pour le coaching 
+  if(firstStepInfo.productCategory=='coaching'){
+    const selectedOfferTest=selectedOffer[0]?.pricing?.filter((e)=>{
+   
+      return e.seance_week ===(secondStepInfo.seanceWeekNumber)
+    
+  
+    
+  })
+// ici je  sauvegarde les info dans le state
+
+  if(selectedOfferTest){
+    setSelectedPriceOffer((prev)=> {
+      if(selectedOfferTest[0]?.client_price!=undefined &&selectedOffer[0]?.room_name!=undefined)
+      {
+        return {id:selectedOfferTest[0].id,hours:totalHours,price:selectedOfferTest[0]?.client_price,roomName:selectedOffer[0]?.room_name,type:firstStepInfo.productCategory}
+
+      }
+      else {
+        return prev
+      }
+    })
+  }
+  }
+  else if(firstStepInfo.productCategory=='programme')
+  {
+    //ici je filtre pour faire le calcul pour trouver le bon prix pour le programme que je met 
+    //après dans un state
+    const selectedProgrammeTest=selectedOffer[0]?.programme
+    if(selectedProgrammeTest!=undefined && selectedProgrammeTest!=null)
+    {
+     
+      setSelectedPriceOffer((prev)=> {
+        if(selectedOffer[0]?.room_name!=undefined)
+        {
+          return {id:selectedProgrammeTest.id,hours:totalHours,price:selectedProgrammeTest.client_price,roomName:selectedOffer[0]?.room_name,type:firstStepInfo.productCategory}
+
+        }
+        else {
+          return prev
+        }
+      })
+    
+    }
+    
+  }
+
+},[firstStepInfo,secondStepInfo,setSelectedPriceOffer,setSelectedPriceOffer])
+
+
+//fin du useEffect
+
+
+const {data}=useSession()
+
+
 
   const selectedOffer=allOffert.filter((e)=>{
    return String(e.id)===secondStepInfo.programmeName
   })
 
   const selectedOfferTest=selectedOffer[0]?.pricing?.filter((e)=>{
-    return e.seance_week ===(secondStepInfo.seanceWeekNumber)
+   
+      return e.seance_week ===(secondStepInfo.seanceWeekNumber)
+    
+  
+    
   })
 
-  
-  console.log(events)
  
-  const truePrice=selectedOfferTest&&selectedOfferTest[0]?.client_price
-  const truePriceCoach=selectedOfferTest&&selectedOfferTest[0]?.coach_price
-console.log(selectedOfferTest&&selectedOfferTest[0]?.client_price)
-  const totalHours=events.reduce((accumulator, currentValue) => accumulator + currentValue.hours, 0);
 
   console.log(events)
 
+  // ici pour définir les dates d'écheance
 function getDates() {
   const today = new Date();
   const futureDate = new Date();
@@ -83,68 +152,10 @@ console.log(findClientName)
         
           </div>)
   })
-// const [totalPriceToSave,setTotalPriceToSave]=useState({totalPrice:0,totalHours:0,clientName:''})
-// console.log(userLoged)
-// let totalPrice=0
-// let totalPriceForElite=0
 
-// console.log(manualyEvent)
 
-// const nameClientIndex=allClient?.findIndex((e)=>{
-//   return firstStepForm.client===e.id
-// })
-// console.log(nameClientIndex)
+  // function pour sauvegarder dans la db
 
-// const nameClient=allClient[nameClientIndex]?.fullName
-// const allIdEvent:string[]=[]
-
-// let allPrice=0
-
-// let totalHours=0
-// const allEventsElements=manualyEvent.map((e)=>{
-//   totalPrice+=e?.price
-//   totalHours+=e?.hours
-//   console.log(e.hours)
-//   console.log(firstStepForm.typeOfSeance)
-// if(firstStepForm.typeOfSeance=='1' ||firstStepForm.typeOfSeance=='2'){
-// totalPriceForElite=40
-// }
-// else if(firstStepForm.typeOfSeance==="3" ){
-// totalPriceForElite=39
-// }
-// else if(firstStepForm.typeOfSeance=='4' ){
-// totalPriceForElite=38
-// }
-// allPrice+=totalPriceForElite*e.hours
-//   allIdEvent.push(e.id)
-//     return (<div key={e.id}
-//      className="flex flex-col gap-2  items-center justify-center  ">
-        
-//         <p className="text-slate-700 font-semibold">Le {`${new Date(e?.end).toLocaleDateString()}`}</p>
-//         <div className="flex items-center justify-center gap-2">
-//         <p className="text-slate-500 text-sm font-semibold">De {`${new Date(e?.start).getHours().toLocaleString()+" H:"+new Date(e.start).getMinutes().toString().padStart(2,'0')}`}</p>
-//         <p className="text-slate-500 text-sm font-semibold">À {`${new Date(e?.end).getHours().toLocaleString()+" H:"+new Date(e.end).getMinutes().toString().padStart(2,'0')}`}</p>
-//         </div>
-  
-//     </div>)
-// })
-// if(allEventsElements){
-// {
-//   if(totalPriceToSave.totalPrice==0)
-//   {
-//   setTotalPriceToSave((prev)=>{
-//     if(prev.totalPrice!=totalPrice)
-//     {
-//       return ({...prev,totalPrice:totalPrice,totalHours:totalHours,clientName:nameClient})
-//     }
-//   else {
-//     return prev
-//   } 
-  
-//   })
-// }
-// }
-// }
 async function handleAddData(){
 
 // const momo=events.map(({end,start,...rest})=>{
@@ -158,12 +169,18 @@ const momoTest=events.map((eventData)=>{
     client_id:Number(firstStepInfo.clientId),coach_id:Number(data?.user.coach_table?.id)})
 
 })
-console.log(momoTest)
-if((momoTest!=undefined &&data?.user.coach_table?.id!=undefined)&&selectedOfferTest!=undefined)
+
+if((momoTest!=undefined &&data?.user.coach_table?.id!=undefined)&&
+selectedOfferTest!=undefined)
 {
   
-const testMomo= await addEvents.mutateAsync({eventData:[...momoTest],billingData:{bill_invoice_pdf:'...',prisma_client_id:Number(firstStepInfo.clientId),prisma_coach_id:Number(data?.user.coach_table?.id)
-,hours:totalHours,prisma_place_id:Number(secondStepInfo.programmeName),offer_prisma_id:selectedOfferTest[0]!=undefined? selectedOfferTest[0]?.id :5}})
+const testMomo= await addEvents.mutateAsync({eventData:[...momoTest],
+  billingData:{bill_invoice_pdf:'...',price:selectedPriceOffer.price,
+  type:firstStepInfo.productCategory,
+  prisma_client_id:Number(firstStepInfo.clientId),
+  prisma_coach_id:Number(data?.user.coach_table?.id)
+,hours:selectedPriceOffer.hours,prisma_place_id:Number(secondStepInfo.programmeName),
+offer_prisma_id:selectedPriceOffer.id}})
 
 
 console.log(testMomo)
@@ -172,33 +189,10 @@ console.log(testMomo)
 saveEventCalendarContext()
 close()
 }
-//   manualyEvent.map(async(e)=>{
-//     const docBatch =  batch.set(doc(collection(db, 'users',userLoged,'events')), {
-//      ...e,clientName:nameClient,clientId:firstStepForm.client,type:firstStepForm.type
-//     })
-//   })
-//   batch.set(doc(collection(db,'facturation')),{
-
-//     id:v4(),
-//     price:totalPrice,
-//     clientId:firstStepForm.client,
-//     madeAt:new Date(),
-//     eventId:allIdEvent,
-//     salle:firstStepForm.salle,
-//     isPaid:false,
-//     priceElite:allPrice,
-   
-//     coachId:userLoged,details:{clientName:nameClient,typeDeProgramme:firstStepForm.type,
-//       coachName:userLogedInfo.firstName}
-
-//   })
-//   console.log(manualyEvent)
-//   await batch.commit().then(()=>nextStepForm())
+//   
 
  
-// }
-// console.log(firstStepForm)
-// console.log(totalPriceToSave)
+
 }
 
   return (
@@ -229,32 +223,23 @@ close()
         </div>
     <div className="border-b-2 border-slate-400 gap-4 pb-10 flex flex-col lg:flex-row  w-full text-right justify-end ">
  
-      <p className="lg:text-lg text-right font-semibold"><span>Le client paiera : </span>{totalHours*( truePrice==undefined? 1 : truePrice)} <span className='font-semibold '>&euro;</span>
+      <p className="lg:text-lg text-right font-semibold"><span>Le client paiera : </span>{firstStepInfo.productCategory=='programme'? selectedPriceOffer.price : 
+      selectedPriceOffer.price*selectedPriceOffer.hours}
+       <span className='font-semibold '>&euro;</span>
      </p>
     
       
     </div>
     <div className="flex flex-col w-full items-center justify-center">
    
-    {/* { totalPriceToSave&& 
-    <BlobProvider document={<InvoiceClient dataCoach={firstStepForm}
-      dataForBilling={{coachName:userLogedInfo.lastName
-   ,...totalPriceToSave}}/>}>
-      {({ blob, url, loading, error }) => {
-        // Do whatever you need with blob here
 
-        if(url){
-       return( <a  className="bg-green-600 py-3 px-4 max-w-[300px] text-slate-50 rounded-lg font-bold"
-       href={url} target="_blank" rel="noopener noreferrer ">
-        Previsualiser la facture 
-      </a>)}
-      }}
-      </BlobProvider>} */}
   
     </div>
     <div className='flex items-center justify-center w-full'>
-    <BlobProvider document={<InvoiceComponent eventInfo={{clientName:findClientName[0]?.name? findClientName[0].name : '',salleName:selectedOffer[0]?.room_name? selectedOffer[0]?.room_name : '',
-    hours:totalHours,unitPrice:truePrice? truePrice : 10,category:firstStepInfo.productCategory,coachName:data?.user.name? data.user.name : ''}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
+    <BlobProvider document={<InvoiceComponent billInfo={selectedPriceOffer}
+    
+    eventInfo={{clientName:findClientName[0]?.name? findClientName[0].name : '',salleName:selectedOffer[0]?.room_name? selectedOffer[0]?.room_name : '',
+    hours:selectedPriceOffer.hours,unitPrice:selectedPriceOffer.price,category:firstStepInfo.productCategory,coachName:data?.user.name? data.user.name : ''}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here
 

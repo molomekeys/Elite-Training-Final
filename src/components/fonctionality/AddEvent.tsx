@@ -7,6 +7,7 @@ import {
     ModalBody,useDisclosure,
     ModalCloseButton,Button,Progress
   } from '@chakra-ui/react'
+  import { ProgrammePricing } from '@prisma/client'
 import FirstStepAddEvent from '../forms/FirstStepAddEvent'
 import { motion } from 'framer-motion'
 import {useState,createContext} from 'react'
@@ -73,6 +74,8 @@ export type AllPrice={
       client_price: number;
       type_offert: string;
   }[];
+  programme: ProgrammePricing| null | undefined;
+
   id: number;
   room_name: string;
 }

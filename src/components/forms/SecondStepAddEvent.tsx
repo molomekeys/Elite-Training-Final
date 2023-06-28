@@ -29,6 +29,7 @@ const SecondStepAddEvent = () => {
   
 const {firstStep,secondStep}=useSelector((state:RootState)=>state.eventReducer)
 const {allOffert}=useContext(AddEventContext)
+console.log(allOffert)
 const {register,handleSubmit,setValue,formState:{errors}}=useForm({defaultValues:{ ...secondStep},
     resolver:zodResolver(firstStep.productCategory=='programme'? validationSecondProgramme:validationSecondStepSchema)})
 console.log('rerender')

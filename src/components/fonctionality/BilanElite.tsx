@@ -14,7 +14,8 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {api} from '../../utils/api'
 import CoachAlerteValidation from './CoachAlerteValidation';
-
+import InvoiceElite from './InvoiceElite';
+import { BlobProvider} from '@react-pdf/renderer';
 
 // ce qui sera transmis au formulaire par react hook form 
 
@@ -51,7 +52,7 @@ className='grid grid-cols-4 w-full text-center'>
   <td  key={v4()}>{e.createdAt.toLocaleDateString()}</td>
   <td  key={v4()}>{e.place}</td>
   <td  key={v4()}>{e.hours}</td>
-  <td  key={v4()}>{e.hours*e.price}</td>
+  <td  key={v4()}>{e.price}</td>
 </tr>
   )
 })
@@ -162,11 +163,19 @@ setIsFetched(true)
               
                    
               
-                <button  disabled={isFetched}
+           {isFetched==false&& <button  
                 
                 
-                type='submit' className='py-2 px-8 bg-slate-800 text-slate-50 rounded-lg max-w-fit self-center'>{isFetched? 'confirmez vos dates' :'Suivant'}</button> </div>
-
+                type={'submit'}  className='py-2 px-8 bg-slate-800 text-slate-50 rounded-lg 
+                max-w-fit self-center'>Confirmer</button>}
+                
+                {isFetched&&<button   className='py-2 px-8 bg-slate-800 text-slate-50 rounded-lg max-w-fit self-center'  onClick={()=>{
+                 
+                    setIsFetched(false)
+                   
+                }} type='button'>Annuler</button>}
+                 </div>
+          
 {/**Tarif une seance par semaine
  * 
  * cela feras partie de la step 2
@@ -195,6 +204,17 @@ setIsFetched(true)
               {allElement}
             </tbody>
           </table>
+
+          <div className='flex items-center justify-center w-full pt-10'>
+  { isFetched&& <BlobProvider document={<InvoiceElite/>}>
+      {({ blob, url, loading, error }) => {
+        // Do whatever you need with blob here
+
+        
+        return url&&<a href={url}  className="max-w-fit bg-cyan-800 text-slate-50 font-semibold rounded-lg px-8 py-2" target="_blank">Prévisualiser la facture </a>;
+      }}
+    </BlobProvider>}
+    </div>
           </section>}
         
           <ModalFooter >

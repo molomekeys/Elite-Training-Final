@@ -2,7 +2,7 @@ import React,{useMemo} from 'react';
 import { Page, Text, View, Document, StyleSheet ,Svg,Image,Font,Polygon,Polyline} from '@react-pdf/renderer';
 
 import {v4} from 'uuid'
-
+import type { api } from '~/utils/api';
 
 // Create styles
 const styles = StyleSheet.create({
@@ -54,15 +54,43 @@ const invoiceData = {
 };
 
 // Create component
+const momo =''
 
+type InvoiceInfo={
+    price_coach: number;
+    price_client: number;
+    createdAt: Date;
+    hours: number;
+    type_offer: string;
+    place: string;
+}
+interface PropsInterface{
+billInfo:InvoiceInfo[]
+}
     
 
-const InvoiceElite = () => 
+const InvoiceElite = ({billInfo}:PropsInterface) => 
 
 {
 
-
-
+const coachingInfo=billInfo.filter((e)=>{
+    return e.type_offer==='coaching'
+})
+const programmeInfo=billInfo.filter((e)=>{
+    return e.type_offer==='programme'
+})
+const totalPriceCoaching=coachingInfo.reduce((acc,current)=>{
+    return current.price_coach
+},0)
+const totalHoursCoaching=coachingInfo.reduce((acc,current)=>{
+    return current.hours
+},0)
+const totalPriceProgramme=programmeInfo.reduce((acc,current)=>{
+    return current.price_coach
+},0)
+const totalHoursProgramme=programmeInfo.reduce((acc,current)=>{
+    return current.hours
+},0)
 //J'utilise useMemo pour faire du caching l'information(pour pas la recalculer)
 
     return (
@@ -112,12 +140,9 @@ const InvoiceElite = () =>
                 Description
             </Text>
             <Text>
-               
+               Hours
             </Text>
-            <Text>
-           
-
-            </Text>
+            
             <Text>
                Total
 
@@ -129,16 +154,14 @@ const InvoiceElite = () =>
 <View style={{display:'flex',gap:'10px',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',padding:'10px',alignItems:'center'}}>
 <Text style={{}}>Coaching</Text>
-<Text></Text>
-<Text></Text>
-<Text></Text>
+<Text>{totalHoursCoaching}</Text>
+<Text>{totalPriceCoaching}</Text>
 </View>
 <View style={{display:'flex',gap:'10px',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'center',padding:'10px'}}>
 <Text>Programme</Text>
-<Text>1</Text>
-<Text>1 </Text>
-<Text>1</Text>
+<Text>{totalHoursProgramme}</Text>
+<Text>{totalPriceProgramme} </Text>
 </View>
       </View>
       <View style={styles.totalSection}>
@@ -152,14 +175,14 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
                <Text  style={{fontFamily:'Helvetica-Bold',fontSize:'12px'}}></Text>
             </View>
             <View style={{width:'100%',alignItems:'flex-end',fontSize:'11px',gap:10}}>
-                <View style={{alignItems:'flex-end'}}>
-                <Text>Grand total :</Text>
+                <View style={{alignItems:'flex-end',gap:10}}>
+                <Text>Grand total :{totalPriceCoaching+totalPriceProgramme}</Text>
                 <Text>Tva : N/A</Text>
                 </View>
                 <View style={{flexDirection:'row',fontSize:'12px',borderRadius:'25%',
                 paddingTop:20,padding:10,justifyContent:'space-between',gap:20,backgroundColor:'#282F44',color:'#FFDA8A'}}>
-                <Text >Grand total  </Text>
-                <Text> euro TTC</Text>
+                <Text >Grand total   </Text>
+                <Text> {totalPriceCoaching+totalPriceProgramme} euro TTC</Text>
                 </View>
             </View>
             

@@ -75,7 +75,13 @@ type EventInfo={
     clientName:string
 }
 type paiementInfo ={
-  price:number,roomName:string,type:string
+ price_client: number;
+  price_coach: number;
+  roomName: string;
+  type: string;
+  hours: number;
+  id: number;
+
 }
 interface dataforPdf{
     dataEvent?:DataEvent[]
@@ -214,14 +220,14 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',padding:'10px
 <Text style={{}}>Coaching</Text>
 <Text>{eventInfo.hours}</Text>
 <Text>{eventInfo.unitPrice} </Text>
-{eventInfo.unitPrice&&<Text>{eventInfo.hours*billInfo.price}</Text>}
+{eventInfo.unitPrice&&<Text>{eventInfo.hours*billInfo.price_client}</Text>}
 </View>}
 {eventInfo.category=='programme'&&<View style={{display:'flex',gap:'10px',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'center',padding:'10px'}}>
 <Text>Programme</Text>
 <Text>1</Text>
-<Text>{billInfo.price} </Text>
-<Text>{`${billInfo.price}`}</Text>
+<Text>{billInfo.price_client} </Text>
+<Text>{`${billInfo.price_client}`}</Text>
 </View>}
       </View>
       <View style={styles.totalSection}>
@@ -236,13 +242,13 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
             </View>
             <View style={{width:'100%',alignItems:'flex-end',fontSize:'11px',gap:10}}>
                 <View style={{alignItems:'flex-end'}}>
-                <Text>Grand total : {eventInfo.category=='coaching'? eventInfo.hours*eventInfo?.unitPrice : billInfo.price}</Text>
+                <Text>Grand total : {eventInfo.category=='coaching'? eventInfo.hours*eventInfo?.unitPrice : billInfo.price_coach}</Text>
                 <Text>Tva : N/A</Text>
                 </View>
                 <View style={{flexDirection:'row',fontSize:'12px',borderRadius:'25%',
                 paddingTop:20,padding:10,justifyContent:'space-between',gap:20,backgroundColor:'#282F44',color:'#FFDA8A'}}>
                 <Text >Grand total  </Text>
-                <Text>{eventInfo.category=='coaching'? eventInfo.hours*eventInfo?.unitPrice : billInfo.price} euro TTC</Text>
+                <Text>{eventInfo.category=='coaching'? eventInfo.hours*eventInfo?.unitPrice : billInfo.price_coach} euro TTC</Text>
                 </View>
             </View>
             

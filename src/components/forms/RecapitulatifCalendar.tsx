@@ -32,7 +32,7 @@ const RecapitulatifCalendar = ({close}:{close:()=>void}) => {
   const {events,client,saveEvent,allOffert,saveEventCalendarContext}=useContext(AddEventContext)
   const firstStepInfo=useSelector((state:RootState)=>state.eventReducer.firstStep)
   const secondStepInfo=useSelector((state:RootState)=>state.eventReducer.secondStep)
-  const [selectedPriceOffer,setSelectedPriceOffer]=useState({price:0,
+  const [selectedPriceOffer,setSelectedPriceOffer]=useState({price_client:0,price_coach:0,
     roomName:'',type:'',hours:0,id:0})
 
 // useEffect permet lors de l'affichage du premier render de faire les calcules des prix
@@ -62,7 +62,8 @@ useEffect(()=>{
     setSelectedPriceOffer((prev)=> {
       if(selectedOfferTest[0]?.client_price!=undefined &&selectedOffer[0]?.room_name!=undefined)
       {
-        return {id:selectedOfferTest[0].id,hours:totalHours,price:selectedOfferTest[0]?.client_price,roomName:selectedOffer[0]?.room_name,type:firstStepInfo.productCategory}
+        return {id:selectedOfferTest[0].id,price_coach:selectedOfferTest[0].coach_price,
+          hours:totalHours,price_client:selectedOfferTest[0]?.client_price,roomName:selectedOffer[0]?.room_name,type:firstStepInfo.productCategory}
 
       }
       else {
@@ -82,7 +83,7 @@ useEffect(()=>{
       setSelectedPriceOffer((prev)=> {
         if(selectedOffer[0]?.room_name!=undefined)
         {
-          return {id:selectedProgrammeTest.id,hours:totalHours,price:selectedProgrammeTest.client_price,roomName:selectedOffer[0]?.room_name,type:firstStepInfo.productCategory}
+          return {price_client:selectedProgrammeTest.client_price,price_coach:selectedProgrammeTest.coach_price,id:selectedProgrammeTest.id,hours:totalHours,price:selectedProgrammeTest.client_price,roomName:selectedOffer[0]?.room_name,type:firstStepInfo.productCategory}
 
         }
         else {
@@ -175,7 +176,8 @@ selectedOfferTest!=undefined)
 {
   
 const testMomo= await addEvents.mutateAsync({eventData:[...momoTest],
-  billingData:{bill_invoice_pdf:'...',price:selectedPriceOffer.price,
+  billingData:{bill_invoice_pdf:'...',price_coach:selectedPriceOffer.price_coach,
+  price_client:selectedPriceOffer.price_client,
   type:firstStepInfo.productCategory,
   prisma_client_id:Number(firstStepInfo.clientId),
   prisma_coach_id:Number(data?.user.coach_table?.id)
@@ -223,8 +225,8 @@ close()
         </div>
     <div className="border-b-2 border-slate-400 gap-4 pb-10 flex flex-col lg:flex-row  w-full text-right justify-end ">
  
-      <p className="lg:text-lg text-right font-semibold"><span>Le client paiera : </span>{firstStepInfo.productCategory=='programme'? selectedPriceOffer.price : 
-      selectedPriceOffer.price*selectedPriceOffer.hours}
+      <p className="lg:text-lg text-right font-semibold"><span>Le client paiera : </span>{firstStepInfo.productCategory=='programme'? selectedPriceOffer.price_client : 
+      selectedPriceOffer.price_client*selectedPriceOffer.hours}
        <span className='font-semibold '>&euro;</span>
      </p>
     
@@ -239,7 +241,7 @@ close()
     <BlobProvider document={<InvoiceComponent billInfo={selectedPriceOffer}
     
     eventInfo={{clientName:findClientName[0]?.name? findClientName[0].name : '',salleName:selectedOffer[0]?.room_name? selectedOffer[0]?.room_name : '',
-    hours:selectedPriceOffer.hours,unitPrice:selectedPriceOffer.price,category:firstStepInfo.productCategory,coachName:data?.user.name? data.user.name : ''}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
+    hours:selectedPriceOffer.hours,unitPrice:selectedPriceOffer.price_client,category:firstStepInfo.productCategory,coachName:data?.user.name? data.user.name : ''}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here
 

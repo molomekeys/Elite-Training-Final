@@ -43,16 +43,19 @@ export default function BilanElite() {
   const allSalle = api.example.availaibleRoom.useQuery().data
     const { isOpen, onOpen, onClose } = useDisclosure()
     const fetchBills = api.example.billEliteForCoach.useMutation()
+
+    const {data}=fetchBills
     const {isOpen:isOpenValidate,onOpen:onOpenValdate,onClose:onCloseValidate}=useDisclosure()
 console.log(fetchBills.data)
 const allElement=fetchBills.data!='non valide '&&fetchBills.data!=undefined&&fetchBills?.data?.map((e)=>{
 return (<tr  key={v4()}
-className='grid grid-cols-4 w-full text-center'>
+className='grid grid-cols-5 w-full text-center'>
 
   <td  key={v4()}>{e.createdAt.toLocaleDateString()}</td>
   <td  key={v4()}>{e.place}</td>
+  <td key={v4()}>{e.type_offer}</td>
   <td  key={v4()}>{e.hours}</td>
-  <td  key={v4()}>{e.price}</td>
+  <td  key={v4()}>{e.price_coach}</td>
 </tr>
   )
 })
@@ -185,12 +188,15 @@ setIsFetched(true)
       <section className='w-full pt-10 flex flex-col'>
       <table className='table-auto'>
             <thead className='w-full'>
-                  <tr className='grid grid-cols-4 w-full text-center'>
+                  <tr className='grid grid-cols-5 w-full text-center'>
                     <th className='text-center flex justify-center flex-row w-full'>
                       date de creation
                     </th>
                     <th className='w-full text-center'>
                      salle
+                    </th>
+                    <th className='w-full text-center'>
+                     type
                     </th>
                     <th>
                       heures
@@ -206,7 +212,7 @@ setIsFetched(true)
           </table>
 
           <div className='flex items-center justify-center w-full pt-10'>
-  { isFetched&& <BlobProvider document={<InvoiceElite/>}>
+  { isFetched&& data!='non valide '&& data!=undefined&&<BlobProvider document={<InvoiceElite billInfo={data}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here
 

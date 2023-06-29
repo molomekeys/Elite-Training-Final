@@ -185,7 +185,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
           lte: newEndDate,gte:newStartDate
         }
       },select:{
-        createdAt:true,hours:true,price:true,offer_prisma_id:{
+        createdAt:true,type_offer:true,hours:true,price_coach:true,price_client:true,offer_prisma_id:{
           select:{
             coach_price:true,
           }
@@ -375,7 +375,7 @@ const allBillInfo=await ctx.prisma.billing.findMany(({
 
       }
     },type_offer:true,
-    hours:true,price:true,
+    hours:true,price_client:true,
     isPaid:true,id:true,
     createdAt:true,
     offer_prisma_id:{
@@ -398,7 +398,7 @@ return allBillInfoFltered
 }),
   addEventsCalendar:publicProcedure.input(z.object({
     billingData:z.object({
-      prisma_client_id:z.number(),price:z.number(),type:z.string(),
+      prisma_client_id:z.number(),price_client:z.number(),price_coach:z.number(),type:z.string(),
       prisma_coach_id:z.number(),hours:z.number(),
       prisma_place_id:z.number(),bill_invoice_pdf:z.string(),
       offer_prisma_id:z.number()}),
@@ -421,8 +421,8 @@ let billingId=0
       if(billingData.type=='coaching')
       {
       const billClient=await ctx.prisma.billing.create({
-        data:{type_offer:billingData.type,price:
-        billingData.hours*billingData.price ,
+        data:{type_offer:billingData.type,price_client:
+        billingData.hours*billingData.price_client ,price_coach:billingData.hours*billingData.price_coach,
         bill_invoice_pdf:bill_invoice_pdf,hours:hours,
         client_id:prisma_client_id,offer_id:billingData.offer_prisma_id,
         coach_id:prisma_coach_id,salle_id:prisma_place_id, 
@@ -438,8 +438,9 @@ let billingId=0
   if(billingData.type=='programme')
       {
       const billClient=await ctx.prisma.billing.create({
-        data:{type_offer:billingData.type,price:
-        billingData.price ,programme_id:billingData.offer_prisma_id,
+        data:{type_offer:billingData.type,price_client:
+        billingData.price_client ,price_coach:
+        billingData.price_coach,programme_id:billingData.offer_prisma_id,
         bill_invoice_pdf:bill_invoice_pdf,hours:hours,
         client_id:prisma_client_id,
         coach_id:prisma_coach_id,salle_id:prisma_place_id, 

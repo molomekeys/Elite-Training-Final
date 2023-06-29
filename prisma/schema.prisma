@@ -37,7 +37,8 @@ model Billing {
     bill_invoice_pdf     String
     coach_id             Int
     client_id            Int
-    price                Int
+    price_coach          Int
+    price_client         Int
     createdAt            DateTime          @default(now())
     hours                Int
     isPaid               Boolean           @default(false)

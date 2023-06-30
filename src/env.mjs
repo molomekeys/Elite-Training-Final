@@ -11,7 +11,7 @@ export const env = createEnv({
     SENDGRID_API_KEY:z.string().min(1),
     DATABASE_URL: z.string().url(),
     STRIPE_SIGNIN_SECRET:z.string().min(1),
-  
+    ACCESS_TOKEN:z.string().min(1),
     NODE_ENV: z.enum(["development", "test", "production"]),
     NEXTAUTH_SECRET:
       process.env.NODE_ENV === "production"
@@ -64,6 +64,7 @@ export const env = createEnv({
   NEXT_PUBLIC_storageBucket:  process.env.NEXT_PUBLIC_storageBucket,
   NEXT_PUBLIC_messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId ,
   NEXT_PUBLIC_appId:   process.env.NEXT_PUBLIC_appId,
-  STRIPE_SIGNIN_SECRET:process.env.STRIPE_SIGNIN_SECRET
+  STRIPE_SIGNIN_SECRET:process.env.STRIPE_SIGNIN_SECRET,
+  ACCESS_TOKEN:process.env.ACCESS_TOKEN
   },
 });

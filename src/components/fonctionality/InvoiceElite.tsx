@@ -151,18 +151,18 @@ const totalHoursProgramme=programmeInfo.reduce((acc,current)=>{
       <View style={styles.tableStyle}>
        
   
-<View style={{display:'flex',gap:'10px',
+{totalPriceCoaching>0&&<View style={{display:'flex',gap:'10px',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',padding:'10px',alignItems:'center'}}>
 <Text style={{}}>Coaching</Text>
 <Text>{totalHoursCoaching}</Text>
 <Text>{totalPriceCoaching}</Text>
-</View>
-<View style={{display:'flex',gap:'10px',
+</View>}
+{totalHoursProgramme>0&&<View style={{display:'flex',gap:'10px',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'center',padding:'10px'}}>
 <Text>Programme</Text>
 <Text>{totalHoursProgramme}</Text>
 <Text>{totalPriceProgramme} </Text>
-</View>
+</View>}
       </View>
       <View style={styles.totalSection}>
             <View style={{width:'100%',gap:10,fontSize:'11px'}}>

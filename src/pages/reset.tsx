@@ -6,6 +6,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useAnimate,motion } from 'framer-motion';
 
 import {useEffect} from 'react'
+import { api } from '~/utils/api';
 
 import { useState } from 'react';
 import {useForm} from 'react-hook-form'
@@ -14,66 +15,41 @@ import * as z from 'zod'
 import { GetServerSidePropsContext } from 'next';
 import { getServerAuthSession } from '~/server/auth';
 const validationSchemaLogin=z.object({
-  email:z.string().nonempty('Veuillez indiquez votre email').email('Adresse e-mail non valide'),
-  password:z.string().nonempty('Veuillez saisir votre mot de passe').min(6,'Veuillez indiquez votre mot de passe (Le mot de passe doit contenir au moins 6 caractères)')
+  email:z.string().nonempty('Veuillez indiquez votre email').email('Adresse e-mail non valide')
+ 
 })
 const Reset = () => {
  
 
 const [errorDisplay,setErrorDisplay]=useState(false)
     const router = useRouter()
-
+    const forgetPassword=api.forgetPassword.forgetPasswordInfo.useMutation()
     //avec ça je peux verifier si l'utilisateur est sign in
     const {data:session,status}=useSession()
  
 
-    const {register,formState:{errors},setError,handleSubmit}=useForm({defaultValues:{email:'',password:''},resolver:zodResolver(validationSchemaLogin)})
+    const {register,formState:{errors},setError,handleSubmit}=useForm({defaultValues:{email:''},resolver:zodResolver(validationSchemaLogin)})
 
-    async function handleLogin(values:{password:string,email:string}){
+
+//function qui permet
+
+    async function handleForgetPassword(values:{email:string}){
       
       
-      console.log(values)
-      const signInStatus= await signIn('credentials',
-      {username:values.email,password:values.password,redirect:false})
-      
-      if(signInStatus?.error){
-        handleAnimate()
+     const changeFunction= await forgetPassword.mutateAsync({email:values.email})
+     console.log(changeFunction)
+      if(changeFunction==="Aucun compte n'est associé à cette adresse email"){
+        handleAnimate(changeFunction)
       }
+      
     }
 
-    useEffect(()=>{
-
-
-      //function qui permet de redigirer la bonne perosnne conencter
-      async function handleUserLoged(){
-     
-        if(session?.user) {
-          if(session.user.role=='admin')
-          {
-            router.push('admin/dashboardAdmin',)
-          }
-          else if(session.user.role=='coach')
-          {
-            console.log('slt')
-            router.push('/coach/dashboardCoach')
-
-          }
-          else if(session.user.role=='client')
-          {
-            console.log('slt')
-            router.push('/client/planning')
-
-          }
-        }
-      }
-      handleUserLoged()
-    },[session,router])
 console.log(session)
 
 const [refTest,animate]=useAnimate()
-function handleAnimate(){
+function handleAnimate(message:string){
 animate(refTest.current,{x:['3%','-3%','3%','-3%','0%']},{duration:0.6})
-setError('password',{message:'* Email ou mot de passe incorrect'})
+setError('email',{message:message})
 }
 
  if(status==="unauthenticated")
@@ -102,10 +78,10 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
 </h3>
 <p className=' text-sm font-semibold text-slate-700'>
           Saisissez l&apos;adresse e-mail associée à votre compte et
-           nous vous enverrons un code à usage unique pour réinitialiser votre mot de passe.
+           nous vous enverrons un lien qui expiera dans 15 minutes pour réinitialiser votre mot de passe.
 
           </p>
-        <form  onSubmit={handleSubmit(handleLogin)}
+        <form  onSubmit={handleSubmit( handleForgetPassword)}
         className='flex flex-col gap-4 
          text-slate-50 font-semibold bg-white  p-4 text-slate-700 '>
          

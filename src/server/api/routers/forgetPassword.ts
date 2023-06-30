@@ -6,6 +6,8 @@ import {
 } from "~/server/api/trpc";
 import jwt from 'jsonwebtoken'
 import { env } from "~/env.mjs";
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 export const forgetPassword=createTRPCRouter(
     {
         forgetPasswordInfo:publicProcedure.input(z.object({email:z.string()})).mutation(async ({ctx,input})=>{
@@ -15,14 +17,33 @@ export const forgetPassword=createTRPCRouter(
                     where:{
                         email:email
                     },select:{
-                        password:true
+                        password:true,email:true,name:true
                     }
                    
                 })
                 if(findUser!=null){
                     const token=jwt.sign(email,env.ACCESS_TOKEN)
-                    return token
-
+                    
+                    const sendGridMail={
+                        to: email,
+                        from :"elitetraining38@gmail.com",
+                        templateId:"d-82764b225a1f41a8afe951c28e4d98c8",
+                        dynamic_template_data:{
+                          url:`https://elite-training-final-6y7w-alpha.vercel.app/rest/${token}`,
+                       
+                            
+                                user_name:findUser.name, user_email:findUser.email,elite_mail:'elitetraining38@gmail.com'
+                       
+                        }
+                    }
+                    try {
+                        await sgMail.send(sendGridMail);
+                        
+                        return 'veuillez vérifier votre email'
+                    
+                    } catch (error) {
+                      return `error`
+                    }
 
                 }
                 else {
@@ -38,5 +59,5 @@ export const forgetPassword=createTRPCRouter(
             return delockValue
 
         })
-    }
+    },
 )

@@ -38,13 +38,15 @@ const [errorDisplay,setErrorDisplay]=useState(false)
       
      const changeFunction= await forgetPassword.mutateAsync({email:values.email})
      console.log(changeFunction)
-      if(changeFunction==="Aucun compte n'est associé à cette adresse email"){
+      if(changeFunction==="aucun compte n'est associé à cette adresse email"){
         handleAnimate(changeFunction)
+      }
+      else if(changeFunction==='veuillez vérifier votre email'){
+
       }
       
     }
 
-console.log(session)
 
 const [refTest,animate]=useAnimate()
 function handleAnimate(message:string){

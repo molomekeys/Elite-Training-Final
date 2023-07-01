@@ -108,7 +108,7 @@ setError('password',{message:'* Email ou mot de passe incorrect'})
           <div className='flex flex-col   gap-4   w-full    '>
            <label htmlFor="email" className='text-slate-900  text-sm font-bold 
              min-w-fit '>E-mail * </label>
-          <input {...register('email')}  className="border-2  py-3 w-full bg-slate-100
+          <input {...register('email')}   className="border-2  py-3 w-full bg-slate-100
            border-slate-200  rounded-md text-slate-700"
           name="email" type="email" placeholder="Inscrire votre adresse e-mail" />
        <p className='text-xs font-semibold text-red-500'>{errors.email?.message}</p>

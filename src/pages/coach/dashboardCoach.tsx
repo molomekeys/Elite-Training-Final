@@ -57,7 +57,7 @@ const dataDashboardScreen=dashboardData
     
     <div className="p-4 pt-10">
   
-  <div className="grid grid-cols-2 gap-4 lg:flex lg:justify-between lg:p-4 lg:px-20">
+  <div className="grid grid-cols-1 gap-4 lg:flex lg:justify-between lg:p-4 lg:px-20">
   
    <div className="border-2 border-blue-900 rounded-lg p-1 flex items-center justify-center  p-4  gap-3">
    {dashboardData===0?<p></p>:<p className="text-xs lg:text-sm  whitespace-nowrap font-semibold">Nombre de clients : </p>}

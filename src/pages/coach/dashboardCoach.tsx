@@ -5,10 +5,11 @@ import {  useDispatch } from 'react-redux'
 import { PDFDownloadLink,BlobProvider} from '@react-pdf/renderer';
 import { useEffect, useState } from "react";
 import InvoiceComponent from "~/components/fonctionality/InvoiceComponent";
+import {motion} from 'framer-motion'
 const DashboardCoach = () => {
  
   const[isInClient,SetIsInClient]=useState(false)
-  const {data:dashboardData}=api.dashboardInfo.fetchingDashboard.useQuery(undefined,{ staleTime:20000})
+  const {data:dashboardData,isLoading}=api.dashboardInfo.fetchingDashboard.useQuery(undefined,{ staleTime:20000})
   console.log(dashboardData)
   useEffect(()=>{
     if(isInClient==false)
@@ -57,7 +58,10 @@ const dataDashboardScreen=dashboardData
     
     <div className="p-4 pt-10">
   
-  <div className="grid grid-cols-1 gap-4 lg:flex lg:justify-between lg:p-4 lg:px-20">
+  {isLoading===false&&<motion.div  animate={{opacity:1}} initial={{opacity:0}} transition={{duration:0.25, ease:"easeInOut"}}
+   
+  
+  className="grid grid-cols-1 gap-4 lg:flex lg:justify-between lg:p-4 lg:px-20">
   
    <div className="border-2 border-blue-900 rounded-lg p-1 flex items-center justify-center  p-4  gap-3">
    {dashboardData===0?<p></p>:<p className="text-xs lg:text-sm  whitespace-nowrap font-semibold">Nombre de clients : </p>}
@@ -81,8 +85,8 @@ const dataDashboardScreen=dashboardData
    
 
    </div>
-   
-  </div>
+  
+  </motion.div>}
 
     </div>
 </section>

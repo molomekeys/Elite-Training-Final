@@ -1,7 +1,7 @@
 import {useForm} from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { api } from '~/utils/api'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
 //react function
@@ -12,7 +12,7 @@ const ChangePassword = () => {
         password:'',confirmPassword:''
     }})
     const checkJeton= api.forgetPassword.delockJeton.useMutation()
-
+    const [isActif,setIsActif]=useState(false)
     useEffect(()=>{
 
         async function fetchData(momo:string){
@@ -23,24 +23,31 @@ const ChangePassword = () => {
           
         if(data!=undefined&&data[0]!=undefined){
             const momo = data[0]
-           const testData =fetchData(momo).then((e)=>{
-            console.log(e)
-            if(typeof e==='string'){
-                
-            }
-            else {
-                router.push('/')
-            }
-           })
+
+           
+                const testData = fetchData(momo).then((e)=>{
+                    if(e==='invalide json')
+                    {
+                       router.push('/')
+                    }
+                    else {
+                        setIsActif(true)
+                        return e
+                    }
+           
+                })
+           
+        
+        
           
         }
-    },[router])
+    },[router,setIsActif])
    
 
     
   return (
- <section className='flex items-center justify-center flex-col lg:p-4 gap-4  w-full'>
-    <form className='flex flex-col lg:border-2  border-slate-400 rounded-lg gap-10 lg:w-4/5 p-10'>
+<section className='flex items-center justify-center flex-col lg:p-4 gap-4  w-full'>
+{isActif&& <form className='flex flex-col lg:border-2  border-slate-400 rounded-lg gap-10 lg:w-4/5 p-10'>
         <h3 className='text-center font-semibold text-xl'>Vous etes sur le point de modifier votre 
         mot de passe </h3>
 
@@ -52,7 +59,7 @@ const ChangePassword = () => {
         <input  className='w-full form-input bg-slate-100  rounded-md py-3'
         placeholder='inscrivez votre mot de passe ' {...register('confirmPassword')}/>
         <button className='bg-slate-700  self-center py-3 min-w-fit w-3/5 lg:w-1/5 rounded-lg text-white font-semibold my-6'>confirmer </button>
-    </form>
+    </form>}
  </section>
   )
 }

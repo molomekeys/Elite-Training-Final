@@ -22,14 +22,14 @@ export const forgetPassword=createTRPCRouter(
                    
                 })
                 if(findUser!=null){
-                    const token=jwt.sign(email,env.ACCESS_TOKEN)
+                    const token=jwt.sign({email:email},env.ACCESS_TOKEN,{expiresIn:'15m' })
                     
                     const sendGridMail={
                         to: email,
                         from :"elitetraining38@gmail.com",
                         templateId:"d-82764b225a1f41a8afe951c28e4d98c8",
                         dynamic_template_data:{
-                          url:`https://elite-training-final-6y7w-alpha.vercel.app/rest/${token}`,
+                          url:`https://elite-training-final-6y7w-alpha.vercel.app/reset/${token}`,
                        
                             
                                 user_name:findUser.name, user_email:findUser.email,elite_mail:'elitetraining38@gmail.com'
@@ -54,9 +54,16 @@ export const forgetPassword=createTRPCRouter(
         }),delockJeton:publicProcedure.input(z.string()).mutation(async ({input,ctx})=>{
 
             
-            
+           try {
             const delockValue=jwt.verify(input,env.ACCESS_TOKEN)
-            return delockValue
+                return delockValue
+           } catch (error) {
+            return 'invalide json'
+           }
+                
+                
+            
+           
 
         })
     },

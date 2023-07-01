@@ -26,6 +26,7 @@ const [errorDisplay,setErrorDisplay]=useState(false)
     const forgetPassword=api.forgetPassword.forgetPasswordInfo.useMutation()
     //avec ça je peux verifier si l'utilisateur est sign in
     const {data:session,status}=useSession()
+    const [isEmailSend,setIsEmailSend]=useState(false)
  
 
     const {register,formState:{errors},setError,handleSubmit}=useForm({defaultValues:{email:''},resolver:zodResolver(validationSchemaLogin)})
@@ -76,13 +77,13 @@ setError('email',{message:message})
     flex-col w-full  md:w-4/5 lg:w-3/5 justify-center   
     p-1 h-full lg:m-0 md:p-10 bg-white pt-10    ">
     <h3 className='text-slate-800 text-2xl min-h-fit min-w-fit lg:text-3xl font-bold text-center relative '>
-    Réinitialisation du mot de passe
+   {isEmailSend? "Veuillez vérifier votre adresse mail " : "Réinitialisation du mot de passe"}
 </h3>
-<p className=' text-sm font-semibold text-slate-700'>
+{isEmailSend===false&&<p className=' text-sm font-semibold text-slate-700'>
           Saisissez l&apos;adresse e-mail associée à votre compte et
            nous vous enverrons un lien qui expiera dans 15 minutes pour réinitialiser votre mot de passe.
 
-          </p>
+          </p>}
         <form  onSubmit={handleSubmit( handleForgetPassword)}
         className='flex flex-col gap-4 
          text-slate-50 font-semibold bg-white  p-4 text-slate-700 '>
@@ -90,7 +91,8 @@ setError('email',{message:message})
           <div className='flex flex-col   gap-4   w-full    '>
            <label htmlFor="email" className='text-slate-900  text-sm font-semibold 
              min-w-fit '>E-mail * </label>
-          <input {...register('email')}  className="border-2  py-3 w-full bg-slate-100
+          <input {...register('email')}  placeholder='Veuillez inscrire votre adresse mail'
+            className="border-2  py-3 w-full bg-slate-100
            border-slate-200  rounded-md text-slate-700"
           name="email" type="email"  />
        <p className='text-xs font-semibold text-red-500'>{errors.email?.message}</p>

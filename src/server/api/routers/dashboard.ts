@@ -23,7 +23,22 @@ export const dashboardData=createTRPCRouter(
                         coach_id:Number(session.user.coach_table.id)
                     }
                 })
-                return {client:allClient,bill:allBilling}
+                const totalGener= await prisma.billing.aggregate({
+                    where:{
+                        coach_id:Number(session.user.coach_table.id),isPaid:true
+                    },_sum:{
+                        price_coach:true
+                    }
+                })
+                const totalFacturer= await prisma.billing.aggregate({
+                    where:{
+                        coach_id:Number(session.user.coach_table.id),isPaid:false
+                    },_sum:{
+                        price_coach:true
+                    }
+                })
+                
+                return {client:allClient,bill:allBilling,priceTotal:totalGener._sum.price_coach,totalBilling:totalFacturer._sum.price_coach}
 
 
             }

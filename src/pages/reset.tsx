@@ -14,6 +14,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod'
 import { GetServerSidePropsContext } from 'next';
 import { getServerAuthSession } from '~/server/auth';
+import { useDisclosure } from '@chakra-ui/react';
+import SuccescChange from '~/components/models_Layout/SuccescChange';
 const validationSchemaLogin=z.object({
   email:z.string().nonempty('Veuillez indiquez votre email').email('Adresse e-mail non valide')
  
@@ -27,8 +29,8 @@ const [errorDisplay,setErrorDisplay]=useState(false)
     //avec ça je peux verifier si l'utilisateur est sign in
     const {data:session,status}=useSession()
     const [isEmailSend,setIsEmailSend]=useState(false)
- 
-
+  const [isSendEmail,setIsSendEmail]=useState(false)
+  const {isOpen,onClose,onOpen}=useDisclosure()
     const {register,formState:{errors},setError,handleSubmit}=useForm({defaultValues:{email:''},resolver:zodResolver(validationSchemaLogin)})
 
 
@@ -43,7 +45,7 @@ const [errorDisplay,setErrorDisplay]=useState(false)
         handleAnimate(changeFunction)
       }
       else if(changeFunction==='veuillez vérifier votre email'){
-
+        onOpen()
       }
       
     }
@@ -68,6 +70,8 @@ setError('email',{message:message})
 
    <main className="flex  p-4  lg:p-10 items-center
     justify-center  w-full  ">
+   
+   <SuccescChange isOpen={isOpen} onClose={onClose} onOpen={onOpen} customMessage={'Un email vous à étais envoyer, veuillez vérifier votre boite mail'}/>
    
     <motion.section  ref={refTest}
    

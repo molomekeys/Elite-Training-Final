@@ -27,14 +27,14 @@ model User {
     phone_number   String
     coach_table    Coach?
     client_table   Client?
-    password_reset String? @default("null")
-    isPaidCustomer Boolean @default(false)
+    password_reset DateTime?
+    isPaidCustomer Boolean   @default(false)
 }
 
 model Billing {
     id Int @id @default(autoincrement())
 
-    bill_invoice_pdf     String
+    bill_invoice_pdf     String?
     coach_id             Int
     client_id            Int
     price_coach          Int

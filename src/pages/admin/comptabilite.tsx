@@ -95,13 +95,12 @@ console.log(billFetched)
 
  
   const allFetchedClient=billFetched!='access denied'&&billFetched?.map((e)=>{
-   return(  <tr key={v4()} className=" py-4  text-center w-full grid grid-cols-5 lg:grid-cols-8  ">
+   return(  <tr key={v4()} className=" py-4  text-center w-full grid grid-cols-5 lg:grid-cols-7  ">
       <td key={v4()}   className=" text-xs font-semibold italic pl-4 ">{e?.createdAt?.toLocaleDateString()}</td>
       <td key={v4()} className=" font-bold text-xs  flex justify-center">{e.client_name}</td>
       <td key={v4()} className=" font-bold text-xs flex justify-center">{e.coach_name}</td>
       <td key={v4()} className=" font-bold text-xs flex justify-center">{e.place}</td>
 
-      <td key={v4()} className=" font-bold text-xs hidden lg:flex justify-center">{e.bill_invoice_pdf}</td>
       <td key={v4()}  className="  w-full hidden lg:flex justify-center font-bold text-xs text-center">{e.client_price!=undefined&&e.hours*e?.client_price}</td>
       <td key={v4()}  className="  w-full hidden lg:flex justify-center font-bold text-xs text-center">{e.coach_price!=undefined&&e.hours*e?.coach_price}</td>
 
@@ -129,7 +128,7 @@ if(billFetched=="access denied"){
     <motion.table animate={{opacity:1,y:0}} initial={{opacity:0}} transition={{duration:0.5,delay:0.1}}
      className="table-auto rounded-xl flex flex-col  bg-slate-200  w-full   text-center ">
       <thead className=" text-sm   w-full bg-slate-200  flex   px-2 items-center justify-center  ">
-      <tr className="  bg-slate-200 grid grid-cols-5 lg:grid-cols-8 text-xl  w-full ">
+      <tr className="  bg-slate-200 grid grid-cols-5 lg:grid-cols-7 text-xl  w-full ">
 
       <th className=" flex  items-center justify-center w-full  "><BsFillCalendarPlusFill width={25}/></th>
       <th className=" flex  items-center justify-center w-full text-xs  ">client</th>
@@ -137,7 +136,6 @@ if(billFetched=="access denied"){
       <th className=" flex  items-center justify-center w-full flex  "><MdWhereToVote/></th>
 
 
-      <th className="flex  items-center justify-center w-full hidden lg:flex  "><AiOutlineFilePdf width={25}/></th>
 
       <th className=" lg:flex  items-center justify-center w-full  text-xs hidden ">tarif client</th>
 

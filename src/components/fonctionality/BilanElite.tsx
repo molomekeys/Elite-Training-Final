@@ -36,7 +36,7 @@ const validationSchema = z.object({
 
 
 export default function BilanElite() {
-
+const [isFetchedData,setIsFetchData]=useState({roomName:''})
 
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const modalSize = isLargerThan768 ? "5xl" : "full";
@@ -47,7 +47,7 @@ export default function BilanElite() {
     const {data}=fetchBills
     const {isOpen:isOpenValidate,onOpen:onOpenValdate,onClose:onCloseValidate}=useDisclosure()
 console.log(fetchBills.data)
-const allElement=fetchBills.data!='non valide '&&fetchBills.data!=undefined&&fetchBills?.data?.map((e)=>{
+const allElement=fetchBills.data!='non valide '&&fetchBills.data!=undefined&&fetchBills?.data?.billingData?.map((e)=>{
 return (<tr  key={v4()}
 className='grid grid-cols-5 w-full text-center'>
 
@@ -66,7 +66,7 @@ const allRoom=allSalle&&allSalle?.map((e)=>{
    
     const finalRef = useRef(null)
   const [isFetched,setIsFetched]=useState(false)
-    const { register, handleSubmit ,formState:{errors,defaultValues},reset} = useForm(
+    const { register, handleSubmit, formState:{errors,},reset} = useForm(
       
       {defaultValues:{monthSelected:"",rommName:""
     
@@ -101,6 +101,15 @@ async function createClient(data:ClientData) {
 }
 else if(momo){
   console.log(momo)
+  const roomInfo=allSalle?.filter((e)=>{
+   return e.id===Number(data.rommName)
+  })
+  if(roomInfo!=undefined&&roomInfo[0]?.room_name!=undefined)
+  {
+  setIsFetchData((prev)=>{
+    return {...prev,roomName:roomInfo[0]?.room_name!=undefined? roomInfo[0].room_name : ''}
+  })
+}
 setIsFetched(true)
 }
 }
@@ -212,7 +221,7 @@ setIsFetched(true)
           </table>
 
           <div className='flex items-center justify-center w-full pt-10'>
-  { isFetched&& data!='non valide '&& data!=undefined&&<BlobProvider document={<InvoiceElite billInfo={data}/>}>
+  { isFetched&& data!='non valide '&& data!=undefined&&<BlobProvider document={<InvoiceElite roomName={isFetchedData.roomName} billInfo={data.billingData} coachData={data.coachData}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here
 

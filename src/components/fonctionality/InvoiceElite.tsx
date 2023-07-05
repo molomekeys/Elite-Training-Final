@@ -1,9 +1,7 @@
 import React,{useMemo} from 'react';
 import { Page, Text, View, Document, StyleSheet ,Svg,Image,Font,Polygon,Polyline} from '@react-pdf/renderer';
-
 import {v4} from 'uuid'
-import type { api } from '~/utils/api';
-
+ 
 // Create styles
 const styles = StyleSheet.create({
     logo: {
@@ -42,19 +40,10 @@ const styles = StyleSheet.create({
   },stylesFooterTitle:{fontWeight:'bold',fontFamily:'Helvetica-Bold',color:'black',fontSize:'11px'}
 });
 
-// Create invoice data
-const invoiceData = {
-  invoiceNumber: 'INV-001',
-  date: '2022-03-28',
-  dueDate: '2022-04-28',
-  items: [
-    { description: 'Item 1', quantity: 1, price: 10 },
-    { description: 'Item 2', quantity: 2, price: 20 },
-  ],
-};
+
 
 // Create component
-const momo =''
+
 
 type InvoiceInfo={
     price_coach: number;
@@ -64,14 +53,24 @@ type InvoiceInfo={
     type_offer: string;
     place: string;
 }
+type CoachData={
+ 
+    numero_siren: string;
+    isValid: boolean;
+    coachName:string | null | undefined;
+
+}
 interface PropsInterface{
 billInfo:InvoiceInfo[]
+coachData:CoachData
+roomName:string
 }
     
 
-const InvoiceElite = ({billInfo}:PropsInterface) => 
+const InvoiceElite = ({billInfo,coachData,roomName}:PropsInterface) => 
 
 {
+
 
 const coachingInfo=billInfo.filter((e)=>{
     return e.type_offer==='coaching'
@@ -117,8 +116,7 @@ const totalHoursProgramme=programmeInfo.reduce((acc,current)=>{
         </View>
         <View style={{padding:30}}>
         <View style={{width:'100%',gap:10}}>
-            <Text style={styles.stylesFooterTitle}>Coach :</Text>
-            <Text style={styles.stylesFooterTitle}>Facture pour </Text>
+            <Text style={styles.stylesFooterTitle}>{coachData?.coachName?.toLocaleUpperCase()} COACH SPORTIF</Text>
 
         </View>
    
@@ -126,11 +124,12 @@ const totalHoursProgramme=programmeInfo.reduce((acc,current)=>{
       <View style={{alignItems:'flex-end',marginBottom:'10px',gap:'10px',display:'flex'}}>
       <View style={{flexDirection:'row',display:'flex',width:'100%',marginVertical:20,
    alignItems:'center',}}>
-        <Text style={[styles.stylesFooterTitle,{textAlign:'right'}]}>Salle : </Text>
+        <Text style={[styles.stylesFooterTitle,{textAlign:'left'}]}>Salle : {roomName}</Text>
 
       </View>
-      <Text style={styles.stylesFooterTitle}>Date de facturation : </Text>
-        <Text style={styles.stylesFooterTitle}>Date limite :</Text>
+      <Text style={[styles.stylesFooterTitle,{textAlign:'left'}]}>Date : Le {new Date().toLocaleDateString()} </Text>
+
+
       </View>
       
       <View style={{display:'flex',padding:10,fontSize:'12px',borderTopLeftRadius:'15%',borderTopRightRadius:'15%'
@@ -166,18 +165,18 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
       </View>
       <View style={styles.totalSection}>
             <View style={{width:'100%',gap:10,fontSize:'11px'}}>
-                <Text style={styles.stylesFooterTitle}>METHODES DE PAIEMENTS</Text>
-                <Text>Virement</Text>
-               <Text style={styles.stylesFooterTitle}>Elite Training</Text>
-               <Text style={{fontFamily:'Helvetica-Bold'}}>IBAN : FR76 1659 8000 0121 7362 9000 194</Text>
-               <Text  style={{fontFamily:'Helvetica-Bold'}}>BIC : FPELFR21XXX</Text>
-               <Text style={styles.stylesFooterTitle}>COACH</Text>
+                <Text style={styles.stylesFooterTitle}>{'FACTURÉ À'}</Text>
+               
+               <Text style={styles.stylesFooterTitle}>ELITE TRAINING</Text>
+               <Text style={{fontFamily:'Helvetica-Bold'}}>{`25 Rue Aimé Requet`}</Text>
+               <Text  style={{fontFamily:'Helvetica-Bold'}}>3800 Grenoble</Text>
+               <Text style={styles.stylesFooterTitle}>France</Text>
                <Text  style={{fontFamily:'Helvetica-Bold',fontSize:'12px'}}></Text>
             </View>
             <View style={{width:'100%',alignItems:'flex-end',fontSize:'11px',gap:10}}>
                 <View style={{alignItems:'flex-end',gap:10}}>
                 <Text>Grand total :{totalPriceCoaching+totalPriceProgramme}</Text>
-                <Text>Tva : N/A</Text>
+                <Text>TVA non applicable,art. 293 du CGI</Text>
                 </View>
                 <View style={{flexDirection:'row',fontSize:'12px',borderRadius:'25%',
                 paddingTop:20,padding:10,justifyContent:'space-between',gap:20,backgroundColor:'#282F44',color:'#FFDA8A'}}>
@@ -185,8 +184,18 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
                 <Text> {totalPriceCoaching+totalPriceProgramme} euro TTC</Text>
                 </View>
             </View>
+           
             
       </View>
+      <View style={{width:'100%',alignItems:'flex-end',fontSize:'11px',gap:10}}>
+                <View style={{alignItems:'flex-end',gap:10}}>
+                <Text style={{fontSize:'20px',fontFamily:'Helvetica-Bold'}}>MERCI</Text>
+                <Text style={{fontSize:'15px',fontFamily:'Helvetica-Bold'}}>{coachData.coachName?.toLocaleUpperCase()}</Text>
+                <Text style={{fontSize:'15px'}}>SIRET : {coachData.numero_siren}</Text>
+
+                </View>
+                
+            </View>
       </View>
     </Page>
   </Document>

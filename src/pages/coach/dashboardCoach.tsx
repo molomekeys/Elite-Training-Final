@@ -11,6 +11,7 @@ const DashboardCoach = () => {
   const[isInClient,SetIsInClient]=useState(false)
   const {data:dashboardData,isLoading}=api.dashboardInfo.fetchingDashboard.useQuery(undefined,{ staleTime:20000})
   console.log(dashboardData)
+
   useEffect(()=>{
     if(isInClient==false)
     {
@@ -46,7 +47,6 @@ function getDates() {
 }
 const{futureDate,today}=getDates()
 //je map pour trouver les infos
-const dataDashboardScreen=dashboardData
   return (
   <main className="flex flex-col lg:flex-row   w-full   ">
    

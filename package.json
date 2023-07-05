@@ -39,6 +39,7 @@
     "react": "18.2.0",
     "react-big-calendar": "^1.6.9",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",

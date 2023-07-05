@@ -80,7 +80,6 @@ console.log(billFetched)
       <td key={v4()} className=" font-bold text-xs  flex justify-center">{e.client_name}</td>
       <td key={v4()} className=" font-bold text-xs flex justify-center">{e.place}</td>
 
-      <td key={v4()} className=" font-bold text-xs hidden lg:flex justify-center">{e.bill_invoice_pdf}</td>
 
       <td key={v4()}  className={`  w-full flex justify-center font-bold text-xs flex text-center ${e.isPaid==true? 'text-cyan-800':'text-red-300'}`}>{e.isPaid? <AiFillCheckCircle size={'25px'}/> : <p>en attente de paiement</p>}</td>
 
@@ -106,14 +105,13 @@ if(billFetched=="access denied"){
     <motion.table animate={{opacity:1,y:0}} initial={{opacity:0}} transition={{duration:0.5,delay:0.1}}
      className="table-auto rounded-xl flex flex-col  bg-slate-200  w-full   text-center ">
       <thead className=" text-sm   w-full bg-slate-200  flex   px-2 items-center justify-center  ">
-      <tr className="  bg-slate-200 grid grid-cols-4 lg:grid-cols-5 text-xl  w-full ">
+      <tr className="  bg-slate-200 grid grid-cols-4 lg:grid-cols-4 text-xl  w-full ">
 
       <th className=" flex  items-center justify-center w-full  "><BsFillCalendarPlusFill width={25}/></th>
       <th className=" flex  items-center justify-center w-full text-xs  ">client</th>
       <th className=" flex  items-center justify-center w-full  "><MdWhereToVote/></th>
 
 
-      <th className="flex  items-center justify-center w-full hidden lg:flex  "><AiOutlineFilePdf width={25}/></th>
 
     
 

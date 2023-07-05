@@ -167,7 +167,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
     where:{
       id:Number(ctx.session?.user?.coach_table?.id)
     },select:{
-      isValid:true
+      isValid:true,numero_siren:true
     }
   })
   if(fetchData?.isValid==true){
@@ -185,7 +185,8 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
           lte: newEndDate,gte:newStartDate
         }
       },select:{
-        createdAt:true,type_offer:true,hours:true,price_coach:true,price_client:true,offer_prisma_id:{
+        createdAt:true,type_offer:true,hours:true,
+        price_coach:true,price_client:true,offer_prisma_id:{
           select:{
             coach_price:true,
           }
@@ -196,7 +197,6 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
         }
       }
     })
-    console.log(fetchBilling)
 
 
     const fetchBillingFiltered=fetchBilling.map((e)=>{
@@ -205,7 +205,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
     })
  
    
-  return fetchBillingFiltered
+  return {billingData:fetchBillingFiltered,coachData:{...fetchData,coachName:ctx.session?.user.name}}
 
   }
   else {
@@ -313,7 +313,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
  { 
 
       const allBills = await ctx.prisma.billing.findMany({select:{
-        bill_invoice_pdf:true,
+        
         hours:true,
         isPaid:true,id:true,
         createdAt:true,
@@ -514,34 +514,52 @@ else if(!validateCoach)
           return 'user already existe'
         }
         else if(!existingUser) {
-        const createUser=await ctx.prisma.user.create({data:{phone_number:phoneNumber,
-          email:email,password:password,role:'coach',name:name},select:{id:true}})
+        // const createUser=await ctx.prisma.user.create({data:{phone_number:phoneNumber,
+        //   email:email,password:password,role:'coach',name:name},select:{id:true}})
           
-         const {id}=createUser
-          const createCoach=await ctx.prisma.coach.create({data:{licence_sportif:licence_sportif,
-            numero_siren:sirenNumber,UserIdCoach:{
-             connect:{
-              id:id
-             }
-            }
+        //  const {id}=createUser
+        //   const createCoach=await ctx.prisma.coach.create({data:{licence_sportif:'1131',
+        //     numero_siren:sirenNumber,UserIdCoach:{
+        //      connect:{
+        //       id:id
+        //      }
+        //     }
 
-          }})
+        //   }})
          
           const sendGridMail={
             to: email,
             from :"elitetraining38@gmail.com",
-            templateId:"d-fab816f818c047b284bb78a0a49d3a33 ",
+            templateId:"d-fab816f818c047b284bb78a0a49d3a33",
             dynamic_template_data:{
                 coachName:name
             }
+          }
+            const sendGridMailLicence={
+              to: "elitetraining38@gmail.com",
+              from :"elitetraining38@gmail.com",
+              templateId:"d-225e766603914403ab0e614eb7f5e189",
+              dynamic_template_data:{
+                  coachName:name
+              }
+              ,attachments: [
+                {
+                  content: licence_sportif,
+                  filename: `licence_${name}.jpeg`,
+                  type: 'image/jpeg',
+      disposition: 'attachment',
+                }
+              ]
         }
         try {
             await sgMail.send(sendGridMail);
+            await sgMail.send(sendGridMailLicence);
             console.log('Email sent successfully.');
-            return createUser
+            return 'success'
         
         } catch (error) {
-          return `error`
+          
+          return error
         }
             
            

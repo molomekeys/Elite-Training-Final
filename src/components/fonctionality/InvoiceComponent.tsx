@@ -43,15 +43,7 @@ const styles = StyleSheet.create({
 });
 
 // Create invoice data
-const invoiceData = {
-  invoiceNumber: 'INV-001',
-  date: '2022-03-28',
-  dueDate: '2022-04-28',
-  items: [
-    { description: 'Item 1', quantity: 1, price: 10 },
-    { description: 'Item 2', quantity: 2, price: 20 },
-  ],
-};
+
 
 // Create component
 export interface DataEvent{

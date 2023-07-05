@@ -8,13 +8,13 @@ export default withAuth(
     function middleware(req) {
      
         if(req.nextUrl.pathname.startsWith("/admin")&&req.nextauth.token?.role!=='admin'){
-                return NextResponse.rewrite(new URL ('/signIn',req.url))
+                return NextResponse.rewrite(new URL ('/',req.url))
         }
         if(req.nextUrl.pathname.startsWith("/coach")&&req.nextauth.token?.role!=='coach'){
-            return NextResponse.rewrite(new URL ('/signIn',req.url))
+            return NextResponse.rewrite(new URL ('/',req.url))
     }
     if(req.nextUrl.pathname.startsWith("/client")&&req.nextauth.token?.role!=='client'){
-        return NextResponse.rewrite(new URL ('/signIn',req.url))
+        return NextResponse.rewrite(new URL ('/',req.url))
 }
 
     },

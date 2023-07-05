@@ -5,6 +5,7 @@ import { api } from ".././utils/api";
 import {motion} from 'framer-motion'
 import {storage,app} from '.././firebaseConfig'
 import {  ref, uploadBytes } from "firebase/storage";
+
 import {useAnimate} from 'framer-motion'
 type LoginFormType={
   firstName:string
@@ -26,10 +27,14 @@ const validationSchema = z.object({
   picture_image:z.string().nonempty('Vous devez ajouter votre licence'),
   sirenNumber:z.string().nonempty("Le numéro SIREN est requis").length(9,"Le Numéro SIREN invalide, 9 caracthères")
 }).refine((data)=>{ return (data.confirmPassword===data.password)},{message:'Le champs indiquée ne correspond pas à votre mot de passe ',path:['confirmPassword']})
+
+
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {useForm} from 'react-hook-form'
 import { useState } from "react";
+import FileUploader from "~/components/forms/FileUploader";
 
 
 
@@ -47,32 +52,12 @@ console.log(app)
   confirmPassword:'',sirenNumber:''},resolver:zodResolver(validationSchema)})
 
 //function pour creer le coach
-async function handleLicenceUpload(e:React.ChangeEvent<HTMLInputElement>){
-  console.log('slt')
-  e.preventDefault()
-if(e.target.files&&e?.target?.files[0]!=null)
-{
-  const file = e.target.files[0];
-  console.log(file)
-  console.log('coucou')
-  const imagesRef = ref(storage, `coach/${file.name}`);
-  console.log(imagesRef)
-
-try{
-  const momo = await uploadBytes(imagesRef, file)
-  console.log('slt')
-console.log(momo)
-setValue('picture_image',momo.ref.fullPath)
-clearErrors('picture_image')
-const omo=getValues()
-console.log(omo)
-
-}catch(error){
-
-}
 
 
-}
+function updateValForm(val:string){
+
+  setValue('picture_image',val)
+  clearErrors('picture_image')
 
 
 }
@@ -92,7 +77,7 @@ if(createdUsertest=='user already existe')
 }
 else if(createdUsertest!=undefined&&createdUsertest!="error"){
 
-router.push('/')
+// router.push('/')
 }
 
 
@@ -182,16 +167,22 @@ id='firstName' type={'tel'}   className='w-full form-input bg-slate-100 rounded-
  placeholder="Veuillez confirmez votre mot de passe"
  className='w-full form-input bg-slate-100  rounded-md py-3'/>
 <p className='text-xs font-bold text-sm text-red-500'>{errors.confirmPassword?.message}</p>
-<div className="w-full form-input bg-slate-100 py-3 rounded-md   flex flex-col
+{/* <div className="w-full form-input bg-slate-100 py-3 rounded-md   flex flex-col
 ext-center">
+  
 <label htmlFor="fileInput" className="font-bold text-sm w-full text-center text-slate-600 ">Ajouter votre carte professionnelle : </label>
 
 <input type={'file'}  onChange={(e)=>handleLicenceUpload(e)} 
  placeholder="Ajouter votre carte professionnelle "
  id="fileInput"
  className='w-full border-2 text-center hidden' />
+ </div> */}
+ <div>
+  <FileUploader saveLicence={updateValForm}/>
+  <p className='text-xs font-bold text-sm text-red-500'>{errors.picture_image?.message}</p>
+
  </div>
- <p className='text-xs font-bold text-sm text-red-500'>{errors.picture_image?.message}</p>
+
 <button type="submit"  className='bg-slate-700  self-center py-3 min-w-fit w-3/5 lg:w-3/5 rounded-lg text-white font-semibold my-6'>Créer votre compte</button>
 
 <div className='flex gap-2 font-bold text-sm w-full items-center flex-row justify-center '>        

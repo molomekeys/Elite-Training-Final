@@ -98,7 +98,7 @@ const {register,handleSubmit}=useForm({defaultValues:{isValid:coachInfo.isValid?
                 <p>Numero : {coachInfo.phone_number}</p>
                 <p>Clients : {coachInfo.clients}</p>
                 <p>Email : {coachInfo.email}</p>
-                <p>Numero Siren : {coachInfo.numero_siren}</p>
+                <p>Numero Siren : {coachInfo.numero_siret}</p>
                 <div className='flex items-center gap-4'>
                 <p>Carte  : </p>
                 <p onClick={openData} className='cursor-pointer font-semibold text-sm hover:text-blue-800'>consulter la licence</p>

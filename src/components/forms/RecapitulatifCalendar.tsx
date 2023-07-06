@@ -133,9 +133,8 @@ function getDates() {
   };
 }
 const{futureDate,today}=getDates()
-
+const [isPdf,setIsPdf]=useState('')
 const findClientName=client?.filter(user => user.idClient === firstStepInfo.clientId);
-console.log(client)
 console.log(findClientName)
   const allDataClient=events?.map((e)=>{
     
@@ -163,6 +162,9 @@ async function handleAddData(){
 
 //   return {...rest}
 // })
+
+if(isPdf!=null)
+{
 const momoTest=events.map((eventData)=>{
   const {id,...rest}=eventData
  
@@ -172,12 +174,12 @@ const momoTest=events.map((eventData)=>{
 })
 
 if((momoTest!=undefined &&data?.user.coach_table?.id!=undefined)&&
-selectedOfferTest!=undefined)
+selectedOfferTest!=undefined&&findClientName[0]!=undefined)
 {
   
 const testMomo= await addEvents.mutateAsync({eventData:[...momoTest],
-  billingData:{bill_invoice_pdf:'...',price_coach:selectedPriceOffer.price_coach,
-  price_client:selectedPriceOffer.price_client,
+  billingData:{bill_invoice_pdf:isPdf,price_coach:selectedPriceOffer.price_coach,
+  price_client:selectedPriceOffer.price_client,clientEmail:findClientName[0]?.email,clientName:findClientName[0]?.name,
   type:firstStepInfo.productCategory,
   prisma_client_id:Number(firstStepInfo.clientId),
   prisma_coach_id:Number(data?.user.coach_table?.id)
@@ -185,17 +187,17 @@ const testMomo= await addEvents.mutateAsync({eventData:[...momoTest],
 offer_prisma_id:selectedPriceOffer.id}})
 
 
-console.log(testMomo)
 
 
-saveEventCalendarContext()
-close()
+// saveEventCalendarContext()
+// close()
 }
 //   
 
  
-
 }
+}
+console.log(isPdf)
 
   return (
     <section className="flex flex-col w-full gap-10 ">
@@ -244,8 +246,19 @@ close()
     hours:selectedPriceOffer.hours,unitPrice:selectedPriceOffer.price_client,category:firstStepInfo.productCategory,coachName:data?.user.name? data.user.name : ''}}  dateRange={{dateEnd:futureDate,dateStart:today}}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here
+        if(blob!=null)
+        {        
+          const reader = new FileReader();
+reader.readAsDataURL(blob);
+reader.onloadend = function() {
+  const base64data = reader.result?.toString().replace('data:', '')
+  .replace(/^.+,/, '');
 
+
+  base64data!=undefined&&setIsPdf(base64data)}
+}
         
+
         return url&&<a href={url}  className="max-w-fit bg-cyan-800 text-slate-50 font-semibold rounded-lg px-8 py-2" target="_blank">Prévisualiser la facture </a>;
       }}
     </BlobProvider>

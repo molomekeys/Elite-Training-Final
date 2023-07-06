@@ -20,16 +20,13 @@ export type ClientDataType={
     isValid:boolean;
     phone_number: string;
     clients: number;
-    numero_siren :string
+    numero_siret :string
 }
-import { storage } from "~/firebaseConfig"
-import { ref,getDownloadURL } from "firebase/storage"
-import {useDownloadURL} from 'react-firebase-hooks/storage'
+
 const Coach = () => {
 
 
   const {data}=useSession()
-  const dispatch = useDispatch()
   console.log(data?.user)
 const [client,setClient]=useState<ClientDataType[]>([])
 const {isOpen,onClose,onOpen}=useDisclosure()

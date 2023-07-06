@@ -25,17 +25,17 @@ const SuccescChange = ({customMessage,isOpen,onClose,onOpen}:PropsInterface) => 
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>Modal Title</ModalHeader>
+                <ModalHeader>Information</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                  <p>{customMessage}</p>
                 </ModalBody>
       
                 <ModalFooter>
-                  <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Close
+                  <Button colorScheme='gray' mr={3} onClick={onClose}>
+                    Fermer
                   </Button>
-                  <Button variant='ghost'>Secondary Action</Button>
+                  
                 </ModalFooter>
               </ModalContent>
             </Modal>

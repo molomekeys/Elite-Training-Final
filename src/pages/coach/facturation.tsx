@@ -75,7 +75,7 @@ console.log(billFetched)
 
  
   const allFetchedClient=billFetched!='access denied'&&billFetched?.map((e)=>{
-   return(  <tr key={v4()} className=" py-4  text-center w-full grid grid-cols-4 lg:grid-cols-5  ">
+   return(  <tr key={v4()} className=" py-4  text-center w-full grid grid-cols-4 lg:grid-cols-4  ">
       <td key={v4()}   className=" text-xs font-semibold italic pl-4 ">{e?.createdAt?.toLocaleDateString()}</td>
       <td key={v4()} className=" font-bold text-xs  flex justify-center">{e.client_name}</td>
       <td key={v4()} className=" font-bold text-xs flex justify-center">{e.place}</td>

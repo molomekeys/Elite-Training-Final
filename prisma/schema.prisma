@@ -62,7 +62,7 @@ model Billing {
 
 model Coach {
     id              Int       @id @default(autoincrement())
-    numero_siren    String
+    numero_siret    String
     licence_sportif String?
     isValid         Boolean   @default(false)
     user_id         String    @unique

@@ -130,8 +130,8 @@ rounded-xl  ">
       
 <h3 className="font-bold text-xl lg:text-xl py-4 text-center">Page d&rsquo;inscription</h3>
 
-<label className="font-bold text-sm">Numéro SIREN :</label>
-<input {...register('sirenNumber')} type={'text'} placeholder="Veuillez inscrire votre numéro SIREN"
+<label className="font-bold text-sm">Numéro SIRET :</label>
+<input {...register('sirenNumber')} type={'text'} placeholder="Veuillez inscrire votre numéro SIRET"
  className='w-full form-input bg-slate-100 rounded-md  py-3'/>
  <p className='text-xs font-bold text-sm text-red-500'>{errors.sirenNumber?.message}</p>
 

@@ -55,7 +55,7 @@ type InvoiceInfo={
 }
 type CoachData={
  
-    numero_siren: string;
+    numero_siret: string;
     isValid: boolean;
     coachName:string | null | undefined;
 
@@ -191,7 +191,7 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
                 <View style={{alignItems:'flex-end',gap:10}}>
                 <Text style={{fontSize:'20px',fontFamily:'Helvetica-Bold'}}>MERCI</Text>
                 <Text style={{fontSize:'15px',fontFamily:'Helvetica-Bold'}}>{coachData.coachName?.toLocaleUpperCase()}</Text>
-                <Text style={{fontSize:'15px'}}>SIRET : {coachData.numero_siren}</Text>
+                <Text style={{fontSize:'15px'}}>SIRET : {coachData.numero_siret}</Text>
 
                 </View>
                 

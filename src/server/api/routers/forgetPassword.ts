@@ -20,40 +20,40 @@ export const forgetPassword=createTRPCRouter(
     {
         forgetPasswordInfo:publicProcedure.input(z.object({email:z.string()})).mutation(async ({ctx,input})=>{
                 const {prisma,session}=ctx
-                const {email}=input
+                
                 const newDate =moment().add(30, 'minutes').toDate();
                 const date=moment().toDate()
                 const findUser=await prisma.user.findUnique({
                     where:{
-                        email:email
+                        email:input.email
                     },select:{
                         email:true,name:true,password_reset:true
                     }})
 
-
                     console.log(findUser)
+                    console.log(date)
                     if((findUser?.password_reset!=undefined&&findUser?.password_reset)>date)
                     {
 
                         return 'un email vous à déjà étais envoyé, veuillez vérifier votre adresse mail'
                     }
-
+                    else if (findUser==null) {
+                        return "aucun compte n'est associé à cette adresse email"
+                    }
                 const  updateData=await prisma.user.update({
                     where:{
-                        email:email
+                        email:input.email
                     },data:{
                         password_reset:newDate
-                    },select:{
-                        email:true,name:true,password_reset:true
                     }
                    
                 })
                 if(updateData!=null){
                     
-                    const token=jwt.sign({email:email},env.ACCESS_TOKEN,{expiresIn:'30m' })
+                    const token=jwt.sign({email:input.email},env.ACCESS_TOKEN,{expiresIn:'30m' })
                     
                     const sendGridMail={
-                        to: email,
+                        to: input.email,
                         from :"elitetraining38@gmail.com",
                         templateId:"d-82764b225a1f41a8afe951c28e4d98c8",
                         dynamic_template_data:{
@@ -67,7 +67,7 @@ export const forgetPassword=createTRPCRouter(
                     }
 
                     try {
-                        // await sgMail.send(sendGridMail);
+                        await sgMail.send(sendGridMail);
                         
                         return 'veuillez vérifier votre email'
                     
@@ -76,9 +76,7 @@ export const forgetPassword=createTRPCRouter(
                     }
 
                 }
-                else {
-                    return "aucun compte n'est associé à cette adresse email"
-                }
+                
 
                 
         }),delockJeton:publicProcedure.input(z.string()).mutation(async ({input,ctx})=>{

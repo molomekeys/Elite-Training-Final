@@ -86,7 +86,7 @@ export const exampleRouter = createTRPCRouter({
       const allClient = await ctx.prisma.coach.findMany({
       
         select:{
-          numero_siren:true,
+          numero_siret:true,
           id:true,isValid:true,
           created_at:true,
           licence_sportif:true,
@@ -167,7 +167,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
     where:{
       id:Number(ctx.session?.user?.coach_table?.id)
     },select:{
-      isValid:true,numero_siren:true
+      isValid:true,numero_siret:true
     }
   })
   if(fetchData?.isValid==true){
@@ -399,7 +399,7 @@ return allBillInfoFltered
   addEventsCalendar:publicProcedure.input(z.object({
     billingData:z.object({
       prisma_client_id:z.number(),price_client:z.number(),price_coach:z.number(),type:z.string(),
-      prisma_coach_id:z.number(),hours:z.number(),
+      prisma_coach_id:z.number(),hours:z.number(),clientName:z.string(),clientEmail:z.string(),
       prisma_place_id:z.number(),bill_invoice_pdf:z.string(),
       offer_prisma_id:z.number()}),
     
@@ -413,7 +413,7 @@ return allBillInfoFltered
 
     const {billingData,eventData}=input
 let billingId=0
-    const {bill_invoice_pdf,hours,offer_prisma_id,
+    const {bill_invoice_pdf,hours,offer_prisma_id,clientEmail,clientName,
       prisma_client_id,prisma_coach_id,prisma_place_id}=billingData
     if(ctx.session?.user.coach_table?.id!=undefined)
     {
@@ -422,8 +422,9 @@ let billingId=0
       {
       const billClient=await ctx.prisma.billing.create({
         data:{type_offer:billingData.type,price_client:
-        billingData.hours*billingData.price_client ,price_coach:billingData.hours*billingData.price_coach,
-        bill_invoice_pdf:bill_invoice_pdf,hours:hours,
+        billingData.hours*billingData.price_client ,
+        price_coach:billingData.hours*billingData.price_coach,
+   hours:hours,
         client_id:prisma_client_id,offer_id:billingData.offer_prisma_id,
         coach_id:prisma_coach_id,salle_id:prisma_place_id, 
         }
@@ -441,7 +442,7 @@ let billingId=0
         data:{type_offer:billingData.type,price_client:
         billingData.price_client ,price_coach:
         billingData.price_coach,programme_id:billingData.offer_prisma_id,
-        bill_invoice_pdf:bill_invoice_pdf,hours:hours,
+       hours:hours,
         client_id:prisma_client_id,
         coach_id:prisma_coach_id,salle_id:prisma_place_id, 
         }
@@ -465,21 +466,58 @@ const finalEvents=eventData.map((e)=>{
       })
 
      if(momo){
-      return 'succes addes'
+      const sendGridMailBillClient={
+        to: clientEmail,
+        from :"elitetraining38@gmail.com",
+        templateId:"d-b183823afac14128af5508c804edd1aa",
+        dynamic_template_data:{
+            coachName:ctx.session.user.name,clientName:clientName
+        }
+        ,attachments: [
+          {
+            content: bill_invoice_pdf,
+            filename: `facture_${clientName}_${new Date().toLocaleDateString()}.pdf`,
+            type: 'application/pdf',
+disposition: 'attachment',
+          }
+        ]
+  }
+  const sendGridMailBillElite={
+    to: "elitetraining38@gmail.com",
+    from :"elitetraining38@gmail.com",
+    templateId:"d-856f86bd41ce4b968f3ac795ef7b73b5",
+    dynamic_template_data:{
+        coachName:ctx.session.user.name
+    }
+    ,attachments: [
+      {
+        content: bill_invoice_pdf,
+        filename: `facture_${clientName}_${new Date().toLocaleDateString()}.pdf`,
+        type: 'application/pdf',
+disposition: 'attachment',
+      }
+    ]
+}
+
+try {
+  await sgMail.send(sendGridMailBillClient);
+  await sgMail.send(sendGridMailBillElite);
+return 'succes'
+  
+} catch (error) {
+  return `error ${error}`
+}
+
+     
      }
+
      else if(!momo){
       return 'une erreur est survenue'
      }
         
-    // const momo = await ctx.prisma.events.createMany({
-    //   data:[{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),billing_id:id,
-    //     end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'
-    //   },{coach_id:Number(ctx.session.user.coach_table.id),client_id:Number(input.client_id),
-    //     end:new Date('2023-06-15'),start:new Date('2023-06-15'),hours:10,title:'entrainement de merouane'
-    //   }]
-    // })
 
-    // return momo
+
+    
   }
   })
     ,validationLicenceCoach:publicProcedure.input(z.object({idCoach:z.string(),validate:z.boolean()}))
@@ -514,18 +552,18 @@ else if(!validateCoach)
           return 'user already existe'
         }
         else if(!existingUser) {
-        // const createUser=await ctx.prisma.user.create({data:{phone_number:phoneNumber,
-        //   email:email,password:password,role:'coach',name:name},select:{id:true}})
+        const createUser=await ctx.prisma.user.create({data:{phone_number:phoneNumber,
+          email:email,password:password,role:'coach',name:name},select:{id:true}})
           
-        //  const {id}=createUser
-        //   const createCoach=await ctx.prisma.coach.create({data:{licence_sportif:'1131',
-        //     numero_siren:sirenNumber,UserIdCoach:{
-        //      connect:{
-        //       id:id
-        //      }
-        //     }
+         const {id}=createUser
+          const createCoach=await ctx.prisma.coach.create({data:{
+            numero_siret:sirenNumber,UserIdCoach:{
+             connect:{
+              id:id
+             }
+            }
 
-        //   }})
+          }})
          
           const sendGridMail={
             to: email,
@@ -552,8 +590,8 @@ else if(!validateCoach)
               ]
         }
         try {
-            await sgMail.send(sendGridMail);
-            await sgMail.send(sendGridMailLicence);
+            // await sgMail.send(sendGridMail);
+            // await sgMail.send(sendGridMailLicence);
             console.log('Email sent successfully.');
             return 'success'
         

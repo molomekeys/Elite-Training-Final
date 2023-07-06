@@ -41,12 +41,7 @@ const [errorDisplay,setErrorDisplay]=useState(false)
       
      const changeFunction= await forgetPassword.mutateAsync({email:values.email})
      console.log(changeFunction)
-      if(changeFunction==="aucun compte n'est associé à cette adresse email"){
-        handleAnimate(changeFunction)
-      }
-      else if(changeFunction==='veuillez vérifier votre email'){
-        onOpen()
-      }
+      onOpen()
       
     }
 
@@ -71,7 +66,9 @@ setError('email',{message:message})
    <main className="flex  p-4  lg:p-10 items-center
     justify-center  w-full  ">
    
-   <SuccescChange isOpen={isOpen} onClose={onClose} onOpen={onOpen} customMessage={'Un email vous à étais envoyer, veuillez vérifier votre boite mail'}/>
+   <SuccescChange isOpen={isOpen} onClose={onClose} onOpen={onOpen} 
+   customMessage={forgetPassword.data=='un email vous à déjà étais envoyé, veuillez vérifier votre adresse mail'? 
+   `${forgetPassword.data}`:forgetPassword.data=='veuillez vérifier votre email'? forgetPassword.data : ''}/>
    
     <motion.section  ref={refTest}
    

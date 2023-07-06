@@ -52,4 +52,26 @@ export const adminRouter =createTRPCRouter({
         })
         return {programme:allProgramme,coaching:allOffer}
     })
+    ,addAvailaiblePlace:protectedProcedure.input(z.object({name:z.string(),
+        adresse:z.string(),email:z.string(),relatedOffer:z.number(),programme_id:z.number()
+    })).mutation(async({ctx,input})=>{
+        const {prisma}=ctx
+        const {adresse,email,programme_id,relatedOffer,name}=input
+try {
+    const addRoom= await prisma.availablePlace.create({
+        data:{
+            adresse:adresse,room_name:name,programme_id:programme_id,related_offer:relatedOffer
+        }
+    })
+    if(addRoom!=null)
+    {
+return  'success'
+} 
+}catch (error) {
+    return `une erreur est survenue ${error}`
+}
+         
+    
+
+    })
 })

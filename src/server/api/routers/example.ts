@@ -2,7 +2,7 @@
 import { number, z } from "zod";
 import {
   createTRPCRouter,
-  publicProcedure,
+  publicProcedure,protectedCoachProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
 import * as bcrypt from 'bcrypt'
@@ -631,7 +631,7 @@ return momo
         else {
           return findUser
         }
-      }),createClient:publicProcedure.input(z.object(
+      }),createClient:protectedCoachProcedure.input(z.object(
         {name:z.string(),phoneNumber:z.string(),email:z.string(),password:z.string()})).
         mutation(async({ctx,input:{email,password,name,phoneNumber}})=>{
           const existingUser = await ctx.prisma.user.findUnique({
@@ -644,7 +644,9 @@ return momo
             return 'utilisateur déjà existant'
           }
           else if(!existingUser) {
-          const createUser=await ctx.prisma.user.create({data:{email:email,password:password,role:'client',name:name,phone_number:phoneNumber},select:{
+            const hashedPassword= await bcrypt.hash(password,10)
+          const createUser=await ctx.prisma.user.create({data:{email:email,
+            password:hashedPassword,role:'client',name:name,phone_number:phoneNumber},select:{
             id:true
           }})
 

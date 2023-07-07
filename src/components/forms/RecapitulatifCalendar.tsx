@@ -12,6 +12,8 @@ import {AiOutlineUser} from 'react-icons/ai'
 import {MdRoom} from 'react-icons/md'
 import { useSession } from 'next-auth/react';
 import { api } from "~/utils/api"
+import { clearTheStore} from '~/features/event/eventSlice'
+
 type specClient={
   id:string
   fullName:string
@@ -28,8 +30,8 @@ interface Props {
 const RecapitulatifCalendar = ({close}:{close:()=>void}) => {
 
   const addEvents=api.example.addEventsCalendar.useMutation()
-
-  const {events,client,saveEvent,allOffert,saveEventCalendarContext}=useContext(AddEventContext)
+const dipatch =useDispatch()
+  const {events,client,saveEvent,allOffert,saveEventCalendarContext,clearEventData}=useContext(AddEventContext)
   const firstStepInfo=useSelector((state:RootState)=>state.eventReducer.firstStep)
   const secondStepInfo=useSelector((state:RootState)=>state.eventReducer.secondStep)
   const [selectedPriceOffer,setSelectedPriceOffer]=useState({price_client:0,price_coach:0,
@@ -119,7 +121,6 @@ const {data}=useSession()
 
  
 
-  console.log(events)
 
   // ici pour définir les dates d'écheance
 function getDates() {
@@ -135,7 +136,6 @@ function getDates() {
 const{futureDate,today}=getDates()
 const [isPdf,setIsPdf]=useState('')
 const findClientName=client?.filter(user => user.idClient === firstStepInfo.clientId);
-console.log(findClientName)
   const allDataClient=events?.map((e)=>{
     
     return (<div key={e.id}
@@ -187,17 +187,18 @@ const testMomo= await addEvents.mutateAsync({eventData:[...momoTest],
 offer_prisma_id:selectedPriceOffer.id}})
 
 
+dipatch(clearTheStore())
 
+clearEventData()
+saveEventCalendarContext()
 
-// saveEventCalendarContext()
-// close()
+close()
 }
 //   
 
  
 }
 }
-console.log(isPdf)
 
   return (
     <section className="flex flex-col w-full gap-10 ">

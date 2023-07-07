@@ -68,7 +68,9 @@ const ChangePassword = () => {
     if(data!=undefined&&data[0]!=undefined)
     {
        const updatePassword =await changePassword.mutateAsync({newPassword:val.password,token:data[0]})
-        
+        if(updatePassword=='succes'){
+            router.push('/')
+        }
     }
 
     }

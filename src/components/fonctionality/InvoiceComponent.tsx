@@ -207,7 +207,7 @@ return {price:totalPrice,hours:totalHours,salle:allSalle}
       <View style={styles.tableStyle}>
        
   
-{eventInfo.category=='coaching' &&<View style={{display:'flex',gap:'10px',
+{eventInfo.category=='coaching' &&<View style={{display:'flex',gap:'10px',textAlign:'center',
 flexDirection:'row',justifyContent:'space-between',fontSize:'11px',padding:'10px',alignItems:'center'}}>
 <Text style={{}}>Coaching</Text>
 <Text>{eventInfo.hours}</Text>

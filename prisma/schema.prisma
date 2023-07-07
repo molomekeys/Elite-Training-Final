@@ -42,6 +42,7 @@ model Billing {
     createdAt            DateTime          @default(now())
     hours                Int
     isPaid               Boolean           @default(false)
+    is_paid_elite        Boolean           @default(false)
     offer_id             Int?
     salle_id             Int
     programme_id         Int?              @unique
@@ -53,11 +54,28 @@ model Billing {
     prisma_coach_id      Coach             @relation(fields: [coach_id], references: [id])
     programme_selling_id ProgrammePricing? @relation(fields: [programme_id], references: [id])
 
+    bilanCoach_id Int?        @unique
+    bilanCoach    BilanCoach? @relation(fields: [bilanCoach_id], references: [id])
+
+    @@index(bilanCoach_id)
     @@index(offer_id)
     @@index(coach_id)
     @@index(client_id)
     @@index(salle_id)
     @@index(programme_id)
+}
+
+model BilanCoach {
+    id                Int             @id @default(autoincrement())
+    price             Int
+    coach_id          Int             @unique
+    isPaid            Boolean         @default(false)
+    made_at           DateTime        @default(now())
+    billing_client_id Billing[]
+    place_id          Int             @unique
+    place_id_prisma   AvailablePlace? @relation(fields: [place_id], references: [id])
+
+    @@index(place_id)
 }
 
 model Coach {
@@ -135,6 +153,7 @@ model AvailablePlace {
     related_offerPrisma OfferTable        @relation(fields: [related_offer], references: [id])
     programme_id        Int?
     programme_price     ProgrammePricing? @relation(fields: [programme_id], references: [id])
+    billing_elite       BilanCoach[]
 
     @@index(related_offer)
     @@index(programme_id)

@@ -37,17 +37,19 @@ const validationSchema = z.object({
 
 export default function BilanElite() {
 const [isFetchedData,setIsFetchData]=useState({roomName:''})
-
+const [isPdfDone,setIsPdfDone]=useState('')
+const [isSaveBilan,setSaveBilan]=useState(false)
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+
   const modalSize = isLargerThan768 ? "5xl" : "full";
-  const allSalle = api.example.availaibleRoom.useQuery().data
+  const allSalle = api.example.availaibleRoom.useQuery(undefined,{staleTime:20000,refetchOnWindowFocus:false}).data
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const fetchBills = api.example.billEliteForCoach.useMutation()
+    const fetchBills = api.coachRouter.allBillsPaidClient.useMutation()
 
     const {data}=fetchBills
     const {isOpen:isOpenValidate,onOpen:onOpenValdate,onClose:onCloseValidate}=useDisclosure()
-console.log(fetchBills.data)
-const allElement=fetchBills.data!='non valide '&&fetchBills.data!=undefined&&fetchBills?.data?.billingData?.map((e)=>{
+
+    const allElement=fetchBills.data!='non valide '&&fetchBills.data!=undefined&&fetchBills?.data?.billingData?.map((e)=>{
 return (<tr  key={v4()}
 className='grid grid-cols-5 w-full text-center'>
 
@@ -66,7 +68,8 @@ const allRoom=allSalle&&allSalle?.map((e)=>{
    
     const finalRef = useRef(null)
   const [isFetched,setIsFetched]=useState(false)
-    const { register, handleSubmit, formState:{errors,},reset} = useForm(
+  const eliteBilan=api.coachRouter.bilanCoachElite.useMutation()
+    const { register, handleSubmit, formState:{errors},getValues,reset} = useForm(
       
       {defaultValues:{monthSelected:"",rommName:""
     
@@ -93,7 +96,6 @@ async function createClient(data:ClientData) {
     dateEnd:dayEnd,dateSart:dayStart,roomName:data.rommName })
 
 
-
    if(momo=="non valide ")
 {
 
@@ -114,13 +116,35 @@ setIsFetched(true)
 }
 }
   
- 
+ async function sendBillingData(){
+
+  setSaveBilan(true)
+  if(fetchBills.data!='non valide ')
+  {
+    const idBilling= fetchBills.data?.billingData.map(e=>{
+      return {id:e.id}})
+    const idPlace=getValues('rommName')
+    const totalPrice=fetchBills.data?.billingData.reduce((acc,current)=>{
+      return acc+current.price_coach
+    },0)
+
+if(totalPrice!=undefined&&idPlace!=undefined&&idBilling!=undefined)
+{
+    const newBillElite= await eliteBilan.mutateAsync({price:totalPrice,
+      billingId:idBilling,placeId:idPlace,billToSend:isPdfDone, monthSelected:getValues('monthSelected')})
+      console.log(newBillElite)
+
+      setSaveBilan(false)
+    }
+  }
+ }
 //fin de la function fermeture de l'appp
 
 
     return (
       <>
-      <CoachAlerteValidation isOpen={isOpenValidate} onClose={onCloseValidate} onOpen={onOpenValdate}/>
+      <CoachAlerteValidation isOpen={isOpenValidate} onClose={onCloseValidate} 
+      onOpen={onOpenValdate}/>
         <button onClick={onOpen} className="relative  bg-slate-800 py-3 text-slate-50 font-semibold py-2 px-6 rounded-lg">
 
         Bilan mensuel 
@@ -221,17 +245,32 @@ setIsFetched(true)
           </table>
 
           <div className='flex items-center justify-center w-full pt-10'>
-  { isFetched&& data!='non valide '&& data!=undefined&&<BlobProvider document={<InvoiceElite roomName={isFetchedData.roomName} billInfo={data.billingData} coachData={data.coachData}/>}>
+  { isFetched&& data!='non valide '&& data!=undefined&&<BlobProvider document={<InvoiceElite roomName={isFetchedData.roomName}
+   billInfo={data.billingData} coachData={data.coachData}/>}>
       {({ blob, url, loading, error }) => {
         // Do whatever you need with blob here
 
-        
+        if(blob!=null)
+        {        
+          const reader = new FileReader();
+reader.readAsDataURL(blob);
+reader.onloadend = function() {
+  const base64data = reader.result?.toString().replace('data:', '')
+  .replace(/^.+,/, '');
+
+
+  base64data!=undefined&&setIsPdfDone(base64data)}
+}
         return url&&<a href={url}  className="max-w-fit bg-cyan-800 text-slate-50 font-semibold rounded-lg px-8 py-2" target="_blank">Prévisualiser la facture </a>;
       }}
     </BlobProvider>}
     </div>
           </section>}
-        
+
+{       isFetched&&fetchBills.data!='non valide '&&fetchBills.data?.billingData!=undefined&&fetchBills.data?.billingData?.length>0&&<button onClick={sendBillingData} disabled={isSaveBilan}
+type='button' className='bg-slate-800 px-8 mt-10 py-3 w-fit text-slate-100 self-center rounded-lg font-bold'
+>{'Transmettre à Elite'}</button>
+}        
           <ModalFooter >
           
        

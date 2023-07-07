@@ -118,6 +118,7 @@ export const AddEventContext=createContext<ContextEventInterface>(
     return 
   }
     ,saveEventCalendarContext:()=>{
+      
     return
   },saveEventMultyTime:()=>{},functionAddSubEvent:()=>{
     return 
@@ -125,7 +126,9 @@ export const AddEventContext=createContext<ContextEventInterface>(
     return 
   },client:[],saveEvent:(e:Events[])=>{
     return
-  },firstEventManualy:defaultValue,secondEventManualy:defaultValue,thirdEventManualy:defaultValue,setFirstEventManualy:(e)=>{},setSecondEventManualy:(e)=>{},setThirdEventManualy:(e)=> {
+  },firstEventManualy:defaultValue,
+  secondEventManualy:defaultValue,thirdEventManualy:defaultValue,
+  setFirstEventManualy:(e)=>{},setSecondEventManualy:(e)=>{},setThirdEventManualy:(e)=> {
     
   },
   events:
@@ -201,7 +204,6 @@ function clearSubStepForm(){
 
 
     const [isStepForm,setIsStepForm]=useState(1)
-    console.log('render from add Event')
 
     const[formDataSteps,setFormDataSteps]=useState(
       {secondStep:{ programmeName:'',
@@ -245,9 +247,9 @@ function saveSubEventData(event:EventsType[]){
   setIsEventAdded((prev)=>[...prev,...event])
 }
 function clearEventData(){
+  setIsStepForm(1)
   setIsEventAdded([])
 }
-console.log(formDataSteps)
 
     //la function générale que je passe au 
     //sous formulaire c'est comme ça que react recommande
@@ -267,9 +269,7 @@ console.log(formDataSteps)
         }
        })
     }
-    console.log('rerender from add Event')
 
-console.log(saveSecondStepForm)
 
 
 //avec ça je controle les sous formualaires 

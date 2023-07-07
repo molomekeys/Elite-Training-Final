@@ -33,7 +33,6 @@ const [errorDisplay,setErrorDisplay]=useState(false)
     async function handleLogin(values:{password:string,email:string}){
       
       
-      console.log(values)
       const signInStatus= await signIn('credentials',
       {username:values.email,password:values.password,redirect:false})
       
@@ -55,13 +54,11 @@ const [errorDisplay,setErrorDisplay]=useState(false)
           }
           else if(session.user.role=='coach')
           {
-            console.log('slt')
             router.push('/coach/planning')
 
           }
           else if(session.user.role=='client')
           {
-            console.log('slt')
             router.push('/client/planning')
 
           }
@@ -165,7 +162,6 @@ export async function getServerSideProps(ctx:GetServerSidePropsContext) {
   const shouldRedirect = true;
   
 const session =await getServerAuthSession(ctx)
-console.log(session)
 if(session?.user){
   let redirectUrl=''
 if(session.user.role=='admin')

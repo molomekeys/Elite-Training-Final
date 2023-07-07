@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form'
 import { useSession } from "next-auth/react"
 import ModalProfile from "~/components/fonctionality/ModalProfile"
 import { useDisclosure } from "@chakra-ui/react"
+import { api } from "~/utils/api"
 const ClientProfile = () => {
     const [updatePassword,setUpdatePassword]=useState(false)
     const {isOpen,onClose,onOpen}=useDisclosure()
@@ -10,6 +11,7 @@ const ClientProfile = () => {
         actualPassword:'',newPassword:'',confirmNewPassword:''
     }})
     const {data}=useSession()
+
   return (
    <main className="flex flex-col w-full items-center bg-slate-200 justify-center">
 

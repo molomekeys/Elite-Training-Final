@@ -10,7 +10,7 @@ import { env } from "~/env.mjs";
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-
+import * as bcrypt from 'bcrypt'
 interface CustomPayload extends JwtPayload {
     email: string;
     // Add other properties if needed
@@ -100,19 +100,21 @@ export const forgetPassword=createTRPCRouter(
             try {
                 const delockValue=jwt.verify(token,env.ACCESS_TOKEN) as CustomPayload
                 const email = delockValue.email;
-
+                const hashedPassword=await bcrypt.hash(newPassword,10)
                    if(typeof delockValue ==='object')
                    {
                     const changePassword=await prisma.user.update({
                         where:{
                             email:email
                         },data:{
-                            password:newPassword
+                            password:hashedPassword
                         }
                     })
+                    if(changePassword){
+                        return 'succes'
+                    }
                 }
 
-                return 'success'
                } catch (error) {
                 return 'invalide json'
                }

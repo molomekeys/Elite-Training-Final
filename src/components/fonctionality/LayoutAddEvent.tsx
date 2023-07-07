@@ -56,10 +56,10 @@ export type AllClientType={
 const LayoutAddEvent = ({saveEventCalendar,updateData}:PropsAddEvent) => {
 
     const {data,isLoading}=api.example.availableOffer.useQuery(undefined,{
-        staleTime:10000
+        staleTime:100000,refetchOnWindowFocus:false
       })
       
-    const allClient=api.example.fetchDataLoginCoach.useQuery(undefined,{staleTime:10000,refetchOnWindowFocus:false}).data?.map((e)=>{
+    const allClient=api.example.fetchDataLoginCoach.useQuery(undefined,{staleTime:100000,refetchOnWindowFocus:false}).data?.map((e)=>{
         return {...e.UserIdPrisma,createdAt:e.created_at,idClient:String(e.id)}
       })
     

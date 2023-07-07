@@ -82,7 +82,7 @@ setError('email',{message:message})
 </h3>
 {isEmailSend===false&&<p className=' text-sm font-semibold text-slate-700'>
           Saisissez l&apos;adresse e-mail associée à votre compte et
-           nous vous enverrons un lien qui expiera dans 15 minutes pour réinitialiser votre mot de passe.
+           nous vous enverrons un lien qui expiera dans <span className='font-extrabold'>30 minutes</span> pour réinitialiser votre mot de passe.
 
           </p>}
         <form  onSubmit={handleSubmit( handleForgetPassword)}

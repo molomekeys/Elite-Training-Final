@@ -5,7 +5,7 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
-
+import * as bcrypt from 'bcrypt'
 //schena pour les events
 
 
@@ -161,57 +161,6 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
   }
 
 
-}),billEliteForCoach:publicProcedure.input(z.object({dateSart:z.date(),
-  dateEnd:z.date(),roomName:z.string()})).mutation(async({ctx,input})=>{
-  const fetchData= await ctx.prisma.coach.findUnique({
-    where:{
-      id:Number(ctx.session?.user?.coach_table?.id)
-    },select:{
-      isValid:true,numero_siret:true
-    }
-  })
-  if(fetchData?.isValid==true){
-    console.log(fetchData)
-    console.log(input)
-    const {dateEnd,dateSart}=input
-    let newStartDate=new Date(dateSart.getFullYear(),dateSart.getMonth()-1,0)
-    let newEndDate= new Date(dateEnd.getFullYear(),dateEnd.getMonth(),0)
-    console.log(newEndDate)
-    const fetchBilling=await ctx.prisma.billing.findMany({
-      where:{
-        coach_id:Number(ctx.session?.user.coach_table?.id),
-        isPaid:true,salle_id:Number(input.roomName)
-        ,createdAt:{
-          lte: newEndDate,gte:newStartDate
-        }
-      },select:{
-        createdAt:true,type_offer:true,hours:true,
-        price_coach:true,price_client:true,offer_prisma_id:{
-          select:{
-            coach_price:true,
-          }
-        },prisma_place_id:{
-         select:{
-          room_name:true
-         }
-        }
-      }
-    })
-
-
-    const fetchBillingFiltered=fetchBilling.map((e)=>{
-      const {offer_prisma_id,prisma_place_id,...rest}=e
-      return {place:prisma_place_id?.room_name,...rest}
-    })
- 
-   
-  return {billingData:fetchBillingFiltered,coachData:{...fetchData,coachName:ctx.session?.user.name}}
-
-  }
-  else {
-    return 'non valide '
-  }
- 
 }),dashboardCoachData:publicProcedure.query(async({ctx})=>{
   const {prisma,session}=ctx
   const awaitFetch= await prisma.client.count({
@@ -552,8 +501,11 @@ else if(!validateCoach)
           return 'user already existe'
         }
         else if(!existingUser) {
+
+          const hashedPassword =await bcrypt.hash(password,10)
+          console.log(hashedPassword)
         const createUser=await ctx.prisma.user.create({data:{phone_number:phoneNumber,
-          email:email,password:password,role:'coach',name:name},select:{id:true}})
+          email:email,password:hashedPassword,role:'coach',name:name},select:{id:true}})
           
          const {id}=createUser
           const createCoach=await ctx.prisma.coach.create({data:{
@@ -564,6 +516,8 @@ else if(!validateCoach)
             }
 
           }})
+
+          //email d'inscription coach
          
           const sendGridMail={
             to: email,
@@ -573,6 +527,7 @@ else if(!validateCoach)
                 coachName:name
             }
           }
+          //email inscription à elite pour la licence
             const sendGridMailLicence={
               to: "elitetraining38@gmail.com",
               from :"elitetraining38@gmail.com",
@@ -590,8 +545,8 @@ else if(!validateCoach)
               ]
         }
         try {
-            // await sgMail.send(sendGridMail);
-            // await sgMail.send(sendGridMailLicence);
+            await sgMail.send(sendGridMail);
+            await sgMail.send(sendGridMailLicence);
             console.log('Email sent successfully.');
             return 'success'
         
@@ -709,7 +664,10 @@ return momo
                 
             }
           }
-          await sgMail.send(sendGridMail);
+
+          // await sgMail.send(sendGridMail);
+
+
           return 'bravo utilisateur ajouter avec succès'
         }
         }),updatePassword:publicProcedure.input(z.object({password:z.string(),newPassword:z.string()})).mutation(async({ctx,input})=>{
@@ -722,11 +680,13 @@ return momo
             }
           })
           if(checkingPassword?.password==input.password){
+            const {password}=input
+            const hashedPassword= await bcrypt.hash(password,10)
             let changingPassord = await ctx.prisma.user.update({
               where:{
                 id:ctx.session?.user.id
               },data:{
-                password:input.newPassword
+                password:hashedPassword
               }
             })
             if(changingPassord){

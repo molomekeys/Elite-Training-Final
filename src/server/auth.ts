@@ -13,6 +13,7 @@ import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { string } from "zod";
+import * as bcrypt from 'bcrypt'
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -53,7 +54,6 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
    jwt:({token,user})=>{
-  console.log(token,user)
     return {...token,...user}
    },
     session: ({ session,token }) => {
@@ -126,11 +126,12 @@ export const authOptions: NextAuthOptions = {
             coach_table:true
             ,client_table:true
           }})
-        console.log(credentials)
+       if(credentials?.password!=undefined)
+       {
+
        
-        if(momo!=null&&momo.password==credentials?.password)
+        if(momo!=null&&(await bcrypt.compare(credentials.password,momo.password)))
         {
-          console.log(momo)
           const {password,...rest}=momo
          
           return {...rest}
@@ -138,6 +139,8 @@ export const authOptions: NextAuthOptions = {
         else {
           return null
         }
+      }
+       return null
         
   
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter

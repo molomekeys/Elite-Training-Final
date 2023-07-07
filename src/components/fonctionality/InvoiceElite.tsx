@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
 
 type InvoiceInfo={
     price_coach: number;
-    price_client: number;
     createdAt: Date;
     hours: number;
     type_offer: string;

@@ -77,7 +77,7 @@ if(createdUsertest=='user already existe')
 }
 else if(createdUsertest!=undefined&&createdUsertest!="error"){
 
-// router.push('/')
+router.push('/')
 }
 
 

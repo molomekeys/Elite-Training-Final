@@ -72,12 +72,12 @@ console.log(billFetched)
 
  
   const allFetchedClient=billFetched?.map((e)=>{
-   return(  <tr key={v4()} className=" py-4  text-center w-full grid grid-cols-4 lg:grid-cols-4  ">
+   return(  <tr key={v4()} className=" py-4  text-center w-full grid grid-cols-3 lg:grid-cols-4  ">
       <td key={v4()}   className="py-3 text-xs font-semibold italic pl-4 ">{e?.createdAt?.toLocaleDateString()}</td>
       <td key={v4()} className="py-3 font-bold text-xs hidden lg:flex justify-center">{e.roomName}</td>
 
       <td key={v4()}  className="py-3  w-full flex justify-center font-bold text-xs flex text-center">{e.price_client}</td>
-{e.isPaid==false?<td key={v4()}  onClick={()=>fetchKeysStripe(e.id)} className="py-3   flex justify-center  cursor-pointer  text-xs  font-semibold  flex rounded-xl bg-slate-200 mx-4 lg:mx-12">{'effectué un payement'}</td>
+{e.isPaid==false?<td key={v4()}  onClick={()=>fetchKeysStripe(e.id)} className="py-3   flex justify-center  cursor-pointer  text-xs  font-semibold  flex rounded-xl bg-slate-200 mx-4 lg:mx-12">{'effectuer un payement'}</td>
 : <td key={v4()}  className="py-3   flex justify-center  cursor-pointer  font-bold  text-cyan-800  lg:flex"><AiFillCheckCircle size={'25px'}/></td>}
     </tr>)
 

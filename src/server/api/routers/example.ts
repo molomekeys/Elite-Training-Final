@@ -667,7 +667,7 @@ return momo
             }
           }
 
-          // await sgMail.send(sendGridMail);
+          await sgMail.send(sendGridMail);
 
 
           return 'bravo utilisateur ajouter avec succès'

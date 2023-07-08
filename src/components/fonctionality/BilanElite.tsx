@@ -16,6 +16,7 @@ import {api} from '../../utils/api'
 import CoachAlerteValidation from './CoachAlerteValidation';
 import InvoiceElite from './InvoiceElite';
 import { BlobProvider} from '@react-pdf/renderer';
+import DatePickerComponent from '../calendarComponents/DatePicker';
 
 // ce qui sera transmis au formulaire par react hook form 
 
@@ -26,8 +27,8 @@ type ClientData={
 
 //validation de donner à travers Zod
 const validationSchema = z.object({
-  monthSelected:z.string(),
-  rommName:z.string()
+  monthSelected:z.string().nonempty('Vous devez sélectionner un mois'),
+  rommName:z.string().nonempty('Vous devez sélectionner votre salle '),
 })
 
 
@@ -69,7 +70,7 @@ const allRoom=allSalle&&allSalle?.map((e)=>{
     const finalRef = useRef(null)
   const [isFetched,setIsFetched]=useState(false)
   const eliteBilan=api.coachRouter.bilanCoachElite.useMutation()
-    const { register, handleSubmit, formState:{errors},getValues,reset} = useForm(
+    const { register, handleSubmit, formState:{errors},getValues,reset,setValue} = useForm(
       
       {defaultValues:{monthSelected:"",rommName:""
     
@@ -134,12 +135,17 @@ if(totalPrice!=undefined&&idPlace!=undefined&&idBilling!=undefined)
       billingId:idBilling,placeId:idPlace,billToSend:isPdfDone, monthSelected:getValues('monthSelected')})
       console.log(newBillElite)
 
-      setSaveBilan(false)
     }
   }
+  setSaveBilan(false)
+
  }
 //fin de la function fermeture de l'appp
 
+function saveDateFunction(dateToSet:string){
+  setValue('monthSelected',dateToSet)
+
+}
 
     return (
       <>
@@ -167,22 +173,22 @@ if(totalPrice!=undefined&&idPlace!=undefined&&idBilling!=undefined)
           
   <ModalOverlay />
 
-         <ModalContent>
-         <ModalHeader className='text-center text-slate-800'>Vous faites votre bilan mensuel à Élite</ModalHeader>
+         <ModalContent className='w-full'>
+         <ModalHeader className='text-center
+          text-slate-800'>Vous faites votre bilan mensuel à Élite</ModalHeader>
           <ModalCloseButton />
 
-          <form className='flex flex-col gap-4 p-2 lg:p-10 bg-white' onSubmit={
+          <form className='flex flex-col gap-4 p-2 lg:p-10 bg-white w-full' onSubmit={
    
 
           handleSubmit(createClient)}>
          <div className='flex flex-col w-full gap-3'>
               <label htmlFor='lastName'  className='font-semibold text-sm'>Selectionner le mois :</label>
-            <input  disabled={isFetched}
-             type={'month'}  className='form-input py-2 px-3  rounded-md bg-slate-50  py-3' id='lastName'
-       {...register('monthSelected')}
-            
-           />
+              <DatePickerComponent  
+              saveDate={saveDateFunction}/>
            <p className='text-xs font-semibold text-red-500'>{errors.monthSelected?.message}</p>
+           
+           
            <label htmlFor='firstName' className='font-semibold text-sm' >Selectonner votre salle : </label>
 
             <select  disabled={isFetched}

@@ -6,8 +6,8 @@ import * as z from 'zod';
 
 export const FirstValidationTypeSchema= z.object({
     dateFirstWeek: z.string().nonempty('Veuillez insérer une date'),
-    hourStartFirstWeek: z.string().nonempty(),
-    hourEndFirstWeek: z.string().nonempty(),
+    hourStartFirstWeek: z.string().nonempty('Veuillez insérer une date'),
+    hourEndFirstWeek: z.string().nonempty('Veuillez insérer une date'),
     dateSecondWeek: z.string().optional(),
     hourStartSecondWeek: z.string().optional(),
     hourEndSecondWeek: z.string().optional(),
@@ -54,10 +54,10 @@ export const FirstValidationTypeSchema= z.object({
 
   export const SecondValidationTypeSchema = z.object({
     dateFirstWeek: z.string().nonempty('Veuillez insérer une date'),
-    hourStartFirstWeek: z.string().nonempty(),
-    hourEndFirstWeek: z.string().nonempty(),
+    hourStartFirstWeek: z.string().nonempty('Veuillez insérer une date'),
+    hourEndFirstWeek: z.string().nonempty('Veuillez insérer une date'),
 
-      dateSecondWeek: z.string().nonempty(),
+      dateSecondWeek: z.string().nonempty('Veuillez insérer une date'),
       hourStartSecondWeek: z.string().nonempty().optional(),
       hourEndSecondWeek: z.string().nonempty().optional(),
       dateThirdWeek: z.string().optional(),
@@ -129,15 +129,15 @@ console.log(TotalTimeEndWeek)
 
   export const ThirdValidationTypeSchema = z.object({
     dateFirstWeek: z.string().nonempty('Veuillez insérer une date'),
-    hourStartFirstWeek: z.string().nonempty(),
-    hourEndFirstWeek: z.string().nonempty(),
+    hourStartFirstWeek: z.string().nonempty('Veuillez insérer une date'),
+    hourEndFirstWeek: z.string().nonempty('Veuillez insérer une date'),
 
-      dateSecondWeek: z.string().nonempty(),
-      hourStartSecondWeek: z.string().nonempty(),
-      hourEndSecondWeek: z.string().nonempty(),
-      dateThirdWeek: z.string().nonempty(),
-      hourStartThirdWeek: z.string().nonempty(),
-      hourEndThirdWeek: z.string().nonempty()
+      dateSecondWeek: z.string().nonempty('Veuillez insérer une date'),
+      hourStartSecondWeek: z.string().nonempty('Veuillez insérer une date'),
+      hourEndSecondWeek: z.string().nonempty('Veuillez insérer une date'),
+      dateThirdWeek: z.string().nonempty('Veuillez insérer une date'),
+      hourStartThirdWeek: z.string().nonempty('Veuillez insérer une date'),
+      hourEndThirdWeek: z.string().nonempty('Veuillez insérer une date')
      
      
     }).refine((data)=>{

@@ -505,7 +505,7 @@ else if(!validateCoach)
           const hashedPassword =await bcrypt.hash(password,10)
           console.log(hashedPassword)
         const createUser=await ctx.prisma.user.create({data:{phone_number:phoneNumber,
-          email:email,password:hashedPassword,role:'coach',name:name},select:{id:true}})
+          email:email.toLocaleLowerCase(),password:hashedPassword,role:'coach',name:name},select:{id:true}})
           
          const {id}=createUser
           const createCoach=await ctx.prisma.coach.create({data:{

@@ -3,12 +3,16 @@ import { api } from "~/utils/api"
 import {motion} from 'framer-motion'
 import AddRoomLayout from "~/layouts/AddRoomLayout"
 const dashboardAdmin = () => {
-    const dashboard_data=api.adminRouter.dashboardInfo.useQuery(undefined,{staleTime:1000000})
+    const dashboard_data=api.adminRouter.dashboardInfo.useQuery(undefined,{staleTime:10000})
   const {data, isLoading}=dashboard_data
 
-
+console.log(data)
 if(data!='non autorisée')
- 
+{
+
+
+console.log(data)
+
   return (
   <main className="flex flex-col lg:flex-row bg-white w-full h-max ">
    
@@ -32,14 +36,15 @@ if(data!='non autorisée')
 <p className="whitespace-nowrap py-2 ">Total facturer, payer : <span className="font-bold mr-4 text-green-700">{data?.billing_info.price_client}€ </span></p>
 </div>
 <div className="border-2 border-slate-600 rounded-lg text-center px-3 ">
-<p className="whitespace-nowrap py-2 ">En attente  : <span className="font-bold text-red-500 mr-4">{data?.billing_info.price_client}€ </span></p>
+<p className="whitespace-nowrap py-2 ">En attente  : <span className="font-bold text-red-500 mr-4">{data?.bill_inped?.price_client}€ </span></p>
 </div>
 <div className="border-2 border-slate-600 rounded-lg text-center  px- ">
-<p  className="whitespace-nowrap py-2 "> À payer aux coachs :  <span className="font-bold mr-4">{data?.billing_info.price_coach}€ </span></p>
+<p  className="whitespace-nowrap py-2 "> À payer aux coachs :  <span className="font-bold mr-4">{data?.bill_inped?.price_coach}€ </span></p>
 </div>
 </motion.div>}
 </section>
   </main>
-  )
+
+  )}
 }
 export default dashboardAdmin

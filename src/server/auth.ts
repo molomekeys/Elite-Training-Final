@@ -122,7 +122,7 @@ export const authOptions: NextAuthOptions = {
       
         // Add logic here to look up the user from the credentials supplied
         const momo =await prisma.user.findFirst(
-          {where:{email:credentials?.username},include:{
+          {where:{email:credentials?.username.toLocaleLowerCase()},include:{
             coach_table:true
             ,client_table:true
           }})

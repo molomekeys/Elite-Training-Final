@@ -68,7 +68,7 @@ const FirstStepAddEvent = () => {
          </select>
          <p className='text-xs font-semibold text-red-500'>{errors.clientId?.message}</p>
 
-         <label className="text-xs font-bold text-slate-900">Selectionner la category </label>
+         <label className="text-xs font-bold text-slate-900">Selectionner une categorie </label>
 
 <select  placeholder="ajouter des infos"   {...register('productCategory')}
 className=" pl-3 text-lg  rounded-md  bg-slate-50 form-select border-slate-400 " >

@@ -234,13 +234,13 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
             </View>
             <View style={{width:'100%',alignItems:'flex-end',fontSize:'11px',gap:10}}>
                 <View style={{alignItems:'flex-end'}}>
-                <Text>Grand total : {eventInfo.category=='coaching'? eventInfo.hours*eventInfo?.unitPrice : billInfo.price_coach}</Text>
+                <Text>Grand total : {eventInfo.category=='coaching'? eventInfo.hours*eventInfo?.unitPrice : billInfo.price_client}</Text>
                 <Text>Tva : N/A</Text>
                 </View>
                 <View style={{flexDirection:'row',fontSize:'12px',borderRadius:'25%',
                 paddingTop:20,padding:10,justifyContent:'space-between',gap:20,backgroundColor:'#282F44',color:'#FFDA8A'}}>
                 <Text >Grand total  </Text>
-                <Text>{eventInfo.category=='coaching'? eventInfo.hours*eventInfo?.unitPrice : billInfo.price_coach} euro TTC</Text>
+                <Text>{eventInfo.category=='coaching'? eventInfo.hours*eventInfo?.unitPrice : billInfo.price_client} euro TTC</Text>
                 </View>
             </View>
             

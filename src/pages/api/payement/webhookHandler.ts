@@ -57,9 +57,10 @@ export default async function webhookHandler(req:NextApiRequest,res:NextApiRespo
                         },data:{
                             isPaid:true
                         }
-                    }).then(async ()=>{
-
-                        console.log('debut de changement des evennts')
+                    })
+                    if(changeDataOnDb)
+                    {
+                       
                        const momoTest= await prisma.events.updateMany({
                             where:{
                                 billing_id:Number(metadata.billIdForDb)
@@ -70,8 +71,8 @@ export default async function webhookHandler(req:NextApiRequest,res:NextApiRespo
                         if(momoTest){
                             console.log('congratulation')
                         }
-                    })
                   
+                    }
                 }
                 }
                 else{

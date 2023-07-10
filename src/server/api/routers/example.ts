@@ -436,7 +436,7 @@ disposition: 'attachment',
     from :"noreply@eliteplanner.fr",
     templateId:"d-856f86bd41ce4b968f3ac795ef7b73b5",
     dynamic_template_data:{
-        coachName:ctx.session.user.name
+        coachName:ctx.session.user.name,clientName:clientName,prix:billingData.type=='programme'? billingData.price_client : billingData.price_client*billingData.hours
     }
     ,attachments: [
       {

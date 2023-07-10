@@ -162,7 +162,6 @@ async function handleAddData(){
 
 //   return {...rest}
 // })
-
 if(isPdf!=null)
 {
 const momoTest=events.map((eventData)=>{
@@ -185,7 +184,6 @@ const testMomo= await addEvents.mutateAsync({eventData:[...momoTest],
   prisma_coach_id:Number(data?.user.coach_table?.id)
 ,hours:selectedPriceOffer.hours,prisma_place_id:Number(secondStepInfo.programmeName),
 offer_prisma_id:selectedPriceOffer.id}})
-
 
 dipatch(clearTheStore())
 

@@ -50,7 +50,7 @@ const [errorDisplay,setErrorDisplay]=useState(false)
         if(session?.user) {
           if(session.user.role=='admin')
           {
-            router.push('admin/dashboardAdmin',)
+            router.push('/admin/dashboardAdmin',)
           }
           else if(session.user.role=='coach')
           {

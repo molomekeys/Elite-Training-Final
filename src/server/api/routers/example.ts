@@ -417,7 +417,7 @@ const finalEvents=eventData.map((e)=>{
      if(momo){
       const sendGridMailBillClient={
         to: clientEmail,
-        from :"elitetraining38@gmail.com",
+        from :"noreply@eliteplanner.fr",
         templateId:"d-b183823afac14128af5508c804edd1aa",
         dynamic_template_data:{
             coachName:ctx.session.user.name,clientName:clientName
@@ -433,7 +433,7 @@ disposition: 'attachment',
   }
   const sendGridMailBillElite={
     to: "elitetraining38@gmail.com",
-    from :"elitetraining38@gmail.com",
+    from :"noreply@eliteplanner.fr",
     templateId:"d-856f86bd41ce4b968f3ac795ef7b73b5",
     dynamic_template_data:{
         coachName:ctx.session.user.name
@@ -521,7 +521,7 @@ else if(!validateCoach)
          
           const sendGridMail={
             to: email,
-            from :"elitetraining38@gmail.com",
+            from :"noreply@eliteplanner.fr",
             templateId:"d-fab816f818c047b284bb78a0a49d3a33",
             dynamic_template_data:{
                 coachName:name
@@ -530,7 +530,7 @@ else if(!validateCoach)
           //email inscription à elite pour la licence
             const sendGridMailLicence={
               to: "elitetraining38@gmail.com",
-              from :"elitetraining38@gmail.com",
+              from :"noreply@eliteplanner.fr",
               templateId:"d-225e766603914403ab0e614eb7f5e189",
               dynamic_template_data:{
                   coachName:name
@@ -656,7 +656,7 @@ return momo
           
           const sendGridMail={
             to: email,
-            from :"elitetraining38@gmail.com",
+            from :"noreply@eliteplanner.fr",
             templateId:"d-80f1d4b1219e4d98bdefa4270b41bffa",
             dynamic_template_data:{
               

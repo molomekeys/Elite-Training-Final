@@ -54,10 +54,10 @@ export const forgetPassword=createTRPCRouter(
                     
                     const sendGridMail={
                         to: input.email,
-                        from :"elitetraining38@gmail.com",
+                        from :"noreply@eliteplanner.fr",
                         templateId:"d-82764b225a1f41a8afe951c28e4d98c8",
                         dynamic_template_data:{
-                          url:`https://elite-training-final-6y7w-alpha.vercel.app/reset/${token}`,
+                          url:`https://eliteplanner.fr/reset/${token}`,
                        
                             
                                 user_name:updateData.name, 
@@ -105,13 +105,13 @@ export const forgetPassword=createTRPCRouter(
                    {
                     const changePassword=await prisma.user.update({
                         where:{
-                            email:email
+                            email:email.toLocaleLowerCase()
                         },data:{
                             password:hashedPassword
                         }
                     })
                     if(changePassword){
-                        return 'succes'
+                        return 'success'
                     }
                 }
 

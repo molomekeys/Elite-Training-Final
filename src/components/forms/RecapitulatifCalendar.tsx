@@ -36,6 +36,7 @@ const dipatch =useDispatch()
   const secondStepInfo=useSelector((state:RootState)=>state.eventReducer.secondStep)
   const [selectedPriceOffer,setSelectedPriceOffer]=useState({price_client:0,price_coach:0,
     roomName:'',type:'',hours:0,id:0})
+    const [isFetched,setIsFetched] =useState(false)
 
 // useEffect permet lors de l'affichage du premier render de faire les calcules des prix
 
@@ -164,6 +165,7 @@ async function handleAddData(){
 // })
 if(isPdf!=null)
 {
+  setIsFetched(true)
 const momoTest=events.map((eventData)=>{
   const {id,...rest}=eventData
  
@@ -263,7 +265,7 @@ reader.onloadend = function() {
     </BlobProvider>
     </div>
     <div className="flex flex-col items-center justify-center gap-8  justify-self-end">
-      <button onClick={handleAddData}
+      <button onClick={handleAddData}  disabled={isFetched}
       className="p-2 bg-slate-700 font-semibold px-4 text-slate-50 rounded-lg">Confirmer et sauvegarder</button>
       {/* <StepFormBack backForm={backStepForm}/> */}
     </div>

@@ -36,10 +36,10 @@ console.log(data)
 <p className="whitespace-nowrap py-2 ">{`${'Total CA'} `}: <span className="font-bold mr-4 text-green-700">{data?.billing_info.price_client}€ </span></p>
 </div>
 <div className="border-2 border-slate-600 rounded-lg text-center px-3 ">
-<p className="whitespace-nowrap py-2 ">En attente  : <span className="font-bold text-red-500 mr-4">{data?.bill_inped?.price_client}€ </span></p>
+<p className="whitespace-nowrap py-2 ">En attente   : <span className="font-bold text-red-500 mr-4">{data?.bill_inped?.price_client}€ </span></p>
 </div>
 <div className="border-2 border-slate-600 rounded-lg text-center  px- ">
-<p  className="whitespace-nowrap py-2 "> À payer aux coachs :  <span className="font-bold mr-4">{data?.bill_inped?.price_coach}€ </span></p>
+<p  className="whitespace-nowrap py-2 "> À payer aux coachs :  <span className="font-bold mr-4">{data?.billing_info?.price_coach}€ </span></p>
 </div>
 </motion.div>}
 </section>

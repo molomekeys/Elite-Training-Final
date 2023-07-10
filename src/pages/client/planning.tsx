@@ -12,7 +12,6 @@ hours :number
 
 }
 const PlanningClient = () => {
-  console.log('rerender from planning')
 
   const [openCalendar,setOpenCalendar]=useState(false)
   const {data:eventsCalendar,isLoading,refetch}=api.example.seeEventCalendarCient.useQuery()

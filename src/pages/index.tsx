@@ -175,7 +175,7 @@ else if(session.user.role=='coach')
 }
 else if(session.user.role=='client')
 {
-  redirectUrl='/client/dashboardClient'
+  redirectUrl='/client/planning'
 
 }
 return {

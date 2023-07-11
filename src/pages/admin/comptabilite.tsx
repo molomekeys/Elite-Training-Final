@@ -101,8 +101,8 @@ console.log(billFetched)
       <td key={v4()} className=" font-bold text-xs flex justify-center">{e.coach_name}</td>
       <td key={v4()} className=" font-bold text-xs flex justify-center">{e.place}</td>
 
-      <td key={v4()}  className="  w-full hidden lg:flex justify-center font-bold text-xs text-center">{e.client_price!=undefined&&e.hours*e?.client_price}</td>
-      <td key={v4()}  className="  w-full hidden lg:flex justify-center font-bold text-xs text-center">{e.coach_price!=undefined&&e.hours*e?.coach_price}</td>
+      <td key={v4()}  className="  w-full hidden lg:flex justify-center font-bold text-xs text-center">{e.price_client}</td>
+      <td key={v4()}  className="  w-full hidden lg:flex justify-center font-bold text-xs text-center">{e.price_coach}</td>
 
       <td key={v4()}  className={`  w-full flex justify-center font-bold text-xs flex text-center ${e.isPaid==true? 'text-cyan-800':'text-red-400'}`}>{e.isPaid? <AiFillCheckCircle size={'25px'}/> : 'non payée'}</td>
 

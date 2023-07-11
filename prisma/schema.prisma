@@ -45,7 +45,7 @@ model Billing {
     is_paid_elite        Boolean           @default(false)
     offer_id             Int?
     salle_id             Int
-    programme_id         Int?              @unique
+    programme_id         Int?
     type_offer           String
     offer_prisma_id      PriceTable?       @relation(fields: [offer_id], references: [id])
     related_events       Events[]

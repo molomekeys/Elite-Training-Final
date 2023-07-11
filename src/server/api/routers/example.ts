@@ -262,7 +262,7 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
  { 
 
       const allBills = await ctx.prisma.billing.findMany({select:{
-        
+        price_client:true,price_coach:true,
         hours:true,
         isPaid:true,id:true,
         createdAt:true,
@@ -289,17 +289,12 @@ seeEventCalendarCoach:publicProcedure.query(async ({ctx})=>{
           }
         }
           
-        ,
-        offer_prisma_id:{
-          select:{
-            stripe_id:true ,client_price:true,coach_price:true
-          }
-        }
+       
       }
     })
     const allBillInfoFltered=allBills.map((e)=>{
-      const {offer_prisma_id,prisma_client_id,prisma_coach_id,prisma_place_id,...rest}=e
-      return {...offer_prisma_id,place:e.prisma_place_id.room_name,...rest,client_name:prisma_client_id.UserIdPrisma.name,coach_name:prisma_coach_id.UserIdCoach.name}
+      const {prisma_client_id,prisma_coach_id,prisma_place_id,...rest}=e
+      return {place:e.prisma_place_id.room_name,...rest,client_name:prisma_client_id.UserIdPrisma.name,coach_name:prisma_coach_id.UserIdCoach.name}
     })
     return allBillInfoFltered
     }

@@ -226,9 +226,9 @@ flexDirection:'row',justifyContent:'space-between',fontSize:'11px',alignItems:'c
             <View style={{width:'100%',gap:10,fontSize:'11px'}}>
                 <Text style={styles.stylesFooterTitle}>METHODES DE PAIEMENTS</Text>
                 <Text>Virement</Text>
-               <Text style={styles.stylesFooterTitle}>Elite Training</Text>
-               <Text style={{fontFamily:'Helvetica-Bold'}}>IBAN : FR76 1659 8000 0121 7362 9000 194</Text>
-               <Text  style={{fontFamily:'Helvetica-Bold'}}>BIC : FPELFR21XXX</Text>
+               <Text style={styles.stylesFooterTitle}>ELITE TRAINING</Text>
+               <Text style={{fontFamily:'Helvetica-Bold'}}>FR7616958000010522937560724</Text>
+               <Text  style={{fontFamily:'Helvetica-Bold'}}>BIC : QNTOFRP1XXX</Text>
                <Text style={styles.stylesFooterTitle}>COACH</Text>
                <Text  style={{fontFamily:'Helvetica-Bold',fontSize:'12px'}}>{eventInfo.coachName}</Text>
             </View>

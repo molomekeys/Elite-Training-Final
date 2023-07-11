@@ -55,22 +55,32 @@ export default async function webhookHandler(req:NextApiRequest,res:NextApiRespo
                         where:{
                             id:Number(metadata?.billIdForDb)
                         },data:{
-                            isPaid:true
+                            isPaid:true,related_events:{
+                                
+                                updateMany:{
+                                    where:{
+                                        billing_id:Number(metadata.id)
+                                    },
+                                    data:{
+                                        isPaid:true
+                                    }
+                                }
+                            }
                         }
                     })
                     if(changeDataOnDb)
                     {
                        
-                       const momoTest= await prisma.events.updateMany({
-                            where:{
-                                billing_id:Number(metadata.billIdForDb)
-                            },data:{
-                                isPaid:true
-                            }
-                        })
-                        if(momoTest){
-                            console.log('congratulation')
-                        }
+                    //    const momoTest= await prisma.events.updateMany({
+                    //         where:{
+                    //             billing_id:Number(metadata?.billIdForDb)
+                    //         },data:{
+                    //             isPaid:true
+                    //         }
+                    //     })
+                    //     if(momoTest){
+                    //         console.log('congratulation')
+                    //     }
                   
                     }
                 }

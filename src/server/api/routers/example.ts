@@ -639,7 +639,7 @@ return momo
             return 'utilisateur déjà existant'
           }
           else if(!existingUser) {
-            const hashedPassword= await bcrypt.hash(password,10)
+            const hashedPassword= await bcrypt.hash(password.toLocaleLowerCase(),10)
           const createUser=await ctx.prisma.user.create({data:{email:email.toLocaleLowerCase(),
             password:hashedPassword,role:'client',name:name,phone_number:phoneNumber},select:{
             id:true

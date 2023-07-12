@@ -33,11 +33,11 @@ type ClientData={
 
 //validation de donner à travers Zod
 const validationSchema = z.object({
-  email:z.string().email('Veuillez inscrire une adresse email valide'),
-  phoneNumber:z.string().nonempty("Veuillez insérez le numéro de votre athlète").length(10,'Numéro non valide'),
-  lastName:z.string().min(3,'Veuillez inscrire un nom valide, minimun 3 caractères'),
-  firstName:z.string().min(3,'Veuillez inscrire un prénom valide, minimun 3 caracteres'),
-  confirmEmail:z.string().email('Veuillez inscrire une adresse email valide'),
+  email:z.string().email('Veuillez inscrire une adresse email valide').trim(),
+  phoneNumber:z.string().nonempty("Veuillez insérez le numéro de votre athlète").length(10,'Numéro non valide').trim(),
+  lastName:z.string().min(3,'Veuillez inscrire un nom valide, minimun 3 caractères').trim(),
+  firstName:z.string().min(3,'Veuillez inscrire un prénom valide, minimun 3 caracteres').trim(),
+  confirmEmail:z.string().email('Veuillez inscrire une adresse email valide').trim(),
   }).refine((data)=>{return (data.confirmEmail===data.email)},
   {message:'email ne correspondent pas',path:['confirmEmail']})
 

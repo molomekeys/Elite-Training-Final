@@ -640,7 +640,7 @@ return momo
           }
           else if(!existingUser) {
             const hashedPassword= await bcrypt.hash(password.toLocaleLowerCase(),10)
-          const createUser=await ctx.prisma.user.create({data:{email:email.toLocaleLowerCase(),
+          const createUser=await ctx.prisma.user.create({data:{email:email.toLocaleLowerCase().trim(),
             password:hashedPassword,role:'client',name:name,phone_number:phoneNumber},select:{
             id:true
           }})
@@ -656,7 +656,7 @@ return momo
             dynamic_template_data:{
               
                 coachName:ctx.session?.user.name
-                ,emailClient: email,password:password,clientName:name
+                ,emailClient: email,password:password.toLocaleLowerCase(),clientName:name
                 
                 
             }

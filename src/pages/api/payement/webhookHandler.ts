@@ -59,7 +59,7 @@ export default async function webhookHandler(req:NextApiRequest,res:NextApiRespo
                                 
                                 updateMany:{
                                     where:{
-                                        billing_id:Number(metadata.id)
+                                        billing_id:Number(metadata?.billIdForDb)
                                     },
                                     data:{
                                         isPaid:true
